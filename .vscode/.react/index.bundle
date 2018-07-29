@@ -62196,7 +62196,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       height: 20
     }
   });
-},502,[118,179,12,503,512,528,539,540,541,542,543,544,545,546,547,548,549],"Views\\Main.js");
+},502,[118,179,12,503,512,528,540,546,547,548,549,550,551,552,553,554,555],"Views\\Main.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -69141,7 +69141,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             hoverAnimation: false,
             radius: ['58%', '90%'],
             avoidLabelOverlap: false,
-            center: ['25%', '50%'],
+            center: ['50%', '50%'],
             label: {
               normal: {
                 show: false,
@@ -69261,6 +69261,144 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }
 
     _createClass(app2, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        this.setState({
+          title: {
+            text: '豆金分布图'
+          },
+          optionpie: {
+            tooltip: {
+              trigger: 'item',
+              formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+              data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+            },
+            series: [{
+              name: '月份销量',
+              type: 'pie',
+              hoverAnimation: false,
+              radius: ['58%', '90%'],
+              avoidLabelOverlap: false,
+              center: ['50%', '50%'],
+              label: {
+                normal: {
+                  show: false,
+                  position: 'center'
+                },
+                emphasis: {
+                  show: true,
+                  textStyle: {
+                    color: '#666666',
+                    fontSize: '11',
+                    fontWeight: 'bold'
+                  }
+                }
+              },
+              labelLine: {
+                normal: {
+                  show: false
+                }
+              },
+              data: [{
+                value: 2.00,
+                name: '1月'
+              }, {
+                value: 3.00,
+                name: '2月'
+              }, {
+                value: 3.00,
+                name: '3月'
+              }, {
+                value: 2.00,
+                name: '4月'
+              }, {
+                value: 5.00,
+                name: '5月'
+              }, {
+                value: 7.00,
+                name: '6月'
+              }, {
+                value: 3.00,
+                name: '7月'
+              }, {
+                value: 7.00,
+                name: '8月'
+              }, {
+                value: 25.00,
+                name: '9月'
+              }, {
+                value: 3,
+                name: '10月'
+              }, {
+                value: 3,
+                name: '11月'
+              }, {
+                value: 3,
+                name: '12月'
+              }]
+            }],
+            color: ['#01a2ea', '#8ac99c', '#23ac38', '#b4d467', '#ffff00', '#fdcc89', '#f19049', '#ea6941', '#f95353', '#cc5ac0', '#ac5fd7', '#5570b5']
+          },
+          optionline1: {
+            title: {
+              text: '豆金统计图（周）'
+            },
+            tooltip: {},
+            legend: {
+              data: ['销量']
+            },
+            xAxis: {
+              data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+            },
+            yAxis: {},
+            series: [{
+              name: '销量',
+              type: 'line',
+              data: [5, 20, 36, 10, 10, 20]
+            }]
+          },
+          optionline2: {
+            title: {
+              text: '豆金统计图（天）'
+            },
+            tooltip: {},
+            legend: {
+              data: ['销量']
+            },
+            xAxis: {
+              data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+            },
+            yAxis: {},
+            series: [{
+              name: '销量',
+              type: 'line',
+              data: [5, 20, 36, 10, 10, 20]
+            }]
+          },
+          optionline3: {
+            title: {
+              text: '豆金统计图（周）'
+            },
+            tooltip: {},
+            legend: {
+              data: ['销量']
+            },
+            xAxis: {
+              data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+            },
+            yAxis: {},
+            series: [{
+              name: '销量',
+              type: 'line',
+              data: [5, 20, 36, 10, 10, 20]
+            }]
+          },
+          text: 'test'
+        });
+      }
+    }, {
       key: "render",
       value: function render() {
         return _react3.default.createElement(
@@ -69271,7 +69409,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 125
+              lineNumber: 228
             }
           },
           _react3.default.createElement(
@@ -69285,37 +69423,40 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 126
+                lineNumber: 229
               }
             },
             _react3.default.createElement(
               _reactNative.View,
               {
                 style: {
-                  height: 20,
+                  height: 45,
                   marginTop: 20,
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   backgroundColor: '#fff',
-                  borderRadius: 5
+                  borderRadius: 5,
+                  alignItems: 'center'
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 127
+                  lineNumber: 230
                 }
               },
               _react3.default.createElement(
                 _reactNative.Text,
                 {
                   style: {
-                    marginLeft: 10
+                    marginLeft: 10,
+                    color: 'orange',
+                    fontSize: 15
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 128
+                    lineNumber: 231
                   }
                 },
-                "\u672C\u5468\u6512\u8C46\u60C5\u51B5"
+                "\u672C\u5468\u6512\u8C46\u60C5\u51B5  1500"
               ),
               _react3.default.createElement(
                 _reactNative.TouchableOpacity,
@@ -69327,20 +69468,21 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   onPress: function onPress() {},
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 132
+                    lineNumber: 235
                   }
                 },
                 _react3.default.createElement(
                   _reactNative.ImageBackground,
                   {
                     style: {
-                      flex: 1
+                      width: 100,
+                      height: 30
                     },
-                    source: _require(_dependencyMap[5], './gly/icon_canshu.png'),
+                    source: _require(_dependencyMap[5], './gly/woyaochongzhi.png'),
                     resizeMode: "stretch",
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 133
+                      lineNumber: 236
                     }
                   },
                   _react3.default.createElement(
@@ -69351,7 +69493,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       },
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 134
+                        lineNumber: 237
                       }
                     },
                     "change state"
@@ -69374,16 +69516,16 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 142
+                  lineNumber: 245
                 }
               },
               _react3.default.createElement(_nativeEcharts2.default, {
                 option: this.state.optionpie,
-                width: deviceWidth - 40,
+                width: deviceWidth - 90,
                 height: 300,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 143
+                  lineNumber: 246
                 }
               })
             ),
@@ -69402,7 +69544,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 148
+                  lineNumber: 251
                 }
               },
               _react3.default.createElement(_nativeEcharts2.default, {
@@ -69411,7 +69553,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 height: 300,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 149
+                  lineNumber: 252
                 }
               })
             ),
@@ -69430,7 +69572,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 154
+                  lineNumber: 257
                 }
               },
               _react3.default.createElement(_nativeEcharts2.default, {
@@ -69439,7 +69581,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 height: 300,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 155
+                  lineNumber: 258
                 }
               })
             ),
@@ -69459,7 +69601,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 160
+                  lineNumber: 263
                 }
               },
               _react3.default.createElement(_nativeEcharts2.default, {
@@ -69468,7 +69610,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 height: 300,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 161
+                  lineNumber: 264
                 }
               })
             )
@@ -69481,7 +69623,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   }(_react2.Component));
 
   exports.default = app2;
-},528,[118,179,12,529,538,515],"Views\\page\\2.js");
+},528,[118,179,12,529,538,539],"Views\\page\\2.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -69876,6 +70018,18 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   });
 },538,[164],"Views\\page\\gly\\2menu_bg.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/Views/page/gly",
+    "width": 246,
+    "height": 128,
+    "scales": [1],
+    "hash": "f317ccbeb1d3f629cbc185393b25a9f3",
+    "name": "woyaochongzhi",
+    "type": "png"
+  });
+},539,[164],"Views\\page\\gly\\woyaochongzhi.png");
+__d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -69894,9 +70048,9 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
     var _reactNative = _require(_dependencyMap[2], "react-native");
 
-    var _button = _require(_dependencyMap[3], "../component/button");
+    var _nativeEcharts = _require(_dependencyMap[3], "native-echarts");
 
-    var _button2 = _interopRequireDefault(_button);
+    var _nativeEcharts2 = _interopRequireDefault(_nativeEcharts);
 
     function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -69925,6 +70079,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         };
     }
 
+    var deviceWidth = _reactNative.Dimensions.get('window').width;
+
     var page3 = _wrapComponent("page3")(function (_Component) {
         _inherits(page3, _Component);
 
@@ -69933,247 +70089,122 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
             var _this = _possibleConstructorReturn(this, (page3.__proto__ || Object.getPrototypeOf(page3)).call(this, props));
 
-            var ds = new _reactNative.ListView.DataSource({
-                rowHasChanged: function rowHasChanged(r1, r2) {
-                    return r1 !== r2;
-                }
-            });
             _this.state = {
-                dataSource: ds.cloneWithRows([{
-                    title: '做作业',
-                    time: '2018-07-01 10:45'
-                }, {
-                    title: '打扫卫生',
-                    time: '2018-07-01 10:45'
-                }, {
-                    title: '洗碗',
-                    time: '2018-07-01 10:45'
-                }, {
-                    title: '按时睡觉',
-                    time: '2018-07-01 10:45'
-                }])
+                optionline2: {
+                    tooltip: {},
+                    legend: {
+                        data: ['销量']
+                    },
+                    xAxis: {
+                        data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '销量',
+                        type: 'bar',
+                        data: [5, 20, 36, 10, 10, 20]
+                    }],
+                    color: ['#01a2ea', '#8ac99c', '#23ac38', '#b4d467', '#ffff00', '#fdcc89']
+                }
             };
             return _this;
         }
 
         _createClass(page3, [{
-            key: "_rednerJH",
-            value: function _rednerJH() {
-                var _this2 = this;
-
-                var icons = [];
-                icons.push({
-                    img: _require(_dependencyMap[4], './gly/icon_canshu.png'),
-                    name: '成员管理'
-                });
-                icons.push({
-                    img: _require(_dependencyMap[4], './gly/icon_canshu.png'),
-                    name: '计划管理'
-                });
-                icons.push({
-                    img: _require(_dependencyMap[4], './gly/icon_canshu.png'),
-                    name: '计划管理'
-                });
-                icons.push({
-                    img: _require(_dependencyMap[4], './gly/icon_canshu.png'),
-                    name: '计划管理'
-                });
-                icons.push({
-                    img: _require(_dependencyMap[4], './gly/icon_canshu.png'),
-                    name: '计划管理'
-                });
-                icons.push({
-                    img: _require(_dependencyMap[4], './gly/icon_canshu.png'),
-                    name: '计划管理'
-                });
-                icons.push({
-                    img: _require(_dependencyMap[4], './gly/icon_canshu.png'),
-                    name: '计划管理'
-                });
-                icons.push({
-                    img: _require(_dependencyMap[4], './gly/icon_canshu.png'),
-                    name: '计划管理'
-                });
-                icons.push({
-                    img: _require(_dependencyMap[4], './gly/icon_canshu.png'),
-                    name: '计划管理'
-                });
-                return icons.map(function (t, i) {
-                    return _this2._remderItem(t, i);
-                });
-            }
-        }, {
-            key: "_remderItem",
-            value: function _remderItem(t, i) {
-                return _react3.default.createElement(
-                    _reactNative.View,
-                    {
-                        key: i,
-                        style: {
-                            width: 80,
-                            height: 60,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        },
-                        __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 48
-                        }
-                    },
-                    _react3.default.createElement(_reactNative.Image, {
-                        source: t.img,
-                        style: {
-                            height: 40,
-                            width: 40
-                        },
-                        __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 50
-                        }
-                    }),
-                    _react3.default.createElement(
-                        _reactNative.Text,
-                        {
-                            __source: {
-                                fileName: _jsxFileName,
-                                lineNumber: 57
-                            }
-                        },
-                        " ",
-                        t.name
-                    )
-                );
-            }
-        }, {
             key: "render",
             value: function render() {
                 return _react3.default.createElement(
                     _reactNative.ScrollView,
                     {
-                        style: {
-                            backgroundColor: '#D0D0D0'
-                        },
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 66
+                            lineNumber: 47
                         }
                     },
                     _react3.default.createElement(
                         _reactNative.View,
                         {
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 48
+                            }
+                        },
+                        _react3.default.createElement(_reactNative.ImageBackground, {
+                            source: _require(_dependencyMap[4], './jdjf/bg.png'),
+                            resizeMode: "stretch",
                             style: {
-                                height: 250,
-                                alignItems: 'center',
-                                justifyContent: 'center'
+                                height: 100,
+                                width: deviceWidth
                             },
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 72
+                                lineNumber: 49
+                            }
+                        })
+                    ),
+                    _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 55
                             }
                         },
                         _react3.default.createElement(
                             _reactNative.View,
                             {
                                 style: {
-                                    height: 200
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between'
                                 },
                                 __source: {
                                     fileName: _jsxFileName,
-                                    lineNumber: 79
+                                    lineNumber: 56
                                 }
                             },
-                            _react3.default.createElement(_reactNative.ImageBackground, {
-                                resizeMode: "contain",
-                                source: _require(_dependencyMap[5], './gly/banner_bg.png'),
-                                style: {
-                                    height: 200,
-                                    width: 1000
+                            _react3.default.createElement(
+                                _reactNative.Text,
+                                {
+                                    __source: {
+                                        fileName: _jsxFileName,
+                                        lineNumber: 57
+                                    }
                                 },
-                                __source: {
-                                    fileName: _jsxFileName,
-                                    lineNumber: 82
-                                }
-                            })
+                                "\u5F53\u6708\u6392\u540D"
+                            ),
+                            _react3.default.createElement(
+                                _reactNative.Text,
+                                {
+                                    __source: {
+                                        fileName: _jsxFileName,
+                                        lineNumber: 58
+                                    }
+                                },
+                                "\u51FB\u8D25\u5168\u56FD98%"
+                            )
                         ),
                         _react3.default.createElement(
                             _reactNative.View,
                             {
-                                style: {
-                                    height: 50,
-                                    paddingTop: 10,
-                                    flexDirection: 'row',
-                                    justifyContent: 'flex-end',
-                                    backgroundColor: '#fff'
-                                },
                                 __source: {
                                     fileName: _jsxFileName,
-                                    lineNumber: 94
+                                    lineNumber: 60
                                 }
                             },
-                            _react3.default.createElement(_reactNative.View, {
-                                style: {
-                                    flex: 1
-                                },
+                            _react3.default.createElement(_reactNative.Image, {
+                                source: _require(_dependencyMap[5], './jdjf/jdt.png'),
+                                resizeMode: "cover",
                                 __source: {
                                     fileName: _jsxFileName,
-                                    lineNumber: 103
+                                    lineNumber: 61
                                 }
                             }),
-                            _react3.default.createElement(
-                                _reactNative.View,
-                                {
-                                    style: {
-                                        flex: 6
-                                    },
-                                    __source: {
-                                        fileName: _jsxFileName,
-                                        lineNumber: 106
-                                    }
-                                },
-                                _react3.default.createElement(
-                                    _reactNative.Text,
-                                    {
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 110
-                                        }
-                                    },
-                                    "\u8D26\u53F7\u72B6\u51B5:\u751F\u6548"
-                                )
-                            ),
-                            _react3.default.createElement(
-                                _reactNative.View,
-                                {
-                                    style: {
-                                        flex: 4
-                                    },
-                                    __source: {
-                                        fileName: _jsxFileName,
-                                        lineNumber: 112
-                                    }
-                                },
-                                _react3.default.createElement(_button2.default, {
-                                    ref: "button",
-                                    onPress: function onPress() {},
-                                    text: "\u63D0\u4EA4",
-                                    btnStyle: {
-                                        borderRadius: 40,
-                                        backgroundColor: '#FF7F00',
-                                        alignItems: 'center'
-                                    },
-                                    __source: {
-                                        fileName: _jsxFileName,
-                                        lineNumber: 116
-                                    }
-                                })
-                            ),
-                            _react3.default.createElement(_reactNative.View, {
-                                style: {
-                                    flex: 1
-                                },
+                            _react3.default.createElement(_reactNative.Image, {
+                                source: _require(_dependencyMap[6], './jdjf/xsj.png'),
+                                resizeMode: "cover",
                                 __source: {
                                     fileName: _jsxFileName,
-                                    lineNumber: 127
+                                    lineNumber: 62
                                 }
                             })
                         )
@@ -70181,417 +70212,143 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     _react3.default.createElement(
                         _reactNative.View,
                         {
-                            style: {
-                                flex: 2,
-                                marginLeft: 5,
-                                marginRight: 5,
-                                marginTop: 10,
-                                borderStyle: 'solid',
-                                backgroundColor: '#fff',
-                                borderRadius: 10
-                            },
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 137
+                                lineNumber: 67
                             }
                         },
                         _react3.default.createElement(
-                            _reactNative.ImageBackground,
+                            _reactNative.View,
                             {
-                                source: {
-                                    source: _require(_dependencyMap[6], './gly/boy_bg.png')
-                                },
                                 style: {
-                                    flex: 1
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between'
                                 },
-                                resizeMode: "contain",
                                 __source: {
                                     fileName: _jsxFileName,
-                                    lineNumber: 147
+                                    lineNumber: 68
                                 }
                             },
                             _react3.default.createElement(
-                                _reactNative.View,
+                                _reactNative.Text,
                                 {
-                                    style: {
-                                        flex: 1,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        marginTop: 10
-                                    },
                                     __source: {
                                         fileName: _jsxFileName,
-                                        lineNumber: 155
+                                        lineNumber: 69
                                     }
                                 },
-                                _react3.default.createElement(
-                                    _reactNative.Text,
-                                    {
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 162
-                                        }
-                                    },
-                                    "\u5BB6\u5EAD\u6210\u5458"
-                                )
+                                "\u5E74\u5EA6\u6392\u540D"
                             ),
                             _react3.default.createElement(
-                                _reactNative.View,
+                                _reactNative.Text,
                                 {
-                                    style: {
-                                        flex: 1,
-                                        justifyContent: 'flex-start',
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                        marginBottom: 20,
-                                        marginTop: 10
-                                    },
                                     __source: {
                                         fileName: _jsxFileName,
-                                        lineNumber: 164
+                                        lineNumber: 70
                                     }
                                 },
-                                _react3.default.createElement(
-                                    _reactNative.View,
-                                    {
-                                        style: {
-                                            flex: 1,
-                                            alignItems: 'center'
-                                        },
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 173
-                                        }
-                                    },
-                                    _react3.default.createElement(_reactNative.Image, {
-                                        source: _require(_dependencyMap[7], './gly/boy.png'),
-                                        style: {
-                                            height: 50,
-                                            width: 50
-                                        },
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 178
-                                        }
-                                    }),
-                                    _react3.default.createElement(
-                                        _reactNative.Text,
-                                        {
-                                            __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 184
-                                            }
-                                        },
-                                        "\u7236\u4EB2"
-                                    )
-                                ),
-                                _react3.default.createElement(
-                                    _reactNative.View,
-                                    {
-                                        style: {
-                                            flex: 1,
-                                            alignItems: 'center',
-                                            marginTop: 5
-                                        },
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 186
-                                        }
-                                    },
-                                    _react3.default.createElement(_reactNative.Image, {
-                                        source: _require(_dependencyMap[7], './gly/boy.png'),
-                                        style: {
-                                            height: 50,
-                                            width: 50
-                                        },
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 192
-                                        }
-                                    }),
-                                    _react3.default.createElement(
-                                        _reactNative.Text,
-                                        {
-                                            __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 198
-                                            }
-                                        },
-                                        "\u6BCD\u4EB2"
-                                    )
-                                ),
-                                _react3.default.createElement(
-                                    _reactNative.View,
-                                    {
-                                        style: {
-                                            flex: 1,
-                                            alignItems: 'center'
-                                        },
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 201
-                                        }
-                                    },
-                                    _react3.default.createElement(_reactNative.Image, {
-                                        source: _require(_dependencyMap[7], './gly/boy.png'),
-                                        style: {
-                                            height: 50,
-                                            width: 50
-                                        },
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 206
-                                        }
-                                    }),
-                                    _react3.default.createElement(
-                                        _reactNative.Text,
-                                        {
-                                            __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 212
-                                            }
-                                        },
-                                        "\u5C0F\u9B3C"
-                                    )
-                                )
+                                "\u51FB\u8D25\u5168\u56FD98%"
                             )
+                        ),
+                        _react3.default.createElement(
+                            _reactNative.View,
+                            {
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 72
+                                }
+                            },
+                            _react3.default.createElement(_reactNative.Image, {
+                                source: _require(_dependencyMap[5], './jdjf/jdt.png'),
+                                resizeMode: "cover",
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 73
+                                }
+                            }),
+                            _react3.default.createElement(_reactNative.Image, {
+                                source: _require(_dependencyMap[6], './jdjf/xsj.png'),
+                                resizeMode: "cover",
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 74
+                                }
+                            })
                         )
                     ),
                     _react3.default.createElement(
                         _reactNative.View,
                         {
-                            style: {
-                                height: 250,
-                                marginLeft: 5,
-                                marginRight: 5,
-                                marginTop: 10,
-                                borderStyle: 'solid',
-                                backgroundColor: '#fff',
-                                borderRadius: 10
-                            },
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 218
+                                lineNumber: 78
                             }
                         },
-                        _react3.default.createElement(
-                            _reactNative.ImageBackground,
-                            {
-                                source: {
-                                    source: _require(_dependencyMap[6], './gly/boy_bg.png')
-                                },
-                                style: {
-                                    flex: 1
-                                },
-                                resizeMode: "contain",
-                                __source: {
-                                    fileName: _jsxFileName,
-                                    lineNumber: 228
-                                }
-                            },
-                            _react3.default.createElement(
-                                _reactNative.View,
-                                {
-                                    style: {
-                                        flex: 1,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        marginTop: 10
-                                    },
-                                    __source: {
-                                        fileName: _jsxFileName,
-                                        lineNumber: 236
-                                    }
-                                },
-                                _react3.default.createElement(
-                                    _reactNative.Text,
-                                    {
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 243
-                                        }
-                                    },
-                                    "\u8BA1\u5212\u7BA1\u7406"
-                                )
-                            ),
-                            _react3.default.createElement(
-                                _reactNative.View,
-                                {
-                                    style: {
-                                        flex: 5,
-                                        justifyContent: 'space-between',
-                                        flexDirection: 'row',
-                                        alignItems: 'flex-start',
-                                        marginBottom: 20,
-                                        marginTop: 10,
-                                        flexWrap: 'wrap'
-                                    },
-                                    __source: {
-                                        fileName: _jsxFileName,
-                                        lineNumber: 245
-                                    }
-                                },
-                                this._rednerJH()
-                            )
-                        )
-                    ),
-                    _react3.default.createElement(
-                        _reactNative.View,
-                        {
-                            style: {
-                                height: 150,
-                                marginLeft: 5,
-                                marginRight: 5,
-                                marginTop: 10,
-                                borderStyle: 'solid',
-                                backgroundColor: '#fff',
-                                borderRadius: 10
-                            },
+                        _react3.default.createElement(_nativeEcharts2.default, {
+                            option: this.state.optionline1,
+                            width: deviceWidth - 40,
+                            height: 300,
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 262
-                            }
-                        },
-                        _react3.default.createElement(
-                            _reactNative.ImageBackground,
-                            {
-                                source: {
-                                    source: _require(_dependencyMap[6], './gly/boy_bg.png')
-                                },
-                                style: {
-                                    flex: 1
-                                },
-                                resizeMode: "contain",
-                                __source: {
-                                    fileName: _jsxFileName,
-                                    lineNumber: 272
-                                }
-                            },
-                            _react3.default.createElement(
-                                _reactNative.View,
-                                {
-                                    style: {
-                                        flex: 1,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        marginTop: 5
-                                    },
-                                    __source: {
-                                        fileName: _jsxFileName,
-                                        lineNumber: 280
-                                    }
-                                },
-                                _react3.default.createElement(
-                                    _reactNative.Text,
-                                    {
-                                        __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 287
-                                        }
-                                    },
-                                    "\u6D88\u606F\u4E2D\u5FC3"
-                                )
-                            ),
-                            _react3.default.createElement(
-                                _reactNative.View,
-                                {
-                                    style: {
-                                        flex: 4,
-                                        marginBottom: 20,
-                                        marginTop: 5
-                                    },
-                                    __source: {
-                                        fileName: _jsxFileName,
-                                        lineNumber: 289
-                                    }
-                                },
-                                _react3.default.createElement(_reactNative.ListView, {
-                                    dataSource: this.state.dataSource,
-                                    renderRow: function renderRow(rowData) {
-                                        return _react3.default.createElement(
-                                            _reactNative.View,
-                                            {
-                                                style: {
-                                                    flexDirection: 'row',
-                                                    justifyContent: 'space-between'
-                                                },
-                                                __source: {
-                                                    fileName: _jsxFileName,
-                                                    lineNumber: 299
-                                                }
-                                            },
-                                            _react3.default.createElement(_reactNative.View, {
-                                                style: {
-                                                    flex: 1
-                                                },
-                                                __source: {
-                                                    fileName: _jsxFileName,
-                                                    lineNumber: 300
-                                                }
-                                            }),
-                                            _react3.default.createElement(
-                                                _reactNative.Text,
-                                                {
-                                                    style: {
-                                                        flex: 10
-                                                    },
-                                                    __source: {
-                                                        fileName: _jsxFileName,
-                                                        lineNumber: 301
-                                                    }
-                                                },
-                                                rowData.title
-                                            ),
-                                            _react3.default.createElement(
-                                                _reactNative.Text,
-                                                {
-                                                    style: {
-                                                        flex: 8
-                                                    },
-                                                    __source: {
-                                                        fileName: _jsxFileName,
-                                                        lineNumber: 302
-                                                    }
-                                                },
-                                                rowData.time
-                                            )
-                                        );
-                                    },
-                                    __source: {
-                                        fileName: _jsxFileName,
-                                        lineNumber: 297
-                                    }
-                                })
-                            )
-                        )
-                    ),
-                    _react3.default.createElement(
-                        _reactNative.View,
-                        {
-                            style: {
-                                flexDirection: 'row',
-                                marginLeft: 5,
-                                marginRight: 5,
-                                marginTop: 10,
-                                borderStyle: 'solid',
-                                backgroundColor: '#D0D0D0',
-                                height: 180
-                            },
-                            __source: {
-                                fileName: _jsxFileName,
-                                lineNumber: 313
-                            }
-                        },
-                        _react3.default.createElement(_reactNative.Image, {
-                            source: _require(_dependencyMap[8], './gly/gg2.png'),
-                            style: {
-                                flex: 1
-                            },
-                            __source: {
-                                fileName: _jsxFileName,
-                                lineNumber: 321
+                                lineNumber: 79
                             }
                         })
+                    ),
+                    _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                            style: {
+                                justifyContent: 'center'
+                            },
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 83
+                            }
+                        },
+                        _react3.default.createElement(
+                            _reactNative.TouchableOpacity,
+                            {
+                                onPress: function onPress() {},
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 84
+                                }
+                            },
+                            _react3.default.createElement(_reactNative.ImageBackground, {
+                                source: _require(_dependencyMap[7], './jdjf/sygl.png'),
+                                resizeMode: "stretch",
+                                style: {
+                                    width: 100,
+                                    height: 20
+                                },
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 85
+                                }
+                            })
+                        ),
+                        _react3.default.createElement(
+                            _reactNative.TouchableOpacity,
+                            {
+                                onPress: function onPress() {},
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 87
+                                }
+                            },
+                            _react3.default.createElement(_reactNative.ImageBackground, {
+                                source: _require(_dependencyMap[8], './jdjf/zdgl.png'),
+                                resizeMode: "stretch",
+                                style: {
+                                    width: 100,
+                                    height: 20
+                                },
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 88
+                                }
+                            })
+                        )
                     )
                 );
             }
@@ -70601,7 +70358,67 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }(_react2.Component));
 
     exports.default = page3;
-},539,[118,179,12,493,515,523,525,526,527],"Views\\page\\3.js");
+},540,[118,179,12,529,541,542,543,544,545],"Views\\page\\3.js");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/Views/page/jdjf",
+    "width": 750,
+    "height": 564,
+    "scales": [1],
+    "hash": "fec77fd94fe6be19183267e57d920b0c",
+    "name": "bg",
+    "type": "png"
+  });
+},541,[164],"Views\\page\\jdjf\\bg.png");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/Views/page/jdjf",
+    "width": 600,
+    "height": 48,
+    "scales": [1],
+    "hash": "88a5b8e0bdf6e44e4583b8512ebd5fd0",
+    "name": "jdt",
+    "type": "png"
+  });
+},542,[164],"Views\\page\\jdjf\\jdt.png");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/Views/page/jdjf",
+    "width": 20,
+    "height": 14,
+    "scales": [1],
+    "hash": "a2663e0e86e9d8d0a80f25196f3969af",
+    "name": "xsj",
+    "type": "png"
+  });
+},543,[164],"Views\\page\\jdjf\\xsj.png");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/Views/page/jdjf",
+    "width": 206,
+    "height": 60,
+    "scales": [1],
+    "hash": "ecfec59ea4124856666520159eafb588",
+    "name": "sygl",
+    "type": "png"
+  });
+},544,[164],"Views\\page\\jdjf\\sygl.png");
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/Views/page/jdjf",
+    "width": 206,
+    "height": 60,
+    "scales": [1],
+    "hash": "a96b7333dc00c4553fb5451fdc8c710e",
+    "name": "zdgl",
+    "type": "png"
+  });
+},545,[164],"Views\\page\\jdjf\\zdgl.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -71328,7 +71145,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }(_react2.Component));
 
     exports.default = page4;
-},540,[118,179,12,493,515,523,525,526,527],"Views\\page\\4.js");
+},546,[118,179,12,493,515,523,525,526,527],"Views\\page\\4.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -71340,7 +71157,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "1",
     "type": "png"
   });
-},541,[164],"Views\\img\\1.png");
+},547,[164],"Views\\img\\1.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -71352,7 +71169,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "souye",
     "type": "png"
   });
-},542,[164],"Views\\main\\souye.png");
+},548,[164],"Views\\main\\souye.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -71364,7 +71181,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "2",
     "type": "png"
   });
-},543,[164],"Views\\img\\2.png");
+},549,[164],"Views\\img\\2.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -71376,7 +71193,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "jhgl",
     "type": "png"
   });
-},544,[164],"Views\\main\\jhgl.png");
+},550,[164],"Views\\main\\jhgl.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -71388,7 +71205,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "3",
     "type": "png"
   });
-},545,[164],"Views\\img\\3.png");
+},551,[164],"Views\\img\\3.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -71400,7 +71217,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "wodeys",
     "type": "png"
   });
-},546,[164],"Views\\main\\wodeys.png");
+},552,[164],"Views\\main\\wodeys.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -71412,7 +71229,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "4",
     "type": "png"
   });
-},547,[164],"Views\\img\\4.png");
+},553,[164],"Views\\img\\4.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -71424,7 +71241,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "woyouhuashuo",
     "type": "png"
   });
-},548,[164],"Views\\main\\woyouhuashuo.png");
+},554,[164],"Views\\main\\woyouhuashuo.png");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -71436,7 +71253,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "name": "wodecaidan",
     "type": "png"
   });
-},549,[164],"Views\\main\\wodecaidan.png");
+},555,[164],"Views\\main\\wodecaidan.png");
 require(44);
 require(11);
 //# sourceMappingURL=index.map
