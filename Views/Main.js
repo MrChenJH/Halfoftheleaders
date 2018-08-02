@@ -12,8 +12,9 @@ import {
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator'; 
 import page1 from './page/1'
-import cygl from './cygl/cygl'
-import jtjh from './cygl/jtjh'
+import Wdys from './cygl/wdys'
+import hd from './cygl/hd'
+import Jtjh from './cygl/jtjh1'
 import page4 from './page/4'
 import page5 from './page/4'
 
@@ -49,8 +50,8 @@ import page5 from './page/4'
           <View style={styles.container}>
             <TabNavigator>
               {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),page1)}
-              {this._renderTabarItems('我的计划',require('./img/2.png'),require('./main/jhgl.png'),jtjh)}
-              {this._renderTabarItems('我的预算',require('./img/3.png'),require('./main/wodeys.png'),cygl)}
+              {this._renderTabarItems('我的计划',require('./img/2.png'),require('./main/jhgl.png'),Jtjh)}
+              {this._renderTabarItems('我的预算',require('./img/3.png'),require('./main/wodeys.png'),Wdys)}
               {this._renderTabarItems('我有话说',require('./img/4.png'),require('./main/woyouhuashuo.png'),page4)}
               {this._renderTabarItems('我的菜单',require('./img/2.png'),require('./main/wodecaidan.png'),page5)}
  

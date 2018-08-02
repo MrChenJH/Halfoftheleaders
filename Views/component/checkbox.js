@@ -6,8 +6,9 @@ import {
     TouchableHighlight
 }
     from 'react-native'
-const checkedImage=require('../cygl/imgs/checked.png');
-const checkImage=require('../cygl/imgs/check.png');
+
+const checkedImage=require('../cygl/imgs/checked.png')
+const checkImage=require('../cygl/imgs/check.png')
 export default class CheckBox extends PureComponent {
     constructor(props) {
         super(props);

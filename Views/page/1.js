@@ -1,16 +1,25 @@
 import React, {Component} from 'react';
 import {
     ScrollView,
-
+    TouchableOpacity,
     Text,
-
     View,
-
     Image,
     ImageBackground,
     ListView
 } from 'react-native';
+
 import Button from '../component/button'
+import Cygl from '../cygl/cygl'
+import Jtjh from '../cygl/jtjh'
+
+import Cssz from '../cygl/cssz'
+import Hd from   '../cygl/hd'
+import Wdxx from '../cygl/wdxx'
+import Zhqh from '../cygl/zhqh'
+import Wdtj from '../cygl/wdtj'
+import Wdfk from '../cygl/wdfk'
+
 export default class page1 extends Component {
     constructor(props) {
         super(props);
@@ -24,18 +33,17 @@ export default class page1 extends Component {
                 {title:'打扫卫生',time:'2018-07-01 10:45'},
                 {title:'洗碗',time:'2018-07-01 10:45'},
                 {title:'按时睡觉',time:'2018-07-01 10:45'}
-              
-              ])
-        
+               ]),
+              type:1
         }
     }
     _rednerJH() {
         let icons = []
         icons.push({img: require('./gly/icon_chengyuan.png'), name: '成员管理'})
-        icons.push({img: require('./gly/icon_jihua.png'), name: '计划管理'})
-        icons.push({img: require('./gly/icon_canshu.png'), name: '参数设置'})
-        icons.push({img: require('./gly/icon_chongzhi.png'), name: '会员充值'})
-        icons.push({img: require('./gly/icon_tuijian.png'), name: '我的推荐'})
+        icons.push({img: require('./gly/icon_jihua.png'),     name: '计划管理'})
+        icons.push({img: require('./gly/icon_canshu.png'),    name: '参数设置'})
+        icons.push({img: require('./gly/icon_chongzhi.png'),   name: '会员充值'})
+        icons.push({img: require('./gly/icon_tuijian.png'),    name: '我的推荐'})
         icons.push({img: require('./gly/icon_jifen.png'), name: '我的积分'})
         icons.push({img: require('./gly/icon_huodong.png'), name: '我的活动'})
         icons.push({img: require('./gly/icon_xiaoxi.png'), name: '我的消息'})
@@ -48,8 +56,12 @@ export default class page1 extends Component {
 
     _remderItem(t, i) {
         if(t.img){
-        return ( <View key = {i} 
+        return (
+      <View key = {i} 
         style = {{width: 80,height: 60,justifyContent:'center',alignItems:'center',marginTop:10}} >
+       <TouchableOpacity onPress={()=>{
+            this.setState({type:(i+2)})
+        }} >
         <Image
             source={t.img}
             style={{
@@ -58,6 +70,7 @@ export default class page1 extends Component {
         }}
         resizeMode='contain'>
         </Image> 
+        </TouchableOpacity>
         <Text style={{fontSize:12}}> {
             t.name
         }
@@ -69,13 +82,11 @@ export default class page1 extends Component {
     }
 
     render() {
+        if(this.state.type==1){
         return (
             <ScrollView style={{
                 backgroundColor: '#D0D0D0'
             }}>
-
-            
-                   
                     <View
                         style={{
                         height: 250,
@@ -327,6 +338,45 @@ export default class page1 extends Component {
                
 
             </ScrollView>
-        )
+        )}else {
+         if(this.state.type==2){
+            return <Cygl back={()=>{
+                this.setState({type:1})}}></Cygl>
+         }
+         if(this.state.type==3){
+            return <Jtjh back={()=>{
+                this.setState({type:1})}}></Jtjh>
+         }
+         if(this.state.type==4){
+            return <Cssz back={()=>{
+                this.setState({type:1})}}></Cssz>
+         }
+        if(this.state.type==6){
+
+            return <Wdtj  back={()=>{
+                this.setState({type:1})}}
+            ></Wdtj>
+        }
+         if(this.state.type==8){
+            return <Hd back={()=>{
+                
+                this.setState({type:1})}}></Hd>
+         }
+
+         if(this.state.type==9){
+            return <Wdxx back={()=>{
+                this.setState({type:1})}}></Wdxx>
+         }
+
+         if(this.state.type==10){
+            return <Wdfk back={()=>{
+                this.setState({type:1})}}></Wdfk>
+         }
+
+         if(this.state.type==11){
+            return <Zhqh back={()=>{
+                this.setState({type:1})}}></Zhqh>
+         }
+        }
     }
 }

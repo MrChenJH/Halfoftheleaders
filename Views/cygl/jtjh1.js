@@ -68,11 +68,7 @@ export default class jtjh extends Component {
               
                 <View>
                  <View style={{flexDirection:'row',borderBottomWidth:1,borderBottomColor:'#F0F0F0',height:30,alignItems:'center'}}>
-                 <TouchableOpacity  style={{height:15,width:15}}
-                      onPress={()=>{back()}}>
-                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:15,width:15}} >
-                        </Image>
-                      </TouchableOpacity>
+    
                   </View>
                
                 <ScrollView style={{

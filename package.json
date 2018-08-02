@@ -14,9 +14,16 @@
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-react": "^6.1.2",
     "native-echarts": "^0.4.0",
+    "qrcode": "^1.2.0",
     "react": "16.3.1",
     "react-native": "0.55.4",
+    "react-native-drawer-layout": "^2.0.0",
     "react-native-modal-dropdown": "^0.6.2",
+    "react-native-qrcode": "^0.2.7",
+    "react-native-qrcode-svg": "^5.1.0",
+    "react-native-radio-master": "^1.0.1",
+    "react-native-simple-radio-button": "^2.7.2",
+    "react-native-svg": "^6.5.1",
     "react-native-tab-navigator": "^0.3.4"
   },
   "devDependencies": {
