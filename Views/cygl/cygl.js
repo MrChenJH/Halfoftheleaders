@@ -48,10 +48,10 @@ export default class page1 extends Component {
                       </TouchableOpacity> 
                       </View> 
                       <View>
-                          <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>参数设置</Text>
+                          <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>成员管理</Text>
                       </View> 
-                      <View> 
-                      <TouchableOpacity  style={{height:15,width:15}} onPress={()=>{ this.setState({type:3})}}>
+                      <View style={{marginRight:5}}> 
+                      <TouchableOpacity  style={{height:25,width:25}} onPress={()=>{ this.setState({type:3})}}>
                         <Image source={require('./imgs/add.png')}  resizeMode='stretch'  style={{height:15,width:15}} >
                         </Image>
                       </TouchableOpacity> 

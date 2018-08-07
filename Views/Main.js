@@ -66,8 +66,7 @@ import page5 from './page/4'
   const styles = StyleSheet.create({
     container:{
       flex:1,
-      backgroundColor:'#fff',
-      paddingTop:10
+      backgroundColor:'#fff'
        
     },
     tabText:{

@@ -54,8 +54,8 @@ export default class canshu extends Component {
                       <View>
                           <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>我的预算</Text>
                       </View> 
-                      <View> 
-                      <TouchableOpacity  style={{height:15,width:15}} onPress={()=>{ this.setState({type:3})}}>
+                      <View style={{marginRight:5}}> 
+                      <TouchableOpacity  style={{height:25,width:25}} onPress={()=>{ this.setState({type:3})}}>
                         <Image source={require('./imgs/add.png')}  resizeMode='stretch'  style={{height:15,width:15}} >
                         </Image>
                       </TouchableOpacity> 
@@ -92,10 +92,7 @@ export default class canshu extends Component {
                             <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>预算维护</Text>
                         </View> 
                         <View> 
-                        <TouchableOpacity  style={{height:15,width:15}} onPress={()=>{ this.setState({type:3})}}>
-                          <Image source={require('./imgs/add.png')}  resizeMode='stretch'  style={{height:15,width:15}} >
-                          </Image>
-                        </TouchableOpacity> 
+                  
                         </View> 
                     </View> 
                   <ScrollView>

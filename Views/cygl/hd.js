@@ -8,9 +8,11 @@ import {
     ListView,
     Button,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    Dimensions
 } from 'react-native';  
-
+const deviceWidth = Dimensions.get('window').width;  
+const deviceheight = Dimensions.get('window').height;  
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
@@ -20,9 +22,11 @@ export default class HD extends Component {
         super(props);
         this.state = {
              dataSource1: ds.cloneWithRows([
-                {title:'做作业',time:'2018-07-01 10:45'},
-                {title:'洗碗',time:'2018-07-01 10:45'},
-                {title:'按时睡觉',time:'2018-07-01 10:45'}
+                {title:'春游',time:'2018-7-1 13:00:00'},
+                {title:'成果展',time:'2018-7-1 13:00:00'},
+                {title:'其他展',time:'2018-7-1 13:00:00'},
+                {title:'成果展',time:'2018-7-1 13:00:00'},
+                {title:'其他展',time:'2018-7-1 13:00:00'}
               ]),
               dataSource2: ds.cloneWithRows([
                 {title:'家庭1'},
@@ -30,7 +34,9 @@ export default class HD extends Component {
                 {title:'家庭3'},
                 {title:'家庭4'}
               ]),
-              type:1
+              type:1,
+              typetitle:'',
+              typecontent:''
         }
     }
 
@@ -41,24 +47,27 @@ export default class HD extends Component {
                <View style={{
                flexDirection:'row',
                borderBottomWidth:1,
-               borderBottomColor:'#F0F0F0',
-               height:30,
+               borderBottomColor:'#E6E6E6',
+               backgroundColor:'#fe9c2e',
+               height:50,
                alignItems:'center',
                justifyContent:'space-between'}}>
                
                 <View>
-                <TouchableOpacity  style={{height:15,width:15}}
+                <TouchableOpacity  style={{height:20,width:20}}
                       onPress={()=>{back()}}>
-                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:15,width:15}} >
+                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
                       </View> 
-                      <View>
-                          <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>我的活动</Text>
+                      <View style={{justifyContent:'center',alignItems:'center'}}>
+                          <Text 
+                          style={{fontSize:20,
+                            color:'#FFF',fontWeight:'bold'}}>我的活动</Text>
                       </View> 
-                      <View> 
-                      <TouchableOpacity  style={{height:15,width:15}} onPress={()=>{ this.setState({type:3})}}>
-                        <Image source={require('./imgs/add.png')}  resizeMode='stretch'  style={{height:15,width:15}} >
+                      <View style={{marginRight:5}}> 
+                      <TouchableOpacity  style={{height:20,width:20}} onPress={()=>{ this.setState({type:3})}}>
+                        <Image source={require('./imgs/add.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
                       </View> 
@@ -72,17 +81,18 @@ export default class HD extends Component {
                  
                    <View style={{
                        flex:1,
-                       borderLeftColor:'#F0F0F0',
-                       borderLeftWidth:1,
                        flexDirection:'row'
                        }}>
-                       <View style={{flex:3,justifyContent:'center',alignItems:'flex-end'}}>
+                       <View style={{flex:2,justifyContent:'center',alignItems:'flex-end'}}>
                        <TouchableOpacity >
-                        <Text>全部</Text> 
+                        <Text style={{fontFamily:'SimSun',
+                                fontSize:12,
+                                 fontStyle:'normal',
+                                 color:'#8a8a8a'}}>全部</Text> 
                        </TouchableOpacity>
                        </View> 
                        <View style={{flex:1,justifyContent:'center',alignItems:'flex-start'}}>
-                       <Image source={require('./imgs/xia.png')}  style={{height:5,width:5}} resizeMode='stretch'></Image>
+                      
                        </View>
                    </View>
               
@@ -91,54 +101,54 @@ export default class HD extends Component {
                
                    <View style={{
                              flex:1,
-                             borderLeftColor:'#F0F0F0',
-                             borderLeftWidth:1,
                              flexDirection:'row'
                    }}>
-                       <View style={{flex:3,justifyContent:'center',alignItems:'flex-end'}}>
+                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-end'}}>
                        <TouchableOpacity >
-                       <Text>最近</Text>
+                       <Text style={{fontFamily:'SimSun',
+                                fontSize:12,
+                                 fontStyle:'normal',
+                                 color:'#8a8a8a'}}>我组织的</Text> 
+                      
                        </TouchableOpacity>
                        </View> 
-                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-start'}}>
-                       <Image source={require('./imgs/xia.png')}  style={{height:5,width:5}} resizeMode='stretch'></Image>
-                       </View>
+                       
                    </View>
              
 
                 
                    <View style={{
                              flex:1,
-                             borderLeftColor:'#F0F0F0',
-                             borderLeftWidth:1,
                              flexDirection:'row'
                    }}>
-                       <View style={{flex:3,justifyContent:'center',alignItems:'flex-end'}}>
+                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-end'}}>
                        <TouchableOpacity >
-                       <Text>最热</Text>
+                       <Text style={{fontFamily:'SimSun',
+                                fontSize:12,
+                                 fontStyle:'normal',
+                                 color:'#8a8a8a'}}>我参加的</Text>
                        </TouchableOpacity>
                        </View> 
-                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-start'}}>
-                       <Image source={require('./imgs/xia.png')}  style={{height:5,width:5}} resizeMode='stretch'></Image>
-                       </View>
+    
                    </View>
            
 
 
                 
                    <View style={{
-                             flex:1,
-                             borderLeftColor:'#F0F0F0',
-                             borderLeftWidth:1,
+                             flex:2,
                              flexDirection:'row'
                    }}>
                        <View style={{flex:3,justifyContent:'center',alignItems:'flex-end'}}> 
                        <TouchableOpacity >
-                       <Text>筛选</Text>
+                       <Text style={{fontFamily:'SimSun',
+                                fontSize:12,
+                                 fontStyle:'normal',
+                                 color:'#8a8a8a'}}>筛选</Text>
                        </TouchableOpacity>
                        </View> 
                        <View style={{flex:1,justifyContent:'center',alignItems:'flex-start'}}> 
-                       <Image source={require('./imgs/xia.png')}  style={{height:5,width:5}} resizeMode='stretch'></Image>
+                       <Image source={require('./imgs/sx.png')}  style={{height:10,width:10}} resizeMode='cover'></Image>
                        </View>
 
                    </View>
@@ -150,299 +160,653 @@ export default class HD extends Component {
                <ListView
                                   dataSource={this.state.dataSource1}
                                    renderRow={(rowData) => 
+                                    
                                      <TouchableOpacity  
-                                     style={{flexDirection:'row',height:30}}
+                              
                                      onPress={()=>{this.setState({type:2})}}
                                      >
-                                        <View style={{flex:1}}>
+                                        <View 
+                                    style={{flexDirection:'row',
+                                             borderTopColor:'#F0F0F0',
+                                             borderTopWidth:1,
+                                             marginTop:5,
+                                             height:110}}>
+                                        <View style={{width:deviceWidth*0.3,
+                                             paddingLeft:5,
+                                             paddingTop:5}}>
+                                        <Image source={require('./imgs/hd2.jpg')} style={{width:deviceWidth*0.25,height:deviceWidth*0.2
+                                        
+                                        }} resizeMode='stretch'></Image>
                                         </View>
-                                        <Text style={{flex:10}}>{rowData.title}</Text>
-                                        <Text style={{flex:8}}>{rowData.time}</Text>
-                                        <View style={{flex:1}}></View>
+                                         <View style={{width:deviceWidth*0.75,
+                                            paddingLeft:5,
+                                            paddingTop:10,
+                                            justifyContent:'flex-start'}}>
+                                        <Text style={{fontSize:15,color:'black',fontWeight:'bold'}}>{rowData.title}</Text>
+                                         <View
+                                         style={{flexDirection:'row',
+                                        marginTop:5}}
+                                         >
+                                       
+                                            <View 
+                                             style={{
+                                                 borderRightWidth:1,
+                                                 borderRightColor:'#A2A0A0',
+                                                 flex:3
+                                             }}>
+                                                <Text style={{fontSize:10,color:'#848484'}}>招募人数:5</Text>
+                                             </View>
+                                             <View 
+                                             style={{
+                                                 borderRightWidth:1,
+                                                 borderRightColor:'#A2A0A0',
+                                                 flex:3,
+                                                 alignItems:'center'
+                                             }}>
+                                                <Text style={{fontSize:10,color:'#848484'}}>组织人:张三</Text>
+                                             </View>
+                                             <View style={{   flex:5}}>
+                                             </View>
+                                            
+                                         </View>
+                                         <Text style={{fontSize:10,color:'#848484',fontWeight:'bold',marginTop:5}}>地点:上海市普陀区长寿公园</Text>
+                                         <Text style={{fontSize:10,color:'#848484',fontWeight:'bold',marginTop:5}}>活动报名开始时间:{rowData.time}</Text>
+                                         <Text style={{fontSize:10,color:'#848484',fontWeight:'bold',marginTop:5}}>活动报名截止时间:{rowData.time}</Text>
+                                       </View>
+      
+                                        </View>
                                         </TouchableOpacity>
                                          }
                                    />
                </ScrollView>
             </View>)
-            }else if(this.state.type==2){
+            }
+            else if(this.state.type==2){
               return (
               <View>
-                <View style={{
-                  flexDirection:'row',
-                  borderBottomWidth:1,
-                  borderBottomColor:'#F0F0F0',
-                  height:30,
-                  alignItems:'center',
-                  justifyContent:'space-between'}}>
+                  
+                  <View style={{
+               flexDirection:'row',
+               borderBottomWidth:1,
+               borderBottomColor:'#E6E6E6',
+               backgroundColor:'#fe9c2e',
+               height:50,
+               alignItems:'center',
+               justifyContent:'space-between'
+               }}>
                
                 <View>
-                      <TouchableOpacity 
-                      onPress={()=>{this.setState({type:1})}}
-                      style={{height:15,width:15}}>
-                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:15,width:15}} >
+
+                  
+
+
+                <TouchableOpacity  style={{height:20,width:20}}
+                      onPress={()=>{this.setState({type:1})}}>
+                        <Image source={require('./imgs/back.png')} 
+                         resizeMode='stretch' 
+                          style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
                       </View> 
-                      <View>
-                          <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>活动详情</Text>
+                      <View style={{justifyContent:'center',alignItems:'center'}}>
+                          <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>活动详情</Text>
                       </View> 
-                      <View> 
-                     
+                      <View style={{marginRight:5,width:22}}> 
+                    
                       </View> 
                   </View>
-                  <ScrollView>
-                      <View>
+                   
+
+
+                  <View backgroundColor='#F2F2F2' 
+                  style={{height:deviceheight-60}}>
+
+                     <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'活动标题',typecontent:'春游'})}}>
+                
+                <View style={{flexDirection:'row',
+                         backgroundColor:'#fff',
+                         borderTopColor:'#F0F0F0',
+                         borderTopWidth:1,
+                         borderBottomWidth:1,
+                         borderBottomColor:'#F0F0F0',
+                         height:40,
+                         alignItems:'center',
+                         justifyContent:'space-between',
+                         paddingLeft:10,
+                         paddingRight:10,
+                         marginTop:10,
+                         }}>
+                          <Text style={{fontSize:13,
+                            color:'#585858',
+                            fontFamily:'Microsoft YaHei'}}>
+                               活动标题</Text>  
+                               <View 
+                          style={{flexDirection:'row',alignItems:'center'}}>
+                                 <Text style={{fontSize:13,
+                            color:'#585858',
+                            fontFamily:'Microsoft YaHei'}}>
+                               春游</Text>  
+                          <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                          </View>
+                        </View>
+                        </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{this.setState({type:5,typetitle:'活动内容简介'})}}>
                       <View style={{flexDirection:'row',
+                             backgroundColor:'#fff',
+                             borderTopColor:'#F0F0F0',
+                             borderTopWidth:1,
                              borderBottomWidth:1,
                              borderBottomColor:'#F0F0F0',
-                             height:30,
-                             alignItems:'center'}}>
-                              <Text>活动内容简介:</Text></View> 
-                              <View style={{flexDirection:'row',
-                             borderBottomWidth:1,
-                             borderBottomColor:'#F0F0F0',
-                             height:100,
-                            alignItems:'center'}}>
-                              <Text numberOfLines={6} >单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法单独浮动放大放大书法</Text>
-                          </View>
-                          <View style={{flexDirection:'row',
-                             borderBottomWidth:1,
-                             borderBottomColor:'#F0F0F0',
-                             height:30,
-                            alignItems:'center'}}>
-
-                          <View>
-                              <Text>活动地点:</Text>  
-                              </View>   
-                          <View>
-                              <Text>上海</Text>
-                                </View>   
-                          </View>
-                          <View style={{flexDirection:'row',
-                             borderBottomWidth:1,
-                             borderBottomColor:'#F0F0F0',
-                             height:30,
-                             alignItems:'center'}}>
-
-                          <View>
-                               <Text>活动时间:</Text> 
-                                </View>   
-                          <View>
-                              <Text>2017-10-01</Text>
-                                </View>   
-                          </View>
-                          <View style={{flexDirection:'row',
-                             borderBottomWidth:1,
-                             borderBottomColor:'#F0F0F0',
-                             height:30,
-                             alignItems:'center'}}>
-
-                          <View>  
-                              <Text>组织人:</Text> 
-                                </View>    
-                          <View>
-                              <Text>陈金华</Text> 
-                               </View>   
-                          </View>
-                          <View style={{flexDirection:'row',
-                             borderBottomWidth:1,
-                             borderBottomColor:'#F0F0F0',
-                             height:30}}>
-
-                          <View>  
-                               <Text>联系方式:</Text> 
-                                </View>     
-                          <View>
-                              <Text>13390878023</Text> 
-                               </View>   
-                          </View> 
-                          <View style={{flexDirection:'row',
-                             borderBottomWidth:1,
-                             borderBottomColor:'#F0F0F0',
-                             height:30}}>
-
-                          <View> 
-                                <Text>招募人数:</Text> 
-                                 </View>    
-                          <View>
-                              <Text>5</Text>  
-                              </View>   
-                          </View>
-
-                           <View style={{flexDirection:'row',
-                             borderBottomWidth:1,
-                             borderBottomColor:'#F0F0F0',
+                             height:40,
                              alignItems:'center',
-                             height:30}}>
+                             justifyContent:'space-between',
+                             paddingLeft:10,
+                             paddingRight:10,
+                             marginTop:10,
+                             }}>
+                              <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                              活动内容简介</Text>
+                              <View 
+                              style={{flexDirection:'row',alignItems:'center'}}>
+                                
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              </View>
+                             
+                    </View> 
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'活动地点',typecontent:'上海'})}}>
+                
+                    <View style={{flexDirection:'row',
+                             backgroundColor:'#fff',
+                             borderTopColor:'#F0F0F0',
+                             borderTopWidth:1,
+                             borderBottomWidth:1,
+                             borderBottomColor:'#F0F0F0',
+                             height:40,
+                             alignItems:'center',
+                             justifyContent:'space-between',
+                             paddingLeft:10,
+                             paddingRight:10,
+                             marginTop:10,
+                             }}>
+                              <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                                   活动地点</Text>  
+                                   <View 
+                              style={{flexDirection:'row',alignItems:'center'}}>
+                                     <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                                   上海</Text>  
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              </View>
+                            </View>
+                            </TouchableOpacity>
+                          
 
-                     
-                                <Text>报名家庭/参与家庭</Text> 
-                                 </View>    
-                          <View>
-                          <ListView
-                                  dataSource={this.state.dataSource2}
-                                   renderRow={(rowData) => <View style={{flexDirection:'row', justifyContent:'space-between'}}> 
-                                        <View style={{flex:1}}></View>
-                                        <Text style={{flex:10}}>{rowData.title}</Text>
-                                        <View style={{flex:2}}> 
-                                        <TouchableOpacity  style={{height:20,width:20}}>
-                                        <Image source={require('./imgs/zan.png')} style={{height:20,width:20}} resizeMode='stretch'></Image>
-                                        </TouchableOpacity>  
-                                        </View>
-                                       </View>}
-                                   />
-                              </View>   
-                      
-                      </View>
+                                              <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'活动时间',typecontent:'2018-9-1'})}}>
+                            <View style={{flexDirection:'row',
+                             backgroundColor:'#fff',
+                             borderTopColor:'#F0F0F0',
+                             borderTopWidth:1,
+                             borderBottomWidth:1,
+                             borderBottomColor:'#F0F0F0',
+                             height:40,
+                             alignItems:'center',
+                             justifyContent:'space-between',
+                             paddingLeft:10,
+                             paddingRight:10,
+                             marginTop:10,
+                             }}>
+                              <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                             活动时间</Text> 
+                             <View 
+                              style={{flexDirection:'row',alignItems:'center'}}>
+                                     <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                                   2018-10-01</Text>  
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              </View>
+                          </View>
+                          </TouchableOpacity>
 
+
+      <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'组织人',typecontent:'张三'})}}>
+             <View style={{flexDirection:'row',
+                             backgroundColor:'#fff',
+                             borderTopColor:'#F0F0F0',
+                             borderTopWidth:1,
+                             borderBottomWidth:1,
+                             borderBottomColor:'#F0F0F0',
+                             height:40,
+                             alignItems:'center',
+                             justifyContent:'space-between',
+                             paddingLeft:10,
+                             paddingRight:10,
+                             marginTop:10,
+                             }}>
+                              <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+          组织人</Text> 
+          <View 
+                              style={{flexDirection:'row',alignItems:'center'}}>
+                                     <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                                   张三</Text>  
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              </View>                    
+                          </View>
+                          </TouchableOpacity>
                   
-                  </ScrollView>
+
+
+                        <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'联系方式',typecontent:'12222222'})}}>
+                  <View style={{flexDirection:'row',
+                             backgroundColor:'#fff',
+                             borderTopColor:'#F0F0F0',
+                             borderTopWidth:1,
+                             borderBottomWidth:1,
+                             borderBottomColor:'#F0F0F0',
+                             height:40,
+                             alignItems:'center',
+                             justifyContent:'space-between',
+                             paddingLeft:10,
+                             paddingRight:10,
+                             marginTop:10,
+                             }}>
+                              <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                     联系方式</Text> 
+                     <View 
+                              style={{flexDirection:'row',alignItems:'center'}}>
+                                     <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                                   133000000</Text>  
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              </View>               
+                          </View> 
+                          </TouchableOpacity>
+
+
+
+                        <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'招募人数',typecontent:'5'})}}>
+             <View style={{flexDirection:'row',
+                             backgroundColor:'#fff',
+                             borderTopColor:'#F0F0F0',
+                             borderTopWidth:1,
+                             borderBottomWidth:1,
+                             borderBottomColor:'#F0F0F0',
+                             height:40,
+                             alignItems:'center',
+                             justifyContent:'space-between',
+                             paddingLeft:10,
+                             paddingRight:10,
+                             marginTop:10,
+                             }}>
+                              <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+   招募人数</Text> 
+   <View 
+                              style={{flexDirection:'row',alignItems:'center'}}>
+                                     <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                                   6/人</Text>  
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              </View>                                             
+                          </View>
+                          </TouchableOpacity>
+
+                
+                
+                
+
+                <View style={{flexDirection:'row',
+                             backgroundColor:'#fff',
+                             borderTopColor:'#F0F0F0',
+                             borderTopWidth:1,
+                             borderBottomWidth:1,
+                             borderBottomColor:'#F0F0F0',
+                             height:40,
+                             alignItems:'center',
+                             justifyContent:'space-between',
+                             paddingLeft:10,
+                             paddingRight:10,
+                             marginTop:10,
+                             }}>
+                              <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                      报名家庭/参与家庭</Text> 
+                      <View 
+                              style={{flexDirection:'row',alignItems:'center'}}>
+                                
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              </View>           
+                              </View>   
+                   </View>
               </View>
               )
 
+            }else if(this.state.type==4){
+                return (
+                 <View>
+                 <View style={{
+                     flexDirection:'row',
+                     borderBottomWidth:1,
+                     borderBottomColor:'#E6E6E6',
+                     backgroundColor:'#fe9c2e',
+                     height:50,
+                     alignItems:'center',
+                     justifyContent:'space-between'}}>
+                     
+                      <View>
+                      <TouchableOpacity  style={{height:20,width:20}}
+                            onPress={()=>{this.setState({type:2})}}>
+                              <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                              </Image>
+                            </TouchableOpacity> 
+                            </View> 
+                            <View style={{justifyContent:'center',alignItems:'center'}}>
+                                <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
+                            </View> 
+                            <View style={{marginRight:5,width:21}}> 
+                                 
+                            </View> 
+                        </View>
+                        <View backgroundColor='#F2F2F2' 
+                                    style={{height:deviceheight-60}}>
+                         <View style={{backgroundColor:'#fff',marginTop:10,height:40}}>
+                         <TextInput   underlineColorAndroid='transparent' 
+                              clearButtonMode='always'
+                               multiline={false}
+                               defaultValue={this.state.typecontent}
+                         >
+ 
+                         </TextInput>
+                         </View>
+                         </View>
+                    </View>
+                        )
+             }else if(this.state.type==5){
+               return (
+                <View>
+                <View style={{
+                    flexDirection:'row',
+                    borderBottomWidth:1,
+                    borderBottomColor:'#E6E6E6',
+                    backgroundColor:'#fe9c2e',
+                    height:50,
+                    alignItems:'center',
+                    justifyContent:'space-between'}}>
+                    
+                     <View>
+                     <TouchableOpacity  style={{height:20,width:20}}
+                           onPress={()=>{this.setState({type:2})}}>
+                             <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                             </Image>
+                           </TouchableOpacity> 
+                           </View> 
+                           <View style={{justifyContent:'center',alignItems:'center'}}>
+                               <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
+                           </View> 
+                           <View style={{marginRight:5,width:22}}> 
+                                
+                           </View> 
+                       </View>
+                       <View backgroundColor='#F2F2F2' 
+                                   style={{height:deviceheight-60}}>
+                        <View style={{backgroundColor:'#fff',marginTop:10,height:150}}>
+                        <TextInput   underlineColorAndroid='transparent' 
+                        maxLength={50}
+                        multiline={true}
+                        style={{textAlignVertical:'top'}}
+                        numberOfLines={5}
+                        >
+
+                        </TextInput>
+                        </View>
+                        </View>
+                   </View>
+                       )
             }else{
 
         return ( 
             <View>
-        <View style={{
-                  flexDirection:'row',
-                  borderBottomWidth:1,
-                  borderBottomColor:'#F0F0F0',
-                  height:30,
-                  alignItems:'center',
-                  justifyContent:'space-between'}}>
+           <View style={{
+               flexDirection:'row',
+               borderBottomWidth:1,
+               borderBottomColor:'#E6E6E6',
+               backgroundColor:'#fe9c2e',
+               height:50,
+               alignItems:'center',
+               justifyContent:'space-between'}}>
                
                 <View>
-                      <TouchableOpacity  onPress={()=>{this.setState({type:1})}}
-                       style={{height:15,width:15}}>
-                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:15,width:15}} >
+                <TouchableOpacity  style={{height:20,width:20}}
+                      onPress={()=>{this.setState({type:1})}}>
+                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
                       </View> 
-                      <View>
-                          <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>活动添加</Text>
+                      <View style={{justifyContent:'center',alignItems:'center'}}>
+                          <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>添加活动</Text>
                       </View> 
-                      <View> 
-                     
+                      <View style={{marginRight:5,width:22}}> 
+                 
                       </View> 
                   </View>
- 
-    <View style={{flexDirection:'row',borderBottomWidth:1,borderBottomColor:'#F0F0F0',height:50,alignItems:'center'}}>
-             <View  style={{width:120,alignItems:'flex-end',justifyContent:"flex-start"}}>
-                <Text>活动主题:</Text>
-             </View>
-             <View  style={{width:200,alignItems:'flex-start',justifyContent:"flex-start"}}>
+            <ScrollView>
+           <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:60,
+                        alignItems:'center',
+                        justifyContent:'space-between',
+                        paddingLeft:20}}>
+           
+                <Text style={{fontSize:15,
+                
+                    color:'#6E6E6E',
+                    flex:1}}>
+                活动主题:</Text>
                 <TextInput 
-                   style={{width:200}}
-                underlineColorAndroid='transparent'
+                style={{flex:2}}
+                 underlineColorAndroid='transparent'
                  placeholder='请输入活动主题'
-                 placeholderTextColor='black'
+                 placeholderTextColor='#848484'
                  value={this.state.user}></TextInput>
-             </View>
+            
    </View>
 
-          <View style={{flexDirection:'row',borderBottomWidth:1,borderBottomColor:'#F0F0F0',height:50,alignItems:'center'}}>
-             <View  style={{width:120,alignItems:'flex-end',justifyContent:"flex-start"}}>
-                <Text>活动时间:</Text>
-             </View>
-             <View  style={{width:200,alignItems:'flex-start',justifyContent:"flex-start"}}>
+                   <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:60,
+                        alignItems:'center',
+                        justifyContent:'space-between',
+                        paddingLeft:20}}>
+              
+              <Text style={{fontSize:15,
+            
+                color:'#6E6E6E',
+                flex:1}}>
+                    活动时间:</Text>
+        
+         
                 <TextInput 
-                   style={{width:200}}
-                underlineColorAndroid='transparent'
+                 style={{flex:2}}
+                 underlineColorAndroid='transparent'
                  placeholder='请输入活动时间'
-                 placeholderTextColor='black'
+                 placeholderTextColor='#848484'
                  value={this.state.user}></TextInput>
-             </View>
+      
    </View>
-   <View style={{flexDirection:'row',borderBottomWidth:1,borderBottomColor:'#F0F0F0',height:50,alignItems:'center'}}>
-             <View  style={{width:120,alignItems:'flex-end',justifyContent:"flex-start"}}>
-                <Text>活动地点:</Text>
-             </View>
-             <View  style={{width:200,alignItems:'flex-start',justifyContent:"flex-start"}}>
+   <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:60,
+                        alignItems:'center',
+                        justifyContent:'space-between',
+                        paddingLeft:20}}>
+              
+              <Text style={{
+                  fontSize:15,
+          
+                color:'#6E6E6E',
+                flex:1}}>
+                    活动地点:</Text>
+     
                 <TextInput 
-                   style={{width:200}}
+                    style={{flex:2}}
                 underlineColorAndroid='transparent'
                  placeholder='请输入活动地点'
-                 placeholderTextColor='black'
+                 placeholderTextColor='#848484'
                  value={this.state.user}></TextInput>
-             </View>
+         
    </View>
-   
-   <View style={{flexDirection:'row',borderBottomWidth:1,borderBottomColor:'#F0F0F0',height:50,alignItems:'center'}}>
-             <View  style={{width:120,alignItems:'flex-end',justifyContent:"flex-start"}}>
-                <Text>组织人:</Text>
-             </View>
-             <View  style={{width:200,alignItems:'flex-start',justifyContent:"flex-start"}}>
+              
+
+                 <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:60,
+                        alignItems:'center',
+                        justifyContent:'space-between',
+                        paddingLeft:20}}>
+ 
+ <Text style={{fontSize:15,
+ 
+    color:'#6E6E6E',
+    flex:1}}>
+ 组织人:</Text>
+
                 <TextInput 
-                   style={{width:200}}
+                      style={{flex:2}}
                 underlineColorAndroid='transparent'
                  placeholder='请输入组织人'
-                 placeholderTextColor='black'
+                 placeholderTextColor='#848484'
                  value={this.state.user}></TextInput>
-             </View>
-   </View> 
-
       
-      <View style={{flexDirection:'row',borderBottomWidth:1,borderBottomColor:'#F0F0F0',height:50,alignItems:'center'}}>
-             <View  style={{width:120,alignItems:'flex-end',justifyContent:"flex-start"}}>
-                <Text>联系方式:</Text>
-             </View>
-             <View  style={{width:200,alignItems:'flex-start',justifyContent:"flex-start"}}>
+   </View> 
+   <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:60,
+                        alignItems:'center',
+                        justifyContent:'space-between',
+                        paddingLeft:20}}>
+ 
+         
+ <Text style={{fontSize:15,
+
+    color:'#6E6E6E',
+    flex:1}}>
+                    联系方式:</Text>
+    
+         
                 <TextInput 
-                   style={{width:200}}
+                   style={{flex:2}}
                 underlineColorAndroid='transparent'
                  placeholder='请输入联系方式'
-                 placeholderTextColor='black'
+                 placeholderTextColor='#848484'
                  value={this.state.user}></TextInput>
-             </View>
+        
    </View>
 
 
-         <View style={{flexDirection:'row',borderBottomWidth:1,borderBottomColor:'#F0F0F0',height:50,alignItems:'center'}}>
-             <View  style={{width:120,alignItems:'flex-end',justifyContent:"flex-start"}}>
-                <Text>预计招募人数:</Text>
-             </View>
-             <View  style={{width:200,alignItems:'flex-start',justifyContent:"flex-start"}}>
+           <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:60,
+                        alignItems:'center',
+                        justifyContent:'space-between',
+                        paddingLeft:20}}>
+
+
+           
+           <Text style={{fontSize:15,
+   
+            color:'#6E6E6E',
+            flex:1}}>
+                    预计招募人数:</Text>
+      
+          
                 <TextInput 
-                   style={{width:200}}
+                    style={{flex:2}}
                 underlineColorAndroid='transparent'
                  placeholder='请输入预计招募人数'
-                 placeholderTextColor='black'
+                 placeholderTextColor='#848484'
                  value={this.state.user}></TextInput>
-             </View>
+         
    </View>
  
-   <View style={{flexDirection:'row',borderBottomWidth:1,borderBottomColor:'#F0F0F0',height:50,alignItems:'center'}}>
-             <View  style={{width:120,alignItems:'flex-end',justifyContent:"flex-start"}}>
-                <Text>报名截止时间:</Text>
-             </View>
-             <View  style={{width:200,alignItems:'flex-start',justifyContent:"flex-start"}}>
-                <TextInput 
-                   style={{width:200}}
+   <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:60,
+                        alignItems:'center',
+                        justifyContent:'space-between',
+                        paddingLeft:20}}>
+
+           
+           <Text style={{fontSize:15,
+          
+            color:'#6E6E6E',
+            flex:1}}>
+                    报名截止时间:</Text>
+          
+             <TextInput 
+                     style={{flex:2}}
                 underlineColorAndroid='transparent'
                  placeholder='请输入报名截止时间'
-                 placeholderTextColor='black'
+                 placeholderTextColor='#848484'
                  value={this.state.user}></TextInput>
-             </View>
+             
    </View>
   
 
-    <View style={{flexDirection:'row',borderBottomWidth:1,borderBottomColor:'#F0F0F0',height:50,alignItems:'center'}}>
-             <View  style={{width:120,alignItems:'flex-end',justifyContent:"flex-start"}}>
-                <Text>注意事项:</Text>
-             </View>
-             <View  style={{width:200,alignItems:'flex-start',justifyContent:"flex-start"}}>
-                <TextInput 
-                   style={{width:200}}
-                underlineColorAndroid='transparent'
+   <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:60,
+                        alignItems:'center',
+                        justifyContent:'space-between',
+                        paddingLeft:20}}>
+   
+   <Text style={{fontSize:15,
+
+    color:'#6E6E6E',
+    flex:1}}>
+                    注意事项:</Text>
+        
+               <TextInput 
+                     style={{flex:2}}
+                 underlineColorAndroid='transparent'
                  placeholder='请输入注意事项'
-                 placeholderTextColor='black'
+                 placeholderTextColor='#848484'
                  value={this.state.user}></TextInput>
-             </View>
+            
    </View>
-   <View style={{paddingLeft:10,paddingRight:10,marginTop:10}}>
-       <Button onPress={()=>{}} color='blue' title='提交'></Button>
+   <View style={{paddingLeft:10,paddingRight:10,marginTop:10,marginBottom:20,height:80,alignItems:'center'}}>
+      <TouchableOpacity>
+          <Image source={require('./imgs/sub.png')}
+           style={{height:50,width:200}} 
+           resizeMode='cover'></Image>
+      </TouchableOpacity>
    </View>
+   </ScrollView>
 </View>)
             }
     }

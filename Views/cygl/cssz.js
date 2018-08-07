@@ -45,10 +45,7 @@ export default class canshu extends Component {
                           <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>参数设置</Text>
                       </View> 
                       <View> 
-                      <TouchableOpacity  style={{height:15,width:15}} onPress={()=>{ this.setState({type:3})}}>
-                        <Image source={require('./imgs/add.png')}  resizeMode='stretch'  style={{height:15,width:15}} >
-                        </Image>
-                      </TouchableOpacity> 
+                     
                       </View> 
                   </View> 
                 <ScrollView>
