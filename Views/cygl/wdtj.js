@@ -8,11 +8,14 @@ import {
     ListView,
     Button,
     TouchableOpacity,
+    Dimensions,
     TextInput
 } from 'react-native';  
 
 
 import QRCode from 'react-native-qrcode';
+
+const deviceWidth = Dimensions.get('window').width;  
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
@@ -33,36 +36,41 @@ render(){
     const {back}=this.props
     return (
        <View> 
-             <View style={{
+              <View style={{
                flexDirection:'row',
                borderBottomWidth:1,
-               borderBottomColor:'#F0F0F0',
-               height:30,
+               borderBottomColor:'#E6E6E6',
+               backgroundColor:'#fe9c2e',
+               height:50,
                alignItems:'center',
                justifyContent:'space-between'}}>
                
                 <View>
-                      <TouchableOpacity  style={{height:15,width:15}} 
-                       onPress={()=>{back()}}>
-                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:15,width:15}} >
+                <TouchableOpacity  style={{height:20,width:20}}
+                      onPress={()=>{back()}}>
+                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
                       </View> 
-                      <View>
-                          <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>我的推荐</Text>
+                      <View style={{justifyContent:'center',alignItems:'center'}}>
+                          <Text 
+                          style={{fontSize:20,
+                            color:'#FFF',fontWeight:'bold'}}>我的推荐</Text>
                       </View> 
-                      <View> 
-                      
+                      <View style={{marginRight:5,width:20}}> 
+              
                       </View> 
-                  </View> 
+                  </View>
+
+                  <ScrollView 
+                  style={{backgroundColor:'#F2F2F2'}}>
            <View 
             style={{
                  justifyContent:'center',
                  alignItems:'center',
-                 borderColor:'black',
+                 backgroundColor:'#fff',
                  marginTop:10,
                  borderRadius:5,
-                 borderWidth:1,
                  marginLeft:10,
                  marginRight:10,
                  paddingLeft:20,
@@ -73,8 +81,10 @@ render(){
            >
          <QRCode
             value="http://awesome.link.qr"
-            logo={tx}
-            />
+            size={300}
+            bgColor='purple'
+            fgColor='white'/>
+        
      
            <View 
             style={{
@@ -82,33 +92,60 @@ render(){
                 justifyContent:'center'
             }}
             >
-                <Text>扫我推荐</Text>
+            <Text style={{fontSize:20}}>扫我推荐</Text>
             </View>
             </View>
             <View
                      style={{
-                        borderColor:'black',
+                        backgroundColor:'#fff',
                         marginTop:10,
                         borderRadius:5,
-                        borderWidth:1,
-                        marginLeft:10,
+                           marginLeft:10,
                         marginRight:10,
                         paddingLeft:20,
                         paddingRight:20,
                         paddingTop:10,
                         paddingBottom:20,
-                        height:100
+                        height:400,
+                        marginBottom:100
                    }}
             >
-            <ListView
+          <ListView
                                   dataSource={this.state.dataSource}
-                                   renderRow={(rowData) => <View style={{flexDirection:'row', justifyContent:'space-between'}}> 
-                                        <View style={{flex:1}}></View>
-                                        <Text style={{flex:10}}>{rowData.title}</Text>
-                                       <Text style={{flex:8}}>{rowData.time}</Text>
-                                       </View>}
+                                   renderRow={(rowData) => 
+                                    
+                                     <TouchableOpacity  
+                              
+                                     onPress={()=>{this.setState({type:2})}}
+                                     >
+                                        <View 
+                                    style={{flexDirection:'row',
+                                             borderTopColor:'#F0F0F0',
+                                             borderTopWidth:1,
+                                             marginTop:5,
+                                            height:deviceWidth*0.15}}>
+                                        <View style={{width:deviceWidth*0.3,
+                                             paddingLeft:5,
+                                             paddingTop:5}}>
+                                        <Image source={require('./imgs/jt.jpg')} style={{width:deviceWidth*0.1,height:deviceWidth*0.1
+                                        
+                                        }} resizeMode='stretch'></Image>
+                                        </View>
+                                         <View style={{width:deviceWidth*0.75,
+                                            paddingLeft:5,
+                                            paddingTop:10,
+                                            justifyContent:'flex-start'}}>
+                                        <Text style={{fontSize:15,color:'black',fontWeight:'bold'}}>{rowData.title}</Text>
+                                        
+  
+                                         </View>
+      
+                                        </View>
+                                        </TouchableOpacity>
+                                         }
                                    />
             </View>
+            </ScrollView>
         </View>
     
       )

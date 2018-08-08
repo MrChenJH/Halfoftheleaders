@@ -43,7 +43,8 @@ export default class HD extends Component {
     render(){ 
         const {back}=this.props
         if(this.state.type==1){
-    return (<View>
+    return (
+    <View>
                <View style={{
                flexDirection:'row',
                borderBottomWidth:1,
@@ -347,7 +348,7 @@ export default class HD extends Component {
                             </TouchableOpacity>
                           
 
-                                              <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'活动时间',typecontent:'2018-9-1'})}}>
+                        <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'活动时间',typecontent:'2018-9-1'})}}>
                             <View style={{flexDirection:'row',
                              backgroundColor:'#fff',
                              borderTopColor:'#F0F0F0',

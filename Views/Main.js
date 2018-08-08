@@ -13,7 +13,7 @@ import {
 import TabNavigator from 'react-native-tab-navigator'; 
 import page1 from './page/1'
 import Wdys from './cygl/wdys'
-import hd from './cygl/hd'
+import wdjf from './cygl/wdjf'
 import Jtjh from './cygl/jtjh1'
 import page4 from './page/4'
 import page5 from './page/4'
@@ -50,10 +50,10 @@ import page5 from './page/4'
           <View style={styles.container}>
             <TabNavigator>
               {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),page1)}
-              {this._renderTabarItems('我的计划',require('./img/2.png'),require('./main/jhgl.png'),Jtjh)}
-              {this._renderTabarItems('我的预算',require('./img/3.png'),require('./main/wodeys.png'),Wdys)}
-              {this._renderTabarItems('我有话说',require('./img/4.png'),require('./main/woyouhuashuo.png'),page4)}
-              {this._renderTabarItems('我的菜单',require('./img/2.png'),require('./main/wodecaidan.png'),page5)}
+              {this._renderTabarItems('成员管理',require('./img/2.png'),require('./main/jhgl.png'),Jtjh)}
+              {this._renderTabarItems('计划管理',require('./img/3.png'),require('./main/wodeys.png'),Wdys)}
+              {this._renderTabarItems('参数设置',require('./img/4.png'),require('./main/woyouhuashuo.png'),page4)}
+              {this._renderTabarItems('我的积分',require('./img/2.png'),require('./main/wodecaidan.png'),wdjf)}
  
              </TabNavigator>
           </View>
