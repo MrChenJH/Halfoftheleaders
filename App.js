@@ -13,7 +13,7 @@ import {
 
 
 import Login from './Acount/Login';
-import Main   from './Views/Main'
+
 
 export default class App extends React.Component{ 
   constructor(props) {
@@ -31,14 +31,11 @@ export default class App extends React.Component{
 
    })
   }
-_afterlogin(){
-  this.setState({islogin:true})
-}
+
    render(){ 
-    if(!this.state.islogin){
-    return (<Login afterlogin={()=>{this._afterlogin()}}></Login>)
-  }
-    return <Main/>
+     return(
+    <Login ></Login>)
+  
   }
    
 }

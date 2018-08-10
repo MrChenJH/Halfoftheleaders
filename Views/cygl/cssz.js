@@ -64,12 +64,12 @@ export default class canshu extends Component {
                              <Text style={{fontSize:15,
                 
                 color:'#6E6E6E',
-                flex:1}}>金豆兑换比例:</Text>
+                flex:3}}>成长基金兑换比例:</Text>
                          <TextInput 
-                                 style={{flex:2}}
+                                 style={{flex:5}}
                               underlineColorAndroid='transparent'
-                               placeholder='金豆兑换比例'
-                               placeholderTextColor='black'
+                               placeholder='成长基金兑换比例'
+                               placeholderTextColor='#BDBDBD'
                                value={this.state.user}></TextInput>
                  </View>
 
@@ -83,12 +83,12 @@ export default class canshu extends Component {
                                      <Text style={{fontSize:15,
                 
                 color:'#6E6E6E',
-                flex:1}}>银豆兑换比例:</Text>
+                flex:3}}>成长基金设置:</Text>
                              <TextInput 
-                                 style={{flex:2}}
+                                 style={{flex:5}}
                               underlineColorAndroid='transparent'
-                               placeholder='银豆兑换比例'
-                               placeholderTextColor='black'
+                               placeholder='设置内容：名称、比例'
+                               placeholderTextColor='#BDBDBD'
                                value={this.state.user}></TextInput>
                                     </View>
              

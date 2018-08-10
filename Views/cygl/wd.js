@@ -11,6 +11,7 @@ import {
     TextInput,
     Dimensions
 } from 'react-native';  
+
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 export default class Wd extends Component {
@@ -18,7 +19,7 @@ export default class Wd extends Component {
         super(props);
         this.state = {
          
-             type:1,
+            
              typetitle:'',
              typecontent:''
        }
@@ -26,6 +27,8 @@ export default class Wd extends Component {
 
   
 render(){
+    const {tc}=this.props;
+ 
     return(
          <View>
                   
@@ -44,15 +47,17 @@ render(){
                       <View style={{justifyContent:'center',alignItems:'center'}}>
                           <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>我的</Text>
                       </View> 
-                      <View style={{marginRight:5,width:22}}> 
-                    
+                      <View style={{marginRight:5}}> 
+                      <TouchableOpacity  style={{height:20,width:20}} onPress={()=>{ tc()}}>
+                        <Image source={require('./imgs/tc.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                        </Image>
+                      </TouchableOpacity> 
                       </View> 
                   </View>
                    
 
 
-              <View backgroundColor='#F2F2F2' 
-                  style={{height:deviceheight-60}}>
+              <ScrollView scrollEnabled={true} style={{backgroundColor:'#F2F2F2'}} >
 
              <View 
                                     style={{flexDirection:'row',
@@ -177,10 +182,7 @@ render(){
         功能介绍</Text> 
           <View 
                               style={{flexDirection:'row',alignItems:'center'}}>
-                                     <Text style={{fontSize:13,
-                                color:'#585858',
-                                fontFamily:'Microsoft YaHei'}}>
-                                   张三</Text>  
+                          
                               <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
                               </View>                    
                           </View>
@@ -208,10 +210,7 @@ render(){
                     当前版本</Text> 
                      <View 
                               style={{flexDirection:'row',alignItems:'center'}}>
-                                     <Text style={{fontSize:13,
-                                color:'#585858',
-                                fontFamily:'Microsoft YaHei'}}>
-                                   133000000</Text>  
+                                 
                               <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
                               </View>               
                           </View> 
@@ -239,17 +238,12 @@ render(){
    联系客服</Text> 
    <View 
                               style={{flexDirection:'row',alignItems:'center'}}>
-                                     <Text style={{fontSize:13,
-                                color:'#585858',
-                                fontFamily:'Microsoft YaHei'}}>
-                                   6/人</Text>  
+                                 
                               <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
                               </View>                                             
                           </View>
                           </TouchableOpacity>
 
-                
-                
                 
 
                 <View style={{flexDirection:'row',
@@ -275,7 +269,34 @@ render(){
                               <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
                               </View>           
                               </View>   
-                   </View>
+
+                           <View style={{flexDirection:'row',
+                             backgroundColor:'#fff',
+                             borderTopColor:'#F0F0F0',
+                             borderTopWidth:1,
+                             borderBottomWidth:1,
+                             borderBottomColor:'#F0F0F0',
+                             height:40,
+                             alignItems:'center',
+                             justifyContent:'space-between',
+                             paddingLeft:10,
+                             paddingRight:10,
+                             marginTop:10,
+                             }}>
+                              <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                      关于豆为</Text> 
+                      <View 
+                              style={{flexDirection:'row',alignItems:'center'}}>
+                                
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              </View>           
+                              </View>        
+              
+                   </ScrollView>
+
+                   
               </View>
           )
 }

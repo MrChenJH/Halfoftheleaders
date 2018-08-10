@@ -21,11 +21,13 @@ import Wd from './cygl/wd'
 import page4 from './page/4'
 import page5 from './page/4'
 
+import Login from '../Acount/Login'
  export default  class Main extends Component {
     constructor(props){
         super(props);
         this.state = {
-          selectedTab:'首页'
+          selectedTab:'首页',
+          type:1
         }
     }
      
@@ -40,7 +42,7 @@ import page5 from './page/4'
               renderSelectedIcon={() => <Image style={styles.icon} source={selectedIcon} />}  
               onPress={() => this.setState({ selectedTab: selectedTab })}
           >
-              <Component />
+              <Component  tc={()=>{this.setState({type:2})}}/>
           </TabNavigator.Item>
         )
     
@@ -48,7 +50,7 @@ import page5 from './page/4'
     
 
       render() {
-          
+       if(this.state.type==1){
         return (
           <View style={styles.container}>
             <TabNavigator>
@@ -56,11 +58,14 @@ import page5 from './page/4'
               {this._renderTabarItems('成员管理',require('./img/2.png'),require('./main/jhgl.png'),Cygl)}
               {this._renderTabarItems('计划管理',require('./img/3.png'),require('./main/wodeys.png'),Jtjh)}
               {this._renderTabarItems('参数设置',require('./img/4.png'),require('./main/woyouhuashuo.png'),Cssz)}
-              {this._renderTabarItems('我的',require('./img/2.png'),require('./main/wodecaidan.png'),Wd)}
+              {this._renderTabarItems('我的',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
  
              </TabNavigator>
           </View>
-        );
+        );}else
+        {
+           return (<Login></Login>)
+        }
       }
  
   

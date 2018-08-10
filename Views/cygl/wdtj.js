@@ -106,10 +106,66 @@ render(){
                         paddingRight:20,
                         paddingTop:10,
                         paddingBottom:20,
-                        height:150,
+                        height:200,
                         marginBottom:50
                    }}
             >
+              <View style={{justifyContent:'center',alignItems:'center'}}>
+                <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>我推荐的人</Text>
+            </View>
+          <ListView
+                                  dataSource={this.state.dataSource}
+                                   renderRow={(rowData) => 
+                                    
+                                     <TouchableOpacity  
+                              
+                                     onPress={()=>{this.setState({type:2})}}
+                                     >
+                                        <View 
+                                    style={{flexDirection:'row',
+                                             borderTopColor:'#F0F0F0',
+                                             borderTopWidth:1,
+                                             marginTop:5,
+                                            height:deviceWidth*0.15}}>
+                                        <View style={{width:deviceWidth*0.3,
+                                             paddingLeft:5,
+                                             paddingTop:5}}>
+                                        <Image source={require('./imgs/jt.jpg')} style={{width:deviceWidth*0.1,height:deviceWidth*0.1
+                                        
+                                        }} resizeMode='stretch'></Image>
+                                        </View>
+                                         <View style={{width:deviceWidth*0.75,
+                                            paddingLeft:5,
+                                            paddingTop:10,
+                                            justifyContent:'flex-start'}}>
+                                        <Text style={{fontSize:15,color:'black',fontWeight:'bold'}}>{rowData.title}</Text>
+                                        
+  
+                                         </View>
+      
+                                        </View>
+                                        </TouchableOpacity>
+                                         }
+                                   />
+            </View>
+            <View
+                     style={{
+                        backgroundColor:'#fff',
+                        marginTop:10,
+                        borderRadius:5,
+                        marginLeft:10,
+                        marginRight:10,
+                        paddingLeft:20,
+                        paddingRight:20,
+                        paddingTop:10,
+                        paddingBottom:20,
+                        height:200,
+                        marginBottom:50
+                   }}
+            >
+            <View style={{justifyContent:'center',alignItems:'center'}}>
+            <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>我的推荐人</Text>
+            </View>
           <ListView
                                   dataSource={this.state.dataSource}
                                    renderRow={(rowData) => 

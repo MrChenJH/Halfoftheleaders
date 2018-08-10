@@ -16,7 +16,7 @@ export default class CheckBoxsy extends PureComponent {
             isChecked: this.props.isChecked || false
         };
     }
- 
+   
     getChecked() {
         return this.state.isChecked;
     }
@@ -37,14 +37,8 @@ export default class CheckBoxsy extends PureComponent {
         const {styles}=this.props;
         return (
             <TouchableHighlight underlayColor={'transparent'} onPress={() => this.checkClick()}>
-                <Image source={this.state.isChecked?checkedImage:checkImage} style={[styles,styles.checkImage]}/>
+                <Image source={this.state.isChecked?checkedImage:checkImage} style={styles}/>
             </TouchableHighlight>
         );
     }
 }
-const styles = StyleSheet.create({
-    checkImage: {
-        marginLeft: 5
-      
-    }
-});

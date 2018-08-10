@@ -6,7 +6,9 @@ import {
     View,
     Image,
     ImageBackground,
-    ListView
+    ListView,
+    Dimensions,
+    TextInput
 } from 'react-native';
 
 import Button from '../component/button'
@@ -19,7 +21,8 @@ import Wdxx from '../cygl/wdxx'
 import Zhqh from '../cygl/zhqh'
 import Wdtj from '../cygl/wdtj'
 import Wdfk from '../cygl/wdfk'
-
+const deviceWidth = Dimensions.get('window').width;  
+const deviceheight = Dimensions.get('window').height;  
 export default class page1 extends Component {
     constructor(props) {
         super(props);
@@ -100,7 +103,7 @@ export default class page1 extends Component {
                                  <ImageBackground
                                    
                              resizeMode='contain'
-                                source={ require('./gly/banner_bg.png')
+                                source={ require('./gly/banner.png')
                             }
                               
                                 style={{
@@ -167,6 +170,7 @@ export default class page1 extends Component {
                             flex: 1
                         }}
                             resizeMode='contain'>
+                        
                             <View
                                 style={{
                                 flex: 1,
@@ -176,6 +180,7 @@ export default class page1 extends Component {
                             }}>
                                 <Text>家庭成员</Text>
                             </View>
+                      
                             <View
                                 style={{
                                 flex: 1,
@@ -185,11 +190,13 @@ export default class page1 extends Component {
                                 marginBottom: 20,
                                 marginTop: 10
                             }}>
+                                       
                                 <View
                                     style={{
                                     flex: 1,
                                     alignItems: 'center'
-                                }}>
+                                }}> 
+                                   <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
                                     <Image
                                         source={require('./gly/boy.png')}
                                         style={{
@@ -197,13 +204,15 @@ export default class page1 extends Component {
                                         width: 50
                                     }}></Image>
                                     <Text>父亲</Text>
+                                    </TouchableOpacity>
                                 </View>
                                 <View
                                     style={{
                                     flex: 1,
                                     alignItems: 'center',
                                     marginTop: 5
-                                }}>
+                                }}> 
+                                     <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
                                     <Image
                                         source={require('./gly/boy.png')}
                                         style={{
@@ -211,6 +220,7 @@ export default class page1 extends Component {
                                         width: 50
                                     }}></Image>
                                     <Text>母亲</Text>
+                                    </TouchableOpacity>
                                 </View>
 
                                 <View
@@ -218,6 +228,7 @@ export default class page1 extends Component {
                                     flex: 1,
                                     alignItems: 'center'
                                 }}>
+                                 <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
                                     <Image
                                         source={require('./gly/boy.png')}
                                         style={{
@@ -225,6 +236,7 @@ export default class page1 extends Component {
                                         width: 50
                                     }}></Image>
                                     <Text>小鬼</Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </ImageBackground>
@@ -392,6 +404,212 @@ export default class page1 extends Component {
             return <Zhqh back={()=>{
                 this.setState({type:1})}}></Zhqh>
          }
+
+
+         else if(this.state.type==111)
+              {
+                    return(
+                      <View>
+                        
+                      <View style={{
+                   flexDirection:'row',
+                   borderBottomWidth:1,
+                   borderBottomColor:'#E6E6E6',
+                   backgroundColor:'#fe9c2e',
+                   height:50,
+                   alignItems:'center',
+                   justifyContent:'space-between'
+                   }}>
+                   
+                    <View>
+      
+                      
+      
+      
+                    <TouchableOpacity  style={{height:20,width:20}}
+                          onPress={()=>{this.setState({type:1})}}>
+                            <Image source={require('../cygl/imgs/back.png')} 
+                             resizeMode='stretch' 
+                              style={{height:20,width:20}} >
+                            </Image>
+                          </TouchableOpacity> 
+                          </View> 
+                          <View style={{justifyContent:'center',alignItems:'center'}}>
+                              <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>成员详情</Text>
+                          </View> 
+                          <View style={{marginRight:5,width:22}}> 
+                        
+                          </View> 
+                      </View>
+                       
+      
+      
+                      <View backgroundColor='#F2F2F2' 
+                      style={{height:deviceheight-60}}>
+      
+                         <TouchableOpacity onPress={()=>{this.setState({type:444,typetitle:'账号名',typecontent:'张三的家'})}}>
+                    
+                    <View style={{flexDirection:'row',
+                             backgroundColor:'#fff',
+                             borderTopColor:'#F0F0F0',
+                             borderTopWidth:1,
+                             borderBottomWidth:1,
+                             borderBottomColor:'#F0F0F0',
+                             height:40,
+                             alignItems:'center',
+                             justifyContent:'space-between',
+                             paddingLeft:10,
+                             paddingRight:10,
+                             marginTop:10,
+                             }}>
+                              <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                                   账号名:</Text>  
+                                   <View 
+                              style={{flexDirection:'row',alignItems:'center'}}>
+                                     <Text style={{fontSize:13,
+                                color:'#585858',
+                                fontFamily:'Microsoft YaHei'}}>
+                                  张三的家</Text>  
+                              <Image source={require('../cygl/imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              </View>
+                            </View>
+                            </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{this.setState({type:444,typetitle:'密码',typecontent:'123456'})}}>
+                          <View style={{flexDirection:'row',
+                                 backgroundColor:'#fff',
+                                 borderTopColor:'#F0F0F0',
+                                 borderTopWidth:1,
+                                 borderBottomWidth:1,
+                                 borderBottomColor:'#F0F0F0',
+                                 height:40,
+                                 alignItems:'center',
+                                 justifyContent:'space-between',
+                                 paddingLeft:10,
+                                 paddingRight:10,
+                                 marginTop:10,
+                                 }}>
+                                  <Text 
+                                   style={{fontSize:13,
+                                    color:'#585858',
+                                    fontFamily:'Microsoft YaHei'}}>
+                                  密码</Text>
+                                  <View 
+                                  style={{flexDirection:'row',alignItems:'center'}}>
+                                 <Text style={{
+                                     fontSize:13,
+                                     color:'#585858',
+                                     fontFamily:'Microsoft YaHei'}}>
+                                   123456</Text>  
+                                  <Image source={require('../cygl/imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                                  </View>
+                                 
+                        </View> 
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{this.setState({type:444,typetitle:'系统角色',typecontent:'家庭管理员'})}}>
+                    
+                        <View style={{flexDirection:'row',
+                                 backgroundColor:'#fff',
+                                 borderTopColor:'#F0F0F0',
+                                 borderTopWidth:1,
+                                 borderBottomWidth:1,
+                                 borderBottomColor:'#F0F0F0',
+                                 height:40,
+                                 alignItems:'center',
+                                 justifyContent:'space-between',
+                                 paddingLeft:10,
+                                 paddingRight:10,
+                                 marginTop:10,
+                                 }}>
+                                  <Text style={{fontSize:13,
+                                    color:'#585858',
+                                    fontFamily:'Microsoft YaHei'}}>
+                                      系统角色</Text>  
+                                       <View 
+                                  style={{flexDirection:'row',alignItems:'center'}}>
+                                         <Text style={{fontSize:13,
+                                    color:'#585858',
+                                    fontFamily:'Microsoft YaHei'}}>
+                                     家庭管理员</Text>  
+                                  <Image source={require('../cygl/imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                                  </View>
+                                </View>
+                                </TouchableOpacity>
+                              
+      
+                            <TouchableOpacity onPress={()=>{this.setState({type:444,typetitle:'家庭角色',typecontent:'普通用户'})}}>
+                                <View style={{flexDirection:'row',
+                                 backgroundColor:'#fff',
+                                 borderTopColor:'#F0F0F0',
+                                 borderTopWidth:1,
+                                 borderBottomWidth:1,
+                                 borderBottomColor:'#F0F0F0',
+                                 height:40,
+                                 alignItems:'center',
+                                 justifyContent:'space-between',
+                                 paddingLeft:10,
+                                 paddingRight:10,
+                                 marginTop:10,
+                                 }}>
+                                  <Text style={{fontSize:13,
+                                    color:'#585858',
+                                    fontFamily:'Microsoft YaHei'}}>
+                               家庭角色</Text> 
+                                 <View 
+                                  style={{flexDirection:'row',alignItems:'center'}}>
+                                         <Text style={{fontSize:13,
+                                    color:'#585858',
+                                    fontFamily:'Microsoft YaHei'}}>
+                                    普通用户</Text>  
+                                  <Image source={require('../cygl/imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                                  </View>
+                              </View>
+                              </TouchableOpacity>
+                       </View>
+                  </View>
+                    )
+                  }else if(this.state.type==444){
+                    return (
+                        <View>
+                        <View style={{
+                            flexDirection:'row',
+                            borderBottomWidth:1,
+                            borderBottomColor:'#E6E6E6',
+                            backgroundColor:'#fe9c2e',
+                            height:50,
+                            alignItems:'center',
+                            justifyContent:'space-between'}}>
+                            
+                             <View>
+                             <TouchableOpacity  style={{height:20,width:20}}
+                                   onPress={()=>{this.setState({type:111})}}>
+                                     <Image source={require('../cygl/imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                                     </Image>
+                                   </TouchableOpacity> 
+                                   </View> 
+                                   <View style={{justifyContent:'center',alignItems:'center'}}>
+                                       <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
+                                   </View> 
+                                   <View style={{marginRight:5,width:21}}> 
+                                        
+                                   </View> 
+                               </View>
+                               <View backgroundColor='#F2F2F2' 
+                                           style={{height:deviceheight-60}}>
+                                <View style={{backgroundColor:'#fff',marginTop:10,height:40}}>
+                                <TextInput   underlineColorAndroid='transparent' 
+                                     clearButtonMode='always'
+                                      multiline={false}
+                                      defaultValue={this.state.typecontent}
+                                >
+        
+                                </TextInput>
+                                </View>
+                                </View>
+                           </View>
+                               )
+                  }
         }
     }
 }

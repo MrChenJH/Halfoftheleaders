@@ -54,16 +54,14 @@ export default class wdxx extends Component {
                 </View> 
 
 
-                      <View style={{justifyContent:'center',alignItems:'center'}}>
+                      <View style={{justifyContent:'center',
+                                     alignItems:'center'}}>
                           <Text 
                           style={{fontSize:20,
                             color:'#FFF',fontWeight:'bold'}}>我的消息</Text>
                       </View> 
-                      <View style={{marginRight:5}}> 
-                      <TouchableOpacity  style={{height:20,width:20}} onPress={()=>{ this.setState({type:3})}}>
-                        <Image source={require('./imgs/add.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
-                        </Image>
-                      </TouchableOpacity> 
+                      <View style={{marginRight:5,width:20}}> 
+                   
                       </View> 
                   </View>
                 <ScrollView style={{backgroundColor:'#E6E6E6'}}>
@@ -79,7 +77,7 @@ export default class wdxx extends Component {
                                             justifyContent:'center',
                                             height:30,
                                             marginTop:35,
-                                            marginBottom:35
+                                            marginBottom:10
                                             }}>
                                             <Text style={{color:'#fff',fontSize:15}}>昨天 16:57</Text>
                                             </View>
@@ -87,10 +85,10 @@ export default class wdxx extends Component {
                                             marginLeft:5,
                                             marginRight:5,
                                             backgroundColor:'#fff',
-                                   
                                             width:deviceWidth*0.96,
                                             height:100,
-                                            padding:10
+                                            padding:10,
+                                            borderRadius:10
                                         }}>
                                                <Text>您用新的要审核的项目</Text>
                                             <View style={{flexDirection:'row',marginTop:5}}>

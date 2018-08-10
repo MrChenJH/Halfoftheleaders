@@ -9,7 +9,8 @@ import {
     Button,
     TouchableOpacity,
     Dimensions,
-    TextInput
+    TextInput,
+    Switch
 } from 'react-native';
 
 import Checkbox from '../component/checkbox'
@@ -60,7 +61,10 @@ export default class jtjh extends Component {
         const {back}=this.props
         if(this.state.type==1){
             return (
-               <View>
+               <View
+               
+               style={{ backgroundColor:'#efefef',height:deviceheight}}
+               >
               <View style={{
                flexDirection:'row',
                borderBottomWidth:1,
@@ -82,8 +86,18 @@ export default class jtjh extends Component {
                           style={{fontSize:20,
                             color:'#FFF',fontWeight:'bold'}}>家庭计划</Text>
                       </View> 
-                      <View style={{marginRight:5}}> 
+                      <View style={{marginRight:5,
+                    flexDirection:'row'}}> 
                       <TouchableOpacity  
+                      style={{height:25,width:25}} 
+                      onPress={()=>{ this.setState({type:6})}}>
+                        <Image source={require('./imgs/tj.png')}  
+                        resizeMode='stretch'
+                        style={{height:25,width:25,marginRight:10}} >
+                        </Image>
+                      </TouchableOpacity> 
+
+                        <TouchableOpacity  
                       style={{height:20,width:20}} 
                       onPress={()=>{ this.setState({type:3})}}>
                         <Image source={require('./imgs/add.png')}  
@@ -94,7 +108,7 @@ export default class jtjh extends Component {
                       </View> 
                   </View>
                
-                  <ScrollView>
+                  <ScrollView style={{backgroundColor:'#efefef'}}>
                   <ListView
                                   dataSource={this.state.dataSource}
                                    renderRow={(rowData) => 
@@ -103,9 +117,9 @@ export default class jtjh extends Component {
                                           <View 
                                               style={{flexDirection:'row',
                                                       borderTopColor:'#F0F0F0',
-                                                      backgroundColor:rowData.xz?'#FB9401':'#efefef',
+                                                      backgroundColor:rowData.xz?'#FB9401':'#fff',
                                                       borderTopWidth:1,
-                                                      margin:10,
+                                                      margin:5,
                                                       borderRadius:10,
                                                       height:40}}>
                                                       <View style={{flex:4,
@@ -124,7 +138,8 @@ export default class jtjh extends Component {
                                                       <View style={{flex:1,
                                                         justifyContent:'center',
                                                         alignItems:'center'}}>
-                                                          <Image source={require('./jdjf/remove.png')} resizeMode='stretch' style={{height:30,width:30}}></Image>
+
+                                                          <Image source={require('./jdjf/remove.png')} resizeMode='stretch' style={{height:20,width:20}}></Image>
                                                       </View>
                                                     
                                             
@@ -142,15 +157,14 @@ export default class jtjh extends Component {
               return(
                 <View>
                   
-                <View style={{
-             flexDirection:'row',
-             borderBottomWidth:1,
-             borderBottomColor:'#E6E6E6',
-             backgroundColor:'#fe9c2e',
-             height:50,
-             alignItems:'center',
-             justifyContent:'space-between'
-             }}>
+                  <View style={{
+               flexDirection:'row',
+               borderBottomWidth:1,
+               borderBottomColor:'#E6E6E6',
+               backgroundColor:'#fe9c2e',
+               height:40,
+               alignItems:'center',
+               justifyContent:'space-between'}}>
              <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
                 <TouchableOpacity 
                       onPress={()=>{this.setState({type:1})}}>
@@ -200,7 +214,7 @@ export default class jtjh extends Component {
                         </View>
                       </View>
                       </TouchableOpacity>
-                  <TouchableOpacity onPress={()=>{this.setState({type:5,typetitle:'项目名称',typecontent:'8'})}}>
+                  <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'项目名称',typecontent:'8'})}}>
                     <View style={{flexDirection:'row',
                            backgroundColor:'#fff',
                            borderTopColor:'#F0F0F0',
@@ -390,13 +404,13 @@ export default class jtjh extends Component {
                 return(
                     <View>
                     <View style={{
-                        flexDirection:'row',
-                        borderBottomWidth:1,
-                        borderBottomColor:'#E6E6E6',
-                        backgroundColor:'#fe9c2e',
-                        height:50,
-                        alignItems:'center',
-                        justifyContent:'space-between'}}>
+               flexDirection:'row',
+               borderBottomWidth:1,
+               borderBottomColor:'#E6E6E6',
+               backgroundColor:'#fe9c2e',
+               height:40,
+               alignItems:'center',
+               justifyContent:'space-between'}}>
                         
                          <View>
                          <TouchableOpacity  style={{height:20,width:20}}
@@ -426,15 +440,181 @@ export default class jtjh extends Component {
                             </View>
                        </View>
                 )
+            }else if(this.state.type==6){
+                return (
+                    <View>
+                               <View style={{
+                               flexDirection:'row',
+                               borderBottomWidth:1,
+                               borderBottomColor:'#E6E6E6',
+                               backgroundColor:'#fe9c2e',
+                               height:50,
+                               alignItems:'center',
+                               justifyContent:'space-between'}}>
+                               
+                               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
+                                <TouchableOpacity 
+                                      onPress={()=>{back()}}>
+                                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                                        </Image>
+                                      </TouchableOpacity> 
+                                </View> 
+                                      <View style={{justifyContent:'center',alignItems:'center'}}>
+                                          <Text 
+                                          style={{fontSize:20,
+                                            color:'#FFF',fontWeight:'bold'}}>推荐计划</Text>
+                                      </View> 
+                                      <View style={{marginRight:5,width:20}}> 
+                                     
+                                      </View> 
+                                  </View>
+                             
+                               <View style={{flexDirection:'row',
+                                     height:30,
+                                     borderBottomWidth:1,
+                                     borderBottomColor:'#F0F0F0'
+                            }}> 
+                                 
+                                   <View style={{
+                                       flex:1,
+                                       flexDirection:'row'
+                                       }}>
+                                       <View style={{flex:2,justifyContent:'center',alignItems:'flex-end'}}>
+                                       <TouchableOpacity >
+                                        <Text style={{fontFamily:'SimSun',
+                                                fontSize:12,
+                                                 fontStyle:'normal',
+                                                 color:'#8a8a8a'}}>全部</Text> 
+                                       </TouchableOpacity>
+                                       </View> 
+                                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-start'}}>
+                                      
+                                       </View>
+                                   </View>
+                              
+                
+                
+                               
+                                   <View style={{
+                                             flex:1,
+                                             flexDirection:'row'
+                                   }}>
+                                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-end'}}>
+                                       <TouchableOpacity >
+                                       <Text style={{fontFamily:'SimSun',
+                                                fontSize:12,
+                                                 fontStyle:'normal',
+                                                 color:'#8a8a8a'}}>按性别</Text> 
+                                      
+                                       </TouchableOpacity>
+                                       </View> 
+                                       
+                                   </View>
+                             
+                
+                                
+                             
+                
+                                   <View style={{
+                                             flex:1,
+                                             flexDirection:'row'
+                                   }}>
+                                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-end'}}>
+                                       <TouchableOpacity >
+                                       <Text style={{fontFamily:'SimSun',
+                                                fontSize:12,
+                                                 fontStyle:'normal',
+                                                 color:'#8a8a8a'}}>按年龄</Text>
+                                       </TouchableOpacity>
+                                       </View> 
+                    
+                                   </View>
+                                
+                                   <View style={{
+                                             flex:2,
+                                             flexDirection:'row'
+                                   }}>
+                                       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                       <TouchableOpacity >
+                                       <Text style={{fontFamily:'SimSun',
+                                                fontSize:12,
+                                                 fontStyle:'normal',
+                                                 color:'#8a8a8a'}}>排序</Text>
+                                       </TouchableOpacity>
+                                       </View> 
+                    
+                                   </View>
+                           
+                                   
+                               
+                
+                               </View> 
+                               <View style={{backgroundColor:'#F2F2F2',height:deviceheight}}>
+                               <ScrollView >
+                               <ListView
+                                  dataSource={this.state.dataSource}
+                                   renderRow={(rowData) => 
+                                     <TouchableOpacity  
+                                           onPress={()=>{this.setState({type:2})}}>
+                                          <View 
+                                              style={{flexDirection:'row',
+                                                      borderTopColor:'#F0F0F0',
+                                                      backgroundColor:'#fff',
+                                                      borderTopWidth:1,
+                                                      margin:5,
+                                                      borderRadius:10,
+                                                      height:40}}>
+                                                      <View style={{flex:4,
+                                                        justifyContent:'center',
+                                                        alignItems:'flex-start',
+                                                     
+                                                        marginLeft:10}}>
+                                                          <Text style={{   color:'#474747'}}>{rowData.title}</Text>
+                                                      </View>
+                                                      <View style={{flex:2,
+                                                        justifyContent:'center',
+                                                        alignItems:'center'
+                                                    }}>
+                                                          <Text style={{   color:'#474747'}}>平台推荐</Text>
+                                                      </View>
+                                                      <View style={{flex:2,
+                                                        justifyContent:'center',
+                                                        alignItems:'center'
+                                                    }}>
+                                                          <Text style={{   color:'#474747'}}>应用次数 39</Text>
+                                                      </View>
+                                                      <View style={{flex:1,
+                                                        justifyContent:'center',
+                                                        alignItems:'center'}}>
+
+                                                         <Checkbox styles={{height:20,width:20}}  isChecked={rowData.xz}></Checkbox>
+                                                      </View>
+                                                    
+                                            
+                                         </View>
+                                        </TouchableOpacity>
+                                         }
+                                   />
+                                                   <View style={{paddingLeft:10,paddingRight:10,marginTop:10,marginBottom:20,height:80,alignItems:'center'}}>
+           <TouchableOpacity>
+               <Image source={require('./imgs/sub.png')}
+                style={{height:50,width:200}} 
+                resizeMode='cover'></Image>
+           </TouchableOpacity>
+        </View>
+                               </ScrollView>
+               </View>
+                            </View>
+                            )
             }
             else{
                 return(<View>
-                <View style={{
+            <View style={{
                flexDirection:'row',
                borderBottomWidth:1,
                borderBottomColor:'#E6E6E6',
                backgroundColor:'#fe9c2e',
-               height:50,
+               height:40,
                alignItems:'center',
                justifyContent:'space-between'}}>
                
@@ -580,13 +760,12 @@ export default class jtjh extends Component {
                         justifyContent:'space-between',
                         paddingLeft:20}}>  
                                  <Text style={{flex:1}}>是否循环</Text>
-                              <TextInput 
-                           style={{flex:2}}
-                           underlineColorAndroid='transparent'
-                           placeholder='请输入是否循环'
-                           placeholderTextColor='black'
-                           value={this.state.user}>
-                           </TextInput>
+                                 <View style={{flex:2,alignItems:'flex-start'}}>
+                                 <Switch onValueChange={()=>{
+
+
+                                 }}></Switch>
+                                 </View>
                    </View>
 
                       <View style={{paddingLeft:10,paddingRight:10,marginTop:10,marginBottom:20,height:80,alignItems:'center'}}>
