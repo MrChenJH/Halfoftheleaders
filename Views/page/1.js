@@ -12,7 +12,7 @@ import {
 import Button from '../component/button'
 import Cygl from '../cygl/cygl'
 import Jtjh from '../cygl/jtjh'
-
+import Wdjf from '../cygl/wdjf'
 import Cssz from '../cygl/cssz'
 import Hd from   '../cygl/hd'
 import Wdxx from '../cygl/wdxx'
@@ -29,10 +29,10 @@ export default class page1 extends Component {
 
         this.state = {
             dataSource: ds.cloneWithRows([
-                {title:'做作业',time:'2018-07-01 10:45'},
-                {title:'打扫卫生',time:'2018-07-01 10:45'},
-                {title:'洗碗',time:'2018-07-01 10:45'},
-                {title:'按时睡觉',time:'2018-07-01 10:45'}
+                {title:'做作业',time:'2018-07-01'},
+                {title:'打扫卫生',time:'2018-07-01'},
+                {title:'洗碗',time:'2018-07-01'},
+                {title:'按时睡觉',time:'2018-07-01'}
                ]),
               type:1
         }
@@ -44,7 +44,7 @@ export default class page1 extends Component {
         icons.push({img: require('./gly/icon_canshu.png'),    name: '参数设置'})
         icons.push({img: require('./gly/icon_chongzhi.png'),   name: '会员充值'})
         icons.push({img: require('./gly/icon_tuijian.png'),    name: '我的推荐'})
-        icons.push({img: require('./gly/icon_jifen.png'), name: '我的积分'})
+        icons.push({img: require('./gly/icon_jifen.png'), name: '家庭钻豆'})
         icons.push({img: require('./gly/icon_huodong.png'), name: '我的活动'})
         icons.push({img: require('./gly/icon_xiaoxi.png'), name: '我的消息'})
         icons.push({img: require('./gly/icon_fankui.png'), name: '我的反馈'})
@@ -85,7 +85,7 @@ export default class page1 extends Component {
         if(this.state.type==1){
         return (
             <ScrollView style={{
-                backgroundColor: '#D0D0D0'
+                backgroundColor: '#F7F7F7'
             }}>
                     <View
                         style={{
@@ -123,11 +123,11 @@ export default class page1 extends Component {
                           
                                     <Text
                                         style={{
-                                           width:100,
+                                           width:160,
                                            height:30,
                                            fontWeight:'bold'
                                         }}>
-                                    账号状况:生效</Text>
+                                    欢迎您,张三家庭</Text>
                            
                                     </View>
                                     <View style={{flex:1,alignItems:'flex-end',justifyContent:'flex-start',paddingTop:10}}>
@@ -232,7 +232,7 @@ export default class page1 extends Component {
 
                     <View
                         style={{
-                        height:300,
+                        height:250,
                         marginLeft: 5,
                         marginRight: 5,
                         marginTop: 10,
@@ -248,15 +248,7 @@ export default class page1 extends Component {
                             flex: 1
                         }}
                             resizeMode='contain'>
-                            <View
-                                style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                marginTop: 10
-                            }}>
-                                <Text>计划管理</Text>
-                            </View>
+                        
                             <View
                                 style={{
                                 flex:5,
@@ -299,7 +291,10 @@ export default class page1 extends Component {
                                 justifyContent: 'center',
                                 marginTop: 5
                             }}>
-                                <Text>消息中心</Text>
+                                <Text style={{
+                                    fontSize:14,
+                                    color:'#151515'
+                                    }}>服务提醒</Text>
                             </View>
                             <View
                                 style={{
@@ -311,10 +306,22 @@ export default class page1 extends Component {
                                
                                <ListView
                               dataSource={this.state.dataSource}
-                               renderRow={(rowData) => <View style={{flexDirection:'row', justifyContent:'space-between'}}> 
-                                    <View style={{flex:1}}></View>
-                                    <Text style={{flex:10}}>{rowData.title}</Text>
-                                   <Text style={{flex:8}}>{rowData.time}</Text>
+                               renderRow={(rowData) => 
+                               <View style={{
+                               flexDirection:'row', 
+                                borderBottomWidth:1,
+                               borderBottomColor:'#F2F2F2',
+                               marginLeft:5,
+                               marginRight:5
+                               }}> 
+                                    <View style={{flex:1,
+                                        alignItems:'center',
+                                        justifyContent:'center'}}>
+                                    <Image source={require('./gly/xxyd.png')} style={{width:5,height:5}} resizeMode='stretch'></Image>
+                                    </View>
+                                    <Text style={{flex:6,textAlign:'left'}}>{rowData.title}</Text>
+                                    <Text style={{flex:3,
+                                        color:'#BDBDBD',textAlign:'right'}}>{rowData.time}</Text>
                                    </View>}
                                />
                             </View>
@@ -356,6 +363,14 @@ export default class page1 extends Component {
             return <Wdtj  back={()=>{
                 this.setState({type:1})}}
             ></Wdtj>
+        }
+
+
+        if(this.state.type==7){
+
+            return <Wdjf  back={()=>{
+                this.setState({type:1})}}
+            ></Wdjf>
         }
          if(this.state.type==8){
             return <Hd back={()=>{

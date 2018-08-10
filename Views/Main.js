@@ -6,15 +6,18 @@ import {
   Button,
   View,
   TextInput,
-  CheckBox,
+
   Image,
   ImageBackground
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator'; 
 import page1 from './page/1'
+import Cygl from './cygl/cygl'
 import Wdys from './cygl/wdys'
-import wdjf from './cygl/wdjf'
-import Jtjh from './cygl/jtjh1'
+import Jtjh from './cygl/jtjh'
+import Cssz from './cygl/cssz'
+import Wdjf from './cygl/wdjf'
+import Wd from './cygl/wd'
 import page4 from './page/4'
 import page5 from './page/4'
 
@@ -50,10 +53,10 @@ import page5 from './page/4'
           <View style={styles.container}>
             <TabNavigator>
               {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),page1)}
-              {this._renderTabarItems('成员管理',require('./img/2.png'),require('./main/jhgl.png'),Jtjh)}
-              {this._renderTabarItems('计划管理',require('./img/3.png'),require('./main/wodeys.png'),Wdys)}
-              {this._renderTabarItems('参数设置',require('./img/4.png'),require('./main/woyouhuashuo.png'),page4)}
-              {this._renderTabarItems('我的积分',require('./img/2.png'),require('./main/wodecaidan.png'),wdjf)}
+              {this._renderTabarItems('成员管理',require('./img/2.png'),require('./main/jhgl.png'),Cygl)}
+              {this._renderTabarItems('计划管理',require('./img/3.png'),require('./main/wodeys.png'),Jtjh)}
+              {this._renderTabarItems('参数设置',require('./img/4.png'),require('./main/woyouhuashuo.png'),Cssz)}
+              {this._renderTabarItems('我的',require('./img/2.png'),require('./main/wodecaidan.png'),Wd)}
  
              </TabNavigator>
           </View>

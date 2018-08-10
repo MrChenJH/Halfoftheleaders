@@ -54,13 +54,13 @@ export default class HD extends Component {
                alignItems:'center',
                justifyContent:'space-between'}}>
                
-                <View>
-                <TouchableOpacity  style={{height:20,width:20}}
+               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity 
                       onPress={()=>{back()}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
-                      </View> 
+                </View> 
                       <View style={{justifyContent:'center',alignItems:'center'}}>
                           <Text 
                           style={{fontSize:20,
@@ -220,7 +220,8 @@ export default class HD extends Component {
                                          }
                                    />
                </ScrollView>
-            </View>)
+            </View>
+            )
             }
             else if(this.state.type==2){
               return (
@@ -236,19 +237,13 @@ export default class HD extends Component {
                justifyContent:'space-between'
                }}>
                
-                <View>
-
-                  
-
-
-                <TouchableOpacity  style={{height:20,width:20}}
-                      onPress={()=>{this.setState({type:1})}}>
-                        <Image source={require('./imgs/back.png')} 
-                         resizeMode='stretch' 
-                          style={{height:20,width:20}} >
+               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity 
+                      onPress={()=>{back()}}>
+                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
-                      </View> 
+                </View> 
                       <View style={{justifyContent:'center',alignItems:'center'}}>
                           <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>活动详情</Text>
                       </View> 

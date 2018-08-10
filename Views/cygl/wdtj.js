@@ -45,13 +45,13 @@ render(){
                alignItems:'center',
                justifyContent:'space-between'}}>
                
-                <View>
-                <TouchableOpacity  style={{height:20,width:20}}
+               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity 
                       onPress={()=>{back()}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
-                      </View> 
+                </View> 
                       <View style={{justifyContent:'center',alignItems:'center'}}>
                           <Text 
                           style={{fontSize:20,
@@ -100,14 +100,14 @@ render(){
                         backgroundColor:'#fff',
                         marginTop:10,
                         borderRadius:5,
-                           marginLeft:10,
+                        marginLeft:10,
                         marginRight:10,
                         paddingLeft:20,
                         paddingRight:20,
                         paddingTop:10,
                         paddingBottom:20,
-                        height:400,
-                        marginBottom:100
+                        height:150,
+                        marginBottom:50
                    }}
             >
           <ListView

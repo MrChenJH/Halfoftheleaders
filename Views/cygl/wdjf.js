@@ -8,11 +8,14 @@ import {
     ImageBackground,
     ListView,
     Dimensions
-} from 'react-native';
   
+} from 'react-native';
+import Echarts from 'native-echarts';
+
 
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
+
 export default class wdjf extends Component {
     constructor(props){
         super(props);
@@ -22,7 +25,26 @@ export default class wdjf extends Component {
     }
   
    
-    render() {
+    render() { 
+
+        const option = {
+            title: {
+                text: 'ECharts demo'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+          };
         if(this.state.type==1){
         return (
            <ScrollView style={{backgroundColor:'#E6E6E6'}}>
@@ -110,20 +132,18 @@ export default class wdjf extends Component {
                     </View>
                     <View style={{flex:2,
                         alignItems:'center'}}>
-                    <Text style={{fontSize:14,
+                  
+                        <Image source={require('./jdjf/zd.png')} resizeMode="stretch"
+                          style={{fontSize:14,
                             color:'#fff',
                             backgroundColor:"#008000",
-                            borderRadius:40,
-                            height:30,
-                            width:100,
-                            textAlign:'center',
-                            textAlignVertical:'center'
-                            }}>攒豆清单</Text>
-                        
+                            height:40,
+                            width:150
+                            }}></Image>
                     </View>
                     </View>
-                    <View  style={{flex:3}}
-                   >
+                    <View  style={{flex:3}} >
+                  
                     <Image
                      source={require('./jdjf/dc.png')}
                      style={{height:200,width:150}} 
@@ -135,6 +155,8 @@ export default class wdjf extends Component {
                    
                     <View style={{justifyContent:'center',
                     alignItems:'center'
+
+                    
                          }}>
                <Image source={require('./jdjf/hhtx.png')} 
                resizeMode='stretch'
@@ -201,7 +223,7 @@ export default class wdjf extends Component {
                 <View style={{
                 margin:10,
                 borderRadius:10,
-                height:150,
+                height:350,
                 backgroundColor:'#fff',
                 paddingLeft:5,
                 paddingRight:5}}>
@@ -216,16 +238,30 @@ export default class wdjf extends Component {
                     <Text>历史每月排名</Text>
                     <Text>击败全国98%的家庭</Text>
                 </View>
-                <View style={{alignItems:'center',
-                justifyContent:'center',
-                height:100}}>
+                <View style={{
+                height:350,
+                justifyContent:'flex-start',
+              }}>
                   
+                  <Image source={require('./jdjf/tb.png')} 
+                  resizeMode='stretch' 
+                  style={{width:deviceWidth*0.9,height:250}}></Image>
                 </View>
             
             </View>
-
-            <View>
-
+                  
+            <View style={{flexDirection:'row',height:200,marginTop:30}}>
+               <View style={{flex:1,alignItems:'center'}}>
+               <TouchableOpacity >
+   
+               <Image source={require('./jdjf/zdgl.png')} style={{width:100,height:30}}></Image>
+               </TouchableOpacity>
+               </View>
+               <View style={{flex:1,alignItems:'center'}}> 
+               <TouchableOpacity>
+               <Image source={require('./jdjf/sygl.png')} style={{width:100,height:30}}></Image>
+               </TouchableOpacity>
+               </View>
             </View>
            </ScrollView>
         )}

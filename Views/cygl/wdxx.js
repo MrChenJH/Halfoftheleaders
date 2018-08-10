@@ -24,10 +24,10 @@ export default class wdxx extends Component {
             pwd:'',
             qrpwd:'',
             dataSource: ds.cloneWithRows([
-                {title:'消息1111',time:'2018-07-01 10:45'},
-                {title:'消息1111',time:'2018-07-01 10:45'},
-                {title:'消息1111',time:'2018-07-01 10:45'},
-                {title:'消息1111',time:'2018-07-01 10:45'}
+                {msg:'消息1111'},
+                {msg:'消息1111'},
+                {msg:'消息1111'},
+                {msg:'消息1111'}
               ]),
               type:1
         }
@@ -45,13 +45,15 @@ export default class wdxx extends Component {
                alignItems:'center',
                justifyContent:'space-between'}}>
                
-                <View>
-                <TouchableOpacity  style={{height:20,width:20}}
+               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity 
                       onPress={()=>{back()}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
-                      </View> 
+                </View> 
+
+
                       <View style={{justifyContent:'center',alignItems:'center'}}>
                           <Text 
                           style={{fontSize:20,
@@ -68,27 +70,46 @@ export default class wdxx extends Component {
                 <ListView
                                   dataSource={this.state.dataSource}
                                    renderRow={(rowData) =>
-                                       <View style={{alignItems:'center',height:250}}> 
+                                       <View style={{alignItems:'center',height:200}}> 
                                         <View style={{width:130,
                                             borderRadius:40,
                                             backgroundColor:'#A4A4A4',
                                             alignItems:'center',
                                             flex:1,
                                             justifyContent:'center',
-                                            height:100
+                                            height:30,
+                                            marginTop:35,
+                                            marginBottom:35
                                             }}>
-                                            <Text style={{color:'#fff',fontSize:15}}>2018/8/7 16:57</Text>
+                                            <Text style={{color:'#fff',fontSize:15}}>昨天 16:57</Text>
                                             </View>
                                         <View style={{flex:4,
-                                            marginLeft:10,
-                                            marginRight:10,
+                                            marginLeft:5,
+                                            marginRight:5,
                                             backgroundColor:'#fff',
-                                            flexDirection:'row',
-                                            width:deviceWidth,
-                                            height:150
+                                   
+                                            width:deviceWidth*0.96,
+                                            height:100,
+                                            padding:10
                                         }}>
-                                          <Text style={{color:'#fff',fontSize:15}}>2018/8/7 16:57</Text>
+                                               <Text>您用新的要审核的项目</Text>
+                                            <View style={{flexDirection:'row',marginTop:5}}>
+                                            <View style={{flex:2}}>
+                                            <Image 
+                                            source={require('./imgs/xxtx.png')}
+                                            resizeMode='stretch'
+                                            style={{height:60,width:60
+                                            }}
+                                            ></Image>
+                                            </View>
+                                            <Text numberOfLines={6} 
+                                            style={{fontSize:12,
+                                          
+                                            flex:6,textAlign:'left',textAlignVertical:'top'}}>{rowData.msg}</Text>
+                                         
+                                            </View>
                                         </View>
+                                      
                                        </View>}
                                    />
                 </ScrollView>

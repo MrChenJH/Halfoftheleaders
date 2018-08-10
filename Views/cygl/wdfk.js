@@ -12,8 +12,10 @@ import {
     Dimensions
 } from 'react-native';  
 
-const deviceWidth = Dimensions.get('window').width;  
+
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+const deviceWidth = Dimensions.get('window').width;  
+const deviceHeight = Dimensions.get('window').height;  
 const radio_props = [
     {label: 'param1', value: 0 },
     {label: 'param2', value: 1 }
@@ -39,31 +41,50 @@ export default class wdfk extends Component {
 render(){
     const {back}=this.props
     return(
-    <View>
-     <View style={{flexDirection:'row',
-     borderBottomWidth:1,
-     borderBottomColor:'#F0F0F0',
-     height:30,
-     alignItems:'center',
-     justifyContent:'space-between'}}>
-            <TouchableOpacity  style={{flexDirection:'row'}}
-                  onPress={()=>{back()}}>
-                <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
-                 </Image>
-            </TouchableOpacity>
-            <View>
-                          <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>我的反馈</Text>
+    <View style={{backgroundColor:'#E6E6E6',height:deviceHeight}}>
+       
+       <View style={{
+               flexDirection:'row',
+               borderBottomWidth:1,
+               borderBottomColor:'#E6E6E6',
+               backgroundColor:'#fe9c2e',
+               height:40,
+               alignItems:'center',
+               justifyContent:'space-between'}}>
+               
+               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity 
+                      onPress={()=>{back()}}>
+                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                        </Image>
+                      </TouchableOpacity> 
+                </View> 
+                      <View style={{justifyContent:'center',alignItems:'center'}}>
+                          <Text 
+                          style={{fontSize:20,
+                            color:'#FFF',fontWeight:'bold'}}>我的反馈</Text>
                       </View> 
-            <TouchableOpacity  style={{height:30,width:60}}
-                  onPress={()=>{back()}}>
-              
-                 <Text style={{fontSize:20,color:'blue'}}>提交</Text>
-            </TouchableOpacity>
+                      <View style={{marginRight:5}}> 
+                      <TouchableOpacity  
+                      style={{height:20,width:20}} 
+                      onPress={()=>{ this.setState({type:3})}}>
+                        <Image source={require('./imgs/add.png')}  
+                        resizeMode='stretch'
+                        style={{height:20,width:20}} >
+                        </Image>
+                      </TouchableOpacity> 
+                      </View> 
+                      </View> 
+                  
+
+
+      <View style={{justifyContent:'center',paddingLeft:20,height:30}}>
+         <Text style={{color:'#BDBDBD',fontSize:12,fontStyle:'normal'}}>(必 选) 你想反馈问题类型</Text>
       </View>
-      <View style={{backgroundColor:'#C8C8C8',justifyContent:'center',paddingLeft:20,height:30}}>
-         <Text style={{color:'#989898',fontSize:10,fontStyle:'normal'}}>(必 选) 你想反馈问题类型</Text>
-      </View>
-      <View style={{height:250,justifyContent:'flex-start',alignItems:'flex-start'}}>
+      <View style={{height:200,
+        justifyContent:'flex-start',
+        alignItems:'flex-start',
+        backgroundColor:'#fff'}}>
       <RadioForm formHorizontal={false} animation={true} style={{alignItems:'flex-start'}} >
               {this.state.types3.map((obj, i) => {
                 var onPress = (value, index) => {
@@ -73,24 +94,24 @@ render(){
                     })
                   }
                 return (
-                  <RadioButton labelHorizontal={true} key={i} >
+                  <RadioButton labelHorizontal={true} key={i} style={{marginTop:20}} >
                     {/*  You can set RadioButtonLabel before RadioButtonInput */}
                     <RadioButtonInput
                       obj={obj}
                       index={i}
                       isSelected={this.state.value3Index === i}
                       onPress={onPress}
-                      buttonInnerColor={'#f39c12'}
-                      buttonOuterColor={this.state.value3Index === i ? '#2196f3' : '#000'}
+                      buttonInnerColor={'#A4A4A4'}
+                      buttonOuterColor={this.state.value3Index === i ? '#A4A4A4' : '#A4A4A4'}
                       buttonSize={10}
                       buttonStyle={{}}
-                      buttonWrapStyle={{marginLeft: 10}}
+                      buttonWrapStyle={{marginLeft: 10,marginRight:10}}
                     />
                     <RadioButtonLabel
                       obj={obj}
                       index={i}
                       onPress={onPress}
-                      labelStyle={{fontWeight: 'bold', color: '#2ecc71'}}
+                      labelStyle={{ color: '#2E2E2E'}}
                       labelWrapStyle={{}}
                     />
                   </RadioButton>
@@ -98,14 +119,20 @@ render(){
               })}
             </RadioForm>
            </View>
-           <View style={{backgroundColor:'#C8C8C8',justifyContent:'center',paddingLeft:20,height:30}}>
-            <Text style={{color:'#989898',fontSize:10,fontStyle:'normal'}}>请补充详细问题和意见</Text>
+           <View style={{justifyContent:'center',paddingLeft:20,height:30}}>
+            <Text style={{color:'#BDBDBD',fontSize:12,fontStyle:'normal'}}>请补充详细问题和意见</Text>
            </View>
-           <View style={{height:100,alignContent:'flex-start',justifyContent:'flex-start'}}>
-               <TextInput multiline={true} numberOfLines={10}  style={{width:deviceWidth}}  
+           <View style={{height:100,
+                        alignContent:'flex-start',
+                        justifyContent:'flex-start',
+                        backgroundColor:'#fff'}}>
+               <TextInput 
+                multiline={true}
+                numberOfLines={5}  
+                style={{width:deviceWidth*0.98,height:100,textAlignVertical:'top',textAlign:'left'}}  
                 underlineColorAndroid='transparent'
                 placeholder={"请填写不少于10个字描述"}></TextInput>
            </View>
-     </View>)
+           </View>)
 }
 }
