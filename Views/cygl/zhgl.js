@@ -45,14 +45,18 @@ export default class zhgl extends Component {
                justifyContent:'space-between'}}>
                
                <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity 
+               <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                       onPress={()=>{back()}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
                 </View> 
                       <View>
-                          <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>我的消息</Text>
+                          <Text style={{fontSize:16,color:'black',fontWeight:'bold'}}>我的消息</Text>
                       </View> 
                       <View> 
                       

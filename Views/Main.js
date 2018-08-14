@@ -6,7 +6,6 @@ import {
   Button,
   View,
   TextInput,
-
   Image,
   ImageBackground
 } from 'react-native';
@@ -14,7 +13,7 @@ import TabNavigator from 'react-native-tab-navigator';
 import page1 from './page/1'
 import Cygl from './cygl/cygl'
 import Wdys from './cygl/wdys'
-import Jtjh from './cygl/jtjh'
+import Jtjh from './cygl/jtjh1'
 import Cssz from './cygl/cssz'
 import Wdjf from './cygl/wdjf'
 import Wd from './cygl/wd'
@@ -62,7 +61,7 @@ import Login from '../Acount/Login'
  
              </TabNavigator>
           </View>
-        );}else
+        )}else
         {
            return (<Login></Login>)
         }

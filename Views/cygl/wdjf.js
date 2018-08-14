@@ -45,6 +45,7 @@ export default class wdjf extends Component {
                 data: [5, 20, 36, 10, 10, 20]
             }]
           };
+          const {back}=this.props
         if(this.state.type==1){
         return (
            <ScrollView style={{backgroundColor:'#E6E6E6'}}>
@@ -52,11 +53,23 @@ export default class wdjf extends Component {
                  <ImageBackground source={require('./jdjf/bg.png')} 
                  style={{width:deviceWidth,height:300}}
                   resizeMode='stretch'>
+                  <View style={{flexDirection:'row',
+                  marginTop:10,width:deviceWidth,
+                    justifyContent:'space-around'}}>
+                      <TouchableOpacity 
+                      style={{alignSelf:'flex-start',paddingLeft:10,flex:1}}
+                      onPress={()=>{back()}}>
+                     <Image source={require('./imgs/close.png')}
+                     resizeMode='stretch' style={{height:20,width:20}} ></Image> 
+                   
+                   </TouchableOpacity>
                     <View style={{
                         alignSelf:'center',
-                        width:250,
+                        flex:3,
                         height:30
                       }}>
+
+                    
                       <ImageBackground source={require('./jdjf/yjh.png')} 
                                 style={{
                                         width:250,
@@ -65,8 +78,11 @@ export default class wdjf extends Component {
                                         marginTop:10,
                                         justifyContent:'center'}}
                                         resizeMode='stretch' > 
+                    
                    <Text style={{fontSize:12,color:'#fff'}}>我们一起为xxx来攒豆</Text>
                   </ImageBackground>
+                    </View>
+                    <View style={{flex:1}}></View>
                     </View>
                     <View style={{flexDirection:'row',marginTop:30}}>
 
@@ -176,7 +192,7 @@ export default class wdjf extends Component {
                       justifyContent:'space-around',
                       borderBottomWidth:1,
                       borderBottomColor:'#BDBDBD',
-                      height:50,
+                      height:40,
                       alignItems:'center'
                     }}>
                     <Text>当月排名</Text>
@@ -203,7 +219,7 @@ export default class wdjf extends Component {
                       justifyContent:'space-around',
                       borderBottomWidth:1,
                       borderBottomColor:'#BDBDBD',
-                      height:50,
+                      height:40,
                       alignItems:'center'
                     }}>
                     <Text>年度排名</Text>
@@ -232,7 +248,7 @@ export default class wdjf extends Component {
                       justifyContent:'space-around',
                       borderBottomWidth:1,
                       borderBottomColor:'#BDBDBD',
-                      height:50,
+                      height:40,
                       alignItems:'center'
                     }}>
                     <Text>历史每月排名</Text>

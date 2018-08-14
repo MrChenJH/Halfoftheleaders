@@ -28,6 +28,10 @@ export default class wdtj extends Component {
                 {title:'李四家庭',time:'2018-07-01 10:45'}
            
               ]),
+              dataSource1: ds.cloneWithRows([
+                {title:'张三家庭',time:'2018-07-01 10:45'}
+           
+              ]),
               type:1
         }
     }
@@ -41,12 +45,16 @@ render(){
                borderBottomWidth:1,
                borderBottomColor:'#E6E6E6',
                backgroundColor:'#fe9c2e',
-               height:50,
+               height:40,
                alignItems:'center',
                justifyContent:'space-between'}}>
                
-               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity 
+               <View  style={{height:40,width:30,alignItems:'center',justifyContent:'center'}}>
+               <TouchableOpacity   
+                   style={{height:40,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                       onPress={()=>{back()}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
@@ -54,7 +62,7 @@ render(){
                 </View> 
                       <View style={{justifyContent:'center',alignItems:'center'}}>
                           <Text 
-                          style={{fontSize:20,
+                          style={{fontSize:16,
                             color:'#FFF',fontWeight:'bold'}}>我的推荐</Text>
                       </View> 
                       <View style={{marginRight:5,width:20}}> 
@@ -81,7 +89,7 @@ render(){
            >
          <QRCode
             value="http://awesome.link.qr"
-            size={300}
+            size={220}
             bgColor='purple'
             fgColor='white'/>
         
@@ -92,7 +100,7 @@ render(){
                 justifyContent:'center'
             }}
             >
-            <Text style={{fontSize:20}}>扫我推荐</Text>
+            <Text style={{fontSize:16}}>扫我推荐</Text>
             </View>
             </View>
             <View
@@ -105,13 +113,13 @@ render(){
                         paddingLeft:20,
                         paddingRight:20,
                         paddingTop:10,
-                        paddingBottom:20,
-                        height:200,
-                        marginBottom:50
+                      
+                        height:160,
+                        marginBottom:20
                    }}
             >
               <View style={{justifyContent:'center',alignItems:'center'}}>
-                <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>我推荐的人</Text>
+                <Text style={{fontSize:13,color:'black',fontWeight:'bold'}}>我推荐的人</Text>
             </View>
           <ListView
                                   dataSource={this.state.dataSource}
@@ -134,14 +142,15 @@ render(){
                                         
                                         }} resizeMode='stretch'></Image>
                                         </View>
-                                         <View style={{width:deviceWidth*0.75,
+                                        <View style={{width:deviceWidth*0.75,
                                             paddingLeft:5,
                                             paddingTop:10,
                                             justifyContent:'flex-start'}}>
-                                        <Text style={{fontSize:15,color:'black',fontWeight:'bold'}}>{rowData.title}</Text>
+                                        <Text style={{fontSize:12,color:'black',fontWeight:'bold'}}>{rowData.title}</Text>
                                         
   
-                                         </View>
+      
+                                        </View>
       
                                         </View>
                                         </TouchableOpacity>
@@ -159,15 +168,15 @@ render(){
                         paddingRight:20,
                         paddingTop:10,
                         paddingBottom:20,
-                        height:200,
+                        height:100,
                         marginBottom:50
                    }}
             >
             <View style={{justifyContent:'center',alignItems:'center'}}>
-            <Text style={{fontSize:20,color:'black',fontWeight:'bold'}}>我的推荐人</Text>
+            <Text style={{fontSize:13,color:'black',fontWeight:'bold'}}>我的推荐人</Text>
             </View>
           <ListView
-                                  dataSource={this.state.dataSource}
+                                  dataSource={this.state.dataSource1}
                                    renderRow={(rowData) => 
                                     
                                      <TouchableOpacity  
@@ -183,15 +192,15 @@ render(){
                                         <View style={{width:deviceWidth*0.3,
                                              paddingLeft:5,
                                              paddingTop:5}}>
-                                        <Image source={require('./imgs/jt.jpg')} style={{width:deviceWidth*0.1,height:deviceWidth*0.1
-                                        
+                                        <Image source={require('./imgs/jt.jpg')} 
+                                        style={{width:deviceWidth*0.1,height:deviceWidth*0.1
                                         }} resizeMode='stretch'></Image>
                                         </View>
                                          <View style={{width:deviceWidth*0.75,
                                             paddingLeft:5,
                                             paddingTop:10,
                                             justifyContent:'flex-start'}}>
-                                        <Text style={{fontSize:15,color:'black',fontWeight:'bold'}}>{rowData.title}</Text>
+                                        <Text style={{fontSize:12,color:'black',fontWeight:'bold'}}>{rowData.title}</Text>
                                         
   
                                          </View>

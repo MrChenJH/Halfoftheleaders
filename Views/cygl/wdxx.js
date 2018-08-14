@@ -41,12 +41,16 @@ export default class wdxx extends Component {
                borderBottomWidth:1,
                borderBottomColor:'#E6E6E6',
                backgroundColor:'#fe9c2e',
-               height:50,
+               height:40,
                alignItems:'center',
                justifyContent:'space-between'}}>
                
-               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity 
+               <View  style={{height:40,width:30,alignItems:'center',justifyContent:'center'}}>
+               <TouchableOpacity   
+                   style={{height:40,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                       onPress={()=>{back()}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
@@ -57,14 +61,14 @@ export default class wdxx extends Component {
                       <View style={{justifyContent:'center',
                                      alignItems:'center'}}>
                           <Text 
-                          style={{fontSize:20,
+                          style={{fontSize:16,
                             color:'#FFF',fontWeight:'bold'}}>我的消息</Text>
                       </View> 
                       <View style={{marginRight:5,width:20}}> 
                    
                       </View> 
                   </View>
-                <ScrollView style={{backgroundColor:'#E6E6E6'}}>
+                <ScrollView style={{backgroundColor:'#F7F7F7'}}>
                 <ListView
                                   dataSource={this.state.dataSource}
                                    renderRow={(rowData) =>
@@ -76,7 +80,7 @@ export default class wdxx extends Component {
                                             flex:1,
                                             justifyContent:'center',
                                             height:30,
-                                            marginTop:35,
+                                            marginTop:25,
                                             marginBottom:10
                                             }}>
                                             <Text style={{color:'#fff',fontSize:15}}>昨天 16:57</Text>

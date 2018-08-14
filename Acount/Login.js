@@ -209,70 +209,127 @@ export default class Login extends Component {
             </View>
            );
     }else if(this.state.type==2){
+              
 
-        return ( 
-            <View>
-           <View style={{
-               flexDirection:'row',
-               borderBottomWidth:1,
-               borderBottomColor:'#E6E6E6',
-               backgroundColor:'#fe9c2e',
-               height:50,
-               alignItems:'center',
-               justifyContent:'space-between'}}>
+        return (
+            <View style={{height:deviceheight,width:deviceWidth}}>
+                <ImageBackground
+                    style={{height:deviceheight,
+                        width:deviceWidth,
+                        alignItems:'center'}}
+                    resizeMode='cover'
+                    source={require('./bg.png')}
+                   >
+                   
+                    <View style={{flexDirection:'row',
+                         padding:20,
+                        height:100,
+                        width:deviceWidth,
+                        alignItems:'flex-start',
+                        justifyContent:'flex-start'
+                        }}>
                
-                <View>
-                <TouchableOpacity  style={{height:20,width:20}}
-                      onPress={()=>{this.setState({type:1})}}>
-                        <Image source={require('../Views/cygl/imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
-                        </Image>
-                      </TouchableOpacity> 
-                      </View> 
-                      <View style={{justifyContent:'center',alignItems:'center'}}>
-                          <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>用户注册</Text>
-                      </View> 
-                      <View style={{marginRight:5,width:22}}> 
-                 
-                      </View> 
-                  </View>
-            <ScrollView>
+               <TouchableOpacity onPress={()=>{this.setState({type:1})}}>
+                     <Image source={require('../Views/cygl/imgs/close.png')}
+                     resizeMode='stretch' style={{height:20,width:20}} ></Image> 
+
+                     </TouchableOpacity>
+            
+   </View>
+   <View style={{height:50,marginTop:10,marginBottom:10}}>
+                        <Image
+                            style={{height:50,
+                                    width:130}}
+                            resizeMode='contain'
+                            source={require('./logo.png')}
+                            ></Image>
+                    </View>
+
+                   <ScrollView>
            <View style={{flexDirection:'row',
                         borderBottomWidth:1,
                         borderBottomColor:'#F0F0F0',
-                        height:60,
+                        height:50,
+                        width:deviceWidth*0.8,
                         alignItems:'center',
-                        justifyContent:'space-between',
-                        paddingLeft:20}}>
+                        justifyContent:'space-between'
+                        }}>
            
                 <Text style={{fontSize:15,
                 
-                    color:'#6E6E6E',
-                    flex:1}}>
-                账号(家庭昵称)</Text>
+                    color:'#fff',
+                    flex:2}}>
+                家庭昵称</Text>
                 <TextInput 
-                style={{flex:2}}
+                style={{flex:3}}
                  underlineColorAndroid='transparent'
                   ></TextInput>
             
    </View>
 
+
+                 
+
+            <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:50,
+                        alignItems:'center',
+                        justifyContent:'space-between'
+                    }}>
+ 
+ <Text style={{fontSize:15,
+                color:'#fff',
+                 flex:2}}>手机号码</Text>
+
+                <TextInput 
+                style={{flex:3}}
+                underlineColorAndroid='transparent'
+                value={this.state.user}></TextInput>
+                <TouchableOpacity >
+                    <Text style={{color:'#FAFAFA',fontSize:12}}>获取验证码</Text>
+                </TouchableOpacity>
+      
+   </View> 
+
+   <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:50,
+                        alignItems:'center',
+                        justifyContent:'space-between'
+                     }}>
+ 
+         
+ <Text style={{fontSize:15,
+
+    color:'#fff',
+    flex:2}}>
+                    手机验证码</Text>
+       <TextInput 
+                   style={{flex:3}}
+                underlineColorAndroid='transparent'
+            
+                 value={this.state.user}></TextInput>
+        
+   </View>
                    <View style={{flexDirection:'row',
                         borderBottomWidth:1,
                         borderBottomColor:'#F0F0F0',
-                        height:60,
+                        height:50,
                         alignItems:'center',
-                        justifyContent:'space-between',
-                        paddingLeft:20}}>
+                        justifyContent:'space-between'
+                      }}>
               
               <Text style={{fontSize:15,
             
-                color:'#6E6E6E',
-                flex:1}}>
+                color:'#fff',
+                flex:2}}>
                     密码</Text>
         
          
                 <TextInput 
-                 style={{flex:2}}
+                 style={{flex:3}}
                  underlineColorAndroid='transparent'
                
                  placeholderTextColor='#848484'
@@ -282,17 +339,41 @@ export default class Login extends Component {
    <View style={{flexDirection:'row',
                         borderBottomWidth:1,
                         borderBottomColor:'#F0F0F0',
-                        height:60,
+                        height:50,
                         alignItems:'center',
-                        justifyContent:'space-between',
-                        paddingLeft:20}}>
+                        justifyContent:'space-between'
+                        }}>
               
               <Text style={{
                   fontSize:15,
           
-                color:'#6E6E6E',
-                flex:1}}>
+                color:'#fff',
+                flex:2}}>
                   确认密码</Text>
+     
+                <TextInput 
+                    style={{flex:3}}
+                underlineColorAndroid='transparent'
+              
+                 placeholderTextColor='#848484'
+                 value={this.state.user}></TextInput>
+         
+   </View>
+
+       <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:50,
+                        alignItems:'center',
+                        justifyContent:'space-between'
+                        }}>
+              
+              <Text style={{
+                  fontSize:15,
+          
+                color:'#fff',
+                flex:2}}>
+                  推荐人</Text>
      
                 <TextInput 
                     style={{flex:2}}
@@ -300,71 +381,33 @@ export default class Login extends Component {
               
                  placeholderTextColor='#848484'
                  value={this.state.user}></TextInput>
+                <Image
+                 source={require('../Views/cygl/imgs/sm.png')}
+                 style={{width:30,height:30,flex:1}} resizeMode='contain'></Image>
          
-   </View>
-              
-
-                 <View style={{flexDirection:'row',
-                        borderBottomWidth:1,
-                        borderBottomColor:'#F0F0F0',
-                        height:60,
-                        alignItems:'center',
-                        justifyContent:'space-between',
-                        paddingLeft:20,
-                        paddingRight:10}}>
- 
- <Text style={{fontSize:15,
- 
-    color:'#6E6E6E',
-    flex:1}}>
-         手机号码</Text>
-
-                <TextInput 
-                style={{flex:2}}
-                underlineColorAndroid='transparent'
-                value={this.state.user}></TextInput>
-                <TouchableOpacity >
-                    <Text style={{color:'#BDBDBD'}}>获取验证码</Text>
-                </TouchableOpacity>
-      
-   </View> 
-   <View style={{flexDirection:'row',
-                        borderBottomWidth:1,
-                        borderBottomColor:'#F0F0F0',
-                        height:60,
-                        alignItems:'center',
-                        justifyContent:'space-between',
-                        paddingLeft:20}}>
- 
-         
- <Text style={{fontSize:15,
-
-    color:'#6E6E6E',
-    flex:1}}>
-                    手机验证码</Text>
-       <TextInput 
-                   style={{flex:2}}
-                underlineColorAndroid='transparent'
-            
-                 value={this.state.user}></TextInput>
-        
    </View>
 
 
         
    <View style={{paddingLeft:10,paddingRight:10,marginTop:10,marginBottom:20,height:80,alignItems:'center'}}>
       <TouchableOpacity>
-          <Image source={require('../Views/cygl/imgs/sub.png')}
-           style={{height:60,width:200}} 
-           resizeMode='stretch'></Image>
+          <ImageBackground source={require('../Views/cygl/imgs/zc.png')}
+           style={{height:60,width:200,
+            justifyContent:'center',
+            alignItems:"center"}} 
+           resizeMode='contain'>
+       
+           </ImageBackground>
       </TouchableOpacity>
    </View>
    </ScrollView>
-</View>)
+      </ImageBackground>
+            </View>
+           );
+      
     }else{
         return(<Main></Main>)
  
      }
     }
 }
-

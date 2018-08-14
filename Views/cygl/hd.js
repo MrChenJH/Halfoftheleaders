@@ -50,12 +50,16 @@ export default class HD extends Component {
                borderBottomWidth:1,
                borderBottomColor:'#E6E6E6',
                backgroundColor:'#fe9c2e',
-               height:50,
+               height:40,
                alignItems:'center',
                justifyContent:'space-between'}}>
                
-               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity 
+               <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+               <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                       onPress={()=>{back()}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
@@ -63,7 +67,7 @@ export default class HD extends Component {
                 </View> 
                       <View style={{justifyContent:'center',alignItems:'center'}}>
                           <Text 
-                          style={{fontSize:20,
+                          style={{fontSize:16,
                             color:'#FFF',fontWeight:'bold'}}>我的活动</Text>
                       </View> 
                       <View style={{marginRight:5}}> 
@@ -75,19 +79,20 @@ export default class HD extends Component {
                   </View>
              
                <View style={{flexDirection:'row',
-                     height:30,
+                     height:40,
                      borderBottomWidth:1,
                      borderBottomColor:'#F0F0F0'
             }}> 
                  
                    <View style={{
                        flex:1,
+
                        flexDirection:'row'
                        }}>
                        <View style={{flex:2,justifyContent:'center',alignItems:'flex-end'}}>
                        <TouchableOpacity >
                         <Text style={{fontFamily:'SimSun',
-                                fontSize:12,
+                                fontSize:13,
                                  fontStyle:'normal',
                                  color:'#8a8a8a'}}>全部</Text> 
                        </TouchableOpacity>
@@ -107,7 +112,7 @@ export default class HD extends Component {
                        <View style={{flex:1,justifyContent:'center',alignItems:'flex-end'}}>
                        <TouchableOpacity >
                        <Text style={{fontFamily:'SimSun',
-                                fontSize:12,
+                                fontSize:13,
                                  fontStyle:'normal',
                                  color:'#8a8a8a'}}>我组织的</Text> 
                       
@@ -125,7 +130,7 @@ export default class HD extends Component {
                        <View style={{flex:1,justifyContent:'center',alignItems:'flex-end'}}>
                        <TouchableOpacity >
                        <Text style={{fontFamily:'SimSun',
-                                fontSize:12,
+                                fontSize:13,
                                  fontStyle:'normal',
                                  color:'#8a8a8a'}}>我参加的</Text>
                        </TouchableOpacity>
@@ -143,7 +148,7 @@ export default class HD extends Component {
                        <View style={{flex:3,justifyContent:'center',alignItems:'flex-end'}}> 
                        <TouchableOpacity >
                        <Text style={{fontFamily:'SimSun',
-                                fontSize:12,
+                                fontSize:13,
                                  fontStyle:'normal',
                                  color:'#8a8a8a'}}>筛选</Text>
                        </TouchableOpacity>
@@ -175,7 +180,7 @@ export default class HD extends Component {
                                         <View style={{width:deviceWidth*0.3,
                                              paddingLeft:5,
                                              paddingTop:5}}>
-                                        <Image source={require('./imgs/hd2.jpg')} style={{width:deviceWidth*0.25,height:deviceWidth*0.2
+                                        <Image source={require('./imgs/hd.png')} style={{width:deviceWidth*0.25,height:deviceWidth*0.2
                                         
                                         }} resizeMode='stretch'></Image>
                                         </View>
@@ -232,20 +237,24 @@ export default class HD extends Component {
                borderBottomWidth:1,
                borderBottomColor:'#E6E6E6',
                backgroundColor:'#fe9c2e',
-               height:50,
+               height:40,
                alignItems:'center',
                justifyContent:'space-between'
                }}>
                
-               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity 
+               <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+               <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                       onPress={()=>{back()}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
                 </View> 
                       <View style={{justifyContent:'center',alignItems:'center'}}>
-                          <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>活动详情</Text>
+                          <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>活动详情</Text>
                       </View> 
                       <View style={{marginRight:5,width:22}}> 
                     
@@ -282,7 +291,7 @@ export default class HD extends Component {
                             color:'#585858',
                             fontFamily:'Microsoft YaHei'}}>
                                春游</Text>  
-                          <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                          <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
                           </View>
                         </View>
                         </TouchableOpacity>
@@ -307,7 +316,7 @@ export default class HD extends Component {
                               <View 
                               style={{flexDirection:'row',alignItems:'center'}}>
                                 
-                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
                               </View>
                              
                     </View> 
@@ -337,7 +346,7 @@ export default class HD extends Component {
                                 color:'#585858',
                                 fontFamily:'Microsoft YaHei'}}>
                                    上海</Text>  
-                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
                               </View>
                             </View>
                             </TouchableOpacity>
@@ -367,7 +376,7 @@ export default class HD extends Component {
                                 color:'#585858',
                                 fontFamily:'Microsoft YaHei'}}>
                                    2018-10-01</Text>  
-                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
                               </View>
                           </View>
                           </TouchableOpacity>
@@ -397,7 +406,7 @@ export default class HD extends Component {
                                 color:'#585858',
                                 fontFamily:'Microsoft YaHei'}}>
                                    张三</Text>  
-                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
                               </View>                    
                           </View>
                           </TouchableOpacity>
@@ -428,7 +437,7 @@ export default class HD extends Component {
                                 color:'#585858',
                                 fontFamily:'Microsoft YaHei'}}>
                                    133000000</Text>  
-                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
                               </View>               
                           </View> 
                           </TouchableOpacity>
@@ -459,7 +468,7 @@ export default class HD extends Component {
                                 color:'#585858',
                                 fontFamily:'Microsoft YaHei'}}>
                                    6/人</Text>  
-                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
                               </View>                                             
                           </View>
                           </TouchableOpacity>
@@ -488,7 +497,7 @@ export default class HD extends Component {
                       <View 
                               style={{flexDirection:'row',alignItems:'center'}}>
                                 
-                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10}} resizeMode='stretch'></Image>
+                              <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
                               </View>           
                               </View>   
                    </View>
@@ -503,19 +512,23 @@ export default class HD extends Component {
                      borderBottomWidth:1,
                      borderBottomColor:'#E6E6E6',
                      backgroundColor:'#fe9c2e',
-                     height:50,
+                     height:40,
                      alignItems:'center',
                      justifyContent:'space-between'}}>
                      
-                      <View>
-                      <TouchableOpacity  style={{height:20,width:20}}
+                     <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                      <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                             onPress={()=>{this.setState({type:2})}}>
                               <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                               </Image>
                             </TouchableOpacity> 
                             </View> 
                             <View style={{justifyContent:'center',alignItems:'center'}}>
-                                <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
+                                <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
                             </View> 
                             <View style={{marginRight:5,width:21}}> 
                                  
@@ -527,6 +540,7 @@ export default class HD extends Component {
                          <TextInput   underlineColorAndroid='transparent' 
                               clearButtonMode='always'
                                multiline={false}
+                               style={{fontSize:12}}
                                defaultValue={this.state.typecontent}
                          >
  
@@ -543,19 +557,23 @@ export default class HD extends Component {
                     borderBottomWidth:1,
                     borderBottomColor:'#E6E6E6',
                     backgroundColor:'#fe9c2e',
-                    height:50,
+                    height:40,
                     alignItems:'center',
                     justifyContent:'space-between'}}>
                     
-                     <View>
-                     <TouchableOpacity  style={{height:20,width:20}}
+                    <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                     <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                            onPress={()=>{this.setState({type:2})}}>
                              <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                              </Image>
                            </TouchableOpacity> 
                            </View> 
                            <View style={{justifyContent:'center',alignItems:'center'}}>
-                               <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
+                               <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
                            </View> 
                            <View style={{marginRight:5,width:22}}> 
                                 
@@ -567,6 +585,7 @@ export default class HD extends Component {
                         <TextInput   underlineColorAndroid='transparent' 
                         maxLength={50}
                         multiline={true}
+                        style={{fontSize:12}}
                         style={{textAlignVertical:'top'}}
                         numberOfLines={5}
                         >
@@ -585,22 +604,29 @@ export default class HD extends Component {
                borderBottomWidth:1,
                borderBottomColor:'#E6E6E6',
                backgroundColor:'#fe9c2e',
-               height:50,
+               height:40,
                alignItems:'center',
                justifyContent:'space-between'}}>
                
-                <View>
-                <TouchableOpacity  style={{height:20,width:20}}
+               <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
+
                       onPress={()=>{this.setState({type:1})}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
                       </View> 
                       <View style={{justifyContent:'center',alignItems:'center'}}>
-                          <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>添加活动</Text>
+                          <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>添加活动</Text>
                       </View> 
-                      <View style={{marginRight:5,width:22}}> 
-                 
+                      <View style={{marginRight:5,width:40}}> 
+                     <TouchableOpacity onPress={()=>{}}>
+                       <Text style={{color:'#FFFF00',fontSize:16}}>保存</Text>
+                     </TouchableOpacity>
                       </View> 
                   </View>
             <ScrollView>
@@ -795,13 +821,7 @@ export default class HD extends Component {
                  value={this.state.user}></TextInput>
             
    </View>
-   <View style={{paddingLeft:10,paddingRight:10,marginTop:10,marginBottom:20,height:80,alignItems:'center'}}>
-      <TouchableOpacity>
-          <Image source={require('./imgs/sub.png')}
-           style={{height:50,width:200}} 
-           resizeMode='cover'></Image>
-      </TouchableOpacity>
-   </View>
+  
    </ScrollView>
 </View>)
             }

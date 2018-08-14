@@ -52,8 +52,12 @@ render(){
                alignItems:'center',
                justifyContent:'space-between'}}>
                
-               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity 
+               <View  style={{height:40,width:35,alignItems:'center',justifyContent:'center'}}>
+               <TouchableOpacity   
+                   style={{height:40,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                       onPress={()=>{back()}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
@@ -61,18 +65,13 @@ render(){
                 </View> 
                       <View style={{justifyContent:'center',alignItems:'center'}}>
                           <Text 
-                          style={{fontSize:20,
+                          style={{fontSize:16,
                             color:'#FFF',fontWeight:'bold'}}>我的反馈</Text>
                       </View> 
-                      <View style={{marginRight:5}}> 
-                      <TouchableOpacity  
-                      style={{height:20,width:20}} 
-                      onPress={()=>{ this.setState({type:3})}}>
-                        <Image source={require('./imgs/add.png')}  
-                        resizeMode='stretch'
-                        style={{height:20,width:20}} >
-                        </Image>
-                      </TouchableOpacity> 
+                      <View style={{marginRight:5,width:40}}> 
+                     <TouchableOpacity onPress={()=>{}}>
+                       <Text style={{color:'#FFFF00',fontSize:16}}>保存</Text>
+                     </TouchableOpacity>
                       </View> 
                       </View> 
                   

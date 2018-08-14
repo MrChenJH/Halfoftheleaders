@@ -55,8 +55,12 @@ export default class page1 extends Component {
                alignItems:'center',
                justifyContent:'space-between'}}>
                
-                <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity 
+                <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                       onPress={()=>{back()}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
@@ -64,7 +68,7 @@ export default class page1 extends Component {
                 </View> 
                       <View style={{justifyContent:'center',alignItems:'center'}}>
                           <Text 
-                          style={{fontSize:20,
+                          style={{fontSize:16,
                             color:'#FFF',fontWeight:'bold'}}>成员管理</Text>
                       </View> 
                       <View style={{marginRight:5}}> 
@@ -97,7 +101,7 @@ export default class page1 extends Component {
                                                      alignItems:'center'
                                              }}>
                                         <Image
-                                         source={require('./imgs/txx.png')} 
+                                         source={require('./imgs/tx/bb.png')} 
                                            style={{width:deviceWidth*0.12,
                                             height:deviceWidth*0.12}} 
                                             resizeMode='stretch'></Image>
@@ -111,23 +115,22 @@ export default class page1 extends Component {
                                          style={{flexDirection:'row',alignItems:'flex-end'}} >
                                        
                                             
-                                                <Text style={{fontSize:20,
+                                                <Text style={{fontSize:16,
                                                     color:'#2E2E2E',
                                                     fontWeight:'bold',
                                                     width:80
-                                                  }}>张三的家</Text>
+                                                  }}>豆为之家</Text>
                        
-                                            <Text style={{fontSize:14,
+                                            <Text style={{
                                                    color:'#BDBDBD',
-                                                   fontWeight:'bold',
+                                                   fontSize:12,
                                                    width:100,
                                                    textAlign:'center'
                                                     }}>家庭管理员</Text>
-                                                           <Text style={{fontSize:14,
-                                                   color:'#BDBDBD',
-                                                   fontWeight:'bold',
-                                          
-                                                   textAlign:'center'
+                                               <Text style={{
+                                                    color:'#BDBDBD',
+                                                    fontSize:12,
+                                                        textAlign:'center'
                                                     }}>父亲</Text>
                                                
                                           </View>
@@ -138,7 +141,7 @@ export default class page1 extends Component {
                                        
                                     
             
-                                            <Text style={{fontSize:15,
+                                            <Text style={{fontSize:12,
                                                    color:'#2E2E2E',
                                                    color:'#BDBDBD',
                                            }}>最近登录时间 :  2018/8/9  13:31</Text>
@@ -166,12 +169,12 @@ export default class page1 extends Component {
                alignItems:'center',
                justifyContent:'space-between'}}>
                    
-                    <View>
-      
-                      
-      
-      
-                    <TouchableOpacity  style={{height:20,width:20}}
+                   <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                    <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                           onPress={()=>{this.setState({type:1})}}>
                             <Image source={require('./imgs/back.png')} 
                              resizeMode='stretch' 
@@ -180,7 +183,7 @@ export default class page1 extends Component {
                           </TouchableOpacity> 
                           </View> 
                           <View style={{justifyContent:'center',alignItems:'center'}}>
-                              <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>成员详情</Text>
+                              <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>成员详情</Text>
                           </View> 
                           <View style={{marginRight:5,width:22}}> 
                         
@@ -207,13 +210,13 @@ export default class page1 extends Component {
                              paddingRight:10,
                              marginTop:10,
                              }}>
-                              <Text style={{fontSize:13,
+                              <Text style={{fontSize:12,
                                 color:'#585858',
                                 fontFamily:'Microsoft YaHei'}}>
                                    账号名:</Text>  
                                    <View 
                               style={{flexDirection:'row',alignItems:'center'}}>
-                                     <Text style={{fontSize:13,
+                                     <Text style={{fontSize:12,
                                 color:'#585858',
                                 fontFamily:'Microsoft YaHei'}}>
                                   张三的家</Text>  
@@ -236,14 +239,14 @@ export default class page1 extends Component {
                                  marginTop:10,
                                  }}>
                                   <Text 
-                                   style={{fontSize:13,
+                                   style={{fontSize:12,
                                     color:'#585858',
                                     fontFamily:'Microsoft YaHei'}}>
                                   密码</Text>
                                   <View 
                                   style={{flexDirection:'row',alignItems:'center'}}>
                                  <Text style={{
-                                     fontSize:13,
+                                     fontSize:12,
                                      color:'#585858',
                                      fontFamily:'Microsoft YaHei'}}>
                                    123456</Text>  
@@ -267,13 +270,13 @@ export default class page1 extends Component {
                                  paddingRight:10,
                                  marginTop:10,
                                  }}>
-                                  <Text style={{fontSize:13,
+                                  <Text style={{fontSize:12,
                                     color:'#585858',
                                     fontFamily:'Microsoft YaHei'}}>
                                       系统角色:</Text>  
                                        <View 
                                   style={{flexDirection:'row',alignItems:'center'}}>
-                                         <Text style={{fontSize:13,
+                                         <Text style={{fontSize:12,
                                     color:'#585858',
                                     fontFamily:'Microsoft YaHei'}}>
                                      审核员</Text>  
@@ -297,13 +300,13 @@ export default class page1 extends Component {
                                  paddingRight:10,
                                  marginTop:10,
                                  }}>
-                                  <Text style={{fontSize:13,
+                                  <Text style={{fontSize:12,
                                     color:'#585858',
                                     fontFamily:'Microsoft YaHei'}}>
                                家庭角色</Text> 
                                  <View 
                                   style={{flexDirection:'row',alignItems:'center'}}>
-                                         <Text style={{fontSize:13,
+                                         <Text style={{fontSize:12,
                                     color:'#585858',
                                     fontFamily:'Microsoft YaHei'}}>
                                     爸爸</Text>  
@@ -326,15 +329,19 @@ export default class page1 extends Component {
                alignItems:'center',
                justifyContent:'space-between'}}>
                             
-                             <View>
-                             <TouchableOpacity  style={{height:20,width:20}}
+                            <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                             <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                                    onPress={()=>{this.setState({type:2})}}>
                                      <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                                      </Image>
                                    </TouchableOpacity> 
                                    </View> 
                                    <View style={{justifyContent:'center',alignItems:'center'}}>
-                                       <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
+                                       <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
                                    </View> 
                                    <View style={{marginRight:5,width:21}}> 
                                         
@@ -344,6 +351,7 @@ export default class page1 extends Component {
                                            style={{height:deviceheight-60}}>
                                 <View style={{backgroundColor:'#fff',marginTop:10,height:40}}>
                                 <TextInput   underlineColorAndroid='transparent' 
+                                   style={{fontSize:12}}
                                      clearButtonMode='always'
                                       multiline={false}
                                       defaultValue={this.state.typecontent}
@@ -374,7 +382,7 @@ export default class page1 extends Component {
                                    </TouchableOpacity> 
                                    </View> 
                                    <View style={{justifyContent:'center',alignItems:'center'}}>
-                                       <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
+                                       <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
                                    </View> 
                                    <View style={{marginRight:5,width:21}}> 
                                         
@@ -386,9 +394,9 @@ export default class page1 extends Component {
                                 <ModalDropdown options={['审核员', 
                          '观察员','小鬼']}
     defaultValue={'请选择系统角色'}
-     dropdownStyle={{width:150,fontSize:20}}
-     dropdownTextStyle={{fontSize:20}}
-     textStyle={{fontSize:20,justifyContent:'center'}}
+     dropdownStyle={{width:150,fontSize:12}}
+     dropdownTextStyle={{fontSize:12}}
+     textStyle={{fontSize:12,justifyContent:'center'}}
      style={{flex:2,justifyContent:'center',height:40}}/>
                                 </View>
                                 </View>
@@ -406,15 +414,19 @@ export default class page1 extends Component {
                alignItems:'center',
                justifyContent:'space-between'}}>
                             
-                             <View>
-                             <TouchableOpacity  style={{height:20,width:20}}
+                            <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                             <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                                    onPress={()=>{this.setState({type:2})}}>
                                      <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                                      </Image>
                                    </TouchableOpacity> 
                                    </View> 
                                    <View style={{justifyContent:'center',alignItems:'center'}}>
-                                       <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
+                                       <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
                                    </View> 
                                    <View style={{marginRight:5,width:21}}> 
                                         
@@ -425,9 +437,9 @@ export default class page1 extends Component {
                                 <View style={{backgroundColor:'#fff',marginTop:10,height:40,justifyContent:'center'}}>
                                 <ModalDropdown options={['爸爸','妈妈','爷爷','奶奶','外公','外婆']}
     defaultValue={'请选择用户角色'}
-    dropdownStyle={{width:150,fontSize:20}}
-     dropdownTextStyle={{fontSize:20}}
-     textStyle={{fontSize:20,justifyContent:'center'}}
+    dropdownStyle={{width:150,fontSize:16}}
+     dropdownTextStyle={{fontSize:16}}
+     textStyle={{fontSize:16,justifyContent:'center'}}
      style={{flex:2,justifyContent:'center',height:40}}/>
                                 </View>
                                 </View>
@@ -445,19 +457,27 @@ export default class page1 extends Component {
                alignItems:'center',
                justifyContent:'space-between'}}>
                     
-                     <View>
-                     <TouchableOpacity  style={{height:20,width:20}}
+                    <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                     <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                            onPress={()=>{this.setState({type:1})}}>
                              <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                              </Image>
                            </TouchableOpacity> 
                            </View> 
                            <View style={{justifyContent:'center',alignItems:'center'}}>
-                               <Text style={{fontSize:20,color:'#FFF',fontWeight:'bold'}}>添加成员</Text>
+                               <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>添加家人</Text>
                            </View> 
-                           <View style={{marginRight:5,width:22}}> 
-                      
-                           </View> 
+                           
+                           <View style={{marginRight:5,width:40}}> 
+                     <TouchableOpacity onPress={()=>{}}>
+                       <Text style={{color:'#FFFF00',fontSize:16}}>保存</Text>
+                     </TouchableOpacity>
+                      </View> 
+                          
                        </View>
                  <ScrollView>
                 <View style={{flexDirection:'row',
@@ -468,11 +488,11 @@ export default class page1 extends Component {
                              justifyContent:'space-between',
                              paddingLeft:20}}>
                 
-                     <Text style={{fontSize:15,
+                     <Text style={{fontSize:12,
                      
                          color:'#6E6E6E',
                          flex:1}}>
-                     账号:</Text>
+                     登录账号:</Text>
                      <TextInput 
                      style={{flex:2}}
                       underlineColorAndroid='transparent'
@@ -490,10 +510,10 @@ export default class page1 extends Component {
                              justifyContent:'space-between',
                              paddingLeft:20}}>
                    
-                   <Text style={{fontSize:15,
+                   <Text style={{fontSize:12,
                      color:'#6E6E6E',
                      flex:1}}>
-                         密码:</Text>
+                         登录密码:</Text>
              
               
                      <TextInput 
@@ -513,7 +533,7 @@ export default class page1 extends Component {
                              paddingLeft:20}}>
                    
                    <Text style={{
-                       fontSize:15,
+                       fontSize:12,
                
                      color:'#6E6E6E',
                      flex:1}}>
@@ -523,6 +543,31 @@ export default class page1 extends Component {
                          style={{flex:2}}
                      underlineColorAndroid='transparent'
                       placeholder='请输入确认密码'
+                      placeholderTextColor='#BDBDBD'
+                      value={this.state.user}></TextInput>
+              
+        </View>
+        
+
+        <View style={{flexDirection:'row',
+                             borderBottomWidth:1,
+                             borderBottomColor:'#F0F0F0',
+                             height:60,
+                             alignItems:'center',
+                             justifyContent:'space-between',
+                             paddingLeft:20}}>
+                   
+                   <Text style={{
+                       fontSize:12,
+               
+                     color:'#6E6E6E',
+                     flex:1}}>
+                        出生日期</Text>
+          
+                     <TextInput 
+                         style={{flex:2}}
+                     underlineColorAndroid='transparent'
+                      placeholder='请输入出生日期'
                       placeholderTextColor='#BDBDBD'
                       value={this.state.user}></TextInput>
               
@@ -537,7 +582,7 @@ export default class page1 extends Component {
                              paddingLeft:20}}>
      
                 
-                <Text style={{fontSize:15,
+                <Text style={{fontSize:12,
                
                  color:'#6E6E6E',
                  flex:1}}>
@@ -558,24 +603,18 @@ export default class page1 extends Component {
                              justifyContent:'space-between',
                              paddingLeft:20}}>
         
-        <Text style={{fontSize:15,
+        <Text style={{fontSize:12,
      
          color:'#6E6E6E',
          flex:1}}>
                          用户角色:</Text>
-   <ModalDropdown options={['爸爸','妈妈','爷爷','奶奶','外公','外婆']}
+   <ModalDropdown options={['爸爸','妈妈','爷爷','奶奶','外公','外婆','儿子','女儿']}
     defaultValue={'请选择用户角色'}
      dropdownStyle={{width:150}}
      style={{flex:2}}/>
                  
         </View>
-        <View style={{paddingLeft:10,paddingRight:10,marginTop:10,marginBottom:20,height:80,alignItems:'center'}}>
-           <TouchableOpacity>
-               <Image source={require('./imgs/sub.png')}
-                style={{height:50,width:200}} 
-                resizeMode='cover'></Image>
-           </TouchableOpacity>
-        </View>
+       
         </ScrollView>
      </View>
     )  

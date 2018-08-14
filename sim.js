@@ -1,23 +1,4 @@
-'use strict'
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  Button,
-  View,
-  AsyncStorage,AppRegistry
-} from 'react-native'
-import {Navigator} from 'react-native-deprecated-custom-components';
-// import React, {AppRegistry} from 'react-native'
-
-// import app from './App'; 
-
-// AppRegistry.registerComponent('xgdj', () => app);
-
-
-
-import Splash from './Views/Splash';
+import Splash from './views/Splash';
 
 export default class Index extends Component {
 
@@ -51,4 +32,4 @@ export default class Index extends Component {
   }
 }
 
-AppRegistry.registerComponent('xgdj', () => Index);
+AppRegistry.registerComponent('react_test', () => Index);

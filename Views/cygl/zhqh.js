@@ -46,12 +46,16 @@ export default class zhqh extends Component {
                borderBottomWidth:1,
                borderBottomColor:'#E6E6E6',
                backgroundColor:'#fe9c2e',
-               height:50,
+               height:40,
                alignItems:'center',
                justifyContent:'space-between'}}>
                
-               <View  style={{height:50,width:20,alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity 
+               <View  style={{height:40,width:35,alignItems:'center',justifyContent:'center'}}>
+               <TouchableOpacity   
+                   style={{height:40,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
                       onPress={()=>{back()}}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
@@ -59,7 +63,7 @@ export default class zhqh extends Component {
                 </View> 
                       <View style={{justifyContent:'center',alignItems:'center'}}>
                           <Text 
-                          style={{fontSize:20,
+                          style={{fontSize:16,
                             color:'#FFF',fontWeight:'bold'}}>账号切换</Text>
                       </View> 
                       <View style={{marginRight:5,width:20}}> 
@@ -67,7 +71,7 @@ export default class zhqh extends Component {
                       </View> 
                   </View>
                 <ScrollView style={{
-                    backgroundColor:'#D8D8D8',
+                    backgroundColor:'#F7F7F7',
                     height:deviceheight
                  }}>
                 <ListView
@@ -75,7 +79,7 @@ export default class zhqh extends Component {
                                    renderRow={(rowData) => 
 
                                            <View style={{
-                                                height:50,
+                                                height:40,
                                                 flexDirection:'row',
                                                 margin:10,
                                                 borderBottomWidth:1,
@@ -84,7 +88,7 @@ export default class zhqh extends Component {
                                                 borderRadius:10}}> 
                                           <View style={{flex:1,justifyContent:'center',paddingLeft:20}}>
                                 
-                                        <Image source={require('./imgs/tx.png')}
+                                        <Image source={require('./imgs/tx/bb.png')}
 
 
                                          style={{height:30,width:30}}
@@ -98,7 +102,7 @@ export default class zhqh extends Component {
                                         <View style={{flex:3,justifyContent:'center'}}>
                                              <Image
                                                  source={require('./jdjf/qh.png')} 
-                                                 style={{height:20,width:20}}
+                                                 style={{height:25,width:25}}
                                                  resizeMode='stretch'>
                                             </Image>
                                        </View>
