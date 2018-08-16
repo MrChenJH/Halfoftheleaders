@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import {
     ScrollView,
-
-    Text,
-
-    View,
-
-    Image,
+     Text,
+       View,
+     Image,
     ImageBackground,
     ListView
 } from 'react-native';

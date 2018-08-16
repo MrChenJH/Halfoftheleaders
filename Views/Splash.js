@@ -38,7 +38,7 @@ export default class Splash extends Component{
                     }
                 });
             }
-        },4000);
+        },10);
     }
 
     render(){

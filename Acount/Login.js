@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-
     StyleSheet,
     Text,
     Dimensions,
@@ -22,8 +21,17 @@ export default class Login extends Component {
         this.state = {
             userName: 'admin',
             pwd: '',
-            type:1
+            type:1,
+            mainType:1
         };
+    }
+
+    userNameChange(val){
+      this.setState({userName:val})
+    }
+
+    pwdChange(val){
+      this.setState({pwd:val})
     }
     render() {
         
@@ -122,8 +130,8 @@ export default class Login extends Component {
                                 placeholderTextColor="#fff"
                                 underlineColorAndroid='transparent'
                                 onChangeText={(text) => {
-                                this.setState({userName: text})
-                            }}></TextInput>
+                                    this.setState({pwd: text})
+                                }}></TextInput>
 
                         </ImageBackground>
 
@@ -173,7 +181,12 @@ export default class Login extends Component {
                         <Button
                             ref="button"
                             onPress={() => {
-                           this.setState({type:4})
+                           if(this.state.userName=='xg'){
+                            this.setState({type:4,mainType:2})
+                           }else{
+                            this.setState({type:4,mainType:1})
+                           }
+                         
                         }}
                            img={require('./log.png')}
                            textStyle={{width: 110,
@@ -378,9 +391,9 @@ export default class Login extends Component {
                 <TextInput 
                     style={{flex:2}}
                 underlineColorAndroid='transparent'
-              
                  placeholderTextColor='#848484'
-                 value={this.state.user}></TextInput>
+                 value={this.state.user}
+                 onChangeText={thi}></TextInput>
                 <Image
                  source={require('../Views/cygl/imgs/sm.png')}
                  style={{width:30,height:30,flex:1}} resizeMode='contain'></Image>
@@ -406,7 +419,7 @@ export default class Login extends Component {
            );
       
     }else{
-        return(<Main></Main>)
+        return(<Main type={this.state.mainType}></Main>)
  
      }
     }

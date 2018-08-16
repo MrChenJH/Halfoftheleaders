@@ -10,13 +10,18 @@ import {
   ImageBackground
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator'; 
-import page1 from './page/1'
+import Gly from './page/gly'
 import Cygl from './cygl/cygl'
 import Wdys from './cygl/wdys'
 import Jtjh from './cygl/jtjh1'
 import Cssz from './cygl/cssz'
 import Wdjf from './cygl/wdjf'
 import Wd from './cygl/wd'
+import Xg from './page/xg' 
+
+
+import Wyhs from './xg/wyhs'
+
 import page4 from './page/4'
 import page5 from './page/4'
 
@@ -26,10 +31,12 @@ import Login from '../Acount/Login'
         super(props);
         this.state = {
           selectedTab:'首页',
-          type:1
+          type:this.props.type?this.props.type:1
         }
     }
      
+  
+
     _renderTabarItems(selectedTab,icon,selectedIcon,Component){
         return (
           <TabNavigator.Item
@@ -53,15 +60,26 @@ import Login from '../Acount/Login'
         return (
           <View style={styles.container}>
             <TabNavigator>
-              {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),page1)}
+              {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),Gly)}
               {this._renderTabarItems('成员管理',require('./img/2.png'),require('./main/jhgl.png'),Cygl)}
               {this._renderTabarItems('计划管理',require('./img/3.png'),require('./main/wodeys.png'),Jtjh)}
               {this._renderTabarItems('参数设置',require('./img/4.png'),require('./main/woyouhuashuo.png'),Cssz)}
               {this._renderTabarItems('我的',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
- 
-             </TabNavigator>
+            </TabNavigator>
           </View>
-        )}else
+        )}
+        else if(this.state.type==2){
+          return (
+          <View style={styles.container}>
+          <TabNavigator>
+            {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),Xg)}
+            {this._renderTabarItems('我的计划',require('./img/2.png'),require('./main/jhgl.png'),Cygl)}
+            {this._renderTabarItems('我的预算',require('./img/3.png'),require('./main/wodeys.png'),Jtjh)}
+            {this._renderTabarItems('我有话说',require('./img/4.png'),require('./main/woyouhuashuo.png'),Wyhs)}
+            {this._renderTabarItems('我的钱包',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
+           </TabNavigator>
+        </View> )
+        }else
         {
            return (<Login></Login>)
         }
