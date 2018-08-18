@@ -12,16 +12,16 @@ import {
 } from 'react-native';
 
 import Button from '../component/button'
- import Jrrw from '../shy/jrrw'
- import Zrbx from '../shy/zrxw'
- import Mrjh from '../shy/mrjh'
- import YsSh from '../shy/jhsh'
- import JHSh from '../shy/sh'
+ import Jrrw from '../gcy/jrrw'
+ import Zrbx from '../gcy/zrxw'
+ import Mrjh from '../gcy/mrjh'
+ import YsSh from '../gcy/jhsh'
+ import Wdzz from '../gcy/wdzz'
  import Jfd from '../cygl/wdjf'
- import Wdtj from '../shy/wdtj'
- import Jdhd from '../shy/hd'
+ import Wdtj from '../gcy/wdtj'
+ import Jdhd from '../gcy/hd'
 
- import Zhqh from '../shy/zhqh'
+ import Zhqh from '../gcy/zhqh'
 
 
 const deviceWidth = Dimensions.get('window').width;  
@@ -233,7 +233,7 @@ export default class page1 extends Component {
                                     <View style={{flex:1,
                                         alignItems:'center',
                                         justifyContent:'center'}}>
-                                    <Image source={rowData.yd?require('../shy/shyImage/iconYd.png'):require('../shy/shyImage/wd.png')} style={{width:10,height:10}} resizeMode='stretch'></Image>
+                                    <Image source={rowData.yd?require('../gcy/gcyImage/iconYd.png'):require('../gcy/gcyImage/wd.png')} style={{width:10,height:10}} resizeMode='stretch'></Image>
                                     </View>
                                     <Text style={{flex:6,textAlign:'left',fontSize:12}}>{rowData.title}</Text>
                                     <Text style={{flex:3,

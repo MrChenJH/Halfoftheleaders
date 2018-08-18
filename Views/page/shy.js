@@ -243,16 +243,7 @@ export default class page1 extends Component {
                             </View>
                         </ImageBackground>
                     </View>
-                    <View style={{flexDirection:'row',
-                                 marginLeft: 5,
-                                 marginRight: 5,
-                                 marginTop: 10,
-                                 borderStyle: 'solid',
-                                 backgroundColor: '#D0D0D0',
-                               
-                            height:180}}>
-                            <Image source={require('./gly/gg2.png')} style={{flex:1}}></Image>
-                            </View>
+                
                
 
             </ScrollView>

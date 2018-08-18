@@ -68,9 +68,7 @@ justifyContent:'space-between'}}>
                            fontWeight:'bold'}}>刘思成的预算</Text>
            </View> 
            <View style={{marginRight:5,width:40}}> 
-                    <TouchableOpacity onPress={()=>{}}>
-                        <Text style={{color:'#FFFF00',fontSize:16}}>通过</Text>
-                     </TouchableOpacity>
+                   
            </View> 
    </View>
 
@@ -88,7 +86,7 @@ justifyContent:'space-between'}}>
                        borderTopWidth:1,
                        margin:5,
                        borderRadius:10,
-                       height:40}}>
+                       height:50}}>
                        <View style={{flex:4,
                          justifyContent:'center',
                          alignItems:'flex-start',

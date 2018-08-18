@@ -27,6 +27,12 @@ import Wyhs from './xg/wyhs'
 import Sh from './shy/sh'
 import Jhsh from './shy/jhsh'
 import Jssh from './shy/jssh'
+
+import GcJrrw from './gcy/jrrw'
+
+import GcZrxw from './gcy/zrxw'
+
+import Wdzz  from './gcy/wdzz'
 import page4 from './page/4'
 import page5 from './page/4'
 
@@ -100,9 +106,9 @@ import Login from '../Acount/Login'
           <View style={styles.container}>
           <TabNavigator>
             {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),Shy)}
-            {this._renderTabarItems('日常行为评分',require('./img/2.png'),require('./main/jhgl.png'),Jhsh)}
-            {this._renderTabarItems('小孩表现',require('./img/3.png'),require('./main/wodeys.png'),Sh)}
-            {this._renderTabarItems('我的赞助',require('./img/4.png'),require('./main/woyouhuashuo.png'),Wyhs)}
+            {this._renderTabarItems('今日行为',require('./img/2.png'),require('./main/jhgl.png'),GcJrrw)}
+            {this._renderTabarItems('昨日行为',require('./img/3.png'),require('./main/wodeys.png'),GcZrxw)}
+            {this._renderTabarItems('我的赞助',require('./img/4.png'),require('./main/woyouhuashuo.png'),Wdzz)}
             {this._renderTabarItems('我的菜单',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
            </TabNavigator>
         </View> )

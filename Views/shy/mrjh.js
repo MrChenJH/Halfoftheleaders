@@ -138,7 +138,7 @@ export default class jtjh extends Component {
                                                         justifyContent:'center',
                                                         alignItems:'center'}}>
 
-                                                          <Image source={require('./shyImage/delete.png')} resizeMode='stretch' style={{height:20,width:20}}></Image>
+                                                          <Image source={require('./shyImage/remove.png')} resizeMode='stretch' style={{height:20,width:20}}></Image>
                                                       </View>
                                                     
                                             

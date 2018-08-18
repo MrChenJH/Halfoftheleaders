@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+    StyleSheet,
     ScrollView,
     Text,
     View,
@@ -16,6 +17,19 @@ import {
 import Checkbox from '../component/xwCheckBox'
 
 import ModalDropdown from 'react-native-modal-dropdown';
+
+import PopupDialog, {
+    DialogTitle,
+    DialogButton,
+    SlideAnimation,
+    ScaleAnimation,
+    FadeAnimation,
+  } from 'react-native-popup-dialog';
+  
+  const slideAnimation = new SlideAnimation({ slideFrom: 'bottom' });
+  const scaleAnimation = new ScaleAnimation();
+  const fadeAnimation = new FadeAnimation({ animationDuration: 150 });
+
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 const ds = new ListView.DataSource({
@@ -31,10 +45,13 @@ export default class jtjh extends Component {
                 {title:'买本书',content:'学习基金',je:'20元'},
                 {title:'买本书',content:'学习基金',je:'20元'}
               ]),
-              type:1
+              type:1,
+              dialogShow: false
         }
     }
-  
+    showFadeAnimationDialog = () => {
+        this.fadeAnimationDialog.show();
+      }
     _remderItem(t, i) {
         if(t.img){
         return ( <View key = {i} 
@@ -583,7 +600,10 @@ export default class jtjh extends Component {
                             color:'#FFF',fontWeight:'bold'}}>预算添加</Text>
                       </View> 
                       <View style={{marginRight:5,width:40}}> 
-                     <TouchableOpacity onPress={()=>{}}>
+                     <TouchableOpacity onPress={()=>{
+
+this.scaleAnimationDialog.show();
+                     }}>
                        <Text style={{color:'#FFFF00',fontSize:16}}>保存</Text>
                      </TouchableOpacity>
                       </View> 
@@ -688,8 +708,77 @@ export default class jtjh extends Component {
                            </TextInput>
                            
                    </View>
+
+                      <PopupDialog
+          ref={(popupDialog) => {
+            this.scaleAnimationDialog = popupDialog;
+          }}
+          dialogAnimation={scaleAnimation}
+          dialogTitle={<DialogTitle title="提示" />}
+          actions={[
+            <DialogButton
+              text="DISMISS"
+              onPress={() => {
+                this.scaleAnimationDialog.dismiss();
+              }}
+              key="button-1"
+            />,
+          ]}
+        >
+          <View style={styles.dialogContentView}> 
+          <View>
+         <Text>你的学习基金余额不足，是否请求赞助？</Text>
+
+          </View>
+          <View style={{flexDirection:'row',justifyContent:'center'}}>
+            <DialogButton
+              text="是"
+              onPress={() => {
+                this.scaleAnimationDialog.dismiss();
+              }}
+            />
+                <DialogButton
+              text="否"
+              onPress={() => {
+                this.scaleAnimationDialog.dismiss();
+              }}
+            /></View>
+          </View>
+        </PopupDialog>
+
                 </View>
                   )
       }
    }
 }
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    dialogContentView: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    navigationBar: {
+      borderBottomColor: '#b5b5b5',
+      borderBottomWidth: 0.5,
+      backgroundColor: '#ffffff',
+    },
+    navigationTitle: {
+      padding: 10,
+    },
+    navigationButton: {
+      padding: 10,
+    },
+    navigationLeftButton: {
+      paddingLeft: 20,
+      paddingRight: 40,
+    },
+    navigator: {
+      flex: 1,
+      // backgroundColor: '#000000',
+    },
+  });

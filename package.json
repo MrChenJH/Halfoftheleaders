@@ -23,6 +23,7 @@
     "react-native-echarts": "0.0.1",
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-pathjs-charts": "0.0.34",
+    "react-native-popup-dialog": "^0.15.0",
     "react-native-qrcode": "^0.2.7",
     "react-native-qrcode-svg": "^5.1.0",
     "react-native-radio-master": "^1.0.1",
