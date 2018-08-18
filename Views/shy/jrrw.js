@@ -53,17 +53,17 @@ export default class HD extends Component {
                 }}>
 
                     <View style={{
-                        height:200
+                        height:250
                     }}>
                              <ImageBackground
                                
-                         resizeMode='contain'
+                         resizeMode='stretch'
                             source={ require('./shyImage/banner.png')
                         }
                           
                             style={{
-                             height:200,
-                             width:1000
+                             height:250,
+                             width:deviceWidth
                         }}>
                         
                         <View 
@@ -94,7 +94,7 @@ export default class HD extends Component {
              justifyContent:'space-between',
              flexDirection:'row',
              backgroundColor:'#fff',
-             height:30,
+             height:40,
              margin:5,
              alignItems:'center',
              justifyContent:'center',
@@ -108,19 +108,19 @@ export default class HD extends Component {
          style={{flexDirection:'row'}}>
              <Text style={{fontSize:13,
                 fontWeight:'bold',
-                height:30,
+                height:40,
                 textAlign:'center',
                 textAlignVertical:'center'}}>今日</Text>
               <Text style={{fontSize:13,
                 fontWeight:'bold',
                 borderBottomColor:'#FFBF00',
                 borderBottomWidth:2,
-                height:30,
+                height:40,
                 textAlign:'center',
-                textAlignVertical:'center'}}>行为</Text>
+                textAlignVertical:'center'}}>计划</Text>
              <Text style={{fontSize:13,
                 fontWeight:'bold',
-                height:30,
+                height:40,
                 textAlign:'center',
                 textAlignVertical:'center'}}>列表</Text>
          </View>
@@ -132,17 +132,17 @@ export default class HD extends Component {
          style={{flexDirection:'row',marginLeft:5}}>
              <Text style={{fontSize:13,
                 fontWeight:'bold',
-                height:30,
+                height:40,
                 textAlign:'center',
                 textAlignVertical:'center'}}>今日</Text>
               <Text style={{fontSize:13,
                 fontWeight:'bold',
-                height:30,
+                height:40,
                 textAlign:'center',
                 textAlignVertical:'center'}}>行为</Text>
              <Text style={{fontSize:13,
                 fontWeight:'bold',
-                height:30,
+                height:40,
                 textAlign:'center',
                 textAlignVertical:'center'}}>列表</Text>
          </View>
@@ -159,7 +159,7 @@ export default class HD extends Component {
                                                       borderTopWidth:1,
                                                       margin:5,
                                                       borderRadius:10,
-                                                      height:40}}>
+                                                      height:30}}>
                                                       <View style={{flex:4,
                                                         justifyContent:'center',
                                                         alignItems:'flex-start',
@@ -178,7 +178,7 @@ export default class HD extends Component {
                                                         justifyContent:'center',
                                                         alignItems:'center'}}>
                                                          <CheckBox  styles={{height:20,width:20}}></CheckBox>
-                                                         <Image source={require('./shyImage/zxj.png')} style={{height:20,width:20,marginLeft:5}} resizeMode='stretch'></Image>
+                                                         <Image source={require('./shyImage/wzxj.png')} style={{height:20,width:20,marginLeft:10,marginRight:10}} resizeMode='stretch'></Image>
                                                       </View>
                                                     
                                             
@@ -205,17 +205,17 @@ export default class HD extends Component {
                             }}>
             
                                 <View style={{
-                                    height:200
+                                    height:250
                                 }}>
                                          <ImageBackground
                                            
-                                     resizeMode='contain'
+                                       resizeMode='stretch'
                                         source={ require('./shyImage/banner.png')
                                     }
                                       
                                         style={{
-                                         height:200,
-                                         width:1000
+                                         height:250,
+                                         width:deviceWidth
                                     }}>
                                     
                                     <View style={{flexDirection:'row',
@@ -239,7 +239,7 @@ export default class HD extends Component {
                          justifyContent:'space-between',
                          flexDirection:'row',
                          backgroundColor:'#fff',
-                         height:30,
+                         height:40,
                          margin:5,
                          alignItems:'center',
                          justifyContent:'center',
@@ -253,18 +253,18 @@ export default class HD extends Component {
                      style={{flexDirection:'row'}}>
                          <Text style={{fontSize:13,
                             fontWeight:'bold',
-                            height:30,
+                            height:40,
                             textAlign:'center',
                             textAlignVertical:'center'}}>今日</Text>
                           <Text style={{fontSize:13,
                             fontWeight:'bold',
                          
-                            height:30,
+                            height:40,
                             textAlign:'center',
-                            textAlignVertical:'center'}}>行为</Text>
+                            textAlignVertical:'center'}}>计划</Text>
                          <Text style={{fontSize:13,
                             fontWeight:'bold',
-                            height:30,
+                            height:40,
                             textAlign:'center',
                             textAlignVertical:'center'}}>列表</Text>
                      </View>
@@ -276,19 +276,19 @@ export default class HD extends Component {
                      style={{flexDirection:'row',marginLeft:5}}>
                          <Text style={{fontSize:13,
                             fontWeight:'bold',
-                            height:30,
+                            height:40,
                             textAlign:'center',
                             textAlignVertical:'center'}}>今日</Text>
                           <Text style={{fontSize:13,
                             fontWeight:'bold',
-                            height:30,
+                            height:40,
                             borderBottomColor:'#FFBF00',
                             borderBottomWidth:2,
                             textAlign:'center',
                             textAlignVertical:'center'}}>行为</Text>
                          <Text style={{fontSize:13,
                             fontWeight:'bold',
-                            height:30,
+                            height:40,
                             textAlign:'center',
                             textAlignVertical:'center'}}>列表</Text>
                      </View>
@@ -305,7 +305,7 @@ export default class HD extends Component {
                                                                   borderTopWidth:1,
                                                                   margin:5,
                                                                   borderRadius:10,
-                                                                  height:40}}>
+                                                                  height:30}}>
                                                                   <View style={{flex:4,
                                                                     justifyContent:'center',
                                                                     alignItems:'flex-start',

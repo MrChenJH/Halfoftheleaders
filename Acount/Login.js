@@ -183,6 +183,8 @@ export default class Login extends Component {
                             this.setState({type:4,mainType:2})
                            }else if(this.state.userName=='shy'){
                             this.setState({type:4,mainType:3})
+                           }else if(this.state.userName=='gcy'){
+                            this.setState({type:4,mainType:4})
                            }else{
                             this.setState({type:4,mainType:1})
                            }

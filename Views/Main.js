@@ -22,10 +22,11 @@ import Shy  from './page/shy'
 
   
 import Wdqb from './xg/wdqb'
-import Mrjh from './xg/mrjh'
+import Jrrw from './xg/jrrw'
 import Wyhs from './xg/wyhs'
 import Sh from './shy/sh'
 import Jhsh from './shy/jhsh'
+import Jssh from './shy/jssh'
 import page4 from './page/4'
 import page5 from './page/4'
 
@@ -52,7 +53,7 @@ import Login from '../Acount/Login'
               renderSelectedIcon={() => <Image style={styles.icon} source={selectedIcon} />}  
               onPress={() => this.setState({ selectedTab: selectedTab })}
           >
-              <Component  tc={()=>{this.setState({type:2})}}/>
+              <Component  tc={()=>{this.setState({type:5})}}/>
           </TabNavigator.Item>
         )
     
@@ -77,8 +78,8 @@ import Login from '../Acount/Login'
           <View style={styles.container}>
           <TabNavigator>
             {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),Xg)}
-            {this._renderTabarItems('我的计划',require('./img/2.png'),require('./main/jhgl.png'),Mrjh)}
-            {this._renderTabarItems('我的预算',require('./img/3.png'),require('./main/wodeys.png'),Jtjh)}
+            {this._renderTabarItems('今日任务',require('./img/2.png'),require('./main/jhgl.png'),Jrrw)}
+            {this._renderTabarItems('我的预算',require('./img/3.png'),require('./main/wodeys.png'),Wyhs)}
             {this._renderTabarItems('我有话说',require('./img/4.png'),require('./main/woyouhuashuo.png'),Wyhs)}
             {this._renderTabarItems('我的钱包',require('./img/2.png'),require('./main/wodecaidan.png'),Wdqb )}
            </TabNavigator>
@@ -90,7 +91,18 @@ import Login from '../Acount/Login'
             {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),Shy)}
             {this._renderTabarItems('计划审核',require('./img/2.png'),require('./main/jhgl.png'),Jhsh)}
             {this._renderTabarItems('预算审核',require('./img/3.png'),require('./main/wodeys.png'),Sh)}
-            {this._renderTabarItems('结算审核',require('./img/4.png'),require('./main/woyouhuashuo.png'),Wyhs)}
+            {this._renderTabarItems('结算审核',require('./img/4.png'),require('./main/woyouhuashuo.png'),Jssh)}
+            {this._renderTabarItems('我的菜单',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
+           </TabNavigator>
+        </View> )
+        }else if(this.state.type==4){
+          return (
+          <View style={styles.container}>
+          <TabNavigator>
+            {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),Shy)}
+            {this._renderTabarItems('日常行为评分',require('./img/2.png'),require('./main/jhgl.png'),Jhsh)}
+            {this._renderTabarItems('小孩表现',require('./img/3.png'),require('./main/wodeys.png'),Sh)}
+            {this._renderTabarItems('我的赞助',require('./img/4.png'),require('./main/woyouhuashuo.png'),Wyhs)}
             {this._renderTabarItems('我的菜单',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
            </TabNavigator>
         </View> )

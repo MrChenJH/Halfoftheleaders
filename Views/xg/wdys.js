@@ -80,7 +80,12 @@ export default class jtjh extends Component {
                     width:35,
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
-                      onPress={()=>{back()}}>
+                      onPress={()=>{
+                        if(back)
+                        {
+                        back()}
+                        }
+                          }>
                         <Image source={require('./imgs/back.png')}  
                         resizeMode='stretch' 
                          style={{height:20,width:20}} >
@@ -146,7 +151,7 @@ export default class jtjh extends Component {
                                                       marginRight:10,
                                                       justifyContent:'flex-end'}}>
                                                            <Checkbox styles={{width:20,height:20}}></Checkbox>
-                                                          <Image source={require('./jdjf/remove.png')} resizeMode='stretch' style={{height:20,width:20}}></Image>
+                                                          <Image source={require('./jdjf/remove.png')} resizeMode='stretch' style={{height:20,width:20,marginLeft:10,marginRight:10}}></Image>
                                                       </View>
                                                   
                                                     

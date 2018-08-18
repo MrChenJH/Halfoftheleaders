@@ -80,7 +80,12 @@ export default class jtjh extends Component {
                     width:35,
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
-                      onPress={()=>{back()}}>
+                      onPress={()=>{
+                          if(back)
+                          {
+                          back()}
+                          }
+                          }>
                         <Image source={require('./imgs/back.png')}  
                         resizeMode='stretch' 
                          style={{height:20,width:20}} >

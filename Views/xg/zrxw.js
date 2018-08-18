@@ -53,29 +53,29 @@ export default class HD extends Component {
                 }}>
 
                     <View style={{
-                        height:200
+                        height:250
                     }}>
                              <ImageBackground
                                
-                         resizeMode='contain'
-                            source={ require('./gly/banner.png')
+                         resizeMode='stretch'
+                            source={ require('../shy/shyImage/banner.png')
                         }
                           
                             style={{
-                             height:200,
-                             width:1000
+                             height:250,
+                             width:deviceWidth
                         }}>
                         
                         <View 
-                               style={{height:40,
-                                       marginLeft:10,
-                                        alignItems:'flex-start',
-                                        justifyContent:'center'}} >
+              style={{height:40,
+                marginLeft:10,
+                 alignItems:'flex-start',
+                 justifyContent:'center'}} >
              
-                            <TouchableOpacity onPress={()=>{
-                                    if(back){  back()}
-                                   }}>
-                  <Image source={require('./imgs/close.png')}
+             <TouchableOpacity onPress={()=>{
+                 if(back){  back()}
+               }}>
+                  <Image source={require('../shy/shyImage/close.png')}
               
                    style={{height:20,
                            width:20}} 
@@ -92,7 +92,7 @@ export default class HD extends Component {
              justifyContent:'space-between',
              flexDirection:'row',
              backgroundColor:'#fff',
-             height:30,
+             height:40,
              margin:5,
              alignItems:'center',
              justifyContent:'center',
@@ -106,23 +106,24 @@ export default class HD extends Component {
          style={{flexDirection:'row'}}>
              <Text style={{fontSize:13,
                 fontWeight:'bold',
-                height:30,
+                height:40,
                 textAlign:'center',
                 textAlignVertical:'center'}}>昨日</Text>
               <Text style={{fontSize:13,
                 fontWeight:'bold',
                 borderBottomColor:'#FFBF00',
                 borderBottomWidth:2,
-                height:30,
+                height:40,
                 textAlign:'center',
                 textAlignVertical:'center'}}>行为</Text>
              <Text style={{fontSize:13,
                 fontWeight:'bold',
-                height:30,
+                height:40,
                 textAlign:'center',
                 textAlignVertical:'center'}}>列表</Text>
          </View>
          </TouchableOpacity>
+         <View style={{width:20}}></View>
          <TouchableOpacity onPress={()=>{
              this.setState({type:2})
          }}>
@@ -130,17 +131,17 @@ export default class HD extends Component {
          style={{flexDirection:'row',marginLeft:5}}>
              <Text style={{fontSize:13,
                 fontWeight:'bold',
-                height:30,
+                height:40,
                 textAlign:'center',
                 textAlignVertical:'center'}}>昨日</Text>
               <Text style={{fontSize:13,
                 fontWeight:'bold',
-                height:30,
+                height:40,
                 textAlign:'center',
                 textAlignVertical:'center'}}>行为</Text>
              <Text style={{fontSize:13,
                 fontWeight:'bold',
-                height:30,
+                height:40,
                 textAlign:'center',
                 textAlignVertical:'center'}}>列表</Text>
          </View>
@@ -153,11 +154,11 @@ export default class HD extends Component {
                                           <View 
                                               style={{flexDirection:'row',
                                                       borderTopColor:'#F0F0F0',
-                                                      backgroundColor:'#BDBDBD',
+                                                      backgroundColor:'#fff',
                                                       borderTopWidth:1,
                                                       margin:5,
                                                       borderRadius:10,
-                                                      height:40}}>
+                                                      height:30}}>
                                                       <View style={{flex:4,
                                                         justifyContent:'center',
                                                         alignItems:'flex-start',
@@ -176,7 +177,7 @@ export default class HD extends Component {
                                                         justifyContent:'center',
                                                         alignItems:'center'}}>
                                                        
-                                                         <Image source={require('./xgsy/lian.png')} style={{height:20,width:20,marginLeft:5}} resizeMode='stretch'></Image>
+                                                         <Image source={require('../shy/shyImage/lian.png')} style={{height:20,width:20,marginLeft:5}} resizeMode='stretch'></Image>
                                                       </View>
                                                     
                                             
@@ -203,17 +204,17 @@ export default class HD extends Component {
                             }}>
             
                                 <View style={{
-                                    height:200
+                                    height:250
                                 }}>
                                          <ImageBackground
                                            
                                      resizeMode='contain'
-                                        source={ require('./gly/banner.png')
+                                        source={ require('../shy/shyImage/banner.png')
                                     }
                                       
                                         style={{
-                                         height:200,
-                                         width:1000
+                                         height:250,
+                                         width:deviceWidth
                                     }}>
                                     
                                     <View style={{flexDirection:'row',
@@ -222,7 +223,7 @@ export default class HD extends Component {
                                   <TouchableOpacity 
                                   style={{alignSelf:'flex-start',paddingLeft:10,flex:1}}
                                   onPress={()=>{back()}}>
-                                 <Image source={require('./imgs/close.png')}
+                                 <Image source={require('../shy/shyImage/close.png')}
                                  resizeMode='stretch' style={{height:20,width:20}} ></Image> 
                                
                                </TouchableOpacity>
@@ -237,7 +238,7 @@ export default class HD extends Component {
                          justifyContent:'space-between',
                          flexDirection:'row',
                          backgroundColor:'#fff',
-                         height:30,
+                         height:40,
                          margin:5,
                          alignItems:'center',
                          justifyContent:'center',
@@ -251,22 +252,23 @@ export default class HD extends Component {
                      style={{flexDirection:'row'}}>
                          <Text style={{fontSize:13,
                             fontWeight:'bold',
-                            height:30,
+                            height:40,
                             textAlign:'center',
                             textAlignVertical:'center'}}>昨日</Text>
                           <Text style={{fontSize:13,
                             fontWeight:'bold',
                          
-                            height:30,
+                            height:40,
                             textAlign:'center',
                             textAlignVertical:'center'}}>行为</Text>
                          <Text style={{fontSize:13,
                             fontWeight:'bold',
-                            height:30,
+                            height:40,
                             textAlign:'center',
                             textAlignVertical:'center'}}>列表</Text>
                      </View>
                      </TouchableOpacity>
+                     <View style={{width:20}}></View>
                      <TouchableOpacity onPress={()=>{
                          this.setState({type:2})
                      }}>
@@ -274,19 +276,19 @@ export default class HD extends Component {
                      style={{flexDirection:'row',marginLeft:5}}>
                          <Text style={{fontSize:13,
                             fontWeight:'bold',
-                            height:30,
+                            height:40,
                             textAlign:'center',
                             textAlignVertical:'center'}}>今日</Text>
                           <Text style={{fontSize:13,
                             fontWeight:'bold',
-                            height:30,
+                            height:40,
                             borderBottomColor:'#FFBF00',
                             borderBottomWidth:2,
                             textAlign:'center',
                             textAlignVertical:'center'}}>行为</Text>
                          <Text style={{fontSize:13,
                             fontWeight:'bold',
-                            height:30,
+                            height:40,
                             textAlign:'center',
                             textAlignVertical:'center'}}>列表</Text>
                      </View>
@@ -303,7 +305,7 @@ export default class HD extends Component {
                                                                   borderTopWidth:1,
                                                                   margin:5,
                                                                   borderRadius:10,
-                                                                  height:40}}>
+                                                                  height:30}}>
                                                                   <View style={{flex:4,
                                                                     justifyContent:'center',
                                                                     alignItems:'flex-start',
@@ -322,7 +324,7 @@ export default class HD extends Component {
                                                         justifyContent:'center',
                                                         alignItems:'center'}}>
                                                        
-                                                         <Image source={require('./xgsy/lian.png')} style={{height:20,width:20,marginLeft:5}} resizeMode='stretch'></Image>
+                                                         <Image source={require('../shy/shyImage/lian.png')} style={{height:20,width:20,marginLeft:5}} resizeMode='stretch'></Image>
                                                       </View>
                                                                 
                                                         
