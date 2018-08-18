@@ -13,7 +13,7 @@ import {
     Switch
 } from 'react-native';
 
-import Checkbox from '../component/checkbox'
+import Checkbox from '../component/xwCheckBox'
 
 import ModalDropdown from 'react-native-modal-dropdown';
 const deviceWidth = Dimensions.get('window').width;  
@@ -111,8 +111,7 @@ export default class jtjh extends Component {
                   <ListView
                                   dataSource={this.state.dataSource}
                                    renderRow={(rowData) => 
-                                     <TouchableOpacity  
-                                           onPress={()=>{this.setState({type:2})}}>
+                      
                                           <View 
                                               style={{flexDirection:'row',
                                                       borderTopColor:'#F0F0F0',
@@ -132,18 +131,29 @@ export default class jtjh extends Component {
                                                         justifyContent:'center',
                                                         alignItems:'center'
                                                     }}>
-                                                          <Text style={{   color:'#474747'}}>金豆:{rowData.jds}</Text>
+                                                          <Text style={{   color:'#474747'}}>{rowData.content}</Text>
                                                       </View>
-                                                      <View style={{flex:1,
+                                                      <View style={{flex:2,
                                                         justifyContent:'center',
-                                                        alignItems:'center'}}>
-
-                                                          <Image source={require('./imgs/delete.png')} resizeMode='stretch' style={{height:20,width:20}}></Image>
+                                                        alignItems:'center'
+                                                    }}>
+                                                          <Text style={{   color:'#474747'}}>{rowData.je}</Text>
                                                       </View>
+                                                      <View style={{flex:2,
+                                                    
+                                                        flexDirection:'row',
+                                                        alignItems:'center',
+                                                      marginRight:10,
+                                                      justifyContent:'flex-end'}}>
+                                                           <Checkbox styles={{width:20,height:20}}></Checkbox>
+                                                          <Image source={require('./jdjf/remove.png')} resizeMode='stretch' style={{height:20,width:20}}></Image>
+                                                      </View>
+                                                  
+                                                    
                                                     
                                             
                                          </View>
-                                        </TouchableOpacity>
+                                
                                          }
                                    />
                     

@@ -20,7 +20,9 @@ import Wd   from './cygl/wd'
 import Xg   from './page/xg' 
 import Shy  from './page/shy'
 
-
+  
+import Wdqb from './xg/wdqb'
+import Mrjh from './xg/mrjh'
 import Wyhs from './xg/wyhs'
 import Sh from './shy/sh'
 import Jhsh from './shy/jhsh'
@@ -75,10 +77,10 @@ import Login from '../Acount/Login'
           <View style={styles.container}>
           <TabNavigator>
             {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),Xg)}
-            {this._renderTabarItems('我的计划',require('./img/2.png'),require('./main/jhgl.png'),Cygl)}
+            {this._renderTabarItems('我的计划',require('./img/2.png'),require('./main/jhgl.png'),Mrjh)}
             {this._renderTabarItems('我的预算',require('./img/3.png'),require('./main/wodeys.png'),Jtjh)}
             {this._renderTabarItems('我有话说',require('./img/4.png'),require('./main/woyouhuashuo.png'),Wyhs)}
-            {this._renderTabarItems('我的钱包',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
+            {this._renderTabarItems('我的钱包',require('./img/2.png'),require('./main/wodecaidan.png'),Wdqb )}
            </TabNavigator>
         </View> )
         } else if(this.state.type==3){

@@ -66,17 +66,22 @@ export default class HD extends Component {
                              width:1000
                         }}>
                         
-                        <View style={{flexDirection:'row',
-                    marginTop:10,width:deviceWidth
-                    }}>
-                      <TouchableOpacity 
-                      style={{alignSelf:'flex-start',paddingLeft:10,flex:1}}
-                      onPress={()=>{back()}}>
-                     <Image source={require('./imgs/close.png')}
-                     resizeMode='stretch' style={{height:20,width:20}} ></Image> 
-                   
-                   </TouchableOpacity>
-                   </View>
+                        <View 
+              style={{height:40,
+                marginLeft:10,
+                 alignItems:'flex-start',
+                 justifyContent:'center'}} >
+             
+             <TouchableOpacity onPress={()=>{
+                 if(back){  back()}
+               }}>
+                  <Image source={require('./imgs/close.png')}
+              
+                   style={{height:20,
+                           width:20}} 
+                           resizeMode='stretch' ></Image>
+                           </TouchableOpacity>
+                        </View>
                         </ImageBackground>
                     </View>
                     </View>

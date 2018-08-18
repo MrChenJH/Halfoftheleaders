@@ -145,7 +145,7 @@ export default class page1 extends Component {
                  
                     <View
                         style={{
-                        height:250,
+                        height:180,
                         marginLeft: 5,
                         marginRight: 5,
                         marginTop: 10,
@@ -181,7 +181,7 @@ export default class page1 extends Component {
                  
                     <View
                         style={{
-                        height: 150,
+                        height: 130,
                         marginLeft: 5,
                         marginRight: 5,
                         marginTop: 10,
@@ -197,35 +197,23 @@ export default class page1 extends Component {
                             flex: 1
                         }}
                             resizeMode='contain'>
+                            
                             <View
                                 style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                marginTop: 5
-                            }}>
-                                <Text style={{
-                                    fontSize:14,
-                                    color:'#151515'
-                                    }}>服务提醒</Text>
-                            </View>
-                            <View
-                                style={{
-                                flex: 4,
-                              
-                                marginBottom: 20,
-                                marginTop: 5
-                            }}>
+                                    height: 120
+                              }}>
                                
                                <ListView
                               dataSource={this.state.dataSource}
                                renderRow={(rowData) => 
                                <View style={{
+                                height: 30,
                                flexDirection:'row', 
                                 borderBottomWidth:1,
                                borderBottomColor:'#F2F2F2',
                                marginLeft:5,
-                               marginRight:5
+                               marginRight:5,
+                               alignItems:'center'
                                }}> 
                                     <View style={{flex:1,
                                         alignItems:'center',

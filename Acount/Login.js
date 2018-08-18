@@ -179,7 +179,7 @@ export default class Login extends Component {
                         <Button
                             ref="button"
                             onPress={() => {
-                           if(this.state.userName=='xgz'){
+                           if(this.state.userName=='xg'){
                             this.setState({type:4,mainType:2})
                            }else if(this.state.userName=='shy'){
                             this.setState({type:4,mainType:3})

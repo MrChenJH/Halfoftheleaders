@@ -13,9 +13,11 @@ import {
 
 import Button from '../component/button'
  import Jrrw from '../shy/jrrw'
- import Zrbx from '../shy/mrxw'
+ import Zrbx from '../shy/zrxw'
  import Mrjh from '../shy/mrjh'
- import YsSh from '../shy/sh'
+ import YsSh from '../shy/jhsh'
+ import JHSh from '../shy/sh'
+ import Jfd from '../cygl/wdjf'
  import Wdtj from '../shy/wdtj'
  import Jdhd from '../shy/hd'
 
@@ -192,7 +194,7 @@ export default class page1 extends Component {
                  
                     <View
                         style={{
-                        height: 100,
+                        height: 90,
                         marginLeft: 5,
                         marginRight: 5,
                         marginTop: 10,
@@ -211,17 +213,19 @@ export default class page1 extends Component {
                       
                             <View
                                 style={{
-                                flex: 4,
+                               height:60,
                                 marginBottom: 20,
-                                marginTop: 5
+                                marginTop: 10
                             }}>
                                
                                <ListView
                                    dataSource={this.state.dataSource}
                                    renderRow={(rowData) => 
                                <View style={{
+                                   height:30,
                                flexDirection:'row', 
                                 borderBottomWidth:1,
+                                alignItems:'center',
                                borderBottomColor:'#F2F2F2',
                                marginLeft:5,
                                marginRight:5
@@ -275,13 +279,17 @@ export default class page1 extends Component {
                 this.setState({type:1})}}
             ></Wdtj>
         }
+        else  if(this.state.type==7){
 
+            return <Jfd
+            back={()=>{
+                 this.setState({type:1})}}></Jfd>
+        }
 
 
         else if(this.state.type==8){
             return <Jdhd back={()=>{
-                
-                this.setState({type:1})}}></Jdhd>
+                 this.setState({type:1})}}></Jdhd>
          }
 
          else if(this.state.type==9){

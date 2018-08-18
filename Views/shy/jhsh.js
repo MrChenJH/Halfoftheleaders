@@ -13,7 +13,7 @@ import {
 } from 'react-native';  
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
-import CheckBox from '../component/checkbox'
+import CheckBox from '../component/xwCheckBox'
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
@@ -52,7 +52,11 @@ justifyContent:'space-between'}}>
         width:35,
         justifyContent:'center',
         alignItems:'flex-end'}} 
-        onPress={()=>{back()}}>
+        onPress={()=>{
+            if(back){
+                back()
+            }
+           }}>
          <Image source={require('./shyImage/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
          </Image>
        </TouchableOpacity> 
@@ -107,7 +111,7 @@ justifyContent:'space-between'}}>
                        <View style={{flex:1,
                          justifyContent:'center',
                          alignItems:'center'}}>
-                           <CheckBox styles={{height:20,width:20}}  isChecked={rowData.xz}></CheckBox>
+                           <CheckBox styles={{height:20,width:20}} ></CheckBox>
                        </View>
                      
              
