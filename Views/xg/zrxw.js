@@ -13,7 +13,7 @@ import {
 } from 'react-native';  
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
-import CheckBox from '../component/checkbox'
+import CheckBox from '../component/xwCheckBox'
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
@@ -24,8 +24,12 @@ export default class HD extends Component {
         super(props);
         this.state = {
              dataSource: ds.cloneWithRows([
-                {title:'数学作业',content:'获得金豆:500',xz:true},
-                {title:'在家不能抽烟',content:'获得金豆:500',xz:false}
+                {title:'数学作业',content:'获得金豆:500'},
+                {title:'数学作业',content:'获得银豆:500'}
+              ]),
+              dataSource1: ds.cloneWithRows([
+                {title:'按时睡觉',content:'银豆:500'},
+                {title:'按时睡觉',content:'银豆:500'}
               ]),
               type:1,
               typetitle:'',
@@ -60,12 +64,25 @@ export default class HD extends Component {
                             style={{
                              height:200,
                              width:1000
-                        }}></ImageBackground>
+                        }}>
+                        
+                        <View style={{flexDirection:'row',
+                    marginTop:10,width:deviceWidth
+                    }}>
+                      <TouchableOpacity 
+                      style={{alignSelf:'flex-start',paddingLeft:10,flex:1}}
+                      onPress={()=>{back()}}>
+                     <Image source={require('./imgs/close.png')}
+                     resizeMode='stretch' style={{height:20,width:20}} ></Image> 
+                   
+                   </TouchableOpacity>
+                   </View>
+                        </ImageBackground>
                     </View>
                     </View>
                      <ScrollView 
-                     style={{backgroundColor:'#fff',height:deviceheight}}>
-         <View  
+                     style={{backgroundColor:'#efefef',height:deviceheight}}>
+                     <View  
             style={{
              justifyContent:'space-between',
              flexDirection:'row',
@@ -76,6 +93,9 @@ export default class HD extends Component {
              justifyContent:'center',
              paddingLeft:10,
              paddingRight:10
+         }}>
+         <TouchableOpacity onPress={()=>{
+             this.setState({type:1})
          }}>
          <View 
          style={{flexDirection:'row'}}>
@@ -97,6 +117,10 @@ export default class HD extends Component {
                 textAlign:'center',
                 textAlignVertical:'center'}}>列表</Text>
          </View>
+         </TouchableOpacity>
+         <TouchableOpacity onPress={()=>{
+             this.setState({type:2})
+         }}>
          <View 
          style={{flexDirection:'row',marginLeft:5}}>
              <Text style={{fontSize:13,
@@ -115,6 +139,7 @@ export default class HD extends Component {
                 textAlign:'center',
                 textAlignVertical:'center'}}>列表</Text>
          </View>
+         </TouchableOpacity>
         </View>
                   <ListView
                                   dataSource={this.state.dataSource}
@@ -123,7 +148,7 @@ export default class HD extends Component {
                                           <View 
                                               style={{flexDirection:'row',
                                                       borderTopColor:'#F0F0F0',
-                                                      backgroundColor:'#efefef',
+                                                      backgroundColor:'#BDBDBD',
                                                       borderTopWidth:1,
                                                       margin:5,
                                                       borderRadius:10,
@@ -145,7 +170,8 @@ export default class HD extends Component {
                                                         flexDirection:'row',
                                                         justifyContent:'center',
                                                         alignItems:'center'}}>
-                                                            <Image source={require('./xgsy/you.png')} style={{height:30,width:30,marginLeft:5}} resizeMode='stretch'></Image>
+                                                       
+                                                         <Image source={require('./xgsy/lian.png')} style={{height:20,width:20,marginLeft:5}} resizeMode='stretch'></Image>
                                                       </View>
                                                     
                                             
@@ -158,6 +184,153 @@ export default class HD extends Component {
                
      </View>
             )
+            }else{
+                return (
+                    <View style={{
+                        backgroundColor: '#F7F7F7'
+                    }}>
+                            <View
+                                style={{
+                                height: 250,
+            
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+            
+                                <View style={{
+                                    height:200
+                                }}>
+                                         <ImageBackground
+                                           
+                                     resizeMode='contain'
+                                        source={ require('./gly/banner.png')
+                                    }
+                                      
+                                        style={{
+                                         height:200,
+                                         width:1000
+                                    }}>
+                                    
+                                    <View style={{flexDirection:'row',
+                                marginTop:10,width:deviceWidth
+                                }}>
+                                  <TouchableOpacity 
+                                  style={{alignSelf:'flex-start',paddingLeft:10,flex:1}}
+                                  onPress={()=>{back()}}>
+                                 <Image source={require('./imgs/close.png')}
+                                 resizeMode='stretch' style={{height:20,width:20}} ></Image> 
+                               
+                               </TouchableOpacity>
+                               </View>
+                                    </ImageBackground>
+                                </View>
+                                </View>
+                                 <ScrollView 
+                                 style={{backgroundColor:'#efefef',height:deviceheight}}>
+                                 <View  
+                        style={{
+                         justifyContent:'space-between',
+                         flexDirection:'row',
+                         backgroundColor:'#fff',
+                         height:30,
+                         margin:5,
+                         alignItems:'center',
+                         justifyContent:'center',
+                         paddingLeft:10,
+                         paddingRight:10
+                     }}>
+                     <TouchableOpacity onPress={()=>{
+                         this.setState({type:1})
+                     }}>
+                     <View 
+                     style={{flexDirection:'row'}}>
+                         <Text style={{fontSize:13,
+                            fontWeight:'bold',
+                            height:30,
+                            textAlign:'center',
+                            textAlignVertical:'center'}}>昨日</Text>
+                          <Text style={{fontSize:13,
+                            fontWeight:'bold',
+                         
+                            height:30,
+                            textAlign:'center',
+                            textAlignVertical:'center'}}>行为</Text>
+                         <Text style={{fontSize:13,
+                            fontWeight:'bold',
+                            height:30,
+                            textAlign:'center',
+                            textAlignVertical:'center'}}>列表</Text>
+                     </View>
+                     </TouchableOpacity>
+                     <TouchableOpacity onPress={()=>{
+                         this.setState({type:2})
+                     }}>
+                     <View 
+                     style={{flexDirection:'row',marginLeft:5}}>
+                         <Text style={{fontSize:13,
+                            fontWeight:'bold',
+                            height:30,
+                            textAlign:'center',
+                            textAlignVertical:'center'}}>今日</Text>
+                          <Text style={{fontSize:13,
+                            fontWeight:'bold',
+                            height:30,
+                            borderBottomColor:'#FFBF00',
+                            borderBottomWidth:2,
+                            textAlign:'center',
+                            textAlignVertical:'center'}}>行为</Text>
+                         <Text style={{fontSize:13,
+                            fontWeight:'bold',
+                            height:30,
+                            textAlign:'center',
+                            textAlignVertical:'center'}}>列表</Text>
+                     </View>
+                     </TouchableOpacity>
+                    </View>
+                              <ListView
+                                              dataSource={this.state.dataSource1}
+                                               renderRow={(rowData) => 
+                                       
+                                                      <View 
+                                                          style={{flexDirection:'row',
+                                                                  borderTopColor:'#F0F0F0',
+                                                                  backgroundColor:'#fff',
+                                                                  borderTopWidth:1,
+                                                                  margin:5,
+                                                                  borderRadius:10,
+                                                                  height:40}}>
+                                                                  <View style={{flex:4,
+                                                                    justifyContent:'center',
+                                                                    alignItems:'flex-start',
+                                                                 
+                                                                    marginLeft:10}}>
+                                                                      <Text style={{   fontSize:12,color:'#474747'}}>{rowData.title}</Text>
+                                                                  </View>
+                                                                  <View style={{flex:2,
+                                                                    justifyContent:'center',
+                                                                    alignItems:'center'
+                                                                }}>
+                                                                      <Text style={{  fontSize:12, color:'#474747'}}>{rowData.content}</Text>
+                                                                  </View>
+                                                                  <View style={{flex:1,
+                                                        flexDirection:'row',
+                                                        justifyContent:'center',
+                                                        alignItems:'center'}}>
+                                                       
+                                                         <Image source={require('./xgsy/lian.png')} style={{height:20,width:20,marginLeft:5}} resizeMode='stretch'></Image>
+                                                      </View>
+                                                                
+                                                        
+                                                     </View>
+                                    
+                                                     }
+                                               />
+                                
+                                        </ScrollView>
+                           
+                 </View>
+                        )
+
             }
           
             

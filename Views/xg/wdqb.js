@@ -3,6 +3,7 @@ import {
   TouchableOpacity,
 StyleSheet,
     Text,
+    Image,
   ScrollView,
     View,
     Dimensions,
@@ -225,44 +226,64 @@ export default class app2 extends Component {
   
     render() {
       return (
-        <ScrollView style={{width:deviceWidth}} >
-      <ImageBackground source={require('./gly/2menu_bg.png')} style={{width:deviceWidth,paddingLeft:5,paddingRight:5}}>
-        <View style={{height:45,marginTop:20,flexDirection:'row',justifyContent:'space-between',backgroundColor:'#fff',borderRadius:5,alignItems:'center'}}>
-          <Text style={{marginLeft:10,color:'orange',fontSize:15}}>
-            本周攒豆情况  1500
+        <ScrollView style={{width:deviceWidth}} > 
+
+      <ImageBackground source={require('./gly/2menu_bg.png')} 
+
+       style={{width:deviceWidth,paddingLeft:5,paddingRight:5}}>
+               <View 
+                 style={{flexDirection:'row',
+                         flex:1,
+                         alignItems:'flex-end',
+                         marginTop:20,
+                         marginBottom:3}}>
+          <Text 
+             style={{
+             flex:5,color:'#fff'}}
+          >本周攒豆情况</Text> 
+          <View
+           style={{flexDirection:'row',
+                  flex:1}}
+          >
+          <Image source={require('./jdjf/syz.png')} resizeMode='cover' style={{height:15,width:20,marginRight:5}}></Image>
+          <Image source={require('./jdjf/xyz.png')} resizeMode='cover' style={{height:15,width:20}}></Image>
+          </View>
+        </View>
+        <View style={{height:45,flexDirection:'row',
+        justifyContent:'space-between',
+        backgroundColor:'#fff',borderRadius:5,alignItems:'center'}}>
+          <Text style={{marginLeft:10,color:'orange',fontSize:12}}>
+            豆金总余额:  1500
           </Text>
 
           <TouchableOpacity style={{width:100,height:30}} onPress={()=>{}}>
-               <ImageBackground style={{width:100,height:30}} source={require('./gly/woyaochongzhi.png')} resizeMode='stretch'>
-               <Text style={{color: '#fff'}}>change state</Text>
-               </ImageBackground>
+            <Image source={require('./jdjf/djcz.png')} 
+            style={{width:100,height:35}} 
+            resizeMode='stretch'
+            ></Image>
           
           </TouchableOpacity>
      
         </View>
         
 
-         <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center',paddingLeft:40,paddingRight:15}}>
-              <Echarts option={this.state.optionpie} width={deviceWidth-90} height={300} />
-                
+         <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center'}}>
+             <Image source={require('./jdjf/djfb.png')} style={{height:350-10,width:deviceWidth-10}}  resizeMode='contain'></Image>
         </View>
 
 
-       <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center',paddingLeft:15,paddingRight:15}}>
-              <Echarts option={this.state.optionline1} width={deviceWidth-40} height={300} />
-                
+       <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center'}}>
+            <Image source={require('./jdjf/djtj.png')}  style={{height:350-10,width:deviceWidth-10}} resizeMode='stretch'></Image>      
         </View>
         
         
-        <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center',paddingLeft:15,paddingRight:15}}>
-              <Echarts option={this.state.optionline2} width={deviceWidth-40} height={300} />
-                
+        <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center'}}>
+        <Image source={require('./jdjf/jdtj.png')} style={{height:350-10,width:deviceWidth-10}} resizeMode='contain'></Image>            
         </View>
        
        
-        <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center',paddingLeft:15,paddingRight:15,marginBottom:30}}>
-              <Echarts option={this.state.optionline3} width={deviceWidth-40} height={300} />
-                
+        <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center',marginBottom:20}}>
+        <Image source={require('./jdjf/ydtj.png')} style={{height:350-10,width:deviceWidth-10}} resizeMode='stretch'></Image>             
         </View>
       
         </ImageBackground>

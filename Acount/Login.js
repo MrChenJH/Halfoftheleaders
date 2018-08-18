@@ -87,9 +87,7 @@ export default class Login extends Component {
                                 placeholder="请输入用户名"
                                 placeholderTextColor="#fff"
                                 underlineColorAndroid='transparent'
-                                onChangeText={(text) => {
-                                this.setState({userName: text})
-                            }}></TextInput>
+                                onChangeText={this.userNameChange.bind(this)}></TextInput>
 
                         </ImageBackground>
 
@@ -181,8 +179,10 @@ export default class Login extends Component {
                         <Button
                             ref="button"
                             onPress={() => {
-                           if(this.state.userName=='xg'){
+                           if(this.state.userName=='xgz'){
                             this.setState({type:4,mainType:2})
+                           }else if(this.state.userName=='shy'){
+                            this.setState({type:4,mainType:3})
                            }else{
                             this.setState({type:4,mainType:1})
                            }
@@ -365,9 +365,8 @@ export default class Login extends Component {
                   确认密码</Text>
      
                 <TextInput 
-                    style={{flex:3}}
-                underlineColorAndroid='transparent'
-              
+                 style={{flex:3}}
+                 underlineColorAndroid='transparent'
                  placeholderTextColor='#848484'
                  value={this.state.user}></TextInput>
          
@@ -383,37 +382,45 @@ export default class Login extends Component {
               
               <Text style={{
                   fontSize:15,
-          
-                color:'#fff',
-                flex:2}}>
+                  color:'#fff',
+                  flex:2}}>
                   推荐人</Text>
      
                 <TextInput 
-                    style={{flex:2}}
-                underlineColorAndroid='transparent'
+                 style={{flex:2}}
+                 underlineColorAndroid='transparent'
                  placeholderTextColor='#848484'
                  value={this.state.user}
-                 onChangeText={thi}></TextInput>
+                ></TextInput>
                 <Image
                  source={require('../Views/cygl/imgs/sm.png')}
-                 style={{width:30,height:30,flex:1}} resizeMode='contain'></Image>
+                 style={{width:30,height:30,flex:1}}
+                  resizeMode='contain'></Image>
          
    </View>
 
 
         
-   <View style={{paddingLeft:10,paddingRight:10,marginTop:10,marginBottom:20,height:80,alignItems:'center'}}>
+   <View style={{paddingLeft:10,
+                 paddingRight:10,
+                 marginTop:10,
+                 marginBottom:20,
+                 height:80,
+                 alignItems:'center'}}>
       <TouchableOpacity>
-          <ImageBackground source={require('../Views/cygl/imgs/zc.png')}
-           style={{height:60,width:200,
+          <ImageBackground 
+            source={require('../Views/cygl/imgs/zc.png')}
+            style={{
+            height:60,
+            width:200,
             justifyContent:'center',
             alignItems:"center"}} 
-           resizeMode='contain'>
+            resizeMode='contain'>
        
            </ImageBackground>
-      </TouchableOpacity>
-   </View>
-   </ScrollView>
+       </TouchableOpacity>
+                  </View>
+               </ScrollView>
       </ImageBackground>
             </View>
            );
