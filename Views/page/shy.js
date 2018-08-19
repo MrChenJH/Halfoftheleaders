@@ -22,7 +22,7 @@ import Button from '../component/button'
  import Jdhd from '../shy/hd'
 
  import Zhqh from '../shy/zhqh'
-
+ import Xwpj from '../shy/xwpj'
 
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -51,7 +51,7 @@ export default class page1 extends Component {
         icons.push({img: require('./shy/jfd.png'), name: '家风豆'})
         icons.push({img: require('./shy/jthd.png'), name: '家庭活动'})
         icons.push({img: require('./shy/qhzh.png'), name: '切换账号'})
-       
+        icons.push({img: require('./shy/qhzh.png'), name: '行为评价'})
         return (icons.map((t, i) =>this._remderItem(t, i)))
     }
 
@@ -90,7 +90,7 @@ export default class page1 extends Component {
             }}>
                     <View
                         style={{
-                        height: 250,
+                        height:300,
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
@@ -100,19 +100,19 @@ export default class page1 extends Component {
                         }}>
                                  <ImageBackground
                                    
-                             resizeMode='contain'
+                             resizeMode='stretch'
                                 source={ require('./gly/banner.png')
                             }
                               
                                 style={{
                                  height:200,
-                                 width:1000
+                                 width:deviceWidth
                             }}></ImageBackground>
                         </View>
                        <View
                        style={{
                        width:deviceWidth,
-                        height:90,
+                        height:100,
                         flexDirection: 'row',
                          justifyContent:'space-between', 
                          backgroundColor: '#fff',
@@ -158,7 +158,7 @@ export default class page1 extends Component {
                   
                    <View
                         style={{
-                        height:180,
+                        height:250,
                         marginLeft: 5,
                         marginRight: 5,
                         marginTop: 10,
@@ -243,7 +243,19 @@ export default class page1 extends Component {
                             </View>
                         </ImageBackground>
                     </View>
-                
+                    <View style={{flexDirection:'row',
+                                 marginLeft: 5,
+                                 marginRight: 5,
+                                 marginTop: 10,
+                                 borderStyle: 'solid',
+                                 backgroundColor: '#D0D0D0',
+                               
+                            height:180}}>
+                            <Image source={require('./gly/gg2.png')}
+                             style={{height:180,width:deviceWidth-10}}
+                              resizeMode='stretch'></Image>
+                            </View>
+               
                
 
             </ScrollView>
@@ -288,7 +300,10 @@ export default class page1 extends Component {
                 this.setState({type:1})}}></Zhqh>
          }
 
-      
+         else if(this.state.type==10){
+            return <Xwpj back={()=>{
+                this.setState({type:1})}}></Xwpj>
+         }
 
 
          else if(this.state.type==111)

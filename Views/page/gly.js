@@ -32,10 +32,9 @@ export default class page1 extends Component {
 
         this.state = {
             dataSource: ds.cloneWithRows([
-                {title:'做作业',time:'2018-07-01'},
-                {title:'打扫卫生',time:'2018-07-01'},
-                {title:'洗碗',time:'2018-07-01'},
-                {title:'按时睡觉',time:'2018-07-01'}
+                {title:'做作业',content:'一小时前'},
+                {title:'打扫卫生',content:'三小时前'},
+                {title:'洗碗',content:'洗碗'}
                ]),
               type:1
         }
@@ -130,7 +129,7 @@ export default class page1 extends Component {
                                            height:30,
                                            fontWeight:'bold'
                                         }}>
-                                    欢迎您,张三家庭</Text>
+                                    欢迎您,豆为之家</Text>
                            
                                     </View>
                                     <View style={{flex:1,alignItems:'flex-end',justifyContent:'flex-start',paddingTop:10}}>
@@ -160,7 +159,8 @@ export default class page1 extends Component {
                         marginTop: 10,
                         borderStyle: 'solid',
                         backgroundColor: '#fff',
-                        borderRadius: 10
+                        borderRadius: 10,
+                        flexWrap:'wrap'
                     }}>
                         <ImageBackground
                             source={{
@@ -178,13 +178,13 @@ export default class page1 extends Component {
                                 justifyContent: 'center',
                                 marginTop: 10
                             }}>
-                                <Text>家庭成员</Text>
+                                <Text>我的家人</Text>
                             </View>
                       
                             <View
                                 style={{
                                 flex: 1,
-                                justifyContent: 'flex-start',
+                                justifyContent: 'space-between',
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 marginBottom: 20,
@@ -193,39 +193,85 @@ export default class page1 extends Component {
                                        
                                 <View
                                     style={{
-                                    flex: 1,
+                                
+                                    
+                                            width: 80,
+                                 
                                     alignItems: 'center'
                                 }}> 
                                    <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
                                     <Image
-                                        source={require('./gly/boy.png')}
+                                        source={require('../cygl/imgs/tx/bb.png')}
                                         style={{
                                         height: 50,
                                         width: 50
-                                    }}></Image>
-                                    <Text>父亲</Text>
+                                    }}
+                                        resizeMode='stretch'
+                                    ></Image>
+                                    <Text 
+                                         style={{
+                                         
+                                            width: 50,
+                                            fontSize:12,
+                                            textAlign:'center'
+                                        }}
+                                    >父亲</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View
                                     style={{
-                                    flex: 1,
+                              
+                                        width: 80,
                                     alignItems: 'center',
                                     marginTop: 5
                                 }}> 
                                      <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
                                     <Image
-                                        source={require('./gly/boy.png')}
+                                        source={require('../cygl/imgs/tx/mm.png')}
                                         style={{
                                         height: 50,
                                         width: 50
-                                    }}></Image>
-                                    <Text>母亲</Text>
+                                    }}
+                                    resizeMode='stretch'
+                                    ></Image>
+                                    <Text
+                                       style={{
+                                     
+                                        width: 50,
+                                        fontSize:12,
+                                        textAlign:'center'
+                                    }}
+                                    >母亲</Text>
                                     </TouchableOpacity>
                                 </View>
 
                                 <View
                                     style={{
-                                    flex: 1,
+                                        width: 80,
+                                    alignItems: 'center'
+                                }}>
+                                 <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
+                                    <Image
+                                        source={require('./gly/gril.png')}
+                                        style={{
+                                        height: 50,
+                                        width: 50
+                                    }}
+                                    resizeMode='stretch'
+                                    ></Image>
+                                    <Text
+                                       style={{
+                                      
+                                        width: 50,
+                                        fontSize:12,
+                                        textAlign:'center'
+                                    }}
+                                    >女儿</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View
+                                    style={{
+                                        width: 80,
                                     alignItems: 'center'
                                 }}>
                                  <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
@@ -234,8 +280,17 @@ export default class page1 extends Component {
                                         style={{
                                         height: 50,
                                         width: 50
-                                    }}></Image>
-                                    <Text>小鬼</Text>
+                                    }}
+                                    resizeMode='stretch'
+                                    ></Image>
+                                    <Text
+                                       style={{
+                                       
+                                        width: 50,
+                                        fontSize:12,
+                                        textAlign:'center'
+                                    }}
+                                    >儿子</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -298,7 +353,7 @@ export default class page1 extends Component {
                             resizeMode='contain'>
                             <View
                                 style={{
-                                flex: 1,
+                                 height:40,
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 marginTop: 5
@@ -311,7 +366,7 @@ export default class page1 extends Component {
                             <View
                                 style={{
                                 flex: 4,
-                              
+                                height:90,
                                 marginBottom: 20,
                                 marginTop: 5
                             }}>
@@ -322,6 +377,7 @@ export default class page1 extends Component {
                                <View style={{
                                flexDirection:'row', 
                                 borderBottomWidth:1,
+                                height:30,
                                borderBottomColor:'#F2F2F2',
                                marginLeft:5,
                                marginRight:5
@@ -333,7 +389,7 @@ export default class page1 extends Component {
                                     </View>
                                     <Text style={{flex:6,textAlign:'left'}}>{rowData.title}</Text>
                                     <Text style={{flex:3,
-                                        color:'#BDBDBD',textAlign:'right'}}>{rowData.time}</Text>
+                                        color:'#BDBDBD',textAlign:'right'}}>{rowData.content}</Text>
                                    </View>}
                                />
                             </View>
@@ -369,6 +425,13 @@ export default class page1 extends Component {
          if(this.state.type==4){
             return <Cssz back={()=>{
                 this.setState({type:1})}}></Cssz>
+         }
+         if(this.state.type==5){
+            return <View>
+                <TouchableOpacity onPress={()=>{this.setState({type:1})}}>
+                <Text>敬请期待</Text>
+                
+                </TouchableOpacity></View>
          }
         if(this.state.type==6){
 

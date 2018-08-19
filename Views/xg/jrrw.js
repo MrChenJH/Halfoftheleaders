@@ -24,8 +24,8 @@ export default class HD extends Component {
         super(props);
         this.state = {
              dataSource: ds.cloneWithRows([
-                {title:'不要一直不理我',content:'家风豆:500',xz:true},
-                {title:'在家不能抽烟',content:'家风豆:500',xz:false}
+                {title:'数学作业',content:'金豆:500',xz:true},
+                {title:'数学作业',content:'金豆:500',xz:false}
               ]),
               dataSource1: ds.cloneWithRows([
                 {title:'按时睡觉',content:'银豆:500',xz:true},
@@ -46,14 +46,14 @@ export default class HD extends Component {
         }}>
                 <View
                     style={{
-                    height: 250,
+                    height: 200,
 
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}>
 
                     <View style={{
-                        height:250
+                       height :200
                     }}>
                              <ImageBackground
                                
@@ -62,7 +62,7 @@ export default class HD extends Component {
                         }
                           
                             style={{
-                             height:250,
+                             height:200,
                              width:deviceWidth
                         }}>
                         
@@ -199,14 +199,14 @@ export default class HD extends Component {
                     }}>
                             <View
                                 style={{
-                                height: 250,
+                                height: 200,
             
                                 alignItems: 'center',
                                 justifyContent: 'center'
                             }}>
             
                                 <View style={{
-                                    height:250
+                                    height:200
                                 }}>
                                          <ImageBackground
                                            
@@ -215,7 +215,7 @@ export default class HD extends Component {
                                     }
                                       
                                         style={{
-                                         height:250,
+                                         height:200,
                                          width:deviceWidth
                                     }}>
                                     

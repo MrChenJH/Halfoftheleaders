@@ -71,10 +71,7 @@ export default class HD extends Component {
                             color:'#FFF',fontWeight:'bold'}}>我的活动</Text>
                       </View> 
                       <View style={{marginRight:5}}> 
-                      <TouchableOpacity  style={{height:20,width:20}} onPress={()=>{ this.setState({type:3})}}>
-                        <Image source={require('./shyImage/add.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
-                        </Image>
-                      </TouchableOpacity> 
+                   
                       </View> 
                   </View>
              

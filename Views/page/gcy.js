@@ -15,7 +15,7 @@ import Button from '../component/button'
  import Jrrw from '../gcy/jrrw'
  import Zrbx from '../gcy/zrxw'
  import Mrjh from '../gcy/mrjh'
- import YsSh from '../gcy/jhsh'
+
  import Wdzz from '../gcy/wdzz'
  import Jfd from '../cygl/wdjf'
  import Wdtj from '../gcy/wdtj'
@@ -90,7 +90,7 @@ export default class page1 extends Component {
             }}>
                     <View
                         style={{
-                        height: 250,
+                        height: 300,
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
@@ -100,13 +100,13 @@ export default class page1 extends Component {
                         }}>
                                  <ImageBackground
                                    
-                             resizeMode='contain'
+                                resizeMode='stretch'
                                 source={ require('./gly/gcybanner.png')
                             }
                               
                                 style={{
                                  height:200,
-                                 width:1000
+                                 width:deviceWidth
                             }}></ImageBackground>
                         </View>
                        <View
@@ -233,7 +233,7 @@ export default class page1 extends Component {
                                     <View style={{flex:1,
                                         alignItems:'center',
                                         justifyContent:'center'}}>
-                                    <Image source={rowData.yd?require('../gcy/gcyImage/iconYd.png'):require('../gcy/gcyImage/wd.png')} style={{width:10,height:10}} resizeMode='stretch'></Image>
+                                                                      <Image source={rowData.yd?require('../shy/shyImage/iconYd.png'):require('../shy/shyImage/wd.png')} style={{width:10,height:10}} resizeMode='stretch'></Image>
                                     </View>
                                     <Text style={{flex:6,textAlign:'left',fontSize:12}}>{rowData.title}</Text>
                                     <Text style={{flex:3,
@@ -251,9 +251,10 @@ export default class page1 extends Component {
                                  backgroundColor: '#D0D0D0',
                                
                             height:180}}>
-                            <Image source={require('./gly/gg2.png')} style={{flex:1}}></Image>
+                            <Image source={require('./gly/gg2.png')}
+                             style={{height:180,width:deviceWidth-10}}
+                              resizeMode='stretch'></Image>
                             </View>
-               
 
             </ScrollView>
         )}else {
@@ -269,15 +270,18 @@ export default class page1 extends Component {
             return <Mrjh back={()=>{
                 this.setState({type:1})}}></Mrjh>
          }
-         else  if(this.state.type==5){
-            return <YsSh back={()=>{
-                this.setState({type:1})}}></YsSh>
-         }
+       
          else  if(this.state.type==6){
 
             return <Wdtj  back={()=>{
                 this.setState({type:1})}}
             ></Wdtj>
+        }
+        else  if(this.state.type==5){
+
+            return <Wdzz  back={()=>{
+                this.setState({type:1})}}
+            ></Wdzz>
         }
         else  if(this.state.type==7){
 

@@ -91,8 +91,8 @@ justifyContent:'space-between'}}>
                          justifyContent:'center',
                          alignItems:'flex-start',
                          marginLeft:10}}>
-                           <Text style={{   color:'#474747'}}>{rowData.title}</Text>
-                           <Text style={{   color:'#474747'}}>{rowData.content}</Text>
+                           <Text style={{   color:'#474747',fontSize:12}}>{rowData.title}</Text>
+                           <Text style={{   color:'#474747',fontSize:12}}>{rowData.content}</Text>
                        </View>
                        <View 
                        style={{flex:1,

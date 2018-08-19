@@ -618,8 +618,8 @@ this.scaleAnimationDialog.show();
 
                                 <Text style={{flex:1}}>预算类型</Text>
                         
-                                <ModalDropdown options={['计划任务', 
-                         '日常行为','我有话说']}
+                                <ModalDropdown options={['学习基金', 
+                         '社交基金','零花钱']}
     defaultValue={'请选择预算类型'}
      dropdownStyle={{width:150,fontSize:12}}
      dropdownTextStyle={{fontSize:12}}
@@ -648,27 +648,7 @@ this.scaleAnimationDialog.show();
                            
                    </View>
                   
-                  
-                   <View style={{flexDirection:'row',
-                        borderBottomWidth:1,
-                        borderBottomColor:'#F0F0F0',
-                        height:60,
-                        alignItems:'center',
-                        justifyContent:'space-between',
-                        paddingLeft:20}}>   
-                              <Text style={{flex:1}}>金豆数量</Text>
-                              <TextInput 
-                           style={{flex:2}}
-                           underlineColorAndroid='transparent'
-                           placeholder='请输入金豆数量'
-                           placeholderTextColor='black'
-                           value={this.state.user}>
-                           </TextInput>
-                   </View>
-                   
-                  
-                 
-                   <View style={{flexDirection:'row',
+                 <View style={{flexDirection:'row',
                         borderBottomWidth:1,
                         borderBottomColor:'#F0F0F0',
                         height:60,
@@ -702,8 +682,9 @@ this.scaleAnimationDialog.show();
                               <TextInput 
                            style={{flex:2}}
                            underlineColorAndroid='transparent'
-                           placeholder='请输入账户余额'
+                           
                            placeholderTextColor='black'
+                           
                            value={this.state.user}>
                            </TextInput>
                            

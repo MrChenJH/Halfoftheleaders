@@ -46,14 +46,14 @@ export default class HD extends Component {
         }}>
                 <View
                     style={{
-                    height: 250,
+                    height: 200,
 
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}>
 
                     <View style={{
-                        height:250
+                        height:200
                     }}>
                              <ImageBackground
                                
@@ -62,7 +62,7 @@ export default class HD extends Component {
                         }
                           
                             style={{
-                             height:250,
+                             height:200,
                              width:deviceWidth
                         }}>
                         
@@ -115,7 +115,7 @@ export default class HD extends Component {
                 borderBottomWidth:2,
                 height:40,
                 textAlign:'center',
-                textAlignVertical:'center'}}>行为</Text>
+                textAlignVertical:'center'}}>计划</Text>
              <Text style={{fontSize:13,
                 fontWeight:'bold',
                 height:40,
@@ -123,6 +123,7 @@ export default class HD extends Component {
                 textAlignVertical:'center'}}>列表</Text>
          </View>
          </TouchableOpacity>
+         <View style={{width:20}}></View>
          <TouchableOpacity onPress={()=>{
              this.setState({type:2})
          }}>
@@ -196,14 +197,14 @@ export default class HD extends Component {
                     }}>
                             <View
                                 style={{
-                                height: 250,
+                                height: 200,
             
                                 alignItems: 'center',
                                 justifyContent: 'center'
                             }}>
             
                                 <View style={{
-                                    height:250
+                                    height:200
                                 }}>
                                          <ImageBackground
                                            
@@ -212,7 +213,7 @@ export default class HD extends Component {
                                     }
                                       
                                         style={{
-                                         height:250,
+                                         height:200,
                                          width:deviceWidth
                                     }}>
                                     
@@ -259,7 +260,7 @@ export default class HD extends Component {
                          
                             height:40,
                             textAlign:'center',
-                            textAlignVertical:'center'}}>行为</Text>
+                            textAlignVertical:'center'}}>计划</Text>
                          <Text style={{fontSize:13,
                             fontWeight:'bold',
                             height:40,
@@ -267,6 +268,7 @@ export default class HD extends Component {
                             textAlignVertical:'center'}}>列表</Text>
                      </View>
                      </TouchableOpacity>
+                     <View style={{width:20}}></View>
                      <TouchableOpacity onPress={()=>{
                          this.setState({type:2})
                      }}>

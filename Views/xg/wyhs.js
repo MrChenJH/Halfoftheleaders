@@ -11,6 +11,7 @@ import {
     TextInput,
     Dimensions
 } from 'react-native';  
+import DropdownAlert from 'react-native-dropdownalert';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 import CheckBox from '../component/xwCheckBox'
@@ -32,12 +33,42 @@ export default class HD extends Component {
               typecontent:''
         }
     }
+    
+    itemAction(item) {
+        switch (item.type) {
+          case 'close':
+            this.closeAction();
+            break;
+          default:
+            const random = Math.floor(Math.random() * 1000 + 1);
+            const title = item.type + ' #' + random;
+            this.dropdown.alertWithType(item.type, title, item.message);
+        }
+      }
+      closeAction() {
+        this.dropdown.close();
+      }
+      handleClose(data) {
+        console.log(data);
+      }
+      handleCancel(data) {
+        console.log(data);
+      }
+
 
     render(){ 
         const {back}=this.props
         if(this.state.type==1){
     return (
         <View >
+                   <DropdownAlert
+          ref={ref => this.dropdown = ref}
+          containerStyle={{height:100}}
+          showCancel={true}
+          closeInterval={3000}
+          zIndex={1000000}
+        
+        />
         <View style={{
          flexDirection:'row',
          borderBottomWidth:1,
@@ -46,7 +77,8 @@ export default class HD extends Component {
          height:40,
          alignItems:'center',
          justifyContent:'space-between'}}>
-         
+    
+               
           <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
           <TouchableOpacity   
              style={{height:50,
@@ -67,10 +99,10 @@ export default class HD extends Component {
                     style={{fontSize:16,
                       color:'#FFF',fontWeight:'bold'}}>我有话说</Text>
                 </View> 
-                <View style={{marginRight:5}}> 
-                <TouchableOpacity  style={{height:20,width:20}} onPress={()=>{ this.setState({type:3})}}>
-                  <Image source={require('./imgs/add.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
-                  </Image>
+                <View style={{width:100,marginRight:5}}> 
+                <TouchableOpacity  style={{width:100,alignItems:'flex-end'}} onPress={()=>{ this.setState({type:2})}}>
+                  <Text style={{fontSize:16,
+                      color:'#FFF'}}>最近评价</Text>
                 </TouchableOpacity> 
                 </View> 
             </View>
@@ -105,7 +137,7 @@ export default class HD extends Component {
                                 }}> 
                                    <TouchableOpacity onPress={()=>{}}>
                                     <Image
-                                        source={require('./gly/boy.png')}
+                                        source={require('./imgs/tx/bb.png')}
                                         style={{
                                         height: 60,
                                         width: 60
@@ -116,7 +148,7 @@ export default class HD extends Component {
                                      
                                         width: 60,
                                         textAlign:'center'
-                                    }}>父亲</Text>
+                                    }}>爸爸</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View
@@ -127,7 +159,7 @@ export default class HD extends Component {
                                 }}> 
                                      <TouchableOpacity onPress={()=>{}}>
                                     <Image
-                                        source={require('./gly/boy.png')}
+                                        source={require('./imgs/tx/mm.png')}
                                         style={{
                                         height: 60,
                                         width: 60
@@ -138,7 +170,7 @@ export default class HD extends Component {
                                      
                                         width: 60,
                                         textAlign:'center'
-                                    }}>母亲</Text>
+                                    }}>妈妈</Text>
                                     </TouchableOpacity>
                                 </View>
 
@@ -149,7 +181,7 @@ export default class HD extends Component {
                                 }}>
                                  <TouchableOpacity onPress={()=>{}}>
                                     <Image
-                                        source={require('./gly/boy.png')}
+                                        source={require('./imgs/tx/yy.png')}
                                         style={{
                                             height: 60,
                                         width: 60
@@ -159,7 +191,7 @@ export default class HD extends Component {
                                  
                                         width: 60,
                                         textAlign:'center'
-                                    }}>小鬼</Text>
+                                    }}>爷爷</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -180,8 +212,8 @@ export default class HD extends Component {
              paddingRight:10
          }}>
              <Text style={{fontSize:13,fontWeight:'bold'}}>我想对爸爸说:</Text> 
-             <TouchableOpacity onPress={()=>{this.setState({type:2})}}>
-             <Text style={{fontSize:13,fontWeight:'bold'}}>我的评价</Text>
+             <TouchableOpacity onPress={()=>{   this.dropdown.alertWithType('success', '发送成功', '发送成功' );}}>
+             <Text style={{fontSize:13,fontWeight:'bold'}}>发送</Text>
              </TouchableOpacity>
          </View>
                   <ListView
@@ -221,8 +253,7 @@ export default class HD extends Component {
                         
                                          }
                                    />
-                    
-                            </ScrollView>
+                   </ScrollView>
   
       </View>
             )

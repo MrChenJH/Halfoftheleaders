@@ -174,7 +174,7 @@ export default class sh extends Component {
                                    <View  style={{flex:2,alignItems:'center'}}>
                                    <CheckBoxsy styles={{width:20,height:20}}></CheckBoxsy>
                                    </View>
-                                   <View  style={{flex:2,alignItems:'flex-end'}}>
+                                   <View  style={{flex:2,alignItems:'flex-end',marginLeft:10}}>
                                     <Image source={require('./shyImage/lian.png')} style={{width:20,height:20}} resizeMode='stretch'></Image>
                                    </View>
                                    </View>}
@@ -234,12 +234,12 @@ export default class sh extends Component {
                             width:300,
                             height:30,
                             marginLeft:15,
-                            color:'#E3CEF6'}}>您本周扣分有点少,提高点孩子的要求吧</Text>
+                            color:'#aa6800'}}>您本周扣分有点少,提高点孩子的要求吧</Text>
                           </View>
 
                              <View
                             style={{ 
-                            height:60, 
+                            height:80, 
                             backgroundColor:'#D8D8D8',
                             marginLeft:10,
                             marginRight:10

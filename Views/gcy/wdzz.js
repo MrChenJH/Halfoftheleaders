@@ -24,8 +24,8 @@ export default class Jhsh extends Component {
         super(props);
         this.state = {
              dataSource: ds.cloneWithRows([
-                {title:'8.19  张思成请求赞助',content:'买本书    学习基金      100元     我要赞助',xz:true},
-                {title:'8.19  张思成请求赞助',content:'买玩具    零花钱        100元     我要赞助',xz:false},
+                {title:'8.19  张思成请求赞助',content:'买本书    学习基金      100元     ',xz:true},
+                {title:'8.19  张思成请求赞助',content:'买玩具    零花钱        100元     ',xz:false},
               ]),
               type:1,
               typetitle:'',
@@ -65,7 +65,7 @@ justifyContent:'space-between'}}>
            <Text 
                    style={{fontSize:16,
                            color:'#FFF',
-                           fontWeight:'bold'}}>结算审核</Text>
+                           fontWeight:'bold'}}>我的赞助</Text>
            </View> 
            <View style={{marginRight:5,width:40}}> 
                 
@@ -91,9 +91,13 @@ justifyContent:'space-between'}}>
                          justifyContent:'center',
                          alignItems:'flex-start',
                          marginLeft:10}}>
-                           <Text style={{   color:'#474747'}}>{rowData.title}</Text>
-                           <Text style={{   color:'#474747'}}>{rowData.content}</Text>
-                       </View>
+                           <Text style={{   color:'#474747',fontSize:12}}>{rowData.title}</Text>
+                    <View  style={{flexDirection:'row',
+                                   justifyContent:'space-between',width:deviceWidth}}>
+                    <Text style={{   color:'#474747',fontSize:12}}>{rowData.content}</Text>
+                    <Text style={{   color:'#474747',fontSize:12,marginRight:30}}>我要赞助</Text>
+                    </View>
+                                 </View>
                      
          </View>
          </TouchableOpacity>

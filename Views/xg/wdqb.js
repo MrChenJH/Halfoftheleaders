@@ -225,12 +225,30 @@ export default class app2 extends Component {
    }
   
     render() {
+      const {back}=this.props
       return (
         <ScrollView style={{width:deviceWidth}} > 
 
       <ImageBackground source={require('./gly/2menu_bg.png')} 
 
-       style={{width:deviceWidth,paddingLeft:5,paddingRight:5}}>
+       style={{width:deviceWidth,padding:5}}>
+                  <View 
+              style={{height:40,
+                marginLeft:10,
+                 alignItems:'flex-start',
+                 justifyContent:'center'}} >
+             
+             <TouchableOpacity onPress={()=>{
+                 if(back){  back()}
+               }}>
+                  <Image source={require('../shy/shyImage/close.png')}
+              
+                   style={{height:20,
+                           width:20}} 
+                           resizeMode='stretch' ></Image>
+                           </TouchableOpacity>
+              </View>
+
                <View 
                  style={{flexDirection:'row',
                          flex:1,
@@ -267,23 +285,25 @@ export default class app2 extends Component {
         </View>
         
 
-         <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center'}}>
-             <Image source={require('./jdjf/djfb.png')} style={{height:350-10,width:deviceWidth-10}}  resizeMode='contain'></Image>
+         <View style={{height:250,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'flex-start',alignItems:'center'}}>
+             <Image source={require('./jdjf/djfb.png')}
+              style={{width:deviceWidth-10,height:250}} 
+               resizeMode='contain'></Image>
         </View>
 
 
-       <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center'}}>
-            <Image source={require('./jdjf/djtj.png')}  style={{height:350-10,width:deviceWidth-10}} resizeMode='stretch'></Image>      
+       <View style={{height:250,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'flex-start',alignItems:'center'}}>
+            <Image source={require('./jdjf/djtj.png')}  style={{width:deviceWidth-10,height:250}} resizeMode='stretch'></Image>      
         </View>
         
         
-        <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center'}}>
-        <Image source={require('./jdjf/jdtj.png')} style={{height:350-10,width:deviceWidth-10}} resizeMode='contain'></Image>            
+        <View style={{height:250,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'flex-start',alignItems:'center'}}>
+        <Image source={require('./jdjf/jdtj.png')} style={{width:deviceWidth-10,height:250}} resizeMode='stretch'></Image>            
         </View>
        
        
-        <View style={{height:350,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'center',alignContent:'center',marginBottom:20}}>
-        <Image source={require('./jdjf/ydtj.png')} style={{height:350-10,width:deviceWidth-10}} resizeMode='stretch'></Image>             
+        <View style={{height:250,marginTop:10,backgroundColor:'#fff',borderRadius:5,justifyContent:'flex-start',alignItems:'center',marginBottom:20}}>
+        <Image source={require('./jdjf/ydtj.png')} style={{width:deviceWidth-10,height:250}} resizeMode='stretch'></Image>             
         </View>
       
         </ImageBackground>
