@@ -18,6 +18,11 @@ import {
   import Wdys from '../xg/wdys'
   import Wyhs from '../xg/wyhs' 
   import Wdqb from '../xg/wdqb'
+  import Jtzd from '../cygl/wdjf'
+  import Wdtj from '../cygl/wdtj'
+  import WdHd from '../cygl/hd'
+  import Qhzh from  '../cygl/zhqh'
+
 
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -43,9 +48,13 @@ export default class page1 extends Component {
         icons.push({img: require('./gly/icon_chengyuan.png'), name: '今日任务'})
         icons.push({img: require('./gly/icon_jihua.png'),     name: '昨日表现'})
         icons.push({img: require('./gly/icon_canshu.png'),    name: '明日计划'})
-        icons.push({img: require('./gly/icon_chongzhi.png'),   name: '我的预算'})
-        icons.push({img: require('./gly/icon_tuijian.png'),    name: '我有话说'})
-        icons.push({img: require('./gly/icon_jifen.png'), name: '我的钱包'})
+        icons.push({img: require('./gly/icon_chongzhi.png'),  name: '我的预算'})
+        icons.push({img: require('./gly/icon_tuijian.png'),   name: '我有话说'})
+        icons.push({img: require('./gly/icon_jifen.png'),     name: '成长基金'})
+        icons.push({img: require('./shy/jfd.png'),    name: '家庭钻豆'})
+        icons.push({img: require('./gly/icon_chongzhi.png'),  name: '家庭推荐'})
+        icons.push({img: require('./shy/jthd.png'),   name: '我的活动'})
+        icons.push({img: require('./shy/qhzh.png'),     name: '切换账号'})
         icons.push({})
         icons.push({})
         return (icons.map((t, i) =>this._remderItem(t, i)))
@@ -98,14 +107,17 @@ export default class page1 extends Component {
                         }}>
                                  <ImageBackground
                                    
-                             resizeMode='stretch'
+                        
                                 source={ require('./gly/banner.png')
                             }
                               
                                 style={{
                                  height:200,
-                                 width:1000
-                            }}></ImageBackground>
+                                 width:deviceWidth
+                            }}
+                            
+                            resizeMode='stretch'
+                            ></ImageBackground>
                         </View>
                        
                         <View
@@ -145,7 +157,7 @@ export default class page1 extends Component {
                  
                     <View
                         style={{
-                        height:180,
+                        height:240,
                         marginLeft: 5,
                         marginRight: 5,
                         marginTop: 10,
@@ -218,7 +230,8 @@ export default class page1 extends Component {
                                     <View style={{flex:1,
                                         alignItems:'center',
                                         justifyContent:'center'}}>
-                                    <Image source={require('./gly/xxyd.png')} style={{width:5,height:5}} resizeMode='stretch'></Image>
+                                <Image source={rowData.yd?require('../shy/shyImage/iconYd.png'):require('../shy/shyImage/wd.png')} style={{width:10,height:10}} resizeMode='stretch'></Image>
+
                                     </View>
                                     <Text style={{flex:6,textAlign:'left'}}>{rowData.title}</Text>
                                     <Text style={{flex:3,
@@ -252,31 +265,47 @@ export default class page1 extends Component {
          if(this.state.type==2){
             return <Jrrw back={this.back.bind(this)}></Jrrw>
          }
-         if(this.state.type==3){
+         else if(this.state.type==3){
              return <Zrxw
              back={this.back.bind(this)}
              ></Zrxw>
          }
-         if(this.state.type==4){
+         else if(this.state.type==4){
              return <Mrjh
                back={
                    this.back.bind(this)
                }> </Mrjh>
          }
-         if(this.state.type==5){
+         else  if(this.state.type==5){
             return <Wdys
             back={this.back.bind(this)}
             ></Wdys>
         } 
-       if(this.state.type==6){
+        else if(this.state.type==6){
             return <Wyhs
             back={this.back.bind(this)}
             ></Wyhs>
         }
-        if(this.state.type==7){
+        else if(this.state.type==7){
             return <Wdqb
             back={this.back.bind(this)}
             ></Wdqb>
+        }    else if(this.state.type==8){
+            return <Jtzd
+            back={this.back.bind(this)}
+            ></Jtzd>
+        }  else if(this.state.type==9){
+            return <Wdtj
+            back={this.back.bind(this)}
+            ></Wdtj>
+        } else if(this.state.type==10){
+            return <WdHd
+            back={this.back.bind(this)}
+            ></WdHd>
+        } else if(this.state.type==11){
+            return <Qhzh
+            back={this.back.bind(this)}
+            ></Qhzh>
         } 
 
 

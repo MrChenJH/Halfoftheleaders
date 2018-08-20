@@ -38,7 +38,7 @@ export default class sh extends Component {
       return (<ScrollView  >
              <ImageBackground source={require('./shyImage/shybg.png')}
                   style={{width:deviceWidth}}
-                  resizeMode='cover'>
+                  resizeMode='stretch'>
              
               <View 
               style={{height:40,
@@ -139,7 +139,7 @@ export default class sh extends Component {
                                     paddingRight:10
                             }}>
                               
-                                    <Text style={{flex:6,textAlign:'left',fontSize:12}}>计划任务</Text>
+                                    <Text style={{flex:6,textAlign:'left',fontSize:12}}>行为养成</Text>
                                 
                                                <Text style={{flex:2,
                                         color:'#BDBDBD',textAlign:'right',fontSize:12}}>评价</Text>
@@ -192,13 +192,14 @@ export default class sh extends Component {
      
      <View
                         style={{
-                        height: 180,
+                        height: 250,
                         marginLeft: 5,
                         marginRight: 5,
                         marginTop: 10,
                         borderStyle: 'solid',
                         backgroundColor: '#fff',
-                        borderRadius: 10
+                        borderRadius: 10,
+                        marginBottom:50
                     }}>
                         
                             <View
@@ -265,7 +266,7 @@ export default class sh extends Component {
                               <ImageBackground source={require('./shyImage/bzyd.png')} 
                               style={{width:70,height:30,alignItems:"center"}} resizeMode='stretch'
                               ><Text>100</Text></ImageBackground>
-                              <Text>金豆</Text>
+                              <Text style={{fontSize:13,fontWeight:'bold'}}>金豆</Text>
                               </View> 
                               <View
                                       style={{flex:1,alignItems:'center'}}
@@ -273,7 +274,9 @@ export default class sh extends Component {
                                   <ImageBackground source={require('./shyImage/bzyd.png')} 
                                  style={{width:70,height:30,alignItems:"center"}} resizeMode='stretch'
                               ><Text>200</Text></ImageBackground>
-                                   <Text>银豆</Text>
+                                   <Text 
+                                   style={{fontSize:13,fontWeight:'bold'}}
+                                   >银豆</Text>
                               </View>
                               <View 
                                       style={{flex:1}}

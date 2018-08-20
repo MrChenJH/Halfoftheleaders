@@ -44,35 +44,34 @@ export default class HD extends Component {
         <View style={{
             backgroundColor: '#F7F7F7'
         }}>
-                <View
-                    style={{
-                    height: 200,
-
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
+             
 
                     <View style={{
                         height:200
                     }}>
                              <ImageBackground
                                
-                         resizeMode='stretch'
+                   
                             source={ require('./shyImage/banner.png')
                         }
                           
                             style={{
                              height:200,
                              width:deviceWidth
-                        }}>
+                        }}
                         
-                        <View 
-              style={{height:40,
+                        resizeMode='stretch'
+                        >
+                        
+             
+             <TouchableOpacity
+             
+             style={{height:40,
+                width:40,
                 marginLeft:10,
                  alignItems:'flex-start',
-                 justifyContent:'center'}} >
-             
-             <TouchableOpacity onPress={()=>{
+                 justifyContent:'center'}}
+             onPress={()=>{
                  if(back){  back()}
                }}>
                   <Image source={require('./shyImage/close.png')}
@@ -81,10 +80,9 @@ export default class HD extends Component {
                            width:20}} 
                            resizeMode='stretch' ></Image>
                            </TouchableOpacity>
-              </View>
-                        </ImageBackground>
+                                 </ImageBackground>
                     </View>
-                    </View>
+                  
                      <ScrollView 
                      style={{backgroundColor:'#efefef',height:deviceheight}}>
                      <View  
@@ -120,7 +118,7 @@ export default class HD extends Component {
                 fontWeight:'bold',
                 height:40,
                 textAlign:'center',
-                textAlignVertical:'center'}}>列表</Text>
+                textAlignVertical:'center'}}>任务</Text>
          </View>
          </TouchableOpacity>
          <View style={{width:20}}></View>
@@ -143,7 +141,7 @@ export default class HD extends Component {
                 fontWeight:'bold',
                 height:40,
                 textAlign:'center',
-                textAlignVertical:'center'}}>列表</Text>
+                textAlignVertical:'center'}}>养成</Text>
          </View>
          </TouchableOpacity>
         </View>
@@ -195,13 +193,7 @@ export default class HD extends Component {
                     <View style={{
                         backgroundColor: '#F7F7F7'
                     }}>
-                            <View
-                                style={{
-                                height: 200,
-            
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}>
+                    
             
                                 <View style={{
                                     height:200
@@ -217,20 +209,25 @@ export default class HD extends Component {
                                          width:deviceWidth
                                     }}>
                                     
-                                    <View style={{flexDirection:'row',
-                                marginTop:10,width:deviceWidth
-                                }}>
-                                  <TouchableOpacity 
-                                  style={{alignSelf:'flex-start',paddingLeft:10,flex:1}}
-                                  onPress={()=>{back()}}>
-                                 <Image source={require('./shyImage/close.png')}
-                                 resizeMode='stretch' style={{height:20,width:20}} ></Image> 
-                               
-                               </TouchableOpacity>
-                               </View>
+                                    <TouchableOpacity
+             
+             style={{height:40,
+                width:40,
+                marginLeft:10,
+                 alignItems:'flex-start',
+                 justifyContent:'center'}}
+             onPress={()=>{
+                 if(back){  back()}
+               }}>
+                  <Image source={require('./shyImage/close.png')}
+              
+                   style={{height:20,
+                           width:20}} 
+                           resizeMode='stretch' ></Image>
+                           </TouchableOpacity>
                                     </ImageBackground>
                                 </View>
-                                </View>
+                             
                                  <ScrollView 
                                  style={{backgroundColor:'#efefef',height:deviceheight}}>
                                  <View  
@@ -265,7 +262,7 @@ export default class HD extends Component {
                             fontWeight:'bold',
                             height:40,
                             textAlign:'center',
-                            textAlignVertical:'center'}}>列表</Text>
+                            textAlignVertical:'center'}}>任务</Text>
                      </View>
                      </TouchableOpacity>
                      <View style={{width:20}}></View>
@@ -278,7 +275,7 @@ export default class HD extends Component {
                             fontWeight:'bold',
                             height:40,
                             textAlign:'center',
-                            textAlignVertical:'center'}}>今日</Text>
+                            textAlignVertical:'center'}}>昨日</Text>
                           <Text style={{fontSize:13,
                             fontWeight:'bold',
                             height:40,
@@ -290,7 +287,7 @@ export default class HD extends Component {
                             fontWeight:'bold',
                             height:40,
                             textAlign:'center',
-                            textAlignVertical:'center'}}>列表</Text>
+                            textAlignVertical:'center'}}>养成</Text>
                      </View>
                      </TouchableOpacity>
                     </View>

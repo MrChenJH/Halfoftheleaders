@@ -24,6 +24,11 @@ import Gcy  from './page/gcy'
 import Wdqb from './xg/wdqb'
 import Jrrw from './xg/jrrw'
 import Wyhs from './xg/wyhs'
+import XGWdys from './xg/wdys'
+
+
+import Xwpj from './shy/xwpj'
+import Yssh from './shy/jhsh'
 import Sh from './shy/sh'
 import Jhsh from './shy/jhsh'
 import Jssh from './shy/jssh'
@@ -84,10 +89,10 @@ import Login from '../Acount/Login'
           <View style={styles.container}>
           <TabNavigator>
             {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),Xg)}
-            {this._renderTabarItems('今日任务',require('./img/2.png'),require('./main/jhgl.png'),Jrrw)}
-            {this._renderTabarItems('我的预算',require('./img/3.png'),require('./main/wodeys.png'),Wyhs)}
+            {this._renderTabarItems('任务提交',require('./img/2.png'),require('./main/jhgl.png'),Jrrw)}
+            {this._renderTabarItems('预算提交',require('./img/3.png'),require('./main/wodeys.png'),XGWdys)}
             {this._renderTabarItems('我有话说',require('./img/4.png'),require('./main/woyouhuashuo.png'),Wyhs)}
-            {this._renderTabarItems('我的钱包',require('./img/2.png'),require('./main/wodecaidan.png'),Wdqb )}
+            {this._renderTabarItems('我的',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
            </TabNavigator>
         </View> )
         } else if(this.state.type==3){
@@ -95,10 +100,10 @@ import Login from '../Acount/Login'
           <View style={styles.container}>
           <TabNavigator>
             {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),Shy)}
-            {this._renderTabarItems('计划审核',require('./img/2.png'),require('./main/jhgl.png'),Sh)}
-            {this._renderTabarItems('预算审核',require('./img/3.png'),require('./main/wodeys.png'),Jhsh)}
-            {this._renderTabarItems('结算审核',require('./img/4.png'),require('./main/woyouhuashuo.png'),Jssh)}
-            {this._renderTabarItems('我的菜单',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
+            {this._renderTabarItems('任务审核',require('./img/2.png'),require('./main/jhgl.png'),Sh)}
+            {this._renderTabarItems('行为评价',require('./img/3.png'),require('./main/wodeys.png'),Xwpj)}
+            {this._renderTabarItems('预算审核',require('./img/4.png'),require('./main/woyouhuashuo.png'),Yssh)}
+            {this._renderTabarItems('我的',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
            </TabNavigator>
         </View> )
         }else if(this.state.type==4){
@@ -106,10 +111,10 @@ import Login from '../Acount/Login'
           <View style={styles.container}>
           <TabNavigator>
             {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),Gcy)}
-            {this._renderTabarItems('今日行为',require('./img/2.png'),require('./main/jhgl.png'),Gcsh)}
-            {this._renderTabarItems('昨日行为',require('./img/3.png'),require('./main/wodeys.png'),GcZrxw)}
-            {this._renderTabarItems('我的赞助',require('./img/4.png'),require('./main/woyouhuashuo.png'),Wdzz)}
-            {this._renderTabarItems('我的菜单',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
+            {this._renderTabarItems('行为评价',require('./img/2.png'),require('./main/jhgl.png'),Xwpj)}
+            {this._renderTabarItems('预算赞助',require('./img/3.png'),require('./main/wodeys.png'),Wdzz)}
+            {this._renderTabarItems('家庭钻豆',require('./img/4.png'),require('./main/woyouhuashuo.png'),Wdqb)}
+            {this._renderTabarItems('我的',require('./img/2.png'),require('./main/wodecaidan.png'),Wd)}
            </TabNavigator>
         </View> )
         }else

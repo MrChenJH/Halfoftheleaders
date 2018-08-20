@@ -40,29 +40,42 @@ export default class HD extends Component {
         <View style={{
             backgroundColor: '#F7F7F7'
         }}>
-                <View
+                    <View
                     style={{
-                    height: 250,
+                    height: 200
+                     }}>
 
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-
-                    <View style={{
-                        height:200
-                    }}>
+                   
                              <ImageBackground
                                
-                         resizeMode='contain'
+                         resizeMode='stretch'
                             source={ require('./shyImage/banner.png')
                         }
                           
                             style={{
                              height:200,
-                             width:1000
-                        }}></ImageBackground>
+                             width:deviceWidth
+                        }}>
+                        
+                        <View 
+              style={{height:40,
+                marginLeft:10,
+                 alignItems:'flex-start',
+                 justifyContent:'center'}} >
+             
+             <TouchableOpacity onPress={()=>{
+                 if(back){  back()}
+               }}>
+                  <Image source={require('./shyImage/close.png')}
+              
+                   style={{height:20,
+                           width:20}} 
+                           resizeMode='stretch' ></Image>
+                           </TouchableOpacity>
+              </View>
+                        </ImageBackground>
                     </View>
-                 </View>
+                  
                      <ScrollView 
                      style={{backgroundColor:'#efefef',height:deviceheight}}>
          <View  

@@ -15,14 +15,14 @@ import Button from '../component/button'
  import Jrrw from '../shy/jrrw'
  import Zrbx from '../shy/zrxw'
  import Mrjh from '../shy/mrjh'
- import YsSh from '../shy/jhsh'
- import JHSh from '../shy/sh'
- import Jfd from '../cygl/wdjf'
- import Wdtj from '../shy/wdtj'
- import Jdhd from '../shy/hd'
-
- import Zhqh from '../shy/zhqh'
- import Xwpj from '../shy/xwpj'
+ 
+ import Jdhd from '../gcy/hd'
+ import Jssh from '../shy/jssh'
+ import Zhqh from '../gcy/zhqh'
+ import Wdjf from '../cygl/wdjf'
+ import Wdqb  from '../xg/wdqb'
+ import Wdtj  from '../cygl/wdtj'
+ import Wyhs from '../xg/wyhs'
 
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -46,12 +46,17 @@ export default class page1 extends Component {
         icons.push({img: require('./shy/jrrw.png'), name: '今日任务'})
         icons.push({img: require('./shy/zrbx.png'),     name: '昨日表现'})
         icons.push({img: require('./shy/mrjh.png'),    name: '明日计划'})
-        icons.push({img: require('./shy/yssh.png'),   name: '预算审核'})
+        icons.push({img: require('./shy/yssh.png'), name: '结算审核'})
+        icons.push({img: require('./shy/jfd.png'), name: '成长基金'})
+           
+        icons.push({img: require('./gly/icon_jifen.png'), name: '家庭钻豆'})
+        icons.push({img: require('./shy/zrbx.png'),    name: '我有话说'})
         icons.push({img: require('./shy/jttj.png'),    name: '家庭推荐'})
-        icons.push({img: require('./shy/jfd.png'), name: '家风豆'})
-        icons.push({img: require('./shy/jthd.png'), name: '家庭活动'})
+     
+        icons.push({img: require('./shy/jthd.png'), name: '我的活动'})
         icons.push({img: require('./shy/qhzh.png'), name: '切换账号'})
-        icons.push({img: require('./shy/qhzh.png'), name: '行为评价'})
+        icons.push({})
+        icons.push({})
         return (icons.map((t, i) =>this._remderItem(t, i)))
     }
 
@@ -100,14 +105,16 @@ export default class page1 extends Component {
                         }}>
                                  <ImageBackground
                                    
-                             resizeMode='stretch'
+                  
                                 source={ require('./gly/banner.png')
                             }
                               
                                 style={{
                                  height:200,
                                  width:deviceWidth
-                            }}></ImageBackground>
+                            }}
+                            resizeMode='stretch'
+                            ></ImageBackground>
                         </View>
                        <View
                        style={{
@@ -260,51 +267,58 @@ export default class page1 extends Component {
 
             </ScrollView>
         )}else {
-         if(this.state.type==2){
-            return <Jrrw back={()=>{
-                this.setState({type:1})}}></Jrrw>
-         }
-         else  if(this.state.type==3){
-            return <Zrbx back={()=>{
-                this.setState({type:1})}}></Zrbx>
-         }
-         else  if(this.state.type==4){
-            return <Mrjh back={()=>{
-                this.setState({type:1})}}></Mrjh>
-         }
-         else  if(this.state.type==5){
-            return <YsSh back={()=>{
-                this.setState({type:1})}}></YsSh>
-         }
-         else  if(this.state.type==6){
-
-            return <Wdtj  back={()=>{
-                this.setState({type:1})}}
-            ></Wdtj>
-        }
-        else  if(this.state.type==7){
-
-            return <Jfd
-            back={()=>{
-                 this.setState({type:1})}}></Jfd>
-        }
-
-
-        else if(this.state.type==8){
-            return <Jdhd back={()=>{
-                 this.setState({type:1})}}></Jdhd>
-         }
-
-         else if(this.state.type==9){
-            return <Zhqh back={()=>{
-                this.setState({type:1})}}></Zhqh>
-         }
-
-         else if(this.state.type==10){
-            return <Xwpj back={()=>{
-                this.setState({type:1})}}></Xwpj>
-         }
-
+            if(this.state.type==2){
+                return <Jrrw back={()=>{
+                    this.setState({type:1})}}></Jrrw>
+             }
+             else  if(this.state.type==3){
+                return <Zrbx back={()=>{
+                    this.setState({type:1})}}></Zrbx>
+             }
+             else  if(this.state.type==4){
+                return <Mrjh back={()=>{
+                    this.setState({type:1})}}></Mrjh>
+             }
+             else  if(this.state.type==5){
+                return <Jssh back={()=>{
+                    this.setState({type:1})}}></Jssh>
+             }
+           
+             else  if(this.state.type==6){
+    
+                return <Wdjf  back={()=>{
+                    this.setState({type:1})}}
+                ></Wdjf>
+            }
+            else  if(this.state.type==7){
+    
+                return <Wdqb  back={()=>{
+                    this.setState({type:1})}}
+                ></Wdqb>
+            }
+            else  if(this.state.type==8){
+    
+                return <Wyhs  back={()=>{
+                    this.setState({type:1})}}
+                ></Wyhs>
+            }
+            else  if(this.state.type==9){
+    
+                return <Wdtj
+                back={()=>{
+                     this.setState({type:1})}}></Wdtj>
+            }
+    
+    
+            else if(this.state.type==10){
+                return <Jdhd back={()=>{
+                     this.setState({type:1})}}></Jdhd>
+             }
+    
+             else if(this.state.type==11){
+                return <Zhqh back={()=>{
+                    this.setState({type:1})}}></Zhqh>
+             }
 
          else if(this.state.type==111)
               {

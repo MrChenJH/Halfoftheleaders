@@ -16,13 +16,15 @@ import Button from '../component/button'
  import Zrbx from '../gcy/zrxw'
  import Mrjh from '../gcy/mrjh'
 
- import Wdzz from '../gcy/wdzz'
- import Jfd from '../cygl/wdjf'
- import Wdtj from '../gcy/wdtj'
- import Jdhd from '../gcy/hd'
 
- import Zhqh from '../gcy/zhqh'
 
+import Jdhd from '../gcy/hd'
+import Xwpj from '../shy/xwpj'
+import Zhqh from '../gcy/zhqh'
+import Wdjf from '../cygl/wdjf'
+import Wdqb  from '../xg/wdqb'
+import Wdtj  from '../cygl/wdtj'
+import Wyhs from '../xg/wyhs'
 
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -46,12 +48,17 @@ export default class page1 extends Component {
         icons.push({img: require('./shy/jrrw.png'), name: '今日任务'})
         icons.push({img: require('./shy/zrbx.png'),     name: '昨日表现'})
         icons.push({img: require('./shy/mrjh.png'),    name: '明日计划'})
-        icons.push({img: require('./shy/yssh.png'),   name: '我的赞助'})
+        icons.push({img: require('./shy/xwpj.png'), name: '行为评价'})
+        icons.push({img: require('./shy/jfd.png'), name: '成长基金'})
+           
+        icons.push({img: require('./gly/icon_jifen.png'), name: '家庭钻豆'})
+        icons.push({img: require('./shy/zrbx.png'),    name: '我有话说'})
         icons.push({img: require('./shy/jttj.png'),    name: '家庭推荐'})
-        icons.push({img: require('./shy/jfd.png'), name: '家风豆'})
-        icons.push({img: require('./shy/jthd.png'), name: '家庭活动'})
+     
+        icons.push({img: require('./shy/jthd.png'), name: '我的活动'})
         icons.push({img: require('./shy/qhzh.png'), name: '切换账号'})
-       
+        icons.push({})
+        icons.push({})
         return (icons.map((t, i) =>this._remderItem(t, i)))
     }
 
@@ -158,7 +165,7 @@ export default class page1 extends Component {
                   
                    <View
                         style={{
-                        height:180,
+                        height:240,
                         marginLeft: 5,
                         marginRight: 5,
                         marginTop: 10,
@@ -233,7 +240,7 @@ export default class page1 extends Component {
                                     <View style={{flex:1,
                                         alignItems:'center',
                                         justifyContent:'center'}}>
-                                                                      <Image source={rowData.yd?require('../shy/shyImage/iconYd.png'):require('../shy/shyImage/wd.png')} style={{width:10,height:10}} resizeMode='stretch'></Image>
+                                    <Image source={rowData.yd?require('../shy/shyImage/iconYd.png'):require('../shy/shyImage/wd.png')} style={{width:10,height:10}} resizeMode='stretch'></Image>
                                     </View>
                                     <Text style={{flex:6,textAlign:'left',fontSize:12}}>{rowData.title}</Text>
                                     <Text style={{flex:3,
@@ -270,33 +277,43 @@ export default class page1 extends Component {
             return <Mrjh back={()=>{
                 this.setState({type:1})}}></Mrjh>
          }
+         else  if(this.state.type==5){
+            return <Xwpj back={()=>{
+                this.setState({type:1})}}></Xwpj>
+         }
        
          else  if(this.state.type==6){
 
-            return <Wdtj  back={()=>{
+            return <Wdjf  back={()=>{
                 this.setState({type:1})}}
-            ></Wdtj>
-        }
-        else  if(this.state.type==5){
-
-            return <Wdzz  back={()=>{
-                this.setState({type:1})}}
-            ></Wdzz>
+            ></Wdjf>
         }
         else  if(this.state.type==7){
 
-            return <Jfd
+            return <Wdqb  back={()=>{
+                this.setState({type:1})}}
+            ></Wdqb>
+        }
+        else  if(this.state.type==8){
+
+            return <Wyhs  back={()=>{
+                this.setState({type:1})}}
+            ></Wyhs>
+        }
+        else  if(this.state.type==9){
+
+            return <Wdtj
             back={()=>{
-                 this.setState({type:1})}}></Jfd>
+                 this.setState({type:1})}}></Wdtj>
         }
 
 
-        else if(this.state.type==8){
+        else if(this.state.type==10){
             return <Jdhd back={()=>{
                  this.setState({type:1})}}></Jdhd>
          }
 
-         else if(this.state.type==9){
+         else if(this.state.type==11){
             return <Zhqh back={()=>{
                 this.setState({type:1})}}></Zhqh>
          }

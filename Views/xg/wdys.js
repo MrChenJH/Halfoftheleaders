@@ -168,7 +168,7 @@ export default class jtjh extends Component {
                                                       marginRight:10,
                                                       justifyContent:'flex-end'}}>
                                                            <Checkbox styles={{width:20,height:20}}></Checkbox>
-                                                          <Image source={require('./jdjf/remove.png')} resizeMode='stretch' style={{height:20,width:20,marginLeft:10,marginRight:10}}></Image>
+                                                          <Image source={require('../shy/shyImage/delete.png')} resizeMode='stretch' style={{height:20,width:20,marginLeft:10,marginRight:10}}></Image>
                                                       </View>
                                                   
                                                     

@@ -94,7 +94,7 @@ export default class wdjf extends Component {
                             justifyContent:'center',
                             alignItems:'center'
                            }}>
-                            <Text>金豆数</Text>
+                            <Text>总豆数</Text>
                           </View>
                           <View style={{
                              height:30,
@@ -123,7 +123,7 @@ export default class wdjf extends Component {
                             alignItems:'center'
                            }}
                         >
-                        <Text>银豆数</Text>
+                        <Text>可用豆数</Text>
                         </View>
                    
                         <View style={{

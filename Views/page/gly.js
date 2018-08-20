@@ -101,13 +101,13 @@ export default class page1 extends Component {
                         }}>
                                  <ImageBackground
                                    
-                             resizeMode='contain'
+                         
                                 source={ require('./gly/banner.png')
                             }
-                              
+                            resizeMode='stretch'
                                 style={{
                                  height:200,
-                                 width:1000
+                                 width:deviceWidth
                             }}></ImageBackground>
                         </View>
                        
@@ -385,7 +385,7 @@ export default class page1 extends Component {
                                     <View style={{flex:1,
                                         alignItems:'center',
                                         justifyContent:'center'}}>
-                                    <Image source={require('./gly/xxyd.png')} style={{width:5,height:5}} resizeMode='stretch'></Image>
+                                    <Image source={rowData.yd?require('../shy/shyImage/iconYd.png'):require('../shy/shyImage/wd.png')} style={{width:10,height:10}} resizeMode='stretch'></Image>
                                     </View>
                                     <Text style={{flex:6,textAlign:'left'}}>{rowData.title}</Text>
                                     <Text style={{flex:3,
