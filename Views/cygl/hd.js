@@ -11,6 +11,8 @@ import {
     TextInput,
     Dimensions
 } from 'react-native';  
+
+import Main from '../Main1'
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 const ds = new ListView.DataSource({
@@ -41,7 +43,9 @@ export default class HD extends Component {
     }
 
     render(){ 
-        const {back}=this.props
+    
+
+
         if(this.state.type==1){
     return (
     <View>
@@ -60,7 +64,16 @@ export default class HD extends Component {
                     width:35,
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
-                      onPress={()=>{back()}}>
+                      onPress={()=>{
+                        if(this.props.tc){
+                            this.props.navigator.push({
+                                component:Main,
+                                })
+                          }else{
+                            this.props.navigator.jumpBack()
+                          }
+                       
+                      }}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 
@@ -248,7 +261,9 @@ export default class HD extends Component {
                     width:35,
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
-                      onPress={()=>{back()}}>
+                      onPress={()=>{
+                      this.setState({type:1})
+                      }}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 

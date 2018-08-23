@@ -11,6 +11,7 @@ import {
     TextInput,
     Dimensions
 } from 'react-native';  
+
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 
@@ -34,7 +35,7 @@ export default class HD extends Component {
     }
 
     render(){ 
-        const {back}=this.props
+      
         if(this.state.type==1){
     return (
         <View style={{

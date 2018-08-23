@@ -12,7 +12,7 @@ import {
     TextInput
 } from 'react-native';  
 
-
+import Main from '../Main4'  
 import QRCode from 'react-native-qrcode';
 
 const deviceWidth = Dimensions.get('window').width;  
@@ -55,7 +55,11 @@ render(){
                     width:35,
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
-                      onPress={()=>{back()}}>
+                      onPress={()=>{
+                        this.props.navigator.push({
+                            component:Main,
+                            })
+                          }}>
                         <Image source={require('./shyImage/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 

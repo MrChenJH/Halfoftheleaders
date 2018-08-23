@@ -11,7 +11,7 @@ import {
     TextInput,
     Dimensions
 } from 'react-native';  
-
+import Login from '../../Acount/Login'
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 export default class Wd extends Component {
@@ -47,7 +47,11 @@ render(){
                           <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>我的</Text>
                       </View> 
                       <View style={{marginRight:5}}> 
-                      <TouchableOpacity  style={{height:20,width:20}} onPress={()=>{ tc()}}>
+                      <TouchableOpacity  style={{height:20,width:20}} onPress={()=>{ 
+                          this.props.navigator.push({
+                            component:Login,
+                            })
+                             }}>
                         <Image source={require('./imgs/tc.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 

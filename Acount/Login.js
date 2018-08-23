@@ -10,9 +10,13 @@ import {
     ImageBackground,
     ScrollView
 } from 'react-native';
-import Main   from '../Views/Main'
+import Main1   from '../Views/Main1'
+import Main2   from '../Views/Main2'
+import Main3   from '../Views/Main3'
+import Main4   from '../Views/Main4'
 import Button from '../Views/component/button'
 import CheckBox from '../Views/component/checkboxsy'
+import ModalDropdown from 'react-native-modal-dropdown';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 export default class Login extends Component {
@@ -22,9 +26,81 @@ export default class Login extends Component {
             userName: 'admin',
             pwd: '',
             type:1,
-            mainType:1
-        };
+            mainType:1,
+            jtnc:'',
+            phone:'',
+            mm:'',
+            tjr:'',
+            userId:'',
+            birthday:'',
+            systemRole:'',
+            userRole:''
+          };
     }
+   
+
+  
+
+
+Perfect(){
+  
+    let url = "http://192.168.10.12:38571/api/user/AddPerfect";  
+    let params ={
+        "userId":this.state.userId,
+        "birthday":this.state.birthday,
+        "systemRole":this.state.systemRole,
+        "userRole":this.state.userRole
+    };
+    fetch(url, {
+      method: 'POST',
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+               },
+       body: JSON.stringify(params)
+       }).then((response) => {
+        if (response.ok) {
+            return response.json();
+        }
+    }).then((json) => {
+        console.log(json)
+    }).catch((error) => {
+        console.error(error);
+    });
+}
+
+  regUser(){
+
+    let url = "http://192.168.10.12:38571/api/user/RegUser";  
+       
+    let params ={
+        "jtnc":this.state.jtnc,
+        "phone":this.state.jtnc,
+        "mm":this.state.mm,
+        "tjr":this.state.tjr
+    };
+
+
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params)
+  }).then((response) => {
+        if (response.ok) {
+            return response.json();
+        }
+    }).then((json) => {
+        console.log(json)
+    }).catch((error) => {
+        console.error(error);
+    });
+    
+    this.setState({type:3})
+  }
+
 
     userNameChange(val){
       this.setState({userName:val})
@@ -179,16 +255,25 @@ export default class Login extends Component {
                         <Button
                             ref="button"
                             onPress={() => {
+                           
                            if(this.state.userName=='xg'){
-                            this.setState({type:4,mainType:2})
+                            this.props.navigator.push({
+                                component:Main2,
+                                })
                            }else if(this.state.userName=='shy'){
-                            this.setState({type:4,mainType:3})
+                            this.props.navigator.push({
+                                component:Main3,
+                                })
                            }else if(this.state.userName=='gcy'){
-                            this.setState({type:4,mainType:4})
+                            this.props.navigator.push({
+                                component:Main4,
+                                })
                            }else{
-                            this.setState({type:4,mainType:1})
+                            this.props.navigator.push({
+                                component:Main1,
+                                })
                            }
-                         
+                          
                         }}
                            img={require('./log.png')}
                            textStyle={{width: 110,
@@ -276,8 +361,12 @@ export default class Login extends Component {
                     flex:2}}>
                 家庭昵称</Text>
                 <TextInput 
-                style={{flex:3}}
+                style={{flex:5}}
                  underlineColorAndroid='transparent'
+                 onChangeText={(v)=>{
+                     this.setState({jtnc:v})
+                 }}
+                 value={this.state.jtnc}
                   ></TextInput>
             
    </View>
@@ -298,9 +387,11 @@ export default class Login extends Component {
                  flex:2}}>手机号码</Text>
 
                 <TextInput 
-                style={{flex:3}}
+                style={{flex:4}}
                 underlineColorAndroid='transparent'
-                value={this.state.user}></TextInput>
+                   onChangeText={(v)=>{
+                   this.setState({phone:v})
+                 }}></TextInput>
                 <TouchableOpacity >
                     <Text style={{color:'#FAFAFA',fontSize:12}}>获取验证码</Text>
                 </TouchableOpacity>
@@ -322,10 +413,9 @@ export default class Login extends Component {
     flex:2}}>
                     手机验证码</Text>
        <TextInput 
-                   style={{flex:3}}
-                underlineColorAndroid='transparent'
-            
-                 value={this.state.user}></TextInput>
+        style={{flex:3}}
+        underlineColorAndroid='transparent'
+        ></TextInput>
         
    </View>
                    <View style={{flexDirection:'row',
@@ -346,9 +436,11 @@ export default class Login extends Component {
                 <TextInput 
                  style={{flex:3}}
                  underlineColorAndroid='transparent'
-               
-                 placeholderTextColor='#848484'
-                 value={this.state.user}></TextInput>
+                  placeholderTextColor='#848484'
+                  onChangeText={(v)=>{
+                      this.setState({mm:v})
+                  }}
+                ></TextInput>
       
    </View>
    <View style={{flexDirection:'row',
@@ -370,7 +462,7 @@ export default class Login extends Component {
                  style={{flex:3}}
                  underlineColorAndroid='transparent'
                  placeholderTextColor='#848484'
-                 value={this.state.user}></TextInput>
+                 ></TextInput>
          
    </View>
 
@@ -392,7 +484,9 @@ export default class Login extends Component {
                  style={{flex:2}}
                  underlineColorAndroid='transparent'
                  placeholderTextColor='#848484'
-                 value={this.state.user}
+                 onChangeText={(v)=>{
+                    this.setState({tjr:v})
+                }}
                 ></TextInput>
                 <Image
                  source={require('../Views/cygl/imgs/sm.png')}
@@ -409,7 +503,9 @@ export default class Login extends Component {
                  marginBottom:20,
                  height:80,
                  alignItems:'center'}}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>{
+       this.regUser()
+      }}>
           <ImageBackground 
             source={require('../Views/cygl/imgs/zc.png')}
             style={{
@@ -427,9 +523,118 @@ export default class Login extends Component {
             </View>
            );
       
-    }else{
-        return(<Main type={this.state.mainType}></Main>)
+    }else if(this.state.type==3){
+      
+return ( 
+<View>
+<View style={{
+flexDirection:'row',
+borderBottomWidth:1,
+borderBottomColor:'#E6E6E6',
+backgroundColor:'#fe9c2e',
+height:40,
+alignItems:'center',
+justifyContent:'space-between'}}>
+    
+    <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+     <TouchableOpacity   
+   style={{height:50,
+    width:35,
+    justifyContent:'center',
+    alignItems:'flex-end'}} 
+           onPress={()=>{this.setState({type:2})}}>
+             <Image source={require('../Views/cygl/imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+             </Image>
+           </TouchableOpacity> 
+           </View> 
+           <View style={{justifyContent:'center',alignItems:'center'}}>
+               <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>完善信息</Text>
+           </View> 
+           
+           <View style={{marginRight:5,width:40}}> 
+     <TouchableOpacity onPress={this.Perfect.bind(this)}>
+       <Text style={{color:'#FFFF00',fontSize:16}}>保存</Text>
+     </TouchableOpacity>
+      </View> 
+          
+       </View>
+ <ScrollView>
+
+<View style={{flexDirection:'row',
+             borderBottomWidth:1,
+             borderBottomColor:'#F0F0F0',
+             height:60,
+             alignItems:'center',
+             justifyContent:'space-between',
+             paddingLeft:20}}>
+   
+   <Text style={{
+       fontSize:12,
+
+     color:'#6E6E6E',
+     flex:1}}>
+        出生日期</Text>
+
+     <TextInput 
+         style={{flex:2}}
+         underlineColorAndroid='transparent'
+         placeholder='请输入出生日期'
+         placeholderTextColor='#BDBDBD'
+         onChangeText={(v)=>{
+           thi.setState({birthday:v})
+         }}
+       ></TextInput>
+
+</View>
+
+<View style={{flexDirection:'row',
+             borderBottomWidth:1,
+             borderBottomColor:'#F0F0F0',
+             height:60,
+             alignItems:'center',
+             justifyContent:'space-between',
+             paddingLeft:20}}>
+
+
+<Text style={{fontSize:12,
+              color:'#6E6E6E',
+             flex:1}}>
+         系统角色:</Text>
+         <ModalDropdown options={['审核员', 
+         '观察员','小鬼']}
+             defaultValue={'请选择系统角色'}
+             dropdownStyle={{width:150}}
+             style={{flex:2}}
+             onSelect={(i,v)=>{this.setState({systemRole:v})}}
+           />
+</View>
+
+
+<View style={{flexDirection:'row',
+             borderBottomWidth:1,
+             borderBottomColor:'#F0F0F0',
+             height:60,
+             alignItems:'center',
+             justifyContent:'space-between',
+             paddingLeft:20}}>
+
+<Text style={{fontSize:12,
+
+color:'#6E6E6E',
+flex:1}}>
+         用户角色:</Text>
+<ModalDropdown options={['爸爸','妈妈','爷爷','奶奶','外公','外婆','儿子','女儿']}
+defaultValue={'请选择用户角色'}
+dropdownStyle={{width:150}}
+style={{flex:2}}/>
  
-     }
+</View>
+
+</ScrollView>
+</View>
+       )
+    }
+    
+   
     }
 }

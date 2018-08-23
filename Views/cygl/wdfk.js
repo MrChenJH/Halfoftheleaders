@@ -12,7 +12,7 @@ import {
     Dimensions
 } from 'react-native';  
 
-
+import Main from '../Main1'
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceHeight = Dimensions.get('window').height;  
@@ -58,7 +58,12 @@ render(){
                     width:35,
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
-                      onPress={()=>{back()}}>
+                      onPress={()=>{
+
+                        this.props.navigator.push({
+                          component:Main,
+                          })
+                      }}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 

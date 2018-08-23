@@ -11,7 +11,7 @@ import {
   
 } from 'react-native';
 import Echarts from 'native-echarts';
-
+import Main from '../Main1'
 
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -58,7 +58,16 @@ export default class wdjf extends Component {
                     justifyContent:'space-around'}}>
                       <TouchableOpacity 
                       style={{alignSelf:'flex-start',paddingLeft:10,flex:1}}
-                      onPress={()=>{back()}}>
+                      onPress={()=>{
+                        if(this.props.tc){
+                            this.props.navigator.push({
+                                component:Main,
+                                })
+                          }else{
+                            this.props.navigator.jumpBack()
+                          }
+                       
+                      }}>
                      <Image source={require('./imgs/close.png')}
                      resizeMode='stretch' style={{height:20,width:20}} ></Image> 
                    

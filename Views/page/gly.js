@@ -21,6 +21,7 @@ import Wdxx from '../cygl/wdxx'
 import Zhqh from '../cygl/zhqh'
 import Wdtj from '../cygl/wdtj'
 import Wdfk from '../cygl/wdfk'
+import jtjh from '../cygl/jtjh';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 export default class page1 extends Component {
@@ -62,7 +63,64 @@ export default class page1 extends Component {
       <View key = {i} 
         style = {{width: 80,height: 60,justifyContent:'center',alignItems:'center',marginTop:10}} >
        <TouchableOpacity onPress={()=>{
-            this.setState({type:(i+2)})
+           if(t.name=="成员管理")
+           {
+           this.props.navigator.push({
+               component:Cygl,
+                })
+           }
+           else if(t.name=="计划管理")
+           {
+            this.props.navigator.push({
+                component:Jtjh,
+                 })
+           }
+           else if(t.name=="参数设置")
+           {
+            this.props.navigator.push({
+                component:Cssz,
+                 })
+           }
+           else if(t.name=="会员充值")
+           {
+            this.setState({type:5})
+           }
+           else if(t.name=="我的推荐")
+           { this.props.navigator.push({
+            component:Wdtj,
+             })
+          
+           }
+           else if(t.name=="家庭钻豆")
+           {   this.props.navigator.push({
+            component:Wdjf,
+             })
+           
+           }
+           else if(t.name=="我的活动")
+           {
+            this.props.navigator.push({
+                component:Hd,
+                 })
+           }
+           else if(t.name=="我的消息")
+           {
+            this.props.navigator.push({
+                component:Wdxx,
+                 })
+           }
+           else if(t.name=="我的反馈")
+           {
+            this.props.navigator.push({
+                component:Wdfk,
+                 })
+           } 
+            else if(t.name=="切换账号")
+           {
+            this.props.navigator.push({
+                component:Zhqh,
+                 })
+           }
         }} >
         <Image
             source={t.img}
@@ -414,18 +472,7 @@ export default class page1 extends Component {
 
             </ScrollView>
         )}else {
-         if(this.state.type==2){
-            return <Cygl back={()=>{
-                this.setState({type:1})}}></Cygl>
-         }
-         if(this.state.type==3){
-            return <Jtjh back={()=>{
-                this.setState({type:1})}}></Jtjh>
-         }
-         if(this.state.type==4){
-            return <Cssz back={()=>{
-                this.setState({type:1})}}></Cssz>
-         }
+      
          if(this.state.type==5){
             return <View>
                 <TouchableOpacity onPress={()=>{this.setState({type:1})}}>
@@ -433,42 +480,6 @@ export default class page1 extends Component {
                 
                 </TouchableOpacity></View>
          }
-        if(this.state.type==6){
-
-            return <Wdtj  back={()=>{
-                this.setState({type:1})}}
-            ></Wdtj>
-        }
-
-
-        if(this.state.type==7){
-
-            return <Wdjf  back={()=>{
-                this.setState({type:1})}}
-            ></Wdjf>
-        }
-         if(this.state.type==8){
-            return <Hd back={()=>{
-                
-                this.setState({type:1})}}></Hd>
-         }
-
-         if(this.state.type==9){
-            return <Wdxx back={()=>{
-                this.setState({type:1})}}></Wdxx>
-         }
-
-         if(this.state.type==10){
-            return <Wdfk back={()=>{
-                this.setState({type:1})}}></Wdfk>
-         }
-
-         if(this.state.type==11){
-            return <Zhqh back={()=>{
-                this.setState({type:1})}}></Zhqh>
-         }
-
-
          else if(this.state.type==111)
               {
                     return(

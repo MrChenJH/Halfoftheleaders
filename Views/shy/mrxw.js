@@ -11,6 +11,8 @@ import {
     TextInput,
     Dimensions
 } from 'react-native';  
+
+import Main from '../Main3'  
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 
@@ -64,7 +66,9 @@ export default class HD extends Component {
                  justifyContent:'center'}} >
              
              <TouchableOpacity onPress={()=>{
-                 if(back){  back()}
+                    this.props.navigator.push({
+                        component:Main,
+                        })
                }}>
                   <Image source={require('./shyImage/close.png')}
               

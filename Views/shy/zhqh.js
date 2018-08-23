@@ -12,6 +12,8 @@ import {
  ListView,
  TouchableHighlight
 } from 'react-native'; 
+
+import Main from '../Main3'  
 import Checkbox from '../component/checkbox'
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
@@ -56,7 +58,11 @@ export default class zhqh extends Component {
                     width:35,
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
-                      onPress={()=>{back()}}>
+                      onPress={()=>{
+                        this.props.navigator.push({
+                            component:Main,
+                            })
+                          }}>
                         <Image source={require('./shyImage/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 

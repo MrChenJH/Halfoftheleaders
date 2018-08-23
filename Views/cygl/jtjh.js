@@ -10,9 +10,10 @@ import {
     TouchableOpacity,
     Dimensions,
     TextInput,
-    Switch
+    Switch,
+    RefreshControl
 } from 'react-native';
-
+import Main from '../Main1'
 import Checkbox from '../component/checkbox'
 
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -24,17 +25,202 @@ const ds = new ListView.DataSource({
 export default class jtjh extends Component {
     constructor(props) {
         super(props);
-     this.state = {
-            dataSource: ds.cloneWithRows([
-                {title:'做作业',xz:true,jds:100},
-                {title:'打扫卫生',xz:false,jds:100},
-                {title:'洗碗',xz:false,jds:100},
-                {title:'按时睡觉',xz:false,jds:100}
-              ]),
-              type:1
-        }
+        this.state = {
+        datalist:  ds.cloneWithRows([
+           {projectName:'xxxxx项目',jds:5}
+           ]),
+                isLoadingTail: false,
+                isRefreshing: false,
+                isNoMoreData: false,
+                type:1,
+                xmlx:'',
+                xmName:'',
+                jds:0,
+                zqlx:'',
+                zqstart:'',
+                zqend:'',
+                sfxh:false
+          }
     }
-  
+    
+    fetchData(isFirst, isLoadMore) {
+        let page;
+    
+        if(isLoadMore) { // 上拉加载更多
+          // 取出页码
+          page = this.datalistPageInde[0];
+          // 修改加载状态
+          this.setState({ isLoadingTail: true });
+        } else { // 下拉刷新
+          // 刷新时页码始终是1
+          this.datalistPageInde=[1]
+          page = 1;
+          // 第一次加载数据时不打开刷新机制
+          if(!isFirst) {
+            this.setState({
+              isRefreshing: true
+            });
+          }
+        }
+        
+        let url = 'http://192.168.10.12:38571/api/user/Plans?p=' + page + '&num=10';
+        
+        fetch(url)
+        .then((response)=>{
+          if(response.ok){
+            return response.json();
+          }
+        })
+        .then((responseJson)=>{
+          if(responseJson.sucess) {
+            let responseData = responseJson.data;
+    
+            if(responseData.length != 0) {
+              if(isLoadMore) { // 上拉加载更多
+                // 清空增量数据缓存数组
+                this.cachedDemoList = []
+                // 存储新的增量数据
+                this.cachedDemoList = this.cachedDemoList.concat(responseData)
+    
+                // 将新数据追加到旧数据中
+                if(this.datalist)
+                {
+                this.datalist = this.datalist.concat(responseData)
+              }else{
+
+                this.datalist=responseData
+              }
+                // 页数+1
+                this.datalistPageInde[0] += 1;
+    
+                // 默认每十条为一页，不足十条，则说明没有更多数据
+                if(responseData.length < 10) {
+                  this.setState({
+                    isNoMoreData: true
+                  });
+                }
+              } else { // 下拉刷新
+                if(!isFirst) {
+                  // 清空数据内存存储数组
+                  this.datalist = [];
+    
+                  // 重置页数存储数组
+                  this.datalistPageInde[0] = 1;
+                }
+    
+                // 存储数据
+                if(this.datalist){
+                this.datalist = this.datalist.concat(responseData)
+              }else{
+                this.datalist=responseData 
+
+              }
+                // 自增
+                this.datalistPageInde[0] += 1;
+              }
+    
+              // 利用 immutability-helper 更新状态机
+              this.setState({datalist:ds.cloneWithRows(this.datalist)});
+            } else {
+              if(isLoadMore) {
+                // 清空增量数据缓存数组
+                this.cachedDemoList = [];
+    
+                // TODO 提示没有更多数据
+              } else {
+                // TODO 第一次加载或者下拉刷新
+              }
+            }
+    
+            // 修改加载状态
+            if(isLoadMore) {
+              // 关闭加载状态
+              this.setState({
+                isLoadingTail: false
+              });
+            } else {
+              // TODO 可区分是否是第一次加载
+              this.setState({
+                isRefreshing: false
+              });
+            }
+          }
+        })
+        .catch((error)=>{
+          // 修改加载状态
+          if(isLoadMore) {
+            // 关闭加载状态
+            this.setState({
+              isLoadingTail: false
+            });
+          } else {
+            // TODO 可区分是否是第一次加载
+            this.setState({
+              isRefreshing: false
+            });
+          }
+        });
+      }
+   
+
+      _endReached = () => {
+        // 防止重复申请
+        if(this.state.isLoadingTail) {
+          return
+        }
+    
+        // 获取数据
+        this.fetchData(false, true);
+      }
+
+
+      _onRefresh = () => {
+        // 当加载到最后一页数据，再次下拉刷新时，需关闭isNoMoreData状态机
+        this.setState({
+          isNoMoreData: false
+        });
+    
+        this.fetchData(false, false);
+      }
+
+
+
+    PostJtjh(){
+
+        let url = "http://192.168.10.12:38571/api/user/AddPlan";  
+       
+        let params ={
+            "ProjectType":this.state.xmlx,
+            "projectName":this.state.xmName,
+            "jds":this.state.jds,
+            "zqType":this.state.zqlx,
+            "zqStartTime":this.state.zqstart,
+            "zqEndTime":this.state.zqend,
+            "sfxh":this.state.sfxh
+        };
+    
+    
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+      }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+        }).then((json) => {
+            console.log(json)
+        }).catch((error) => {
+            console.error(error);
+        });
+    
+      }
+    
+
+
     _remderItem(t, i) {
         if(t.img){
         return ( <View key = {i} 
@@ -56,9 +242,13 @@ export default class jtjh extends Component {
                 style = {{width: 80,height: 60,justifyContent:'center',alignItems:'center'}} />
             }
     }
+    
+    componentWillMount(){
+          this.fetchData(true, false);
+    }
 
     render() { 
-        const {back}=this.props
+ 
         if(this.state.type==1){
             return (
                <View
@@ -80,7 +270,12 @@ export default class jtjh extends Component {
                     width:35,
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
-                      onPress={()=>{back()}}>
+                      onPress={()=>{ 
+
+                        this.props.navigator.push({
+                          component:Main,
+                          })
+                      }}>
                         <Image source={require('./imgs/back.png')}  
                         resizeMode='stretch' 
                          style={{height:20,width:20}} >
@@ -197,7 +392,15 @@ export default class jtjh extends Component {
                                </View> 
                   <ScrollView style={{backgroundColor:'#efefef'}}>
                   <ListView
-                                  dataSource={this.state.dataSource}
+                                  dataSource={this.state.datalist}
+                                  enableEmptySections={true}
+                                  onEndReached={() => this._endReached()}
+                                  onEndReachedThreshold={20}
+                                  refreshControl={
+                                    <RefreshControl
+                                      refreshing={this.state.isRefreshing}
+                                      onRefresh={() => this._onRefresh()}/>
+                                  }
                                    renderRow={(rowData) => 
                                      <TouchableOpacity  
                                            onPress={()=>{this.setState({type:2})}}>
@@ -212,15 +415,14 @@ export default class jtjh extends Component {
                                                       <View style={{flex:4,
                                                         justifyContent:'center',
                                                         alignItems:'flex-start',
-                                                     
                                                         marginLeft:10}}>
-                                                          <Text style={{   color:'#474747'}}>{rowData.title}</Text>
+                                                          <Text style={{color:'#474747'}}>{rowData.projectName}</Text>
                                                       </View>
                                                       <View style={{flex:2,
                                                         justifyContent:'center',
                                                         alignItems:'center'
                                                     }}>
-                                                          <Text style={{   color:'#474747'}}>金豆:{rowData.jds}</Text>
+                                                          <Text style={{color:'#474747'}}>金豆:{rowData.jds}</Text>
                                                       </View>
                                                       <View style={{flex:1,
                                                         justifyContent:'center',
@@ -655,7 +857,7 @@ export default class jtjh extends Component {
                                <View style={{backgroundColor:'#F2F2F2',height:deviceheight}}>
                                <ScrollView >
                                <ListView
-                                  dataSource={this.state.dataSource}
+                                  dataSource={this.state.datalist}
                                    renderRow={(rowData) => 
                                      <TouchableOpacity  
                                            onPress={()=>{this.setState({type:2})}}>
@@ -672,7 +874,7 @@ export default class jtjh extends Component {
                                                         alignItems:'flex-start',
                                                      
                                                         marginLeft:10}}>
-                                                          <Text style={{   color:'#474747'}}>{rowData.title}</Text>
+                                                          <Text style={{   color:'#474747'}}>{rowData.projectName}</Text>
                                                       </View>
                                                       <View style={{flex:2,
                                                         justifyContent:'center',
@@ -690,7 +892,7 @@ export default class jtjh extends Component {
                                                         justifyContent:'center',
                                                         alignItems:'center'}}>
 
-                                                         <Checkbox styles={{height:20,width:20}}  isChecked={rowData.xz}></Checkbox>
+                                                         <Checkbox styles={{height:20,width:20}}  ></Checkbox>
                                                       </View>
                                                     
                                             
@@ -733,7 +935,7 @@ export default class jtjh extends Component {
                             color:'#FFF',fontWeight:'bold'}}>计划添加</Text>
                       </View> 
                       <View style={{marginRight:5,width:40}}> 
-                     <TouchableOpacity onPress={()=>{}}>
+                     <TouchableOpacity onPress={this.PostJtjh.bind(this)}>
                        <Text style={{color:'#FFFF00',fontSize:16}}>保存</Text>
                      </TouchableOpacity>
                       </View> 
@@ -754,7 +956,9 @@ export default class jtjh extends Component {
      dropdownStyle={{width:150,fontSize:12}}
      dropdownTextStyle={{fontSize:12}}
      textStyle={{fontSize:12,justifyContent:'center'}}
-     style={{flex:2,justifyContent:'center',height:40}}/>
+     style={{flex:2,justifyContent:'center',height:40}}
+     onSelect={(i,v)=>{this.setState({xmlx:v})}}
+     />
                            
                    </View>
                    <View style={{flexDirection:'row',
@@ -771,7 +975,10 @@ export default class jtjh extends Component {
                            underlineColorAndroid='transparent'
                            placeholder='请输入项目名称'
                            placeholderTextColor='black'
-                           value={this.state.user}>
+                           onChangeText={(v)=>{
+                               this.setState({xmName:v})
+                           }}
+                          >
                            </TextInput>
                             
                             
@@ -792,7 +999,9 @@ export default class jtjh extends Component {
                            underlineColorAndroid='transparent'
                            placeholder='请输入金豆数量'
                            placeholderTextColor='black'
-                           value={this.state.user}>
+                           onChangeText={(v)=>{
+                            this.setState({jds:v})
+                        }}>
                            </TextInput>
                    </View>
                    
@@ -810,7 +1019,11 @@ export default class jtjh extends Component {
      dropdownStyle={{width:150,fontSize:12}}
      dropdownTextStyle={{fontSize:12}}
      textStyle={{fontSize:12,justifyContent:'center'}}
-     style={{flex:2,justifyContent:'center',height:40}}/>
+     style={{flex:2,justifyContent:'center',height:40}}
+     onSelect={(i,v)=>{
+        this.setState({zqlx:v})
+     }}
+     />
                           
                    </View>
                  
@@ -830,7 +1043,9 @@ export default class jtjh extends Component {
                            underlineColorAndroid='transparent'
                            placeholder='请输入周期开始时间'
                            placeholderTextColor='black'
-                           value={this.state.user}>
+                             onChangeText={(v)=>{
+                                 this.setState({zqstart:v})
+                             }} >
                            </TextInput>
                             
                    </View>
@@ -851,7 +1066,9 @@ export default class jtjh extends Component {
                            underlineColorAndroid='transparent'
                            placeholder='请输入周期结束时间'
                            placeholderTextColor='black'
-                           value={this.state.user}>
+                           onChangeText={(v)=>{
+                            this.setState({zqend:v})
+                        }} >
                            </TextInput>
                            
                    </View>
@@ -865,9 +1082,10 @@ export default class jtjh extends Component {
                         paddingLeft:20}}>  
                                  <Text style={{flex:1}}>是否循环</Text>
                                  <View style={{flex:2,alignItems:'flex-start'}}>
-                                 <Switch onValueChange={()=>{
-
-
+                                 <Switch
+                                 value={this.state.sfxh}
+                                 onValueChange={(v)=>{
+                                        this.setState({sfxh:v})
                                  }}></Switch>
                                  </View>
                    </View>

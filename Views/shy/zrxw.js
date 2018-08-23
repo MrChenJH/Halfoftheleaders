@@ -17,7 +17,7 @@ import CheckBox from '../component/xwCheckBox'
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
-
+import Main from '../Main3'  
 
 export default class HD extends Component {
     constructor(props) {
@@ -72,7 +72,9 @@ export default class HD extends Component {
                  alignItems:'flex-start',
                  justifyContent:'center'}}
              onPress={()=>{
-                 if(back){  back()}
+                this.props.navigator.push({
+                    component:Main,
+                    })
                }}>
                   <Image source={require('./shyImage/close.png')}
               
@@ -217,7 +219,9 @@ export default class HD extends Component {
                  alignItems:'flex-start',
                  justifyContent:'center'}}
              onPress={()=>{
-                 if(back){  back()}
+                this.props.navigator.push({
+                    component:Main,
+                    })
                }}>
                   <Image source={require('./shyImage/close.png')}
               

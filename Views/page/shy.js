@@ -16,9 +16,9 @@ import Button from '../component/button'
  import Zrbx from '../shy/zrxw'
  import Mrjh from '../shy/mrjh'
  
- import Jdhd from '../gcy/hd'
+ import Jdhd from '../shy/hd'
  import Jssh from '../shy/jssh'
- import Zhqh from '../gcy/zhqh'
+ import Zhqh from '../shy/zhqh'
  import Wdjf from '../cygl/wdjf'
  import Wdqb  from '../xg/wdqb'
  import Wdtj  from '../cygl/wdtj'
@@ -66,7 +66,67 @@ export default class page1 extends Component {
       <View key = {i} 
         style = {{width: 80,height: 60,justifyContent:'center',alignItems:'center',marginTop:10}} >
        <TouchableOpacity onPress={()=>{
-            this.setState({type:(i+2)})
+         if(t.name=="今日任务")
+         {
+            this.props.navigator.push({
+                component:Jrrw,
+                 })
+        
+         }
+         else if(t.name=="昨日表现")
+         {
+            this.props.navigator.push({
+                component:Zrbx,
+                 })
+         }
+         else if(t.name=="明日计划")
+         {
+            this.props.navigator.push({
+                component:Mrjh,
+                 })
+         }
+         else if(t.name=="结算审核")
+         {
+            this.props.navigator.push({
+                component:Jssh,
+                 })
+         }
+         else if(t.name=="成长基金")
+         {          this.props.navigator.push({
+            component:Wdqb,
+             })
+          
+         }
+         else if(t.name=="家庭钻豆")
+         {
+            this.props.navigator.push({
+                component:Wdjf,
+                 })
+         }
+         else if(t.name=="我有话说")
+         {
+            this.props.navigator.push({
+                component:Wyhs,
+                 })
+         }
+         else if(t.name=="家庭推荐")
+         {
+            this.props.navigator.push({
+                component:Wdtj,
+                 })
+         }
+         else if(t.name=="我的活动")
+         {
+            this.props.navigator.push({
+                component:Jdhd,
+                 })
+         }
+         else if(t.name=="切换账号")
+         {
+            this.props.navigator.push({
+                component:Zhqh,
+                 })
+         }
         }} >
         <Image
             source={t.img}

@@ -10,6 +10,7 @@ import {
  Image,
  ScrollView
 } from 'react-native'; 
+import Main from '../Main1'
 
 export default class canshu extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ export default class canshu extends Component {
 
     render() {
 
-        const  {back}=this.props
+      
       return (<View>
               
               <View style={{
@@ -41,7 +42,11 @@ export default class canshu extends Component {
                     width:35,
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
-                      onPress={()=>{back()}}>
+                      onPress={()=>{
+                        this.props.navigator.push({
+                            component:Main,
+                            })
+                      }}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 

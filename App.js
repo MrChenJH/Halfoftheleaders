@@ -10,9 +10,13 @@ import {
   AsyncStorage
 } from 'react-native'
 
+import {Navigator} from 'react-native-deprecated-custom-components';
 
+import Login from './Acount/Login'
 
-import Login from './Acount/Login';
+const defaultRoute = {
+  component: Login,
+};
 
 
 export default class App extends React.Component{ 
@@ -22,19 +26,24 @@ export default class App extends React.Component{
        islogin:false
     };
   }
-  componentDidMount(){
-     this._asyncSetCode() 
-  
-  }
-  _asyncSetCode(){
-   let user= AsyncStorage.getItem('user').then(t=>{
 
-   })
+  _configureScene(route, routeStack)
+  {
+      return Navigator.SceneConfigs.FadeAndroid;;
   }
-
+  _renderScene(route, navigator) {
+    let Component = route.component;
+    return (
+      <Component {...route.params} navigator={navigator} />
+    );
+  }
    render(){ 
      return(
-    <Login ></Login>)
+      <Navigator
+      initialRoute={defaultRoute}
+      renderScene={this._renderScene}
+      configureScene={this._configureScene}
+       />)
   
   }
    

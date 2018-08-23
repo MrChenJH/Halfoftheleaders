@@ -13,7 +13,7 @@ import {
  ScrollView
 } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
- 
+import Main from '../Main1'
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 const ds = new ListView.DataSource({
@@ -61,7 +61,11 @@ export default class page1 extends Component {
                     width:35,
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
-                      onPress={()=>{back()}}>
+                      onPress={()=>{
+                        this.props.navigator.push({
+                            component:Main,
+                            })
+                      }}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
                       </TouchableOpacity> 

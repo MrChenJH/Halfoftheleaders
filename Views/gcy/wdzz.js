@@ -11,6 +11,8 @@ import {
     TextInput,
     Dimensions
 } from 'react-native';  
+
+import Main from '../Main4'  
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 import CheckBox from '../component/xwCheckBox'
@@ -53,9 +55,9 @@ justifyContent:'space-between'}}>
         justifyContent:'center',
         alignItems:'flex-end'}} 
         onPress={()=>{
-            if(back){
-                back()
-            }
+            this.props.navigator.push({
+                component:Main,
+                })
            }}>
          <Image source={require('./shyImage/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
          </Image>

@@ -11,6 +11,7 @@ import {
     TextInput,
     Dimensions
 } from 'react-native';  
+import Main from '../Main3'  
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 import CheckBox from '../component/xwCheckBox'
@@ -68,7 +69,9 @@ export default class HD extends Component {
                  alignItems:'flex-start',
                  justifyContent:'center'}}
              onPress={()=>{
-                 if(back){  back()}
+                this.props.navigator.push({
+                    component:Main,
+                    })
                }}>
                   <Image source={require('./shyImage/close.png')}
               
@@ -208,7 +211,9 @@ export default class HD extends Component {
                  alignItems:'flex-start',
                  justifyContent:'center'}}
              onPress={()=>{
-                 if(back){  back()}
+                this.props.navigator.push({
+                    component:Main,
+                    })
                }}>
                   <Image source={require('./shyImage/close.png')}
               

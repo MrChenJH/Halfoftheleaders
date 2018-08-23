@@ -10,6 +10,8 @@ ListView,
  Image,
  ScrollView
 } from 'react-native'; 
+
+import Main from '../Main3'  
 import CheckBoxsy from '../component/xwCheckBox';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -47,7 +49,9 @@ export default class sh extends Component {
                  justifyContent:'center'}} >
              
              <TouchableOpacity onPress={()=>{
-                 if(back){  back()}
+        this.props.navigator.push({
+            component:Main,
+            })
                }}>
                   <Image source={require('./shyImage/close.png')}
               

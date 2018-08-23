@@ -10,6 +10,8 @@ ListView,
  Image,
  ScrollView
 } from 'react-native'; 
+
+import Main from '../Main4'  
 import CheckBoxsy from '../component/xwCheckBox';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -47,7 +49,9 @@ export default class sh extends Component {
                  justifyContent:'center'}} >
              
              <TouchableOpacity onPress={()=>{
-                 if(back){  back()}
+          this.props.navigator.push({
+            component:Main,
+            })
                }}>
                   <Image source={require('./shyImage/close.png')}
               
@@ -140,7 +144,8 @@ export default class sh extends Component {
                             }}>
                               
                                     <Text style={{flex:6,textAlign:'left',fontSize:12}}>计划任务</Text>
-                                
+                                    <Text style={{flex:2,
+                                        color:'#BDBDBD',fontSize:12,textAlign:'center'}}>确认</Text>
                                                <Text style={{flex:2,
                                         color:'#BDBDBD',textAlign:'right',fontSize:12}}>评价</Text>
                             </View>
@@ -170,7 +175,9 @@ export default class sh extends Component {
                                     <Text style={{flex:6,
                                         textAlign:'left',
                                         fontSize:12}}>{rowData.title}</Text>
-                                
+                                   <View  style={{flex:2,alignItems:'center'}}>
+                                   <CheckBoxsy styles={{width:20,height:20}}></CheckBoxsy>
+                                   </View>
                                    <View  style={{flex:2,alignItems:'flex-end',marginLeft:10}}>
                                     <Image source={require('./shyImage/lian.png')} style={{width:20,height:20}} resizeMode='stretch'></Image>
                                    </View>
@@ -199,7 +206,7 @@ export default class sh extends Component {
                         borderStyle: 'solid',
                         backgroundColor: '#fff',
                         borderRadius: 10,
-                        marginBottom:50
+                        marginBottom:30
                     }}>
                         
                             <View
@@ -274,9 +281,9 @@ export default class sh extends Component {
                                   <ImageBackground source={require('./shyImage/bzyd.png')} 
                                  style={{width:70,height:30,alignItems:"center"}} resizeMode='stretch'
                               ><Text>200</Text></ImageBackground>
-                                   <Text 
+                                   <Text
                                    style={{fontSize:13,fontWeight:'bold'}}
-                                   >银豆</Text>
+                                   > 银豆</Text>
                               </View>
                               <View 
                                       style={{flex:1}}

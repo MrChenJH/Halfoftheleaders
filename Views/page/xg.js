@@ -68,7 +68,68 @@ export default class page1 extends Component {
       <View key = {i} 
         style = {{width: 80,height: 60,justifyContent:'center',alignItems:'center',marginTop:10}} >
        <TouchableOpacity onPress={()=>{
-            this.setState({type:(i+2)})
+          if(t.name=="今日任务")
+          {
+             this.props.navigator.push({
+                 component:Jrrw,
+                  })
+         
+          }
+          else if(t.name=="昨日表现")
+          {
+             this.props.navigator.push({
+                 component:Zrxw,
+                  })
+          }
+          else if(t.name=="明日计划")
+          {
+             this.props.navigator.push({
+                 component:Mrjh,
+                  })
+          }
+          else if(t.name=="我的预算")
+          {
+             this.props.navigator.push({
+                 component:Wdys,
+                  })
+          }
+          else if(t.name=="成长基金")
+          {
+            this.props.navigator.push({
+                component:Wdqb,
+                 })
+          }
+          else if(t.name=="家庭钻豆")
+          {
+            this.props.navigator.push({
+                component:Jtzd,
+                 })
+           
+          }
+          else if(t.name=="我有话说")
+          {
+             this.props.navigator.push({
+                 component:Wyhs,
+                  })
+          }
+          else if(t.name=="家庭推荐")
+          {
+             this.props.navigator.push({
+                 component:Wdtj,
+                  })
+          }
+          else if(t.name=="我的活动")
+          {
+             this.props.navigator.push({
+                 component:WdHd,
+                  })
+          }
+          else if(t.name=="切换账号")
+          {
+             this.props.navigator.push({
+                 component:Qhzh,
+                  })
+          }
         }} >
         <Image
             source={t.img}

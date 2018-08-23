@@ -11,6 +11,8 @@ import {
     TextInput,
     Dimensions
 } from 'react-native';  
+
+import Main from '../Main2'  
 import DropdownAlert from 'react-native-dropdownalert';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -86,9 +88,13 @@ export default class HD extends Component {
               justifyContent:'center',
               alignItems:'flex-end'}} 
                 onPress={()=>{
-                    if(back){
-                    back()}
-
+                    if(this.props.tc){
+                        this.props.navigator.push({
+                            component:Main,
+                            })
+                      }else{
+                        this.props.navigator.jumpBack()
+                      }
                 }}>
                   <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                   </Image>

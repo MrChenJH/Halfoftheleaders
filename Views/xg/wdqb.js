@@ -7,10 +7,11 @@ StyleSheet,
   ScrollView,
     View,
     Dimensions,
-ImageBackground
+    ImageBackground
 
 } from 'react-native';
-import Echarts from 'native-echarts';
+
+import Main from '../Main2'  
 export const deviceWidth = Dimensions.get('window').width;      
 export default class app2 extends Component {
     constructor(props) {
@@ -239,7 +240,13 @@ export default class app2 extends Component {
                  justifyContent:'center'}} >
              
              <TouchableOpacity onPress={()=>{
-                 if(back){  back()}
+            if(this.props.tc){
+              this.props.navigator.push({
+                  component:Main,
+                  })
+            }else{
+              this.props.navigator.jumpBack()
+            }
                }}>
                   <Image source={require('../shy/shyImage/close.png')}
               

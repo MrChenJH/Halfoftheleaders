@@ -13,7 +13,7 @@ import {
     TextInput,
     Switch
 } from 'react-native';
-
+import Main from '../Main2'  
 import Checkbox from '../component/xwCheckBox'
 
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -98,9 +98,13 @@ export default class jtjh extends Component {
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
                       onPress={()=>{
-                        if(back)
-                        {
-                        back()}
+                        if(this.props.tc){
+                          this.props.navigator.push({
+                              component:Main,
+                              })
+                        }else{
+                          this.props.navigator.jumpBack()
+                        }
                         }
                           }>
                         <Image source={require('./imgs/back.png')}  
