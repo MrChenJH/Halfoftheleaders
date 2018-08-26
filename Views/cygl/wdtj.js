@@ -96,7 +96,7 @@ render(){
             }}
            >
          <QRCode
-            value="http://awesome.link.qr"
+            value="陈金华"
             size={220}
             bgColor='purple'
             fgColor='white'/>

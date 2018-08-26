@@ -10,6 +10,8 @@ import {
     ImageBackground,
     ScrollView
 } from 'react-native';
+import DatePicker from 'react-native-datepicker'
+
 import Main1   from '../Views/Main1'
 import Main2   from '../Views/Main2'
 import Main3   from '../Views/Main3'
@@ -17,6 +19,8 @@ import Main4   from '../Views/Main4'
 import Button from '../Views/component/button'
 import CheckBox from '../Views/component/checkboxsy'
 import ModalDropdown from 'react-native-modal-dropdown';
+import ScannerScreen from '../src/screen/ScannerScreen'
+
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 export default class Login extends Component {
@@ -31,20 +35,63 @@ export default class Login extends Component {
             phone:'',
             mm:'',
             tjr:'',
-            userId:'',
-            birthday:'',
-            systemRole:'',
-            userRole:''
+            regUserId:'',
+            realName:'',
+            sex:'',
+            contactAddress:'',
+            state:'',
+            birthday:'2016-05-15',
+            uHImage:'',
+            regionBelong:'' 
           };
     }
-   
+     
+   ScanSucess(v){
+     this.setState({tjr:v,type:2})
+     
+   }
 
+    PostDetail(){
+
+        let url = "http://192.168.100.15:38571/api/user/AddPerfect";  
+       
+        let params ={
+            "regUserId":1,
+            "realName":this.state.realName,
+            "sex":this.state.sex,
+            "contactAddress":this.state.contactAddress,
+            "state":this.state.state,
+            "birthday":this.state.birthday,
+            "uHImage":this.state.uHImage,
+            "regionBelong":this.state.regionBelong,
+        };
+    
+    
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+      }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+        }).then((json) => {
+            console.log(json)
+        }).catch((error) => {
+            console.error(error);
+        });
+    
+      }
+    
   
 
 
 Perfect(){
   
-    let url = "http://192.168.10.12:38571/api/user/AddPerfect";  
+    let url = "http://192.168.100.15:38571/api/user/AddPerfect";  
     let params ={
         "userId":this.state.userId,
         "birthday":this.state.birthday,
@@ -71,7 +118,7 @@ Perfect(){
 
   regUser(){
 
-    let url = "http://192.168.10.12:38571/api/user/RegUser";  
+    let url = "http://192.168.100.15:38571/api/user/RegUser";  
        
     let params ={
         "jtnc":this.state.jtnc,
@@ -346,7 +393,7 @@ Perfect(){
                     </View>
 
                    <ScrollView>
-           <View style={{flexDirection:'row',
+                   <View style={{flexDirection:'row',
                         borderBottomWidth:1,
                         borderBottomColor:'#F0F0F0',
                         height:50,
@@ -484,15 +531,21 @@ Perfect(){
                  style={{flex:2}}
                  underlineColorAndroid='transparent'
                  placeholderTextColor='#848484'
+                 value={this.state.tjr}
                  onChangeText={(v)=>{
                     this.setState({tjr:v})
                 }}
                 ></TextInput>
+                <TouchableOpacity 
+                 onPress={()=>{
+                     this.setState({type:7})
+                 }}
+                >
                 <Image
                  source={require('../Views/cygl/imgs/sm.png')}
                  style={{width:30,height:30,flex:1}}
                   resizeMode='contain'></Image>
-         
+         </TouchableOpacity>
    </View>
 
 
@@ -526,115 +579,386 @@ Perfect(){
     }else if(this.state.type==3){
       
 return ( 
-<View>
-<View style={{
-flexDirection:'row',
-borderBottomWidth:1,
-borderBottomColor:'#E6E6E6',
-backgroundColor:'#fe9c2e',
-height:40,
-alignItems:'center',
-justifyContent:'space-between'}}>
-    
-    <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
-     <TouchableOpacity   
-   style={{height:50,
-    width:35,
-    justifyContent:'center',
-    alignItems:'flex-end'}} 
-           onPress={()=>{this.setState({type:2})}}>
-             <Image source={require('../Views/cygl/imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
-             </Image>
-           </TouchableOpacity> 
-           </View> 
-           <View style={{justifyContent:'center',alignItems:'center'}}>
-               <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>完善信息</Text>
-           </View> 
-           
-           <View style={{marginRight:5,width:40}}> 
-     <TouchableOpacity onPress={this.Perfect.bind(this)}>
-       <Text style={{color:'#FFFF00',fontSize:16}}>保存</Text>
-     </TouchableOpacity>
-      </View> 
-          
-       </View>
- <ScrollView>
-
-<View style={{flexDirection:'row',
-             borderBottomWidth:1,
-             borderBottomColor:'#F0F0F0',
-             height:60,
-             alignItems:'center',
-             justifyContent:'space-between',
-             paddingLeft:20}}>
-   
-   <Text style={{
-       fontSize:12,
-
-     color:'#6E6E6E',
-     flex:1}}>
-        出生日期</Text>
-
-     <TextInput 
-         style={{flex:2}}
-         underlineColorAndroid='transparent'
-         placeholder='请输入出生日期'
-         placeholderTextColor='#BDBDBD'
-         onChangeText={(v)=>{
-           thi.setState({birthday:v})
-         }}
-       ></TextInput>
-
-</View>
-
-<View style={{flexDirection:'row',
-             borderBottomWidth:1,
-             borderBottomColor:'#F0F0F0',
-             height:60,
-             alignItems:'center',
-             justifyContent:'space-between',
-             paddingLeft:20}}>
-
-
-<Text style={{fontSize:12,
-              color:'#6E6E6E',
-             flex:1}}>
-         系统角色:</Text>
-         <ModalDropdown options={['审核员', 
-         '观察员','小鬼']}
-             defaultValue={'请选择系统角色'}
-             dropdownStyle={{width:150}}
-             style={{flex:2}}
-             onSelect={(i,v)=>{this.setState({systemRole:v})}}
-           />
-</View>
-
-
-<View style={{flexDirection:'row',
-             borderBottomWidth:1,
-             borderBottomColor:'#F0F0F0',
-             height:60,
-             alignItems:'center',
-             justifyContent:'space-between',
-             paddingLeft:20}}>
-
-<Text style={{fontSize:12,
-
-color:'#6E6E6E',
-flex:1}}>
-         用户角色:</Text>
-<ModalDropdown options={['爸爸','妈妈','爷爷','奶奶','外公','外婆','儿子','女儿']}
-defaultValue={'请选择用户角色'}
-dropdownStyle={{width:150}}
-style={{flex:2}}/>
+    <View>
+                  
+    <View style={{
+ flexDirection:'row',
+ borderBottomWidth:1,
+ borderBottomColor:'#E6E6E6',
+ backgroundColor:'#fe9c2e',
+ height:40,
+ alignItems:'center',
+ justifyContent:'space-between'
+ }}>
  
-</View>
+ <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+             <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+ 
+                 justifyContent:'center',
+                 alignItems:'flex-end'}} 
+                      onPress={()=>{this.setState({type:1})}}>
+                          <Image source={require('../Views/cygl/imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                          </Image>
+                      </TouchableOpacity> 
+                </View> 
+        <View style={{justifyContent:'center',alignItems:'center'}}>
+            <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>完善信息</Text>
+        </View> 
+        <View style={{marginRight:5,width:40}}> 
+                     <TouchableOpacity onPress={this.Perfect.bind(this)}>
+                       <Text style={{color:'#FFFF00',fontSize:16}}>保存</Text>
+                     </TouchableOpacity>
+                      </View> 
+    </View>
+     
 
-</ScrollView>
+
+<ScrollView scrollEnabled={true} style={{backgroundColor:'#F2F2F2'}} >
+<TouchableOpacity onPress={()=>{this.setState({type:5,typetitle:'真实姓名'})}}>
+
+<View 
+                      style={{flexDirection:'row',
+                               borderTopColor:'#F0F0F0',
+                               borderTopWidth:1,
+                               backgroundColor:'#fff',
+                               marginTop:5,
+                               height:60}}>
+                          <View style={{width:60,
+                               paddingLeft:5,
+                               paddingTop:5}}>
+                          <Image source={require('../Views/cygl/imgs/tx/mm.png')} style={{width:48,height:48
+                          
+                          }} resizeMode='stretch'></Image>
+                          </View>
+                           <View style={{flex:1,
+                              paddingLeft:5,
+                              paddingTop:10,
+                              justifyContent:'flex-start'}}>
+                          <Text style={{fontSize:13,color:'black',fontWeight:'bold'}}>豆为之家</Text>
+                          <Text style={{fontSize:12,color:'#D8D8D8'}}>豆为号:134****233</Text>
+                        
+                         </View>
+
+                          </View>
+                          </TouchableOpacity>
+     
+
+
+     <TouchableOpacity onPress={()=>{this.setState({type:5,typetitle:'真实姓名'})}}>
+        <View style={{flexDirection:'row',
+               backgroundColor:'#fff',
+               borderTopColor:'#F0F0F0',
+               borderTopWidth:1,
+               borderBottomWidth:1,
+               borderBottomColor:'#F0F0F0',
+               height:40,
+               alignItems:'center',
+               justifyContent:'space-between',
+               paddingLeft:10,
+               paddingRight:10,
+               marginTop:10,
+               }}>
+                <Text style={{fontSize:13,
+                  color:'#585858',
+                  fontFamily:'Microsoft YaHei'}}>
+                真实姓名</Text>
+           
+                <View 
+                style={{flexDirection:'row',alignItems:'center'}}>
+                 
+                <TextInput
+                underlineColorAndroid='transparent' 
+                value={this.state.realName}
+                ></TextInput>
+                <Image source={require('../Views/cygl/imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
+               </View>
+                </View>
+                </TouchableOpacity>
+    
+
+         <TouchableOpacity onPress={()=>{this.setState({type:5,typetitle:'性别'})}}>
+        <View style={{flexDirection:'row',
+               backgroundColor:'#fff',
+               borderTopColor:'#F0F0F0',
+               borderTopWidth:1,
+               borderBottomWidth:1,
+               borderBottomColor:'#F0F0F0',
+               height:40,
+               alignItems:'center',
+               justifyContent:'space-between',
+               paddingLeft:10,
+               paddingRight:10,
+               marginTop:10,
+               }}>
+                <Text style={{fontSize:13,
+                  color:'#585858',
+                  fontFamily:'Microsoft YaHei'}}>
+                     性别</Text>  
+                     <View 
+                style={{flexDirection:'row',alignItems:'center'}}>
+                 
+                   
+          
+
+<Text style={{fontSize:13,
+color:'#585858',
+fontFamily:'Microsoft YaHei'}}>
+{this.state.sex}</Text>
+<Image source={require('../Views/cygl/imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
+
+
+                </View>
+              </View>
+              </TouchableOpacity>
+  
+
+
+    <TouchableOpacity onPress={()=>{this.setState({type:5,typetitle:'联系地址'})}}>
+        <View style={{flexDirection:'row',
+               backgroundColor:'#fff',
+               borderTopColor:'#F0F0F0',
+               borderTopWidth:1,
+               borderBottomWidth:1,
+               borderBottomColor:'#F0F0F0',
+               height:40,
+               alignItems:'center',
+               justifyContent:'space-between',
+               paddingLeft:10,
+               paddingRight:10,
+               marginTop:10,
+               }}>
+                <Text style={{fontSize:13,
+                  color:'#585858',
+                  fontFamily:'Microsoft YaHei'}}>
+              联系地址</Text> 
+               <View 
+                style={{flexDirection:'row',alignItems:'center'}}>
+                 
+     
+
+<Text style={{fontSize:13,
+color:'#585858',
+fontFamily:'Microsoft YaHei'}}>
+{this.state.contactAddress}</Text>
+<Image source={require('../Views/cygl/imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
+</View>
+                </View>
+     
+            </TouchableOpacity> 
+
+          <TouchableOpacity onPress={()=>{this.setState({type:6,typetitle:'出生年月'})}}>
+          <View style={{flexDirection:'row',
+               backgroundColor:'#fff',
+               borderTopColor:'#F0F0F0',
+               borderTopWidth:1,
+               borderBottomWidth:1,
+               borderBottomColor:'#F0F0F0',
+               height:40,
+               alignItems:'center',
+               justifyContent:'space-between',
+               paddingLeft:10,
+               paddingRight:10,
+               marginTop:10,
+               }}>
+                <Text style={{fontSize:13,
+                  color:'#585858',
+                  fontFamily:'Microsoft YaHei'}}>
+                出生年月</Text> 
+                <View 
+                style={{flexDirection:'row',alignItems:'center'}}>
+
+                            
+
+<Text style={{fontSize:13,
+color:'#585858',
+fontFamily:'Microsoft YaHei'}}>
+{this.state.birthday}</Text>
+<Image source={require('../Views/cygl/imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
+ 
+              
+                 </View>                                             
+            </View>
+            </TouchableOpacity>
+  
+            <TouchableOpacity onPress={()=>{this.setState({type:5,typetitle:'所属区域'})}}>
+            <View style={{flexDirection:'row',
+               backgroundColor:'#fff',
+               borderTopColor:'#F0F0F0',
+               borderTopWidth:1,
+               borderBottomWidth:1,
+               borderBottomColor:'#F0F0F0',
+               height:40,
+               alignItems:'center',
+               justifyContent:'space-between',
+               paddingLeft:10,
+               paddingRight:10,
+               marginTop:10,
+               }}>
+                <Text style={{fontSize:13,
+                  color:'#585858',
+                  fontFamily:'Microsoft YaHei'}}>
+                     所属区域</Text> 
+                  <View 
+                style={{flexDirection:'row',alignItems:'center'}}>
+                  
+             
+             
+           
+
+<Text style={{fontSize:13,
+color:'#585858',
+fontFamily:'Microsoft YaHei'}}>
+{this.state.regionBelong}</Text>
+<Image source={require('../Views/cygl/imgs/go.png')}  
+style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
+</View>     
+           
+             
+                 
+                </View>   
+                </TouchableOpacity>
+                  
+
+     </ScrollView>
+
+     
 </View>
        )
-    }
-    
-   
-    }
+    }else if(this.state.type==5){
+
+        return(
+            <View>
+            <View style={{
+       flexDirection:'row',
+       borderBottomWidth:1,
+       borderBottomColor:'#E6E6E6',
+       backgroundColor:'#fe9c2e',
+       height:40,
+       alignItems:'center',
+       justifyContent:'space-between'}}>
+                
+                <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                 <TouchableOpacity   
+                  style={{height:50,
+                   width:35,
+                   justifyContent:'center',
+                   alignItems:'flex-end'}} 
+                       onPress={()=>{this.setState({type:3})}}>
+                         <Image source={require('../Views/cygl/imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                         </Image>
+                       </TouchableOpacity> 
+                       </View> 
+                       <View style={{justifyContent:'center',alignItems:'center'}}>
+                           <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
+                       </View> 
+                       <View style={{marginRight:5,width:21}}> 
+                            
+                       </View> 
+                   </View>
+                   <View backgroundColor='#F2F2F2' 
+                               style={{height:deviceheight-60}}>
+                    <View style={{backgroundColor:'#fff',marginTop:10,height:40}}>
+                    <TextInput   underlineColorAndroid='transparent' 
+                         clearButtonMode='always'
+                          multiline={false}
+                          defaultValue={this.state.typecontent} 
+                          onChangeText={(v)=>{
+                             if(this.state.typetitle=="真实姓名"){
+                                    this.setState({realName:v})
+                             } 
+                             else if(this.state.typetitle=="性别"){
+
+                                this.setState({sex:v})
+                             }   
+                             else if(this.state.typetitle=="联系地址"){
+
+                                this.setState({contactAddress:v})
+                             }
+                             else if(this.state.typetitle=="出生年月"){
+
+                                this.setState({birthday:v})
+                             } 
+                             else if(this.state.typetitle=="所属区域"){
+
+                                this.setState({regionBelong:v})
+                             }
+                        
+                          }}
+                    >
+
+                    </TextInput>
+                    </View>
+                    </View>
+               </View>
+        )
+    }  else if(this.state.type==6){
+
+        return(
+            <View>
+            <View style={{
+       flexDirection:'row',
+       borderBottomWidth:1,
+       borderBottomColor:'#E6E6E6',
+       backgroundColor:'#fe9c2e',
+       height:40,
+       alignItems:'center',
+       justifyContent:'space-between'}}>
+                
+                <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                 <TouchableOpacity   
+           style={{height:50,
+            width:35,
+
+         justifyContent:'center',
+         alignItems:'flex-end'}} 
+                       onPress={()=>{this.setState({type:3})}}>
+                         <Image source={require('../Views/cygl/imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                         </Image>
+                       </TouchableOpacity> 
+                       </View> 
+                       <View style={{justifyContent:'center',alignItems:'center'}}>
+                           <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
+                       </View> 
+                       <View style={{marginRight:5,width:21}}> 
+                            
+                       </View> 
+                   </View>
+                   <View backgroundColor='#F2F2F2' 
+                               style={{height:deviceheight-60}}>
+                    <View style={{backgroundColor:'#fff',marginTop:10,height:40}}>
+                    <DatePicker
+        style={{width: 200}}
+        date={this.state.birthday}
+        mode="date"
+        placeholder="select date"
+        format="YYYY-MM-DD"
+        minDate="2016-05-01"
+        maxDate="2016-06-01"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        customStyles={{
+          dateIcon: {
+            position: 'absolute',
+            left: 0,
+            top: 4,
+            marginLeft: 0
+          },
+          dateInput: {
+            marginLeft: 36
+          }
+          // ... You can check the source to find the other keys.
+        }}
+        onDateChange={(date) => { 
+            this.setState({birthday: date})}}
+      />
+                    </View>
+                    </View>
+               </View>
+        )
+     }else if(this.state.type==7){
+         return <ScannerScreen callback={this.ScanSucess.bind(this)}></ScannerScreen>
+       }
+}
 }

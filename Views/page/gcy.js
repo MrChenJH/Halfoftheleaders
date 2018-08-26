@@ -15,10 +15,7 @@ import Button from '../component/button'
  import Jrrw from '../gcy/jrrw'
  import Zrbx from '../gcy/zrxw'
  import Mrjh from '../gcy/mrjh'
-
-
-
-import Jdhd from '../gcy/hd'
+ import Jdhd from '../gcy/hd'
 import Xwpj from '../gcy/xwpj'
 import Zhqh from '../gcy/zhqh'
 import Wdjf from '../cygl/wdjf'
