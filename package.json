@@ -1,5 +1,5 @@
 {
-  "name": "QRCode",
+  "name": "Halfoftheleaders",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -27,7 +27,6 @@
     "react-native-pathjs-charts": "0.0.34",
     "react-native-popup-dialog": "^0.15.0",
     "react-native-qrcode": "^0.2.7",
-    "react-native-qrcode-svg": "^5.4.1",
     "react-native-radio-master": "^1.0.1",
     "react-native-simple-radio-button": "^2.7.2",
     "react-native-svg": "^6.4.1",
