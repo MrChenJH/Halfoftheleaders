@@ -8,10 +8,11 @@ import {
     TouchableOpacity,
     Image,
     ImageBackground,
-    ScrollView
+    ScrollView,
+    AsyncStorage
 } from 'react-native';
 import DatePicker from 'react-native-datepicker'
-
+import DropdownAlert from 'react-native-dropdownalert';
 import Main1   from '../Views/Main1'
 import Main2   from '../Views/Main2'
 import Main3   from '../Views/Main3'
@@ -32,41 +33,85 @@ export default class Login extends Component {
             type:1,
             mainType:1,
             jtnc:'',
+            uName:'',
             phone:'',
             mm:'',
+            qrmm:'',
             tjr:'',
-            regUserId:'',
             realName:'',
             sex:'',
             contactAddress:'',
             state:'',
             birthday:'2016-05-15',
-            uHImage:'',
+            userRole:'',
             regionBelong:'' 
           };
     }
+      
+  _Login(){
+   let url = 'http://192.168.0.100:38571/api/user/Login?userName=' + this.state.userName + '&pwd='+this.state.pwd;
+   fetch(url)
+    .then((response)=>{
+      if(response.ok){
+        return response.json();
+      }
+    })
+    .then((responseJson)=>{
+      if(responseJson.sucess) {
+        let responseData = responseJson.Result;
+
+        let user= JSON.stringify(responseData);
+        AsyncStorage.setItem("user",user);
+       
+                     
+        if(decodeURI(responseData.systemRole)=='小鬼'){
+    this.props.navigator.push({
+        component:Main2,
+        })
+   }else if(decodeURI(responseData.systemRole)=='审核员'){
+    this.props.navigator.push({
+        component:Main3,
+        })
+   }else if(decodeURI(responseData.systemRole)=='观察员'){
+    this.props.navigator.push({
+        component:Main4,
+        })
+   }else{
+    this.props.navigator.push({
+        component:Main1,
+        })
+   }
+      }else{
+
+        this.loginAlert.alertWithType('error', 'Error', '用户名密码错误');
+      }
+    })
+    .catch((error)=>{
      
+    });
+
+   
+  }
+
    ScanSucess(v){
      this.setState({tjr:v,type:2})
      
    }
 
-    PostDetail(){
-
-        let url = "http://192.168.100.15:38571/api/user/AddPerfect";  
-       
+  
+    
+      regUser(){
+   
+        let url = "http://192.168.0.100:38571/api/user/RegUser";  
         let params ={
-            "regUserId":1,
-            "realName":this.state.realName,
-            "sex":this.state.sex,
-            "contactAddress":this.state.contactAddress,
-            "state":this.state.state,
-            "birthday":this.state.birthday,
-            "uHImage":this.state.uHImage,
-            "regionBelong":this.state.regionBelong,
+            "nc":this.state.jtnc,
+            "userName":this.state.uName,
+            "pwd":this.state.mm,
+            "phone":this.state.phone,
+            "tjr":this.state.tjr,
+            "systemRole":'家庭管理员'
         };
-    
-    
+         
       fetch(url, {
         method: 'POST',
         headers: {
@@ -80,22 +125,24 @@ export default class Login extends Component {
             }
         }).then((json) => {
             console.log(json)
+            this.setState({type:3})
         }).catch((error) => {
+    
+          this.regAlert.alertWithType('error', 'Error', error);
             console.error(error);
         });
+     }
     
-      }
-    
-  
 
-
-Perfect(){
-  
-    let url = "http://192.168.100.15:38571/api/user/AddPerfect";  
+      Perfect(){
+    let url = "http://192.168.0.100:38571/api/user/AddPerfect";  
     let params ={
-        "userId":this.state.userId,
+        "userName":this.state.uName,
+        "realName":this.state.realName,
+        "sex":['妈妈','外婆','奶奶','女儿'].findIndex(t=>t==this.state.userRole)>-1?1:0,
+        "contactAddress":this.state.userRole,
         "birthday":this.state.birthday,
-        "systemRole":this.state.systemRole,
+        "regionBelong":this.state.regionBelong,
         "userRole":this.state.userRole
     };
     fetch(url, {
@@ -116,40 +163,7 @@ Perfect(){
     });
 }
 
-  regUser(){
-
-    let url = "http://192.168.100.15:38571/api/user/RegUser";  
-       
-    let params ={
-        "jtnc":this.state.jtnc,
-        "phone":this.state.jtnc,
-        "mm":this.state.mm,
-        "tjr":this.state.tjr
-    };
-
-
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(params)
-  }).then((response) => {
-        if (response.ok) {
-            return response.json();
-        }
-    }).then((json) => {
-        console.log(json)
-    }).catch((error) => {
-        console.error(error);
-    });
-    
-    this.setState({type:3})
-  }
-
-
-    userNameChange(val){
+userNameChange(val){
       this.setState({userName:val})
     }
 
@@ -157,16 +171,23 @@ Perfect(){
       this.setState({pwd:val})
     }
     render() {
-        
-
         if(this.state.type==1){
-        return (
+        return ( 
             <View style={{height:deviceheight,width:deviceWidth}}>
+             <DropdownAlert
+                                ref={ref => this.loginAlert = ref}
+                                 containerStyle={{height:100}}
+                                    showCancel={true}
+                                     closeInterval={3000}
+                                     zIndex={1000000}
+        
+                                    />
                 <ImageBackground
                     style={{height:deviceheight,width:deviceWidth,alignItems:'center'}}
                     resizeMode='cover'
                     source={require('./bg.png')}
                    >
+                            
                     <View style={{height:100,marginTop:80,marginBottom:30}}>
                         <Image
                             style={{height:100,
@@ -250,6 +271,7 @@ Perfect(){
                                 placeholder="请输入密码"
                                 placeholderTextColor="#fff"
                                 underlineColorAndroid='transparent'
+                                textContentType='password'
                                 onChangeText={(text) => {
                                     this.setState({pwd: text})
                                 }}></TextInput>
@@ -301,27 +323,7 @@ Perfect(){
                    
                         <Button
                             ref="button"
-                            onPress={() => {
-                           
-                           if(this.state.userName=='xg'){
-                            this.props.navigator.push({
-                                component:Main2,
-                                })
-                           }else if(this.state.userName=='shy'){
-                            this.props.navigator.push({
-                                component:Main3,
-                                })
-                           }else if(this.state.userName=='gcy'){
-                            this.props.navigator.push({
-                                component:Main4,
-                                })
-                           }else{
-                            this.props.navigator.push({
-                                component:Main1,
-                                })
-                           }
-                          
-                        }}
+                            onPress={this._Login.bind(this)}
                            img={require('./log.png')}
                            textStyle={{width: 110,
                             height: 40}}
@@ -360,6 +362,14 @@ Perfect(){
 
         return (
             <View style={{height:deviceheight,width:deviceWidth}}>
+               <DropdownAlert
+                                ref={ref => this.regAlert = ref}
+                                 containerStyle={{height:100}}
+                                    showCancel={true}
+                                     closeInterval={3000}
+                                     zIndex={1000000}
+        
+                                    />
                 <ImageBackground
                     style={{height:deviceheight,
                         width:deviceWidth,
@@ -402,23 +412,43 @@ Perfect(){
                         justifyContent:'space-between'
                         }}>
            
-                <Text style={{fontSize:15,
-                
-                    color:'#fff',
-                    flex:2}}>
-                家庭昵称</Text>
+            
                 <TextInput 
-                style={{flex:5}}
+                style={{flex:1}}
                  underlineColorAndroid='transparent'
+                 placeholder='家庭昵称'
+                 placeholderTextColor='#fff'
                  onChangeText={(v)=>{
                      this.setState({jtnc:v})
                  }}
                  value={this.state.jtnc}
                   ></TextInput>
             
-   </View>
+   </View>  
 
-
+              
+              <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:50,
+                        width:deviceWidth*0.8,
+                        alignItems:'center',
+                        justifyContent:'space-between'
+                        }}>
+           
+            
+                <TextInput 
+                style={{flex:1}}
+                 underlineColorAndroid='transparent'
+                 placeholder='登录名'
+                 placeholderTextColor='#fff'
+                 onChangeText={(v)=>{
+                     this.setState({uName:v})
+                 }}
+                 value={this.state.uName}
+                  ></TextInput>
+            
+                  </View>
                  
 
             <View style={{flexDirection:'row',
@@ -429,12 +459,11 @@ Perfect(){
                         justifyContent:'space-between'
                     }}>
  
- <Text style={{fontSize:15,
-                color:'#fff',
-                 flex:2}}>手机号码</Text>
 
                 <TextInput 
-                style={{flex:4}}
+                style={{flex:1}}
+                placeholder='手机号码'
+                placeholderTextColor='#fff'
                 underlineColorAndroid='transparent'
                    onChangeText={(v)=>{
                    this.setState({phone:v})
@@ -454,13 +483,11 @@ Perfect(){
                      }}>
  
          
- <Text style={{fontSize:15,
 
-    color:'#fff',
-    flex:2}}>
-                    手机验证码</Text>
        <TextInput 
-        style={{flex:3}}
+        style={{flex:1}}
+        placeholder='手机验证码'
+        placeholderTextColor='#fff'
         underlineColorAndroid='transparent'
         ></TextInput>
         
@@ -473,17 +500,14 @@ Perfect(){
                         justifyContent:'space-between'
                       }}>
               
-              <Text style={{fontSize:15,
-            
-                color:'#fff',
-                flex:2}}>
-                    密码</Text>
-        
          
                 <TextInput 
-                 style={{flex:3}}
+                 style={{flex:1}}
+                 textContentType='password'
+             
                  underlineColorAndroid='transparent'
-                  placeholderTextColor='#848484'
+                 placeholder='密码'
+                  placeholderTextColor='#fff'
                   onChangeText={(v)=>{
                       this.setState({mm:v})
                   }}
@@ -498,18 +522,18 @@ Perfect(){
                         justifyContent:'space-between'
                         }}>
               
-              <Text style={{
-                  fontSize:15,
           
-                color:'#fff',
-                flex:2}}>
-                  确认密码</Text>
      
                 <TextInput 
-                 style={{flex:3}}
+                placeholder='确认密码'
+                placeholderTextColor='#fff'
+                textContentType='password'
+                style={{flex:1}}
+                onChangeText={(v)=>{
+                    this.setState({qrmm:v})
+                }}
                  underlineColorAndroid='transparent'
-                 placeholderTextColor='#848484'
-                 ></TextInput>
+                ></TextInput>
          
    </View>
 
@@ -521,16 +545,12 @@ Perfect(){
                         justifyContent:'space-between'
                         }}>
               
-              <Text style={{
-                  fontSize:15,
-                  color:'#fff',
-                  flex:2}}>
-                  推荐人</Text>
-     
+        
                 <TextInput 
-                 style={{flex:2}}
+                 style={{flex:1}}
+                 placeholder='推荐人'
                  underlineColorAndroid='transparent'
-                 placeholderTextColor='#848484'
+                 placeholderTextColor='#fff'
                  value={this.state.tjr}
                  onChangeText={(v)=>{
                     this.setState({tjr:v})
@@ -557,7 +577,23 @@ Perfect(){
                  height:80,
                  alignItems:'center'}}>
       <TouchableOpacity onPress={()=>{
-       this.regUser()
+
+         if(!this.state.jtnc){
+                 this.regAlert.alertWithType('error', 'Error', '请输入家庭昵称')
+                 return
+             }
+
+          if(!this.state.uName){
+                   this.regAlert.alertWithType('error', 'Error', '请输入登录名')
+                   return
+                 }
+       
+                 if(this.state.mm!=this.state.qrmm){
+            this.regAlert.alertWithType('error', 'Error', '确认密码和用户密码不一致')
+            return
+        }
+     
+        this.regUser()
       }}>
           <ImageBackground 
             source={require('../Views/cygl/imgs/zc.png')}
@@ -616,7 +652,7 @@ return (
 
 
 <ScrollView scrollEnabled={true} style={{backgroundColor:'#F2F2F2'}} >
-<TouchableOpacity onPress={()=>{this.setState({type:5,typetitle:'真实姓名'})}}>
+<TouchableOpacity onPress={()=>{this.setState({type:8,typetitle:'家庭角色'})}}>
 
 <View 
                       style={{flexDirection:'row',
@@ -628,7 +664,9 @@ return (
                           <View style={{width:60,
                                paddingLeft:5,
                                paddingTop:5}}>
-                          <Image source={require('../Views/cygl/imgs/tx/mm.png')} style={{width:48,height:48
+                          <Image source={
+                              this.state.userRole=="爸爸"?
+                              require('../Views/cygl/imgs/tx/bb.png'):(this.state.userRole=="妈妈"?require('../Views/cygl/imgs/tx/mm.png'):require('../Views/cygl/imgs/tx/uncle.png'))} style={{width:48,height:48
                           
                           }} resizeMode='stretch'></Image>
                           </View>
@@ -636,8 +674,8 @@ return (
                               paddingLeft:5,
                               paddingTop:10,
                               justifyContent:'flex-start'}}>
-                          <Text style={{fontSize:13,color:'black',fontWeight:'bold'}}>豆为之家</Text>
-                          <Text style={{fontSize:12,color:'#D8D8D8'}}>豆为号:134****233</Text>
+                          <Text style={{fontSize:13,color:'black',fontWeight:'bold'}}>{this.state.jtnc}</Text>
+                          <Text style={{fontSize:12,color:'#D8D8D8'}}>豆为号:{this.state.userName}</Text>
                         
                          </View>
 
@@ -677,45 +715,7 @@ return (
                 </View>
                 </TouchableOpacity>
     
-
-         <TouchableOpacity onPress={()=>{this.setState({type:5,typetitle:'性别'})}}>
-        <View style={{flexDirection:'row',
-               backgroundColor:'#fff',
-               borderTopColor:'#F0F0F0',
-               borderTopWidth:1,
-               borderBottomWidth:1,
-               borderBottomColor:'#F0F0F0',
-               height:40,
-               alignItems:'center',
-               justifyContent:'space-between',
-               paddingLeft:10,
-               paddingRight:10,
-               marginTop:10,
-               }}>
-                <Text style={{fontSize:13,
-                  color:'#585858',
-                  fontFamily:'Microsoft YaHei'}}>
-                     性别</Text>  
-                     <View 
-                style={{flexDirection:'row',alignItems:'center'}}>
-                 
-                   
-          
-
-<Text style={{fontSize:13,
-color:'#585858',
-fontFamily:'Microsoft YaHei'}}>
-{this.state.sex}</Text>
-<Image source={require('../Views/cygl/imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
-
-
-                </View>
-              </View>
-              </TouchableOpacity>
-  
-
-
-    <TouchableOpacity onPress={()=>{this.setState({type:5,typetitle:'联系地址'})}}>
+        <TouchableOpacity onPress={()=>{this.setState({type:5,typetitle:'联系地址'})}}>
         <View style={{flexDirection:'row',
                backgroundColor:'#fff',
                borderTopColor:'#F0F0F0',
@@ -868,10 +868,7 @@ style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
                              if(this.state.typetitle=="真实姓名"){
                                     this.setState({realName:v})
                              } 
-                             else if(this.state.typetitle=="性别"){
-
-                                this.setState({sex:v})
-                             }   
+                           
                              else if(this.state.typetitle=="联系地址"){
 
                                 this.setState({contactAddress:v})
@@ -960,5 +957,53 @@ style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
      }else if(this.state.type==7){
          return <ScannerScreen callback={this.ScanSucess.bind(this)}></ScannerScreen>
        }
+       else if(this.state.type==8){
+        return(
+            <View>
+            <View style={{
+       flexDirection:'row',
+       borderBottomWidth:1,
+       borderBottomColor:'#E6E6E6',
+       backgroundColor:'#fe9c2e',
+       height:40,
+       alignItems:'center',
+       justifyContent:'space-between'}}>
+                
+                <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                 <TouchableOpacity   
+           style={{height:50,
+            width:35,
+
+         justifyContent:'center',
+         alignItems:'flex-end'}} 
+                       onPress={()=>{this.setState({type:3})}}>
+                         <Image source={require('../Views/cygl/imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                         </Image>
+                       </TouchableOpacity> 
+                       </View> 
+                       <View style={{justifyContent:'center',alignItems:'center'}}>
+                           <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
+                       </View> 
+                       <View style={{marginRight:5,width:21}}> 
+                            
+                       </View> 
+                   </View>
+                   <View backgroundColor='#F2F2F2' 
+                               style={{height:deviceheight-60}}>
+                    <View style={{backgroundColor:'#fff',marginTop:10,height:40}}>
+                    <ModalDropdown options={['爸爸','妈妈','爷爷','奶奶','外公','外婆']}
+                                   defaultValue={'请选择用户角色'}
+                                   onSelect={(i,v)=>{
+                                    this.setState({userRole:v})
+                                 }}
+                                      dropdownStyle={{width:150,fontSize:16}}
+                                      dropdownTextStyle={{fontSize:16}}
+                                      textStyle={{fontSize:16,justifyContent:'center'}}
+                                      style={{flex:2,justifyContent:'center',height:40}}/>
+                    </View>
+                    </View>
+               </View>
+        )
+      }
 }
 }

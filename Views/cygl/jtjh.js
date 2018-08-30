@@ -39,7 +39,7 @@ export default class jtjh extends Component {
                 isShowBottomRefresh:false,
                 isFirstload:true,
                 type:1,
-                xmlx:'',
+                xmlx:'计划任务',
                 xmName:'',
                 jds:0,
                 zqlx:'',
@@ -105,7 +105,7 @@ export default class jtjh extends Component {
           }
         }
         
-        let url = 'http://192.168.100.15:38571/api/plans/Plans?p=' + page + '&num=10';
+        let url = 'http://192.168.0.100:38571/api/plans/Plans?p=' + page + '&num=10';
         
         fetch(url)
         .then((response)=>{
@@ -183,7 +183,7 @@ export default class jtjh extends Component {
    
     PostJtjh(){
 
-        let url = "http://192.168.100.15:38571/api/plans/AddPlan";  
+        let url = "http://192.168.0.100:38571/api/plans/AddPlan";  
        
         let params ={
             "ProjectType":this.state.xmlx,
@@ -992,76 +992,7 @@ export default class jtjh extends Component {
                       </View> 
                                   </View>
                              
-                               <View style={{flexDirection:'row',
-                                     height:40,
-                                     borderBottomWidth:1,
-                                     borderBottomColor:'#F0F0F0'
-                            }}> 
-                                 
-                                   <View style={{
-                                       flex:1,
-                                     
-                                       flexDirection:'row'
-                                       }}>
-                                       <View style={{flex:2,justifyContent:'center',alignItems:'flex-end'}}>
-                                       <TouchableOpacity >
-                                        <Text style={{fontFamily:'SimSun',
-                                                fontSize:13,
-                                                 fontStyle:'normal',
-                                                 color:'#8a8a8a'}}>全部</Text> 
-                                       </TouchableOpacity>
-                                       </View> 
-                                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-start'}}>
-                                                 
-                                       </View>
-                                   </View>
-                              
-                
-                
-                               
-                                   <View style={{
-                                             flex:1,
-                                             flexDirection:'row'
-                                   }}>
-                                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-end'}}>
-                                       <TouchableOpacity >
-                                       <Text style={{fontFamily:'SimSun',
-                                                fontSize:13,
-                                                 fontStyle:'normal',
-                                                 color:'#8a8a8a'}}>计划任务</Text> 
-                                      
-                                       </TouchableOpacity>
-                                       </View> 
-                                       
-                                   </View>
-                                  
-                                   <View style={{
-                                             flex:1,
-                                             flexDirection:'row'
-                                   }}>
-                                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-end'}}>
-                                       <TouchableOpacity >
-                                       <Text style={{fontFamily:'SimSun',
-                                                fontSize:13,
-                                                 fontStyle:'normal',
-                                                 color:'#8a8a8a'}}>日常行为</Text>
-                                       </TouchableOpacity>
-                                       </View> 
-                    
-                                   </View>
-                                
-                                   <View style={{
-                                             flex:2,
-                                             flexDirection:'row'
-                                   }}>
-                                
-                    
-                                   </View>
-                           
-                                   
-                               
-                
-                               </View> 
+                            
                                <View style={{backgroundColor:'#F2F2F2',height:deviceheight}}>
                                <ScrollView >
                                <ListView
@@ -1160,7 +1091,7 @@ export default class jtjh extends Component {
                         
                                 <ModalDropdown options={['计划任务', 
                          '日常行为']}
-    defaultValue={'请选择项目类型'}
+    defaultValue={'计划任务'}
      dropdownStyle={{width:150,fontSize:12}}
      dropdownTextStyle={{fontSize:12}}
      textStyle={{fontSize:12,justifyContent:'center'}}

@@ -8,7 +8,8 @@ import {
     ImageBackground,
     ListView,
     Dimensions,
-    TextInput
+    TextInput,
+    AsyncStorage
 } from 'react-native';
 
 import Button from '../component/button'
@@ -21,6 +22,7 @@ import Wdxx from '../cygl/wdxx'
 import Zhqh from '../cygl/zhqh'
 import Wdtj from '../cygl/wdtj'
 import Wdfk from '../cygl/wdfk'
+import DatePicker from 'react-native-datepicker'
 import jtjh from '../cygl/jtjh';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -37,8 +39,45 @@ export default class page1 extends Component {
                 {title:'打扫卫生',content:'三小时前'},
                 {title:'洗碗',content:'洗碗'}
                ]),
+             dataCySource: [
+            
+               ],
+             
               type:1
         }
+    }
+    _rednerCy1(){
+         return (this.state.dataCySource.map((t, i) =>this._rednerCy(t, i)))
+   }
+ 
+ 
+   _rednerCy(item,i){ 
+     return (
+        <View  key = {i} 
+        style={{ width: 80,
+                  alignItems: 'center'  }}> 
+  
+       <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
+        <Image
+            source={item.userRole=="爸爸"? require('../cygl/imgs/tx/bb.png'):(item.userRole=="妈妈"?require('../cygl/imgs/tx/mm.png'):item.userRole=="叔叔"?require('../cygl/imgs/tx/uncle.png'):item.userRole=="爷爷"?require('../cygl/imgs/tx/yeye.png'):require('../cygl/imgs/tx/nainai.png'))}
+            style={{
+            height: 50,
+            width: 50
+        }}
+            resizeMode='stretch'
+        ></Image>
+        <Text 
+             style={{
+             
+                width: 50,
+                fontSize:12,
+                textAlign:'center'
+            }} >{  
+                decodeURI(item.userRole)}</Text>
+        </TouchableOpacity>
+    </View>
+     )
+
     }
     _rednerJH() {
         let icons = []
@@ -140,7 +179,29 @@ export default class page1 extends Component {
                 style = {{width: 80,height: 60,justifyContent:'center',alignItems:'center'}} />
             }
     }
+    componentWillMount(){
 
+        AsyncStorage.getItem('user').then((item)=>{
+            return JSON.parse(item)
+              }).then((item)=>{ 
+             
+                   this.setState({jtnc:item.nc}) 
+     
+                   fetch('http://192.168.0.100:38571/api/family/Members?jtnc='+item.nc)
+                   .then((response) =>{
+                     if(response.ok){
+                       return response.json();
+                     }
+                   })
+                   .then((responseJson) => { 
+                     let data=JSON.parse(responseJson).data;
+                     this.setState({dataCySource:data})
+                   })
+                   .catch((error) => {
+                     console.error(error); 
+                   });
+              })
+    }
     render() {
         if(this.state.type==1){
         return (
@@ -217,8 +278,8 @@ export default class page1 extends Component {
                         marginTop: 10,
                         borderStyle: 'solid',
                         backgroundColor: '#fff',
-                        borderRadius: 10,
-                        flexWrap:'wrap'
+                        borderRadius: 10
+                     
                     }}>
                         <ImageBackground
                             source={{
@@ -238,120 +299,19 @@ export default class page1 extends Component {
                             }}>
                                 <Text>我的家人</Text>
                             </View>
-                      
                             <View
                                 style={{
                                 flex: 1,
-                                justifyContent: 'space-between',
+                                justifyContent: 'flex-start',
+                                alignContent:'flex-start',
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 marginBottom: 20,
-                                marginTop: 10
+                                marginTop: 10,
+                                flexWrap:'wrap'
                             }}>
-                                       
-                                <View
-                                    style={{
-                                
-                                    
-                                            width: 80,
-                                 
-                                    alignItems: 'center'
-                                }}> 
-                                   <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
-                                    <Image
-                                        source={require('../cygl/imgs/tx/bb.png')}
-                                        style={{
-                                        height: 50,
-                                        width: 50
-                                    }}
-                                        resizeMode='stretch'
-                                    ></Image>
-                                    <Text 
-                                         style={{
-                                         
-                                            width: 50,
-                                            fontSize:12,
-                                            textAlign:'center'
-                                        }}
-                                    >父亲</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View
-                                    style={{
-                              
-                                        width: 80,
-                                    alignItems: 'center',
-                                    marginTop: 5
-                                }}> 
-                                     <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
-                                    <Image
-                                        source={require('../cygl/imgs/tx/mm.png')}
-                                        style={{
-                                        height: 50,
-                                        width: 50
-                                    }}
-                                    resizeMode='stretch'
-                                    ></Image>
-                                    <Text
-                                       style={{
-                                     
-                                        width: 50,
-                                        fontSize:12,
-                                        textAlign:'center'
-                                    }}
-                                    >母亲</Text>
-                                    </TouchableOpacity>
-                                </View>
-
-                                <View
-                                    style={{
-                                        width: 80,
-                                    alignItems: 'center'
-                                }}>
-                                 <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
-                                    <Image
-                                        source={require('./gly/gril.png')}
-                                        style={{
-                                        height: 50,
-                                        width: 50
-                                    }}
-                                    resizeMode='stretch'
-                                    ></Image>
-                                    <Text
-                                       style={{
-                                      
-                                        width: 50,
-                                        fontSize:12,
-                                        textAlign:'center'
-                                    }}
-                                    >女儿</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View
-                                    style={{
-                                        width: 80,
-                                    alignItems: 'center'
-                                }}>
-                                 <TouchableOpacity onPress={()=>{this.setState({type:111})}}>
-                                    <Image
-                                        source={require('./gly/boy.png')}
-                                        style={{
-                                        height: 50,
-                                        width: 50
-                                    }}
-                                    resizeMode='stretch'
-                                    ></Image>
-                                    <Text
-                                       style={{
-                                       
-                                        width: 50,
-                                        fontSize:12,
-                                        textAlign:'center'
-                                    }}
-                                    >儿子</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
+                             {this._rednerCy1()}
+                             </View>
                         </ImageBackground>
                     </View>
 

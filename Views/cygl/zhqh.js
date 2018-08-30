@@ -10,7 +10,8 @@ import {
  Image,
  ScrollView,
  ListView,
- TouchableHighlight
+ TouchableHighlight,
+ AsyncStorage
 } from 'react-native'; 
 import Checkbox from '../component/checkbox'
 
@@ -30,16 +31,41 @@ export default class zhqh extends Component {
             pwd:'',
             qrpwd:'',
             dataSource: ds.cloneWithRows([
-                {title:'账号名称:张三的家   家庭角色:父亲'},
-                {title:'账号名称:张三       家庭角色:父亲'},
-                {title:'账号名称:李思       家庭角色:父亲'},
-                {title:'账号名称:张小三     家庭角色:儿子'}
+                {UserName:'账号名称:张三的家   家庭角色:父亲',userRole:""},
+                {UserName:'账号名称:张三       家庭角色:父亲',userRole:""},
+                {UserName:'账号名称:李思       家庭角色:父亲',userRole:""},
+                {UserName:'账号名称:张小三     家庭角色:儿子',userRole:""}
               ]),
+
               type:1
         }
     } 
 
+   
 
+    componentWillMount() {
+
+        AsyncStorage.getItem('user').then((item)=>{
+           return JSON.parse(item)
+             }).then((item)=>{ 
+            
+                  this.setState({jtnc:item.nc}) 
+    
+                  fetch('http://192.168.0.100:38571/api/family/Members?jtnc='+item.nc)
+                  .then((response) =>{
+                    if(response.ok){
+                      return response.json();
+                    }
+                  })
+                  .then((responseJson) => { 
+                    let data=JSON.parse(responseJson).data;
+                    this.setState({dataSource:ds.cloneWithRows(data)})
+                  })
+                  .catch((error) => {
+                    console.error(error); 
+                  });
+             })
+      }
     render() {
       const  {back}=this.props
       return (<View>
@@ -107,7 +133,10 @@ export default class zhqh extends Component {
                                         </View>
                                      
                                         <View style={{flex:12,justifyContent:'center',paddingLeft:20}}>
-                                        <Text >{rowData.title}</Text>
+                                        <Text >账号名称:{decodeURI(rowData.UserName)}</Text>
+                                        </View>
+                                        <View style={{flex:12,justifyContent:'center',paddingLeft:20}}>
+                                        <Text >家庭角色:{decodeURI(rowData.userRole)}</Text>
                                         </View>
                               
                                         <View style={{flex:3,justifyContent:'center'}}>
