@@ -16,7 +16,7 @@ export default class CheckBox extends PureComponent {
             isChecked: this.props.isChecked || false
         };
     }
- 
+   
     getChecked() {
         return this.state.isChecked;
     }
@@ -27,16 +27,16 @@ export default class CheckBox extends PureComponent {
         });
     }
  
-    checkClick() {
-        this.setState({
-            isChecked: !this.state.isChecked
-        });
-    }
- 
+
     render() { 
-        const {styles}=this.props;
+        const {styles,selected}=this.props;
         return (
-            <TouchableHighlight underlayColor={'transparent'} onPress={() => this.checkClick()}>
+            <TouchableHighlight underlayColor={'transparent'} onPress={() =>{
+                this.setState({
+                    isChecked: !this.state.isChecked
+                });
+                selected(this.state.isChecked)
+            } }>
                 <Image source={this.state.isChecked?checkedImage:checkImage} style={styles}/>
             </TouchableHighlight>
         );

@@ -12,8 +12,8 @@ import {
     TextInput,
     Switch,
     RefreshControl,
-    ActivityIndicator
-
+    ActivityIndicator,
+    AsyncStorage
 } from 'react-native';
 import Main from '../Main1'
 import Checkbox from '../component/checkbox'
@@ -31,14 +31,19 @@ export default class jtjh extends Component {
         super(props);
         this.state = {
         datalist:  ds.cloneWithRows([
-           {projectName:'xxxxx项目',jds:5}
-           ]),
+       
+           ]), 
+           tjdatalist:  ds.cloneWithRows([
+       
+          ]),
                 isShowBottomRefresh: false,
                 isRefreshing: false,
                 isNoMoreData: false,
                 isShowBottomRefresh:false,
                 isFirstload:true,
+                jtnc:'',
                 type:1,
+                tabxmlx:'计划任务',
                 xmlx:'计划任务',
                 xmName:'',
                 jds:0,
@@ -54,28 +59,25 @@ export default class jtjh extends Component {
 
     _endReached = () => { 
       if(this.state.isFirstload){
-
-       this.setState({isFirstload:false})
-        return
+         this.setState({isFirstload:false})
+          return
       }
       if(this.state.isNoMoreData){
-        return
+          return
       }
     
       this.fetchData(false, true);
     }
 
-
-  _onRefresh = () => {
+    _onRefresh = () => {
     // 当加载到最后一页数据，再次下拉刷新时，需关闭isNoMoreData状态机
     this.setState({
       isNoMoreData: false
     });
 
     this.fetchData(false, false);
-  }
-
-
+    }
+    
     _renderFooter(){
 
       if(this.state&&this.state.isShowBottomRefresh){
@@ -186,7 +188,8 @@ export default class jtjh extends Component {
         let url = "http://192.168.0.100:38571/api/plans/AddPlan";  
        
         let params ={
-            "ProjectType":this.state.xmlx,
+            "jtnc":this.state.jtnc,
+            "projectType":this.state.xmlx,
             "projectName":this.state.xmName,
             "jds":this.state.jds,
             "zqType":this.state.zqlx,
@@ -268,13 +271,12 @@ export default class jtjh extends Component {
                         justifyContent:'space-between',
                         paddingLeft:20}}>  
                                      <Text style={{flex:1}}>周期类型</Text>
-                                     <ModalDropdown options={['每周', 
-                         '每月']}
-    defaultValue={'请选择周期类型'}
-     dropdownStyle={{width:150,fontSize:12}}
-     dropdownTextStyle={{fontSize:12}}
-     textStyle={{fontSize:12,justifyContent:'center'}}
-     style={{flex:2,justifyContent:'center',height:40}}
+                                     <ModalDropdown options={['每周', '每月']}
+                                                    defaultValue={'请选择周期类型'}
+                                                    dropdownStyle={{width:150,fontSize:12}}
+                                                    dropdownTextStyle={{fontSize:12}}
+                                                    textStyle={{fontSize:12,justifyContent:'center'}}
+                                                   style={{flex:2,justifyContent:'center',height:40}}
      onSelect={(i,v)=>{
         this.setState({zqlx:v})
      }}
@@ -476,7 +478,15 @@ export default class jtjh extends Component {
     
     componentWillMount(){
         
-          this.fetchData(true, false);
+          this.fetchData(true, false); 
+          AsyncStorage.getItem('user').then((item)=>{
+            return JSON.parse(item)
+              }).then((item)=>{ 
+             
+                   this.setState({jtnc:item.nc}) 
+     
+                 
+              })
     }
 
     render() { 
@@ -548,29 +558,32 @@ export default class jtjh extends Component {
                                      
                             }}> 
                                  
-                                   <View style={{
-                                       flex:1,
-                                       flexDirection:'row'
-                                       }}>
-                                    
-                                   </View>
-                              
+                            
                 
                 
                                
                                    <View style={{
                                              flex:1,
-                                             flexDirection:'row'
+                                             flexDirection:'row',
+                                             justifyContent:'center'
                                    }}>
-                                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-end'}}>
-                                       <TouchableOpacity >
+                                     
+                                       <TouchableOpacity onPress={()=>{
+                                         this.setState({tabxmlx:'计划任务'})
+                                       }}>
                                        <Text style={{fontFamily:'SimSun',
                                                 fontSize:12,
                                                  fontStyle:'normal',
-                                                 color:'#8a8a8a'}}>计划任务</Text> 
+                                                 color:'#8a8a8a',
+                                                 height:40,
+                                                 width:150,
+                                                 textAlignVertical:'center',
+                                                 textAlign:'center',
+                                                
+                                                 backgroundColor:this.state.tabxmlx=='计划任务'?"#DBA901":"#FFFFFF"}}>计划任务</Text> 
                                       
                                        </TouchableOpacity>
-                                       </View> 
+                                  
                                        
                                    </View>
                                   
@@ -578,14 +591,21 @@ export default class jtjh extends Component {
                                              flex:1,
                                              flexDirection:'row'
                                    }}>
-                                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-end'}}>
-                                       <TouchableOpacity >
+                                     
+                                     <TouchableOpacity onPress={()=>{
+                                         this.setState({tabxmlx:'日常行为'})
+                                       }}>
                                        <Text style={{fontFamily:'SimSun',
                                                 fontSize:12,
+                                                height:40,
+                                                width:150,
+                                                textAlignVertical:'center',
+                                                textAlign:'center',
+                                                backgroundColor:this.state.tabxmlx=='日常行为'?"#DBA901":"#FFFFFF",
                                                  fontStyle:'normal',
                                                  color:'#8a8a8a'}}>日常行为</Text>
                                        </TouchableOpacity>
-                                       </View> 
+                                    
                     
                                    </View>
                                 

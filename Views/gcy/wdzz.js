@@ -9,10 +9,13 @@ import {
     Button,
     TouchableOpacity,
     TextInput,
-    Dimensions
+    Dimensions,
+    AsyncStorage
 } from 'react-native';  
 
 import Main from '../Main4'  
+import DropdownAlert from 'react-native-dropdownalert';
+
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 import CheckBox from '../component/xwCheckBox'
@@ -25,20 +28,75 @@ export default class Jhsh extends Component {
     constructor(props) {
         super(props);
         this.state = {
-             dataSource: ds.cloneWithRows([
-                {title:'8.19  张思成请求赞助',content:'买本书    学习基金      100元     ',xz:true},
-                {title:'8.19  张思成请求赞助',content:'买玩具    零花钱        100元     ',xz:false},
-              ]),
+              dataSource: ds.cloneWithRows([]),
               type:1,
               typetitle:'',
               typecontent:''
         }
+    }
+    
+    zanzhu(ysType,xgzh,id,je){
+       
+        let url = "http://192.168.0.100:38571/api/sponsor/UpudateSponsor?ysType="+ysType+"&xgzh="+xgzh+"&id="+id+"&je="+je;  
+     
+       
+        fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+       
+      }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+        }).then((json) => {
+            console.log(json)
+         
+            this.loginAlert.alertWithType('success', 'Success', '赞助成功');
+        }).catch((error) => {
+            console.error(error);
+        });
+   
+    }
+
+    componentWillMount(){
+        AsyncStorage.getItem('user').then((item)=>{
+         return JSON.parse(item)
+           }).then((item)=>{ 
+                this.setState({jtnc:item.nc}) 
+                 fetch('http://192.168.0.100:38571/api/sponsor/SponsorS?jtnc='+item.nc)
+                .then((response) =>{
+                  if(response.ok){
+                    return response.json();
+                  }
+                })
+                .then((responseJson) => { 
+                  let data=responseJson.data; 
+               
+                 this.setState({
+                   dataSource: ds.cloneWithRows(data),
+                 })
+                })
+                .catch((error) => {
+                  console.error(error); 
+                });
+           })
     }
 
     render(){ 
         const {back}=this.props
      return(
     <View>
+             <DropdownAlert
+                                ref={ref => this.loginAlert = ref}
+                                 containerStyle={{height:100}}
+                                    showCancel={true}
+                                     closeInterval={3000}
+                                     zIndex={1000000}
+        
+                                    />
 <View style={{
 flexDirection:'row',
 borderBottomWidth:1,
@@ -75,12 +133,12 @@ justifyContent:'space-between'}}>
    </View>
 
 <View style={{backgroundColor:'#F2F2F2',height:deviceheight}}>
-<ScrollView >
+
 <ListView
    dataSource={this.state.dataSource}
     renderRow={(rowData) => 
       <TouchableOpacity  
-            onPress={()=>{this.setState({type:2})}}>
+            onPress={this.zanzhu.bind(this,rowData.ysType,rowData.xgzh,rowData.id,rowData.SponsorJe)}>
            <View 
                style={{flexDirection:'row',
                        borderTopColor:'#F0F0F0',
@@ -93,10 +151,10 @@ justifyContent:'space-between'}}>
                          justifyContent:'center',
                          alignItems:'flex-start',
                          marginLeft:10}}>
-                           <Text style={{   color:'#474747',fontSize:12}}>{rowData.title}</Text>
+                    <Text style={{   color:'#474747',fontSize:12}}>{decodeURI(rowData.rq) +" "+decodeURI(rowData.realName)}发起申请</Text>
                     <View  style={{flexDirection:'row',
                                    justifyContent:'space-between',width:deviceWidth}}>
-                    <Text style={{   color:'#474747',fontSize:12}}>{rowData.content}</Text>
+                    <Text style={{   color:'#474747',fontSize:12}}>{decodeURI(rowData.syMd)+" "+decodeURI(rowData.ysType)+"  还差"+decodeURI(rowData.SponsorJe)+"元"}</Text>
                     <Text style={{   color:'#474747',fontSize:12,marginRight:30}}>我要赞助</Text>
                     </View>
                                  </View>
@@ -106,8 +164,9 @@ justifyContent:'space-between'}}>
           }
     />
                
-</ScrollView>
+
 </View>
+
 </View>)
 }
 }

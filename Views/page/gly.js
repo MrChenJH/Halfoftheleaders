@@ -11,7 +11,7 @@ import {
     TextInput,
     AsyncStorage
 } from 'react-native';
-
+import Swiper from 'react-native-swiper'
 import Button from '../component/button'
 import Cygl from '../cygl/cygl'
 import Jtjh from '../cygl/jtjh'

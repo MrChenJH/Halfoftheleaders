@@ -34,9 +34,16 @@ export default class CheckBoxsy extends PureComponent {
     }
  
     render() { 
-        const {styles}=this.props;
+        const {styles,selected}=this.props;
         return (
-            <TouchableHighlight underlayColor={'transparent'} onPress={() => this.checkClick()}>
+            <TouchableHighlight underlayColor={'transparent'} 
+            onPress={() =>{
+                this.setState({
+                    isChecked: !this.state.isChecked
+                });
+                selected(this.state.isChecked)
+            } }
+            >
                 <Image source={this.state.isChecked?checkedImage:checkImage} style={styles}/>
             </TouchableHighlight>
         );

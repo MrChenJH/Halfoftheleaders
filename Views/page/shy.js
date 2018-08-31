@@ -50,11 +50,10 @@ export default class page1 extends Component {
         icons.push({img: require('./shy/jfd.png'), name: '成长基金'})
            
         icons.push({img: require('./gly/icon_jifen.png'), name: '家庭钻豆'})
-        icons.push({img: require('./shy/zrbx.png'),    name: '我有话说'})
+  
         icons.push({img: require('./shy/jttj.png'),    name: '家庭推荐'})
      
-        icons.push({img: require('./shy/jthd.png'), name: '我的活动'})
-        icons.push({img: require('./shy/qhzh.png'), name: '切换账号'})
+ 
         icons.push({})
         icons.push({})
         return (icons.map((t, i) =>this._remderItem(t, i)))
@@ -103,30 +102,14 @@ export default class page1 extends Component {
                 component:Wdjf,
                  })
          }
-         else if(t.name=="我有话说")
-         {
-            this.props.navigator.push({
-                component:Wyhs,
-                 })
-         }
+       
          else if(t.name=="家庭推荐")
          {
             this.props.navigator.push({
                 component:Wdtj,
                  })
          }
-         else if(t.name=="我的活动")
-         {
-            this.props.navigator.push({
-                component:Jdhd,
-                 })
-         }
-         else if(t.name=="切换账号")
-         {
-            this.props.navigator.push({
-                component:Zhqh,
-                 })
-         }
+       
         }} >
         <Image
             source={t.img}

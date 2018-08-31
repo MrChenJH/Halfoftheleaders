@@ -30,6 +30,7 @@
     "react-native-radio-master": "^1.0.1",
     "react-native-simple-radio-button": "^2.7.2",
     "react-native-svg": "^6.4.1",
+    "react-native-swiper": "^1.5.13",
     "react-native-tab-navigator": "^0.3.4",
     "react-navigation": "^2.6.2"
   },

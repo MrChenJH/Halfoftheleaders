@@ -66,19 +66,19 @@ export default class Login extends Component {
                      
         if(decodeURI(responseData.systemRole)=='小鬼'){
     this.props.navigator.push({
-        component:Main2,
+        component:Main2,id:"Main2"
         })
    }else if(decodeURI(responseData.systemRole)=='审核员'){
     this.props.navigator.push({
-        component:Main3,
+        component:Main3,id:"Main3"
         })
    }else if(decodeURI(responseData.systemRole)=='观察员'){
     this.props.navigator.push({
-        component:Main4,
+        component:Main4,id:"Main4"
         })
    }else{
     this.props.navigator.push({
-        component:Main1,
+        component:Main1,id:"Main1"
         })
    }
       }else{
@@ -98,9 +98,7 @@ export default class Login extends Component {
      
    }
 
-  
-    
-      regUser(){
+  regUser(){
    
         let url = "http://192.168.0.100:38571/api/user/RegUser";  
         let params ={
