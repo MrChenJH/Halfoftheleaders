@@ -70,9 +70,11 @@ export default class HD extends Component {
                          justifyContent:'center'}} 
              
              onPress={()=>{
-                this.props.navigator.push({
-                    component:Main,
-                    })
+                let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+                    return item.id=="Main2"
+                  })
+                
+                  this.props.navigator.popToRoute(destRoute);
                }}>
                   <Image source={require('../shy/shyImage/close.png')}
               

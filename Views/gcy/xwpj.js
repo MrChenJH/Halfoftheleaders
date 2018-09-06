@@ -1,296 +1,413 @@
 import React, {Component} from 'react';
 import {
-ListView,
- ImageBackground,
- Text,
- View,
- TouchableOpacity,
+    StyleSheet,
+    ScrollView,
+    Text,
+    View,
+    Image,
+    ImageBackground,
+    ListView,
+    Button,
+    TouchableOpacity,
+    Dimensions,
+    TextInput,
+    Switch,
+  
+    AsyncStorage
+} from 'react-native';
+import Main from '../Main2'  
+import Checkbox from '../component/xwCheckBox'
 
- Dimensions,
- Image,
- ScrollView
-} from 'react-native'; 
+import ModalDropdown from 'react-native-modal-dropdown';
 
-import Main from '../Main4'  
-import CheckBoxsy from '../component/xwCheckBox';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
-var ds = new ListView.DataSource({
+const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
-export default class sh extends Component {
+export default class jtjh extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            user:'',
-            pwd:'',
-            qrpwd:'',
-            dataSource: ds.cloneWithRows([
-                {title:'做作业',time:'2018-07-01'},
-                {title:'打扫卫生',time:'2018-07-01'},
-                {title:'洗碗',time:'2018-07-01'},
-                {title:'按时睡觉',time:'2018-07-01'},
-                {title:'学习数学',time:'2018-07-01'}
-               ])
+     this.state = {
+            dataSource: ds.cloneWithRows([  ]),
+            xgzhs:[],
+            userName:"",
+            type:1,
+            jtnc:"",
+            xgzh:"",
+            xwMc:"",
+            yd:""
+           
         }
-    } 
-
-    render() {
-      const  {back}=this.props
-      return (<ScrollView  >
-             <ImageBackground source={require('./shyImage/shybg.png')}
-                  style={{width:deviceWidth}}
-                  resizeMode='stretch'>
-             
-              <View 
-              style={{height:40,
-                marginLeft:10,
-                 alignItems:'flex-start',
-                 justifyContent:'center'}} >
-             
-             <TouchableOpacity onPress={()=>{
-        this.props.navigator.push({
-            component:Main,
-            })
-               }}>
-                  <Image source={require('./shyImage/close.png')}
-              
-                   style={{height:20,
-                           width:20}} 
-                           resizeMode='stretch' ></Image>
-                           </TouchableOpacity>
-              </View>
-              <View
-              style={{
-                  flexDirection:'row',
-                  justifyContent:'center',
-                  alignItems:'center'
-
-              }}
-              >
-                <View style={{alignItems:'center'}}>
-                    <Text style={{
-                        fontSize:12,
-                        color:'black',
-                        marginBottom:10
-                    }}>金豆</Text>
-                    <Image source={require('./shyImage/jd.png')} 
-                    style={{height:80,width:80,marginBottom:5}}
-                     resizeMode='stretch'></Image>
-                       <Text style={{
-                        fontSize:10,
-                        color:'#fff',
-                        marginBottom:3
-                    }}>计划数:3</Text>
-                       <Text
-                        style={{
-                            fontSize:10,
-                            color:'#fff',
-                            marginBottom:10
-                        }}
-                       >完成数:20</Text>
-                </View>
-                <View style={{width:20}}></View>
-                <View style={{alignItems:'center'}}>
-                <Text style={{
-                        fontSize:12,
-                        color:'black',
-                        marginBottom:10
-                    }}>银豆</Text>
-                   <Image source={require('./shyImage/yd.png')} 
-                    style={{height:80,width:80,marginBottom:5}}
-                     resizeMode='stretch'></Image>
-                    <Text
-                      style={{
-                        fontSize:10,
-                        color:'#fff',
-                        marginBottom:3
-                    }}
-                    >计划数:3</Text>
-                    <Text
-                      style={{
-                        fontSize:10,
-                        color:'#fff',
-                        marginBottom:10
-                    }}
-                    >完成数:20</Text>
-                </View>
-                
-              </View>
-            
-             <View
-                        style={{
-                        height: 210,
-                        marginLeft: 5,
-                        marginRight: 5,
-                        marginTop: 10,
-                        borderStyle: 'solid',
-                        backgroundColor: '#fff',
-                        borderRadius: 10
-                    }}>
-                        
-                            <View
-                                style={{ 
-                               
-                                    flexDirection:'row', 
-                                    borderBottomWidth:1,
-                                    borderBottomColor:'#F2F2F2',
-                                    marginLeft:5,
-                                    marginRight:5,
-                                    height:30,
-                                    alignItems:'center',
-                                    paddingLeft:10,
-                                    paddingRight:10
-                            }}>
-                              
-                                    <Text style={{flex:6,textAlign:'left',fontSize:12}}>行为养成</Text>
-                                
-                                               <Text style={{flex:2,
-                                        color:'#BDBDBD',textAlign:'right',fontSize:12}}>评价</Text>
-                            </View>
-                            <View
-                                style={{
-                                    height:180,
-                                marginBottom: 20,
-                                marginTop: 5
-                            }}>
-                               
-                               <ListView
-                              dataSource={this.state.dataSource}
-                               renderRow={(rowData) => 
-                               <View style={{
-                                   height:30,
-                               flexDirection:'row', 
-                                borderBottomWidth:1,
-                               borderBottomColor:'#F2F2F2',
-                               marginLeft:5,
-                               marginRight:5,
-                               alignItems:'center',
-                           
-                                paddingLeft:10,
-                                paddingRight:10,
-                               }}> 
-                                 
-                                    <Text style={{flex:6,
-                                        textAlign:'left',
-                                        fontSize:12}}>{rowData.title}</Text>
-                                
-                                   <View  style={{flex:2,alignItems:'flex-end',marginLeft:10}}>
-                                    <Image source={require('./shyImage/lian.png')} style={{width:20,height:20}} resizeMode='stretch'></Image>
-                                   </View>
-                                   </View>}
-                               />
-                            </View>
-
-
-
-
-                         
-                   
-                    </View>
-    
-
-
-
-
-     
-     <View
-                        style={{
-                        height: 250,
-                        marginLeft: 5,
-                        marginRight: 5,
-                        marginTop: 10,
-                        borderStyle: 'solid',
-                        backgroundColor: '#fff',
-                        borderRadius: 10,
-                        marginBottom:50
-                    }}>
-                        
-                            <View
-                                style={{ 
-                                    height:30,
-                                    borderBottomWidth:1,
-                                    borderBottomColor:'#F2F2F2',
-                                    marginLeft:5,
-                                    marginRight:5,
-                                    alignItems:'flex-start',
-                                    justifyContent:'center',
-                                    paddingLeft:10
-                                 }}>
-                              
-                                    <Text style={{fontSize:12,
-                                             color:'#1C1C1C'}}>本周银豆奖扣比例</Text>
-                                        </View>
-                          <View
-                           style={{ 
-                            height:90,
-                      
-                            alignItems:'center',
-                            justifyContent:'center'
-                           }}>
-                        
-                        <Image source={require('./shyImage/aq.png')}
-                        style={{width:300,height:30}} 
-                        resizeMode='stretch'></Image> 
-                        <Text   style={{
-                            width:300,
-                            height:30,
-                            marginLeft:15,
-                            color:'#aa6800'}}>您本周扣分有点少,提高点孩子的要求吧</Text>
-                          </View>
-
-                             <View
-                            style={{ 
-                            height:80, 
-                            backgroundColor:'#D8D8D8',
-                            marginLeft:10,
-                            marginRight:10
-                              }} > 
-                                      <View
-                            style={{ 
-                            flex:1,
-                            backgroundColor:'#fff',
-                           margin:1,
-                            alignItems:'center'
-                              }} > 
-
-                              <Text>本周收获</Text> 
-                              <View
-                              style={{flexDirection:'row',
-                                      justifyContent:'center',
-                                      height:50,
-                                    alignItems:'center'}}
-                             >
-                                <View 
-                                      style={{flex:1}}
-                              ></View>
-                              <View 
-                                      style={{flex:1,alignItems:'center'}}
-                              >
-                              <ImageBackground source={require('./shyImage/bzyd.png')} 
-                              style={{width:70,height:30,alignItems:"center"}} resizeMode='stretch'
-                              ><Text>100</Text></ImageBackground>
-                              <Text style={{fontSize:13,fontWeight:'bold'}}>金豆</Text>
-                              </View> 
-                              <View
-                                      style={{flex:1,alignItems:'center'}}
-                              >
-                                  <ImageBackground source={require('./shyImage/bzyd.png')} 
-                                 style={{width:70,height:30,alignItems:"center"}} resizeMode='stretch'
-                              ><Text>200</Text></ImageBackground>
-                                   <Text 
-                                   style={{fontSize:13,fontWeight:'bold'}}
-                                   >银豆</Text>
-                              </View>
-                              <View 
-                                      style={{flex:1}}
-                              ></View>
-                             </View>
-                                   </View>
-                           </View>
-               </View>
-              </ImageBackground>
-              </ScrollView>)
-
     }
+
+    _remove(id){
+        fetch('http://117.50.46.40:8003/api/behavior/Deletebehavior?id='+id)
+        .then((response) =>{
+          if(response.ok){
+            fetch('http://117.50.46.40:8003/api/behavior/behaviorS?jtnc='+this.state.jtnc+"&loginName="+this.state.userName)
+            .then((response) =>{
+              if(response.ok){
+                return response.json();
+              }
+            })
+            .then((responseJson) => { 
+              let data=responseJson.data;
+              this.setState({dataSource:ds.cloneWithRows(data)})
+            })
+            .catch((error) => {
+              console.error(error); 
+            });
+          }
+        }).catch((error) => {
+          console.error(error); 
+        });
+    }
+
+
+
+    Save(){
+      
+      let url = "http://117.50.46.40:8003/api/behavior/addBehavior";  
+      let params ={
+          "jtnc":this.state.jtnc,
+          "xgzh":this.state.xgzh,
+          "xwMc":this.state.xwMc,
+          "yd":this.state.yd,
+          "creator":this.state.userName,
+      }; 
+       
+      fetch(url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params)
+    }).then((response) => {
+          if (response.ok) {
+            fetch('http://117.50.46.40:8003/api/behavior/behaviorS?jtnc='+this.state.jtnc+"&loginName="+this.state.userName)
+            .then((response) =>{
+              if(response.ok){
+                return response.json();
+              }
+            })
+            .then((responseJson) => { 
+              let data=responseJson.data;
+              this.setState({dataSource:ds.cloneWithRows(data),type:1})
+            })
+            .catch((error) => {
+              console.error(error); 
+            });
+          }
+      }).catch((error) => {
+          console.error(error);
+      });
+    
+    }
+
+    componentWillMount() {
+
+        AsyncStorage.getItem('user').then((item)=>{
+           return JSON.parse(item)
+             }).then((item)=>{ 
+                  this.setState({jtnc:decodeURI(item.nc),userName:decodeURI(item.userName)}) 
+                  fetch('http://117.50.46.40:8003/api/behavior/behaviorS?jtnc='+item.nc+"&loginName="+decodeURI(item.userName))
+                  .then((response) =>{
+                    if(response.ok){
+                      return response.json();
+                    }
+                  })
+                  .then((responseJson) => { 
+                    let data=responseJson.data;
+                    this.setState({dataSource:ds.cloneWithRows(data)})
+                  })
+                  .catch((error) => {
+                    console.error(error); 
+                  });
+
+
+                  fetch('http://117.50.46.40:8003/api/behavior/xgs?jtnc='+item.nc)
+                  .then((response) =>{
+                    if(response.ok){
+                      return response.json();
+                    }
+                  })
+                  .then((responseJson) => { 
+                    let data=responseJson.data;
+                    data.forEach(element => {
+                        this.state.xgzhs.push(decodeURI(element.userName))
+                    });
+                    
+                    this.setState({xgzhs: this.state.xgzhs})
+                  })
+                  .catch((error) => {
+                    console.error(error); 
+                  });
+             })
+      }
+
+
+    
+    
+  
+    render() { 
+        const {back}=this.props
+        if(this.state.type==1){
+            return (
+               <View
+               
+               style={{ backgroundColor:'#efefef',height:deviceheight}}
+               >
+              <View style={{
+               flexDirection:'row',
+               borderBottomWidth:1,
+               borderBottomColor:'#E6E6E6',
+               backgroundColor:'#fe9c2e',
+               height:40,
+               alignItems:'center',
+               justifyContent:'space-between'}}>
+             
+               <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity   
+                   style={{height:50,
+                    width:35,
+                    justifyContent:'center',
+                    alignItems:'flex-end'}} 
+                      onPress={()=>{
+                        if(this.props.tc){
+                          this.props.navigator.push({
+                              component:Main,
+                              })
+                        }else{
+                          this.props.navigator.jumpBack()
+                        }
+                        }
+                          }>
+                        <Image source={require('./shyImage/back.png')}  
+                        resizeMode='stretch' 
+                         style={{height:20,width:20}} >
+                        </Image>
+                      </TouchableOpacity> 
+                </View> 
+                      <View style={{justifyContent:'center',alignItems:'center'}}>
+                          <Text 
+                          style={{fontSize:16,
+                            color:'#FFF',fontWeight:'bold'}}>行为评价</Text>
+                      </View> 
+                      <View style={{marginRight:5,
+                    flexDirection:'row'}}> 
+                  
+            
+                        <TouchableOpacity  
+                      style={{height:20,width:20}} 
+                      onPress={()=>{ this.setState({type:7})}}>
+                        <Image source={require('./shyImage/add.png')}  
+                        resizeMode='stretch'
+                        style={{height:20,width:20}} >
+                        </Image>
+                      </TouchableOpacity> 
+                      </View> 
+                  </View>
+                 
+                
+                
+                 <ListView
+                                  dataSource={this.state.dataSource}
+                                   renderRow={(rowData) => 
+                      
+                                    <View 
+                                    style={{flexDirection:'row',
+                                            borderTopColor:'#F0F0F0',
+                                            backgroundColor:'#fff',
+                                            borderTopWidth:1,
+                                            margin:5,
+                                            borderRadius:10,
+                                            height:30}}>
+                                            <View style={{flex:1,
+                                              justifyContent:'center',
+                                              alignItems:'flex-start',
+                                           
+                                              marginLeft:10}}>
+                                                <Text style={{   fontSize:12,color:'#474747'}}>{decodeURI(rowData.realName)}</Text>
+                                            </View>
+                                            <View style={{flex:4,
+                                              justifyContent:'center',
+                                              alignItems:'flex-start',
+                                           
+                                              marginLeft:10}}>
+                                                <Text style={{   fontSize:12,color:'#474747'}}>{decodeURI(rowData.xwMc)}</Text>
+                                            </View>
+                                            <View style={{flex:2,
+                                              justifyContent:'center',
+                                              alignItems:'center'
+                                          }}>
+                                                <Text style={{  fontSize:12, color:'#474747'}}>银豆 {rowData.yd}</Text>
+                                            </View>
+                                            <View style={{flex:2,
+                                              justifyContent:'center',
+                                              alignItems:'center'
+                                          }}>
+                                          <TouchableOpacity
+                                          onPress={this._remove.bind(this,rowData.id)}
+                                          >
+                                            <Image source={require('../shy/shyImage/delete.png')} resizeMode='stretch' style={{height:20,width:20,marginLeft:10,marginRight:10}}></Image>
+                                            </TouchableOpacity>
+                                            </View>
+                                  
+                               </View>
+                                
+                                         }
+                                   />
+                    
+                 
+           </View>
+            )
+        }
+            else{
+
+              
+                return(<View 
+                style={{height:deviceheight}}>
+            <View style={{
+               flexDirection:'row',
+               borderBottomWidth:1,
+               borderBottomColor:'#E6E6E6',
+               backgroundColor:'#fe9c2e',
+               height:40,
+               alignItems:'center',
+               justifyContent:'space-between'}}>
+               
+                <View>
+                <TouchableOpacity   
+                   style={{height:40,
+                    width:35,
+                    justifyContent:'center',
+                 alignItems:'flex-end'}} 
+                 onPress={()=>{
+                     this.setState({type:1})
+                 }}
+                     >
+                        <Image source={require('./shyImage/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                        </Image>
+                      </TouchableOpacity> 
+                      </View> 
+                      <View style={{justifyContent:'center',alignItems:'center'}}>
+                          <Text 
+                          style={{fontSize:16,
+                            color:'#FFF',fontWeight:'bold'}}>行为添加</Text>
+                      </View> 
+                      <View style={{marginRight:5,width:40}}> 
+                     <TouchableOpacity onPress={this.Save.bind(this)}>
+                       <Text style={{color:'#FFFF00',fontSize:16}}>保存</Text>
+                     </TouchableOpacity>
+                      </View> 
+                  </View>
+                 
+                  <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:60,
+                        alignItems:'center',
+                        justifyContent:'space-between',
+                        paddingLeft:20}}>      
+                            
+                   <Text style={{flex:1}}>小鬼账号</Text>
+                   <ModalDropdown options={this.state.xgzhs}
+                                   
+                                        onSelect={(i,v)=>{
+                                             this.setState({xgzh:v})
+                                        }}
+                                        dropdownStyle={{width:150,fontSize:12}}
+                                        dropdownTextStyle={{fontSize:12}}
+                                        textStyle={{fontSize:12,justifyContent:'center'}}
+                                        style={{flex:2,justifyContent:'center',height:40}}/>
+                           
+                          
+                        
+                            
+                   </View>
+
+                   <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:60,
+                        alignItems:'center',
+                        justifyContent:'space-between',
+                        paddingLeft:20}}>   
+                          <Text style={{flex:1}}>行为描述</Text>
+                        
+                        <TextInput 
+                           style={{flex:2}}
+                           underlineColorAndroid='transparent'
+                           placeholder='请输入行为描述'
+                           placeholderTextColor='black'
+                            onChangeText={(v)=>{
+
+                              this.setState({xwMc:v})
+                            }}>
+                           </TextInput>
+                            
+                            
+                           
+                   </View>
+                  
+                 <View style={{flexDirection:'row',
+                        borderBottomWidth:1,
+                        borderBottomColor:'#F0F0F0',
+                        height:60,
+                        alignItems:'center',
+                        justifyContent:'space-between',
+                        paddingLeft:20}}>      
+                            
+
+                    <Text style={{flex:1}}>奖罚银豆数</Text>
+                              <TextInput 
+                           style={{flex:2}}
+                           underlineColorAndroid='transparent'
+                           placeholder='请输入奖罚银豆数'
+                           placeholderTextColor='black'
+                           onChangeText={(v)=>{
+                              this.setState({yd:v})
+                          }}>
+                           
+                          
+                           </TextInput>
+                            
+                   </View>
+                  </View>
+                  )
+      }
+   }
 }
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    dialogContentView: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    navigationBar: {
+      borderBottomColor: '#b5b5b5',
+      borderBottomWidth: 0.5,
+      backgroundColor: '#ffffff',
+    },
+    navigationTitle: {
+      padding: 10,
+    },
+    navigationButton: {
+      padding: 10,
+    },
+    navigationLeftButton: {
+      paddingLeft: 20,
+      paddingRight: 40,
+    },
+    navigator: {
+      flex: 1,
+      // backgroundColor: '#000000',
+    },
+  });

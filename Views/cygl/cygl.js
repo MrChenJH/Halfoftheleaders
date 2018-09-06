@@ -44,12 +44,37 @@ export default class page1 extends Component {
  
 
 
-
+ _remove(id){
+  fetch('http://117.50.46.40:8003/api/family/deleteMembers?id='+id)
+  .then((response) =>{
+    if(response.ok){
+      return response.json();
+    }
+  })
+  .then((responseJson) => { 
+    fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+this.state.jtnc)
+    .then((response) =>{
+      if(response.ok){
+        return response.json();
+      }
+    })
+    .then((responseJson) => { 
+      let data=JSON.parse(responseJson).data;
+      this.setState({dataSource:ds.cloneWithRows(data)})
+    })
+    .catch((error) => {
+      console.error(error); 
+    });
+  })
+  .catch((error) => {
+    console.error(error); 
+  });
+ }
  
 
   //添加成员
   AddMember(){
-    let url = "http://192.168.0.100:38571/api/family/AddMember";  
+    let url = "http://117.50.46.40:8003/api/family/AddMember";  
     let params ={
         "jtnc":this.state.jtnc,
         "userName":this.state.userName,
@@ -70,11 +95,20 @@ export default class page1 extends Component {
     body: JSON.stringify(params)
   }).then((response) => {
         if (response.ok) {
-            return response.json();
+        fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+this.state.jtnc)
+          .then((response) =>{
+            if(response.ok){
+              return response.json();
+            }
+          })
+          .then((responseJson) => { 
+            let data=JSON.parse(responseJson).data;
+            this.setState({dataSource:ds.cloneWithRows(data),type:1})
+          })
+          .catch((error) => {
+            console.error(error); 
+          });
         }
-    }).then((json) => {
-        console.log(json)
-        this.setState({type:1})
     }).catch((error) => {
         console.error(error);
     });
@@ -82,7 +116,7 @@ export default class page1 extends Component {
   }
     
   updateMember(){
-    let url = "http://192.168.0.100:38571/api/family/UpdateMember";  
+    let url = "http://117.50.46.40:8003/api/family/UpdateMember";  
     let params ={
         "jtnc":this.state.jtnc,
         "userName":this.state.updateUserName,
@@ -103,11 +137,20 @@ export default class page1 extends Component {
     body: JSON.stringify(params)
   }).then((response) => {
         if (response.ok) {
-            return response.json();
+          fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+this.state.jtnc)
+          .then((response) =>{
+            if(response.ok){
+              return response.json();
+            }
+          })
+          .then((responseJson) => { 
+            let data=JSON.parse(responseJson).data;
+            this.setState({dataSource:ds.cloneWithRows(data),type:1})
+          })
+          .catch((error) => {
+            console.error(error); 
+          });
         }
-    }).then((json) => {
-        console.log(json)
-        this.setState({type:1})
     }).catch((error) => {
         console.error(error);
     });
@@ -119,9 +162,9 @@ export default class page1 extends Component {
        return JSON.parse(item)
          }).then((item)=>{ 
         
-              this.setState({jtnc:item.nc}) 
+              this.setState({jtnc:decodeURI(item.nc)}) 
 
-              fetch('http://192.168.0.100:38571/api/family/Members?jtnc='+item.nc)
+              fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+this.state.jtnc)
               .then((response) =>{
                 if(response.ok){
                   return response.json();
@@ -159,9 +202,11 @@ export default class page1 extends Component {
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
                       onPress={()=>{
-                        this.props.navigator.push({
-                            component:Main,
-                            })
+                        let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+                          return item.id=="Main1"
+                        })
+                      
+                        this.props.navigator.popToRoute(destRoute);
                       }}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>

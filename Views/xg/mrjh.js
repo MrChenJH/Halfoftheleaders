@@ -39,14 +39,41 @@ export default class jtjh extends Component {
               isShowBottomRefresh:false,
               isFirstload:true,
               selectIds:"",
-              type:1
+              type:1,
+              xgzh:"",
+              realname:"",
+              jtnc:""
         }
     }
     
 
+     _remove(id){
+      fetch('http://117.50.46.40:8003/api/plans/removePaln?id='+id)
+      .then((response) =>{
+        if(response.ok){
+          fetch('http://117.50.46.40:8003/api/plans/xgPlans?jtnc='+this.state.jtnc)
+        .then((response) =>{
+          if(response.ok){
+            return response.json();
+          }
+        })
+        .then((responseJson) => { 
+          let data=responseJson.data;
+          this.setState({dataSource:ds.cloneWithRows(data)})
+        })
+        .catch((error) => {
+          console.error(error); 
+        }); 
+        }
+      }).catch((error) => {
+        console.error(error); 
+      }); 
+
+     }
+     
     _save(){
       
-      let url = "http://192.168.0.100:38571/api/plans/AddXgPlan?ids="+this.state.selectIds;  
+      let url = "http://117.50.46.40:8003/api/plans/AddXgPlan?ids="+this.state.selectIds+"&jtnc="+this.state.jtnc+"&xgzh="+this.state.xgzh+"&realname="+this.state.realname;  
      
     fetch(url, {
       method: 'POST',
@@ -56,11 +83,18 @@ export default class jtjh extends Component {
       }
     }).then((response) => {
           if (response.ok) {
-              return response.json();
+            fetch('http://117.50.46.40:8003/api/plans/xgPlans?jtnc='+this.state.jtnc)
+            .then((response) =>{
+              if(response.ok){
+                return response.json();
+              }
+            }).then((responseJson) => { 
+              let data=responseJson.data;
+              this.setState({dataSource:ds.cloneWithRows(data),type:1})
+            }).catch((error) => {
+              console.error(error); 
+            }); 
           }
-      }).then((json) => {
-          console.log(json)
-          this.setState({type:1})
       }).catch((error) => {
           console.error(error);
       });
@@ -74,9 +108,9 @@ export default class jtjh extends Component {
        return JSON.parse(item)
          }).then((item)=>{ 
         
-              this.setState({jtnc:item.nc}) 
+              this.setState({jtnc:item.nc,xgzh:decodeURI(item.userName),realname:decodeURI(item.realName)}) 
 
-              fetch('http://192.168.0.100:38571/api/plans/Plans?jtnc='+item.nc)
+              fetch('http://117.50.46.40:8003/api/plans/Plans?jtnc='+item.nc)
               .then((response) =>{
                 if(response.ok){
                   return response.json();
@@ -90,7 +124,7 @@ export default class jtjh extends Component {
                 console.error(error); 
               }); 
 
-              fetch('http://192.168.0.100:38571/api/plans/xgPlans?jtnc='+item.nc)
+              fetch('http://117.50.46.40:8003/api/plans/xgPlans?jtnc='+item.nc)
               .then((response) =>{
                 if(response.ok){
                   return response.json();
@@ -131,9 +165,11 @@ export default class jtjh extends Component {
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
                       onPress={()=>{
-                        this.props.navigator.push({
-                          component:Main,
-                          })
+                        let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+                          return item.id=="Main2"
+                        })
+                      
+                        this.props.navigator.popToRoute(destRoute);
                           }
                           }>
                         <Image source={require('./imgs/back.png')}  
@@ -180,7 +216,7 @@ export default class jtjh extends Component {
                                                         alignItems:'flex-start',
                                                      
                                                         marginLeft:10}}>
-                                                          <Text style={{   color:'#474747'}}>{rowData.title}</Text>
+                                                          <Text style={{   color:'#474747'}}>{decodeURI(rowData.projectName)}</Text>
                                                       </View>
                                                       <View style={{flex:2,
                                                         justifyContent:'center',
@@ -191,7 +227,10 @@ export default class jtjh extends Component {
                                                       <View style={{flex:1,
                                                         justifyContent:'center',
                                                         alignItems:'center'}}>
+                                                        <TouchableOpacity
+                                                        onPress={this._remove.bind(this,rowData.xgid)}>
                                                            <Image source={require('../shy/shyImage/delete.png')} resizeMode='stretch' style={{height:20,width:20}}></Image>
+                                                          </TouchableOpacity>
                                                       </View>
                                                     
                                             
@@ -260,7 +299,7 @@ export default class jtjh extends Component {
                                                      alignItems:'flex-start',
                                                   
                                                      marginLeft:10}}>
-                                                       <Text style={{   color:'#474747'}}>{rowData.projectName}</Text>
+                                                       <Text style={{   color:'#474747'}}>{decodeURI(rowData.projectName)}</Text>
                                                    </View>
                                                    <View style={{flex:2,
                                                      justifyContent:'center',

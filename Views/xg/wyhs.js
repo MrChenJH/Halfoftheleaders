@@ -9,7 +9,8 @@ import {
     Button,
     TouchableOpacity,
     TextInput,
-    Dimensions
+    Dimensions,
+    AsyncStorage
 } from 'react-native';  
 
 import Main from '../Main2'  
@@ -30,12 +31,97 @@ export default class HD extends Component {
                 {title:'不要一直不理我',content:'家风豆:500',xz:true},
                 {title:'在家不能抽烟',content:'家风豆:500',xz:false}
               ]),
-              type:1,
-              typetitle:'',
-              typecontent:''
-        }
+              dataCySource: [],
+              jtnc:'',
+              txtContent:'',
+              type:'我有话说',
+              sysRole:'',
+              userRole:''
+          }
     }
     
+     Save(){
+        
+        if(!this.state.userRole){
+            this.dropdown.alertWithType('error', 'Error', '请选择家人' )
+            return
+        }
+        
+
+        if(!this.state.txtContent){
+            this.dropdown.alertWithType('error', 'Error', '请选择要说的话' )
+            return
+        }
+
+        let url = "http://117.50.46.40:8003/api/message/AddMessageS";  
+        let params ={
+            "jtnc":this.state.jtnc,
+            "txtContent":this.state.txtContent,
+            "type":this.state.type,
+            "sysRole":this.state.sysRole,
+            "userRole":decodeURI(this.state.userRole)
+        }; 
+         
+       fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+      }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+        }).then((json) => {
+            console.log(json)
+            this.dropdown.alertWithType('success', '发送成功', '发送成功' )
+       
+        }).catch((error) => {
+            console.error(error);
+        });
+      
+      }
+  
+  
+  
+    _rednerCy1(){
+        return (this.state.dataCySource.map((t, i) =>this._rednerCy(t, i)))
+  }
+
+
+  _rednerCy(item,i){ 
+      let role=decodeURI(item.userRole)
+    return ( 
+    
+       <View  key = {i} 
+       style={{width:80,alignItems:'center'}}> 
+ 
+      <TouchableOpacity onPress={()=>{
+          this.setState({userRole:item.userRole})
+      }}>
+       <Image
+           source={ role=="爸爸"? require('../cygl/imgs/tx/bb.png'):(role=="妈妈"?require('../cygl/imgs/tx/mm.png'):role=="叔叔"?require('../cygl/imgs/tx/uncle.png'):role=="爷爷"?require('../cygl/imgs/tx/yeye.png'):require('../cygl/imgs/tx/nainai.png'))}
+           style={{
+           height: 50,
+           width: 50
+       }}
+           resizeMode='stretch'
+       ></Image>
+       <Text 
+            style={{
+            
+               width: 50,
+               fontSize:12,
+               textAlign:'center'
+           }} >{  
+               decodeURI(item.userRole)}</Text>
+       </TouchableOpacity>
+   </View>
+    )
+ }
+
+
     itemAction(item) {
         switch (item.type) {
           case 'close':
@@ -58,19 +144,44 @@ export default class HD extends Component {
       }
 
 
+      componentWillMount(){
+
+        AsyncStorage.getItem('user').then((item)=>{
+            return JSON.parse(item)
+              }).then((item)=>{ 
+             
+                   this.setState({jtnc:item.nc}) 
+     
+                   fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+item.nc)
+                   .then((response) =>{
+                     if(response.ok){
+                       return response.json();
+                     }
+                   })
+                   .then((responseJson) => { 
+                     let data=JSON.parse(responseJson).data;
+                     this.setState({dataCySource:data})
+                   })
+                   .catch((error) => {
+                     console.error(error); 
+                   });
+              })
+    }
+
+
     render(){ 
         const {back}=this.props
-        if(this.state.type==1){
+    
     return (
         <View >
-                   <DropdownAlert
+      <DropdownAlert
           ref={ref => this.dropdown = ref}
           containerStyle={{height:100}}
           showCancel={true}
           closeInterval={3000}
           zIndex={1000000}
-        
         />
+
         <View style={{
          flexDirection:'row',
          borderBottomWidth:1,
@@ -88,13 +199,11 @@ export default class HD extends Component {
               justifyContent:'center',
               alignItems:'flex-end'}} 
                 onPress={()=>{
-                    if(this.props.tc){
-                        this.props.navigator.push({
-                            component:Main,
-                            })
-                      }else{
-                        this.props.navigator.jumpBack()
-                      }
+                    let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+                        return item.id=="Main2"
+                      })
+                    
+                      this.props.navigator.popToRoute(destRoute);
                 }}>
                   <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                   </Image>
@@ -106,10 +215,7 @@ export default class HD extends Component {
                       color:'#FFF',fontWeight:'bold'}}>我有话说</Text>
                 </View> 
                 <View style={{width:100,marginRight:5}}> 
-                <TouchableOpacity  style={{width:100,alignItems:'flex-end'}} onPress={()=>{ this.setState({type:2})}}>
-                  <Text style={{fontSize:16,
-                      color:'#FFF'}}>最近评价</Text>
-                </TouchableOpacity> 
+             
                 </View> 
             </View>
        
@@ -128,80 +234,17 @@ export default class HD extends Component {
                       
                             <View
                                 style={{
-                                 height:70,
-                                 justifyContent: 'flex-start',
+                                flex: 1,
+                                justifyContent: 'flex-start',
+                                alignContent:'flex-start',
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 marginBottom: 20,
-                                marginTop: 10
+                                marginTop: 10,
+                                flexWrap:'wrap'
                             }}>
-                                       
-                                <View
-                                    style={{
-                                    flex: 1,
-                                    alignItems: 'center',
-                                }}> 
-                                   <TouchableOpacity onPress={()=>{}}>
-                                    <Image
-                                        source={require('./imgs/tx/bb.png')}
-                                        style={{
-                                        height: 60,
-                                        width: 60
-                                    }}
-                                    
-                                    resizeMode='stretch'></Image>
-                                    <Text   style={{
-                                     
-                                        width: 60,
-                                        textAlign:'center'
-                                    }}>爸爸</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 1,
-                                    alignItems:"center",
-                                    marginTop: 5
-                                }}> 
-                                     <TouchableOpacity onPress={()=>{}}>
-                                    <Image
-                                        source={require('./imgs/tx/mm.png')}
-                                        style={{
-                                        height: 60,
-                                        width: 60
-                                    }}
-                                    
-                                    resizeMode='stretch'></Image>
-                                    <Text   style={{
-                                     
-                                        width: 60,
-                                        textAlign:'center'
-                                    }}>妈妈</Text>
-                                    </TouchableOpacity>
-                                </View>
-
-                                <View
-                                    style={{
-                                    flex: 1,
-                                    alignItems:"center"
-                                }}>
-                                 <TouchableOpacity onPress={()=>{}}>
-                                    <Image
-                                        source={require('./imgs/tx/yy.png')}
-                                        style={{
-                                            height: 60,
-                                        width: 60
-                                    }} 
-                                    resizeMode='stretch'></Image>
-                                      <Text   style={{
-                                 
-                                        width: 60,
-                                        textAlign:'center'
-                                    }}>爷爷</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-            
+                             {this._rednerCy1()}
+                             </View>
  
     
          <ScrollView style={{backgroundColor:'#efefef',height:deviceheight}}>
@@ -217,8 +260,8 @@ export default class HD extends Component {
              paddingLeft:10,
              paddingRight:10
          }}>
-             <Text style={{fontSize:13,fontWeight:'bold'}}>我想对爸爸说:</Text> 
-             <TouchableOpacity onPress={()=>{   this.dropdown.alertWithType('success', '发送成功', '发送成功' );}}>
+             <Text style={{fontSize:13,fontWeight:'bold'}}>我想对{decodeURI(this.state.userRole)}说:</Text> 
+             <TouchableOpacity onPress={this.Save.bind(this)}>
              <Text style={{fontSize:13,fontWeight:'bold'}}>发送</Text>
              </TouchableOpacity>
          </View>
@@ -229,7 +272,7 @@ export default class HD extends Component {
                                           <View 
                                               style={{flexDirection:'row',
                                                       borderTopColor:'#F0F0F0',
-                                                      backgroundColor:rowData.xz?'#FB9401':'#fff',
+                                                      backgroundColor:'#fff',
                                                       borderTopWidth:1,
                                                       margin:5,
                                                       borderRadius:10,
@@ -250,7 +293,13 @@ export default class HD extends Component {
                                                       <View style={{flex:1,
                                                         justifyContent:'center',
                                                         alignItems:'center'}}>
-                                                         <CheckBox  styles={{height:20,width:20}}></CheckBox>
+                                                         <CheckBox   styles={{height:20,width:20}}
+                                                         selected={(isS)=>{
+                                                                if(!isS){
+                                                                  this.setState({txtContent:rowData.title})
+                                                                }                             
+                                                         }}
+                                                         ></CheckBox>
    
                                                       </View>
                                                     
@@ -263,117 +312,7 @@ export default class HD extends Component {
   
       </View>
             )
-            }else{
-                return (<View>
-                    <View style={{
-                  flexDirection:'row',
-                  borderBottomWidth:1,
-                  borderBottomColor:'#E6E6E6',
-                  backgroundColor:'#fe9c2e',
-                  height:40,
-                  alignItems:'center',
-                  justifyContent:'space-between'}}>
-                  
-                  <View  style={{height:40,width:35,alignItems:'center',justifyContent:'center'}}>
-                  <TouchableOpacity   
-                      style={{height:40,
-                       width:35,
-                       justifyContent:'center',
-                       alignItems:'flex-end'}} 
-                         onPress={()=>{this.setState({type:1})}}>
-                           <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
-                           </Image>
-                         </TouchableOpacity> 
-                   </View> 
-   
-   
-                         <View style={{justifyContent:'center',
-                                        alignItems:'center'}}>
-                             <Text 
-                             style={{fontSize:16,
-                               color:'#FFF',fontWeight:'bold'}}>我的评价</Text>
-                         </View> 
-                         <View style={{marginRight:5,width:20}}> 
-                      
-                         </View> 
-                     </View>
-                   <ScrollView style={{backgroundColor:'#F7F7F7',height:deviceheight}}>
-                   <ListView
-                                     dataSource={this.state.dataSource}
-                                      renderRow={(rowData) =>
-                                          <View style={{alignItems:'center',height:200}}> 
-                                           <View style={{width:130,
-                                               borderRadius:40,
-                                               backgroundColor:'#A4A4A4',
-                                               alignItems:'center',
-                                               flex:1,
-                                               justifyContent:'center',
-                                               height:30,
-                                               marginTop:25,
-                                               marginBottom:10
-                                               }}>
-                                               <Text style={{color:'#fff',fontSize:15}}>昨天 16:57</Text>
-                                               </View>
-                                           <View style={{flex:4,
-                                               marginLeft:5,
-                                               marginRight:5,
-                                               backgroundColor:'#fff',
-                                               width:deviceWidth*0.96,
-                                               height:50,
-                                               padding:10,
-                                               borderRadius:10
-                                           }}>
-                                                 <View style={{flexDirection:'row',
-                                                                marginTop:5,
-                                                                justifyContent:'space-around'}}>  
-                                                 <Text style={{fontSize:13,
-                                                              flex:1,
-                                                              textAlign:'left'}}>我对爸爸说:</Text>
-                                                 <View style={{flexDirection:'row',
-                                                               flex:1,
-                                                               justifyContent:'flex-end'}}>
-                                                   <Image source={require('./xgsy/lian.png')} style={{height:20,width:20}} resizeMode='stretch'></Image>
-                                                     <Image source={require('./xgsy/chai.png')} style={{height:20,width:20}}  resizeMode='stretch'></Image>
-                                               </View>
-                                                 </View>
-                                               <View style={{marginTop:5,alignItems:'flex-end'}}>
-                                                           <Text style={{fontSize:13}}>不要玩手机一直不理我:</Text>
-                                                </View>
-                                           </View>
-                                           <View style={{flex:4,
-                                               marginLeft:5,
-                                               marginRight:5,
-                                               backgroundColor:'#fff',
-                                               width:deviceWidth*0.96,
-                                               height:50,
-                                               padding:10,
-                                               borderRadius:10
-                                           }}>
-                                                 <View style={{flexDirection:'row',
-                                                                marginTop:5,
-                                                                justifyContent:'space-around'}}>  
-                                                 <Text style={{fontSize:13,
-                                                              flex:1,
-                                                              textAlign:'left'}}>我对爸爸说:</Text>
-                                                 <View style={{flexDirection:'row',
-                                                               flex:1,
-                                                               justifyContent:'flex-end'}}>
-                                                     <Image source={require('./xgsy/lian.png')} style={{height:20,width:20}} resizeMode='stretch'></Image>
-                                                     <Image source={require('./xgsy/chai.png')} style={{height:20,width:20}}  resizeMode='stretch'></Image>
-                                               
-                                                 </View>
-                                                 </View>
-                                               <View style={{marginTop:5,alignItems:'flex-end'}}>
-                                                           <Text style={{fontSize:13}}>不要玩手机一直不理我:</Text>
-                                                </View>
-                                           </View>
-                                         
-                                          </View>}
-                                      />
-                   </ScrollView>
-               </View>)
-
-            }
+         
           
             
     }

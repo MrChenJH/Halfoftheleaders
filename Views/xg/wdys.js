@@ -47,18 +47,76 @@ export default class jtjh extends Component {
               zjye:0,
               type:1,
               dialogShow: false,
+              realName:"",
+              jtnc:"",
               ysType:'',
               syMd:'',
               zhSy:0,
               zzysid:0,
               SponsorJe:0,
+              userName:'',
         }
     }
+  
+  
+    update(id){
+      let url = "http://117.50.46.40:8003/api/behavior/updateBudgetary?id="+id;  
+      fetch(url).then((response) => {
+         if (response.ok) {
+           fetch('http://117.50.46.40:8003/api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
+           .then((response) =>{
+             if(response.ok){
+               return response.json();
+             }
+           })
+           .then((responseJson) => { 
+             let data=responseJson.data; 
+          
+            this.setState({
+              dataSource: ds.cloneWithRows(data),
+            })
+           })
+           .catch((error) => {
+             console.error(error); 
+           });
+         }
+     }).catch((error) => {
+         console.error(error);
+     });
 
+    }
+
+    Remove(id){
+      let url = "http://117.50.46.40:8003/api/ys/DeleteBudgetary?id="+id;  
+       fetch(url).then((response) => {
+          if (response.ok) {
+            fetch('http://117.50.46.40:8003/api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
+            .then((response) =>{
+              if(response.ok){
+                return response.json();
+              }
+            })
+            .then((responseJson) => { 
+              let data=responseJson.data; 
+           
+             this.setState({
+               dataSource: ds.cloneWithRows(data),
+             })
+            })
+            .catch((error) => {
+              console.error(error); 
+            });
+          }
+      }).catch((error) => {
+          console.error(error);
+      });
+
+    }
+     
     //发起赞助
     sendZz(){
       
-      let url = "http://192.168.0.100:38571/api/sponsor/addSponsor";  
+      let url = "http://117.50.46.40:8003/api/sponsor/addSponsor";  
       let params ={
           "ysId":this.state.zzysid,
           "jtnc":this.state.jtnc,
@@ -83,19 +141,37 @@ export default class jtjh extends Component {
           }
       }).then((json) => {
           console.log(json)
-       
           this.scaleAnimationDialog.dismiss();
+         
+          fetch('http://117.50.46.40:8003/api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
+          .then((response) =>{
+            if(response.ok){
+              return response.json();
+            }
+          })
+          .then((responseJson) => { 
+            let data=responseJson.data; 
+         
+           this.setState({
+             dataSource: ds.cloneWithRows(data),
+           })
+          })
+          .catch((error) => {
+            console.error(error); 
+          });
       }).catch((error) => {
           console.error(error);
       });
     
     }
 
-      //添加成员
+     //添加预算
       AddYs(){
-    let url = "http://192.168.0.100:38571/api/ys/addYs";  
+    let url = "http://117.50.46.40:8003/api/ys/addYs";  
     let params ={
         "ysType":this.state.ysType,
+        "realName":this.state.realName,
+        "xgzh":this.state.userName,
         "Jtnc":this.state.jtnc,
         "syMd":this.state.syMd,
         "zhSy":this.state.zhSy
@@ -112,11 +188,23 @@ export default class jtjh extends Component {
     body: JSON.stringify(params)
   }).then((response) => {
         if (response.ok) {
+          fetch('http://117.50.46.40:8003/api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
+        .then((response) =>{
+          if(response.ok){
             return response.json();
+          }
+        })
+        .then((responseJson) => { 
+          let data1=responseJson.data; 
+       
+         this.setState({
+           dataSource: ds.cloneWithRows(data1),type:1
+         })
+        })
+        .catch((error) => {
+          console.error(error); 
+        });
         }
-    }).then((json) => {
-        console.log(json)
-        this.setState({type:1})
     }).catch((error) => {
         console.error(error);
     });
@@ -132,8 +220,8 @@ export default class jtjh extends Component {
        AsyncStorage.getItem('user').then((item)=>{
         return JSON.parse(item)
           }).then((item)=>{ 
-               this.setState({jtnc:item.nc}) 
-               fetch('http://192.168.0.100:38571/api/FundSetting/gFundSetting?jtnc='+item.nc+'&userName='+item.userName)
+               this.setState({jtnc:decodeURI(item.nc),userName:decodeURI(item.userName),realName:decodeURI(item.realName)}) 
+               fetch('http://117.50.46.40:8003/api/FundSetting/gFundSetting?jtnc='+this.state.jtnc+'&userName='+this.state.userName)
                .then((response) =>{
                  if(response.ok){
                    return response.json();
@@ -155,7 +243,7 @@ export default class jtjh extends Component {
 
 
 
-               fetch('http://192.168.0.100:38571/api/ys/YsS?jtnc='+item.nc+'&xgzh='+item.userName)
+               fetch('http://117.50.46.40:8003/api/ys/YsS?jtnc='+item.nc+'&xgzh='+item.userName)
                .then((response) =>{
                  if(response.ok){
                    return response.json();
@@ -198,13 +286,11 @@ export default class jtjh extends Component {
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
                       onPress={()=>{
-                        if(this.props.tc){
-                          this.props.navigator.push({
-                              component:Main,
-                              })
-                        }else{
-                          this.props.navigator.jumpBack()
-                        }
+                        let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+                          return item.id=="Main2"
+                        })
+                      
+                        this.props.navigator.popToRoute(destRoute);
                         }
                           }>
                         <Image source={require('./imgs/back.png')}  
@@ -252,19 +338,19 @@ export default class jtjh extends Component {
                                                         alignItems:'flex-start',
                                                      
                                                         marginLeft:10}}>
-                                                          <Text style={{   color:'#474747'}}>{rowData.syMd}</Text>
+                                                          <Text style={{   color:'#474747'}}>{decodeURI(rowData.syMd)}</Text>
                                                       </View>
                                                       <View style={{flex:2,
                                                         justifyContent:'center',
                                                         alignItems:'center'
                                                     }}>
-                                                          <Text style={{   color:'#474747'}}>{rowData.ysType}</Text>
+                                                          <Text style={{   color:'#474747'}}>{decodeURI(rowData.ysType)}</Text>
                                                       </View>
                                                       <View style={{flex:2,
                                                         justifyContent:'center',
                                                         alignItems:'center'
                                                     }}>
-                                                          <Text style={{ color:'#474747'}}>{rowData.zhSy}</Text>
+                                                          <Text style={{ color:'#474747'}}>{decodeURI(rowData.zhSy)}</Text>
                                                       </View>
                                                       <View style={{flex:2,
                                                     
@@ -279,11 +365,17 @@ export default class jtjh extends Component {
                                                                         if(rowData.zhSy>rowData.je){ 
                                                                           this.setState({SponsorJe:(rowData.zhSy-rowData.je),zzysid:rowData.id})
                                                                           this.scaleAnimationDialog.show(); 
+                                                                        }else
+                                                                        {
+                                                                          this.update.bind(this,rowData.id)()
                                                                         }
                                                                    }
+                                                                 
                                                            }}
                                                            ></Checkbox>
+                                                           <TouchableOpacity onPress={this.Remove.bind(this,rowData.id)}>
                                                           <Image source={require('../shy/shyImage/delete.png')} resizeMode='stretch' style={{height:20,width:20,marginLeft:10,marginRight:10}}></Image>
+                                                          </TouchableOpacity>
                                                       </View>
                                             </View>
                                 
@@ -328,6 +420,8 @@ export default class jtjh extends Component {
             )
         }
             else{
+
+              
                 return(<View 
                 style={{height:deviceheight}}>
             <View style={{
@@ -376,7 +470,7 @@ export default class jtjh extends Component {
                                         defaultValue={'请选择预算类型'}
                                         onSelect={(i,v)=>{
                                         let u=  this.state.xmjelb.find((item)=>{
-                                              return item.key==v
+                                              return decodeURI(item.key)==v
                                         }) 
                                         
                                           this.setState({zjye:u.value,ysType:v})

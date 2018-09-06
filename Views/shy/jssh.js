@@ -33,6 +33,30 @@ export default class Jhsh extends Component {
               typecontent:''
         }
     }
+  
+
+    componentWillMount(){
+        AsyncStorage.getItem('user').then((item)=>{
+         return JSON.parse(item)
+           }).then((item)=>{ 
+                    this.setState({jtnc:decodeURI(item.nc)})
+                fetch('http://117.50.46.40:8003/api/ys/YsSs?jtnc='+decodeURI(item.nc))
+                .then((response) =>{
+                  if(response.ok){
+                    return response.json();
+                  }
+                })
+                .then((responseJson) => { 
+                  let data=responseJson.data; 
+                  this.setState({
+                   dataSource: ds.cloneWithRows(data),
+                 })
+                })
+                .catch((error) => {
+                  console.error(error); 
+                });
+           })
+    }
 
     render(){ 
         const {back}=this.props
@@ -54,9 +78,11 @@ justifyContent:'space-between'}}>
         justifyContent:'center',
         alignItems:'flex-end'}} 
         onPress={()=>{
-            this.props.navigator.push({
-                component:Main,
-                })
+          let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+            return item.id=="Main3"
+          })
+        
+          this.props.navigator.popToRoute(destRoute);
            }}>
          <Image source={require('./shyImage/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
          </Image>

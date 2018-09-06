@@ -240,13 +240,11 @@ export default class app2 extends Component {
                  justifyContent:'center'}} >
              
              <TouchableOpacity onPress={()=>{
-            if(this.props.tc){
-              this.props.navigator.push({
-                  component:Main,
-                  })
-            }else{
-              this.props.navigator.jumpBack()
-            }
+            let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+              return item.id=="Main2"
+            })
+          
+            this.props.navigator.popToRoute(destRoute);
                }}>
                   <Image source={require('../shy/shyImage/close.png')}
               

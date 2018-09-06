@@ -59,9 +59,11 @@ export default class zhqh extends Component {
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
                       onPress={()=>{
-                        this.props.navigator.push({
-                            component:Main,
-                            })
+                        let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+                            return item.id=="Main3"
+                          })
+                        
+                          this.props.navigator.popToRoute(destRoute);
                           }}>
                         <Image source={require('./shyImage/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>

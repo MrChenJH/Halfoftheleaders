@@ -37,7 +37,7 @@ export default class Jhsh extends Component {
     
     zanzhu(ysType,xgzh,id,je){
        
-        let url = "http://192.168.0.100:38571/api/sponsor/UpudateSponsor?ysType="+ysType+"&xgzh="+xgzh+"&id="+id+"&je="+je;  
+        let url = "http://117.50.46.40:8003/api/sponsor/UpudateSponsor?ysType="+ysType+"&xgzh="+xgzh+"&id="+id+"&je="+je;  
      
        
         fetch(url, {
@@ -65,8 +65,8 @@ export default class Jhsh extends Component {
         AsyncStorage.getItem('user').then((item)=>{
          return JSON.parse(item)
            }).then((item)=>{ 
-                this.setState({jtnc:item.nc}) 
-                 fetch('http://192.168.0.100:38571/api/sponsor/SponsorS?jtnc='+item.nc)
+                this.setState({jtnc:decodeURI(item.nc)}) 
+                 fetch('http://117.50.46.40:8003/api/sponsor/SponsorS?jtnc='+thist.state.jtnc)
                 .then((response) =>{
                   if(response.ok){
                     return response.json();

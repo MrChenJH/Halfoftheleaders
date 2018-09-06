@@ -9,6 +9,7 @@ import {
     Button,
     TouchableOpacity,
     TextInput,
+    AsyncStorage,
     Dimensions
 } from 'react-native';  
 import Main from '../Main3'  
@@ -25,14 +26,65 @@ export default class Jhsh extends Component {
         super(props);
         this.state = {
              dataSource: ds.cloneWithRows([
-                {title:'买本书',content:'学习基金',yuan:20,xz:true},
-                {title:'买玩具',content:'零花钱',yuan:100,xz:true},
+             
               ]),
               type:1,
               typetitle:'',
               typecontent:''
         }
     }
+     
+    pro(id){
+        fetch('http://117.50.46.40:8003/api/ys/YsShs?id='+id)
+        .then((response) =>{
+          if(response.ok){
+            fetch('http://117.50.46.40:8003/api/ys/YsSs?jtnc='+this.state.jtnc)
+            .then((response) =>{
+              if(response.ok){
+                return response.json();
+              }
+            })
+            .then((responseJson) => { 
+              let data=responseJson.data; 
+              this.setState({
+               dataSource: ds.cloneWithRows(data),
+             })
+            })
+            .catch((error) => {
+              console.error(error); 
+            });
+          }
+        })
+         .catch((error) => {
+          console.error(error); 
+        });
+
+    }
+
+    componentWillMount(){
+        AsyncStorage.getItem('user').then((item)=>{
+         return JSON.parse(item)
+           }).then((item)=>{ 
+                    this.setState({jtnc:decodeURI(item.nc)})
+                fetch('http://117.50.46.40:8003/api/ys/YsSs?jtnc='+this.state.jtnc)
+                .then((response) =>{
+                  if(response.ok){
+                    return response.json();
+                  }
+                })
+                .then((responseJson) => { 
+                  let data=responseJson.data; 
+                  this.setState({
+                   dataSource: ds.cloneWithRows(data),
+                 })
+                })
+                .catch((error) => {
+                  console.error(error); 
+                });
+           })
+    }
+
+
 
     render(){ 
         const {back}=this.props
@@ -54,9 +106,11 @@ justifyContent:'space-between'}}>
         justifyContent:'center',
         alignItems:'flex-end'}} 
         onPress={()=>{
-            this.props.navigator.push({
-                component:Main,
-                })
+          let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+            return item.id=="Main3"
+          })
+        
+          this.props.navigator.popToRoute(destRoute);
            }}>
          <Image source={require('./shyImage/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
          </Image>
@@ -66,7 +120,7 @@ justifyContent:'space-between'}}>
            <Text 
                    style={{fontSize:16,
                            color:'#FFF',
-                           fontWeight:'bold'}}>刘思成的预算</Text>
+                           fontWeight:'bold'}}>小鬼的预算</Text>
            </View> 
            <View style={{marginRight:5,width:40}}> 
                    
@@ -93,24 +147,26 @@ justifyContent:'space-between'}}>
                          alignItems:'flex-start',
                       
                          marginLeft:10}}>
-                           <Text style={{   color:'#474747'}}>{rowData.title}</Text>
+                           <Text style={{color:'#474747'}}>{decodeURI(rowData.realName)+"   "+decodeURI(rowData.syMd)}</Text>
                        </View>
                        <View style={{flex:2,
                          justifyContent:'center',
                          alignItems:'center'
                      }}>
-                           <Text style={{   color:'#474747'}}>{rowData.content}</Text>
+                           <Text style={{color:'#474747'}}>{decodeURI(rowData.ysType)}</Text>
                        </View>
                        <View style={{flex:2,
                          justifyContent:'center',
                          alignItems:'center'
                      }}>
-                           <Text style={{   color:'#474747'}}>{rowData.yuan}</Text>
+                           <Text style={{   color:'#474747'}}>{rowData.zhSy}</Text>
                        </View>
                        <View style={{flex:1,
                          justifyContent:'center',
                          alignItems:'center'}}>
-                           <CheckBox styles={{height:20,width:20}} ></CheckBox>
+                           <CheckBox 
+                           selected={this.pro.bind(this,rowData.id)}
+                           styles={{height:20,width:20}} ></CheckBox>
                        </View>
                      
              

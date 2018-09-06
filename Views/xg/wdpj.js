@@ -58,10 +58,14 @@ export default class wdxx extends Component {
                     width:35,
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
-                      onPress={()=>
-                        this.props.navigator.push({
-                            component:Main,
-                            })
+                      onPress={()=>{
+                        let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+                            return item.id=="Main2"
+                          })
+                        
+                          this.props.navigator.popToRoute(destRoute);
+                      }
+                       
                     }
                    >
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >

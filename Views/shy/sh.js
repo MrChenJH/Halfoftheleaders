@@ -5,12 +5,11 @@ ListView,
  Text,
  View,
  TouchableOpacity,
-
+ AsyncStorage,
  Dimensions,
  Image,
  ScrollView
 } from 'react-native'; 
-
 import Main from '../Main3'  
 import CheckBoxsy from '../component/xwCheckBox';
 const deviceWidth = Dimensions.get('window').width;  
@@ -18,22 +17,73 @@ const deviceheight = Dimensions.get('window').height;
 var ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
+
+
 export default class sh extends Component {
     constructor(props) {
         super(props);
         this.state={
-            user:'',
-            pwd:'',
-            qrpwd:'',
-            dataSource: ds.cloneWithRows([
-                {title:'做作业',time:'2018-07-01'},
-                {title:'打扫卫生',time:'2018-07-01'},
-                {title:'洗碗',time:'2018-07-01'},
-                {title:'按时睡觉',time:'2018-07-01'},
-                {title:'学习数学',time:'2018-07-01'}
-               ])
+            
+            dataSource: ds.cloneWithRows([]),
+            jtnc:''
         }
     } 
+   
+
+    ysSh(id){
+
+        fetch('http://117.50.46.40:8003/api/plans/planSh?id='+id)
+        .then((response) =>{
+          if(response.ok){
+            this.reload()
+          }
+        })
+         .catch((error) => {
+          console.error(error); 
+        });
+    }
+    
+    reload(){
+        fetch('http://117.50.46.40:8003/api/plans/xgPlans?jtnc='+this.state.jtnc)
+        .then((response) =>{
+          if(response.ok){
+            return response.json();
+          }
+        })
+        .then((responseJson) => { 
+          let data=responseJson.data; 
+          this.setState({
+           dataSource: ds.cloneWithRows(data),
+         })
+        })
+        .catch((error) => {
+          console.error(error); 
+        });
+    }
+
+    componentWillMount(){
+        AsyncStorage.getItem('user').then((item)=>{
+         return JSON.parse(item)
+           }).then((item)=>{ 
+                    this.setState({jtnc:decodeURI(item.nc)})
+                fetch('http://117.50.46.40:8003/api/plans/xgPlans?jtnc='+decodeURI(item.nc))
+                .then((response) =>{
+                  if(response.ok){
+                    return response.json();
+                  }
+                })
+                .then((responseJson) => { 
+                  let data=responseJson.data; 
+                  this.setState({
+                   dataSource: ds.cloneWithRows(data),
+                 })
+                })
+                .catch((error) => {
+                  console.error(error); 
+                });
+           })
+    }
+ 
 
     render() {
       const  {back}=this.props
@@ -49,9 +99,11 @@ export default class sh extends Component {
                  justifyContent:'center'}} >
              
              <TouchableOpacity onPress={()=>{
-          this.props.navigator.push({
-            component:Main,
-            })
+          let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+            return item.id=="Main3"
+          })
+        
+          this.props.navigator.popToRoute(destRoute);
                }}>
                   <Image source={require('./shyImage/close.png')}
               
@@ -174,9 +226,11 @@ export default class sh extends Component {
                                  
                                     <Text style={{flex:6,
                                         textAlign:'left',
-                                        fontSize:12}}>{rowData.title}</Text>
+                                        fontSize:12}}>{decodeURI(rowData.projectName)}</Text>
                                    <View  style={{flex:2,alignItems:'center'}}>
-                                   <CheckBoxsy styles={{width:20,height:20}}></CheckBoxsy>
+                                   <CheckBoxsy styles={{width:20,height:20}} 
+                                    selected={this.ysSh.bind(this,rowData.xgid)}
+                                   ></CheckBoxsy>
                                    </View>
                                    <View  style={{flex:2,alignItems:'flex-end',marginLeft:10}}>
                                     <Image source={require('./shyImage/lian.png')} style={{width:20,height:20}} resizeMode='stretch'></Image>

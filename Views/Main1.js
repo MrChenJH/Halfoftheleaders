@@ -12,36 +12,13 @@ import {
 import TabNavigator from 'react-native-tab-navigator'; 
 import Gly  from './page/gly'
 import Cygl from './cygl/cygl'
-import Wdys from './cygl/wdys'
+
 import Jtjh from './cygl/jtjh'
 import Cssz from './cygl/cssz'
-import Wdjf from './cygl/wdjf'
+
 import Wd   from './cygl/wd'
-import Xg   from './page/xg' 
-import Shy  from './page/shy'
-
-import Gcy  from './page/gcy'
-import Wdqb from './xg/wdqb'
-import Jrrw from './xg/jrrw'
-import Wyhs from './xg/wyhs'
-import XGWdys from './xg/wdys'
 
 
-import Xwpj from './shy/xwpj'
-import Yssh from './shy/jhsh'
-import Sh from './shy/sh'
-import Jhsh from './shy/jhsh'
-import Jssh from './shy/jssh'
-
-import GcJrrw from './gcy/jrrw'
-
-import GcZrxw from './gcy/zrxw'
-import Gcsh from './gcy/sh'
-import Wdzz  from './gcy/wdzz'
-import page4 from './page/4'
-import page5 from './page/4'
-
-import Login from '../Acount/Login'
  export default  class Main extends Component {
     constructor(props){
         super(props);
@@ -64,7 +41,7 @@ import Login from '../Acount/Login'
               renderSelectedIcon={() => <Image style={styles.icon} source={selectedIcon} />}  
               onPress={() => this.setState({ selectedTab: selectedTab })}
           >
-              <Component  navigator={this.props.navigator} tc={()=>{this.setState({type:5})}}/>
+              <Component  navigator={this.props.navigator}/>
           </TabNavigator.Item>
         )
     
@@ -72,7 +49,7 @@ import Login from '../Acount/Login'
     
 
       render() {
-       if(this.state.type==1){
+    
         return (
           <View style={styles.container}>
             <TabNavigator
@@ -89,7 +66,7 @@ import Login from '../Acount/Login'
           </View>
         )}
        
-      }
+    
  
   
   }

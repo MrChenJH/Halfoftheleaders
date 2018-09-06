@@ -27,6 +27,7 @@ const deviceheight = Dimensions.get('window').height;
 export default class Login extends Component {
     constructor(props) {
         super(props);
+        var timer2=null;
         this.state = {
             userName: 'admin',
             pwd: '',
@@ -48,8 +49,12 @@ export default class Login extends Component {
           };
     }
       
+    componentWillUnmount() {
+        this.timer2 && clearTimeout(this.timer2);
+    }
+
   _Login(){
-   let url = 'http://192.168.0.100:38571/api/user/Login?userName=' + this.state.userName + '&pwd='+this.state.pwd;
+   let url = 'http://117.50.46.40:8003/api/user/Login?userName=' + this.state.userName + '&pwd='+this.state.pwd;
    fetch(url)
     .then((response)=>{
       if(response.ok){
@@ -100,7 +105,7 @@ export default class Login extends Component {
 
   regUser(){
    
-        let url = "http://192.168.0.100:38571/api/user/RegUser";  
+        let url = "http://117.50.46.40:8003/api/user/RegUser";  
         let params ={
             "nc":this.state.jtnc,
             "userName":this.state.uName,
@@ -133,7 +138,7 @@ export default class Login extends Component {
     
 
       Perfect(){
-    let url = "http://192.168.0.100:38571/api/user/AddPerfect";  
+    let url = "http://117.50.46.40:8003/api/user/AddPerfect";  
     let params ={
         "userName":this.state.uName,
         "realName":this.state.realName,
@@ -152,10 +157,15 @@ export default class Login extends Component {
        body: JSON.stringify(params)
        }).then((response) => {
         if (response.ok) {
-            return response.json();
+           
+
+            this.reg1Alert.alertWithType('success', 'Success','注册成功请登录');
+
+            this.timer2 = setTimeout(
+                ()=>{ this.setState({type:1})},
+                1000,
+              );
         }
-    }).then((json) => {
-        console.log(json)
     }).catch((error) => {
         console.error(error);
     });
@@ -604,6 +614,7 @@ userNameChange(val){
        
            </ImageBackground>
        </TouchableOpacity>
+       <Text style={{color:'#fff'}}>注册即表示同意豆为服务协议</Text>
                   </View>
                </ScrollView>
       </ImageBackground>
@@ -614,7 +625,14 @@ userNameChange(val){
       
 return ( 
     <View>
-                  
+                   <DropdownAlert
+                                ref={ref => this.reg1Alert = ref}
+                                 containerStyle={{height:100}}
+                                    showCancel={true}
+                                     closeInterval={3000}
+                                     zIndex={1000000}
+        
+                                    />
     <View style={{
  flexDirection:'row',
  borderBottomWidth:1,
@@ -624,7 +642,7 @@ return (
  alignItems:'center',
  justifyContent:'space-between'
  }}>
- 
+  
  <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
              <TouchableOpacity   
                    style={{height:50,

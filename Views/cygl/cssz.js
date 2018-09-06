@@ -36,7 +36,7 @@ export default class canshu extends Component {
 
     //添加成员
   AddFund(){
-    let url = "http://192.168.0.100:38571/api/FundSetting/addFundSetting";  
+    let url = "http://117.50.46.40:8003/api/FundSetting/addFundSetting";  
     let params ={
         "jtnc":this.state.jtnc,
         "Proportion":this.state.Proportion,
@@ -52,11 +52,20 @@ export default class canshu extends Component {
     body: JSON.stringify(params)
   }).then((response) => {
         if (response.ok) {
-            return response.json();
+          fetch('http://117.50.46.40:8003/api/FundSetting/FundSetting?jtnc='+this.state.jtnc)
+          .then((response) =>{
+            if(response.ok){
+              return response.json();
+            }
+          })
+          .then((responseJson) => { 
+            let data=responseJson.data;
+            this.setState({dataSource:ds.cloneWithRows(data),type:1})
+          })
+          .catch((error) => {
+            console.error(error); 
+          });
         }
-    }).then((json) => {
-        console.log(json)
-        this.setState({type:1})
     }).catch((error) => {
         console.error(error);
     });
@@ -68,8 +77,8 @@ export default class canshu extends Component {
         AsyncStorage.getItem('user').then((item)=>{
            return JSON.parse(item)
              }).then((item)=>{ 
-                  this.setState({jtnc:item.nc}) 
-                  fetch('http://192.168.0.100:38571/api/FundSetting/FundSetting?jtnc='+item.nc)
+                  this.setState({jtnc:decodeURI(item.nc)}) 
+                  fetch('http://117.50.46.40:8003/api/FundSetting/FundSetting?jtnc='+decodeURI(item.nc))
                   .then((response) =>{
                     if(response.ok){
                       return response.json();
@@ -153,7 +162,7 @@ export default class canshu extends Component {
                                                      justifyContent:'center',
                                                      alignItems:'flex-start',
                                                      marginLeft:10}}>
-                                                       <Text style={{color:'#474747'}}>{rowData.ProjectName}</Text>
+                                                       <Text style={{color:'#474747'}}>{decodeURI(rowData.ProjectName)}</Text>
                                                    </View>
                                                    <View style={{flex:2,
                                                      justifyContent:'center',
@@ -193,9 +202,7 @@ export default class canshu extends Component {
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
                       onPress={()=>{
-                        this.props.navigator.push({
-                            component:Main,
-                            })
+                        this.setState({type:1})
                       }}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>

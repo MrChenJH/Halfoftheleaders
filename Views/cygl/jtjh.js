@@ -30,7 +30,7 @@ export default class jtjh extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        datalist:  ds.cloneWithRows([
+        datalist:ds.cloneWithRows([
        
            ]), 
            tjdatalist:  ds.cloneWithRows([
@@ -107,7 +107,7 @@ export default class jtjh extends Component {
           }
         }
         
-        let url = 'http://192.168.0.100:38571/api/plans/Plans?p=' + page + '&num=10';
+        let url = 'http://117.50.46.40:8003/api/plans/Plans?p=' + page + '&num=10';
         
         fetch(url)
         .then((response)=>{
@@ -183,9 +183,39 @@ export default class jtjh extends Component {
         });
       }
    
+
+      _remove(id){
+        fetch('http://117.50.46.40:8003/api/plans/removePaln1?id='+id)
+        .then((response) =>{
+          if(response.ok){
+           
+            fetch('http://117.50.46.40:8003/api/plans/Plans?jtnc='+this.state.jtnc)
+            .then((response) =>{
+              if(response.ok){
+                return response.json();
+              }
+            })
+            .then((responseJson) => { 
+              let data=responseJson.data;
+              this.setState({datalist:ds.cloneWithRows(data)})
+            })
+            .catch((error) => {
+              console.error(error); 
+            }); 
+
+
+
+          }
+        }).catch((error) => {
+          console.error(error); 
+        }); 
+  
+       }
+
+
     PostJtjh(){
 
-        let url = "http://192.168.0.100:38571/api/plans/AddPlan";  
+        let url = "http://117.50.46.40:8003/api/plans/AddPlan";  
        
         let params ={
             "jtnc":this.state.jtnc,
@@ -195,7 +225,8 @@ export default class jtjh extends Component {
             "zqType":this.state.zqlx,
             "zqStartTime":this.state.zqstart,
             "zqEndTime":this.state.zqend,
-            "sfxh":this.state.sfxh
+            "sfxh":this.state.sfxh,
+            "yqmd":this.state.md
         };
     
     
@@ -208,10 +239,21 @@ export default class jtjh extends Component {
         body: JSON.stringify(params)
       }).then((response) => {
             if (response.ok) {
-                return response.json();
+              fetch('http://117.50.46.40:8003/api/plans/Plans?jtnc='+this.state.jtnc)
+              .then((response) =>{
+                if(response.ok){
+                  return response.json();
+                }
+              })
+              .then((responseJson) => { 
+                let data=responseJson.data;
+                this.setState({datalist:ds.cloneWithRows(data),type:1})
+              })
+              .catch((error) => {
+                console.error(error); 
+              }); 
+
             }
-        }).then((json) => {
-            console.log(json)
         }).catch((error) => {
             console.error(error);
         });
@@ -393,7 +435,7 @@ export default class jtjh extends Component {
                            placeholder='请输入预期目的'
                            placeholderTextColor='black'
                            onChangeText={(v)=>{
-                            this.setState({jds:v})
+                            this.setState({md:v})
                         }}>
                            </TextInput>
                    </View>
@@ -440,7 +482,7 @@ export default class jtjh extends Component {
                            placeholder='请输入预期目的'
                            placeholderTextColor='black'
                            onChangeText={(v)=>{
-                            this.setState({jds:v})
+                            this.setState({md:v})
                         }}>
                            </TextInput>
                    </View>
@@ -478,15 +520,29 @@ export default class jtjh extends Component {
     
     componentWillMount(){
         
-          this.fetchData(true, false); 
-          AsyncStorage.getItem('user').then((item)=>{
-            return JSON.parse(item)
-              }).then((item)=>{ 
+      AsyncStorage.getItem('user').then((item)=>{
+        return JSON.parse(item)
+          }).then((item)=>{ 
+         
+               this.setState({jtnc:decodeURI(item.nc)}) 
+ 
+               fetch('http://117.50.46.40:8003/api/plans/Plans?jtnc='+this.state.jtnc)
+               .then((response) =>{
+                 if(response.ok){
+                   return response.json();
+                 }
+               })
+               .then((responseJson) => { 
+                 let data=responseJson.data;
+                 this.setState({datalist:ds.cloneWithRows(data)})
+               })
+               .catch((error) => {
+                 console.error(error); 
+               }); 
+ 
              
-                   this.setState({jtnc:item.nc}) 
-     
-                 
-              })
+               
+          })
     }
 
     render() { 
@@ -513,10 +569,11 @@ export default class jtjh extends Component {
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
                       onPress={()=>{ 
-
-                        this.props.navigator.push({
-                          component:Main,
-                          })
+                        let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+                          return item.id=="Main1"
+                        })
+                      
+                        this.props.navigator.popToRoute(destRoute);
                       }}>
                         <Image source={require('./imgs/back.png')}  
                         resizeMode='stretch' 
@@ -550,77 +607,7 @@ export default class jtjh extends Component {
                       </TouchableOpacity> 
                       </View> 
                   </View>
-                  <View style={{flexDirection:'row',
-                                     height:40,
-                                     borderBottomWidth:1,
-                                     borderBottomColor:'#F0F0F0',
-                                     backgroundColor:'#fff'
-                                     
-                            }}> 
-                                 
-                            
-                
-                
-                               
-                                   <View style={{
-                                             flex:1,
-                                             flexDirection:'row',
-                                             justifyContent:'center'
-                                   }}>
-                                     
-                                       <TouchableOpacity onPress={()=>{
-                                         this.setState({tabxmlx:'计划任务'})
-                                       }}>
-                                       <Text style={{fontFamily:'SimSun',
-                                                fontSize:12,
-                                                 fontStyle:'normal',
-                                                 color:'#8a8a8a',
-                                                 height:40,
-                                                 width:150,
-                                                 textAlignVertical:'center',
-                                                 textAlign:'center',
-                                                
-                                                 backgroundColor:this.state.tabxmlx=='计划任务'?"#DBA901":"#FFFFFF"}}>计划任务</Text> 
-                                      
-                                       </TouchableOpacity>
-                                  
-                                       
-                                   </View>
-                                  
-                                   <View style={{
-                                             flex:1,
-                                             flexDirection:'row'
-                                   }}>
-                                     
-                                     <TouchableOpacity onPress={()=>{
-                                         this.setState({tabxmlx:'日常行为'})
-                                       }}>
-                                       <Text style={{fontFamily:'SimSun',
-                                                fontSize:12,
-                                                height:40,
-                                                width:150,
-                                                textAlignVertical:'center',
-                                                textAlign:'center',
-                                                backgroundColor:this.state.tabxmlx=='日常行为'?"#DBA901":"#FFFFFF",
-                                                 fontStyle:'normal',
-                                                 color:'#8a8a8a'}}>日常行为</Text>
-                                       </TouchableOpacity>
-                                    
-                    
-                                   </View>
-                                
-                                   <View style={{
-                                             flex:2,
-                                             flexDirection:'row'
-                                   }}>
-                                  
-                    
-                                   </View>
-                           
-                                   
-                               
-                
-                               </View> 
+            
          
                   <ListView  style={{backgroundColor:'#efefef',height:deviceheight-40}}
                                   dataSource={this.state.datalist}
@@ -637,8 +624,7 @@ export default class jtjh extends Component {
                                       onRefresh={() => this._onRefresh()}/>
                                   }
                                    renderRow={(rowData) => 
-                                     <TouchableOpacity  
-                                           onPress={()=>{this.setState({type:2})}}>
+                            
                                           <View 
                                               style={{flexDirection:'row',
                                                       borderTopColor:'#F0F0F0',
@@ -651,7 +637,7 @@ export default class jtjh extends Component {
                                                         justifyContent:'center',
                                                         alignItems:'flex-start',
                                                         marginLeft:10}}>
-                                                          <Text style={{color:'#474747'}}>{rowData.projectName}</Text>
+                                                          <Text style={{color:'#474747'}}>{decodeURI(rowData.projectName)}</Text>
                                                       </View>
                                                       <View style={{flex:2,
                                                         justifyContent:'center',
@@ -662,13 +648,16 @@ export default class jtjh extends Component {
                                                       <View style={{flex:1,
                                                         justifyContent:'center',
                                                         alignItems:'center'}}>
-
+                                                        <TouchableOpacity 
+                                                        onPress={this._remove.bind(this,rowData.id)}
+                                                        >
                                                           <Image source={require('./imgs/delete.png')} resizeMode='stretch' style={{height:20,width:20}}></Image>
+                                                          </TouchableOpacity>
                                                       </View>
                                                     
                                             
                                          </View>
-                                        </TouchableOpacity>
+                                   
                                          }
                                    />
                     

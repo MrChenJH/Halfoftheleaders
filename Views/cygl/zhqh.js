@@ -51,7 +51,7 @@ export default class zhqh extends Component {
             
                   this.setState({jtnc:item.nc}) 
     
-                  fetch('http://192.168.0.100:38571/api/family/Members?jtnc='+item.nc)
+                  fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+item.nc)
                   .then((response) =>{
                     if(response.ok){
                       return response.json();
@@ -85,14 +85,11 @@ export default class zhqh extends Component {
                     justifyContent:'center',
                     alignItems:'flex-end'}} 
                       onPress={()=>{
-                          if(this.props.tc){
-                            this.props.navigator.push({
-                                component:Main,
-                                })
-                          }else{
-                            this.props.navigator.jumpBack()
-                          }
-                       
+                        let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+                          return item.id=="Main1"
+                        })
+                      
+                        this.props.navigator.popToRoute(destRoute);
                       }}>
                         <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
                         </Image>
