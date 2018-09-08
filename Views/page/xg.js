@@ -8,7 +8,8 @@ import {
     ImageBackground,
     ListView,
     Dimensions,
-    TextInput
+    TextInput,
+    AsyncStorage
 } from 'react-native';
   
  

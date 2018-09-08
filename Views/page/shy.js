@@ -8,14 +8,14 @@ import {
     ImageBackground,
     ListView,
     Dimensions,
-    TextInput
+    TextInput,
+    AsyncStorage
 } from 'react-native';
 
 import Button from '../component/button'
  import Jrrw from '../shy/jrrw'
  import Zrbx from '../shy/zrxw'
  import Mrjh from '../shy/mrjh'
- 
  import Jdhd from '../shy/hd'
  import Jssh from '../shy/jssh'
  import Zhqh from '../shy/zhqh'
@@ -24,6 +24,8 @@ import Button from '../component/button'
  import Wdtj  from '../cygl/wdtj'
  import Wyhs from '../xg/wyhs'
 
+
+ 
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 export default class page1 extends Component {
@@ -38,7 +40,11 @@ export default class page1 extends Component {
                 {title:'做作业',yd:true,time:'2018-10-01 9:10'},
                 {title:'打扫卫生',yd:false,time:'2018-10-01 9:10'}
                ]),
-              type:1
+              type:1,
+              jtnc:"",
+              xgzh:"",
+              realname:""
+
         }
     }
     _rednerJH() {
@@ -129,6 +135,46 @@ export default class page1 extends Component {
                 style = {{width: 80,height: 60,justifyContent:'center',alignItems:'center'}} />
             }
     }
+
+    componentWillMount(){
+        
+        AsyncStorage.getItem('user').then((item)=>{
+       return JSON.parse(item)
+         }).then((item)=>{ 
+        
+              this.setState({jtnc:item.nc,xgzh:decodeURI(item.userName),realname:decodeURI(item.realName)}) 
+
+              fetch(app.Host+'api/plans/Plans?jtnc='+item.nc)
+              .then((response) =>{
+                if(response.ok){
+                  return response.json();
+                }
+              })
+              .then((responseJson) => { 
+                let data=responseJson.data;
+                this.setState({datalist:ds.cloneWithRows(data)})
+              })
+              .catch((error) => {
+                console.error(error); 
+              }); 
+
+              fetch(app.Host+'api/plans/xgPlans?jtnc='+item.nc)
+              .then((response) =>{
+                if(response.ok){
+                  return response.json();
+                }
+              })
+              .then((responseJson) => { 
+                let data=responseJson.data;
+                this.setState({dataSource:ds.cloneWithRows(data)})
+              })
+              .catch((error) => {
+                console.error(error); 
+              }); 
+              
+         })
+}
+
 
     render() {
         if(this.state.type==1){

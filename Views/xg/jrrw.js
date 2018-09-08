@@ -21,7 +21,10 @@ const ds = new ListView.DataSource({
 });
 
 
-export default class HD extends Component {
+
+
+
+export default class jrrw extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,13 +38,40 @@ export default class HD extends Component {
               ]),
               type:1,
               typetitle:'',
-              typecontent:''
+              typecontent:'',
+              jtnc:"",
+              xgzh:"",
+              realname:""
         }
+    }
+
+    componentWillMount(){
+        
+        AsyncStorage.getItem('user').then((item)=>{
+                  return JSON.parse(item)
+         }).then((item)=>{ 
+             this.setState({jtnc:item.nc,xgzh:decodeURI(item.userName),realname:decodeURI(item.realName)}) 
+              fetch(app.Host+'api/plans/xgPlans?jtnc='+this.state.jtnc)
+              .then((response) =>{
+                if(response.ok){
+                  return response.json();
+                }
+              })
+              .then((responseJson) => { 
+                let data=responseJson.data;
+                this.setState({dataSource:ds.cloneWithRows(data)})
+              })
+              .catch((error) => {
+                console.error(error); 
+              }); 
+              
+         })
     }
 
     render(){ 
         const {back}=this.props
-        if(this.state.type==1){
+     
+        
     return (
         <View style={{
             backgroundColor: '#F7F7F7'
@@ -100,9 +130,7 @@ export default class HD extends Component {
              paddingLeft:10,
              paddingRight:10
          }}>
-         <TouchableOpacity onPress={()=>{
-             this.setState({type:1})
-         }}>
+        
          <View 
          style={{flexDirection:'row'}}>
              <Text style={{fontSize:13,
@@ -123,13 +151,26 @@ export default class HD extends Component {
                 textAlign:'center',
                 textAlignVertical:'center'}}>任务</Text>
          </View>
-         </TouchableOpacity>
-         <View style={{width:20}}></View>
-         <TouchableOpacity onPress={()=>{
-             this.setState({type:2})
+       
+      
+        </View>
+
+
+                     <View  
+            style={{
+             justifyContent:'space-between',
+             flexDirection:'row',
+             backgroundColor:'#fff',
+             height:40,
+             margin:5,
+             alignItems:'center',
+             justifyContent:'center',
+             paddingLeft:10,
+             paddingRight:10
          }}>
+        
          <View 
-         style={{flexDirection:'row',marginLeft:5}}>
+         style={{flexDirection:'row'}}>
              <Text style={{fontSize:13,
                 fontWeight:'bold',
                 height:40,
@@ -137,53 +178,50 @@ export default class HD extends Component {
                 textAlignVertical:'center'}}>今日</Text>
               <Text style={{fontSize:13,
                 fontWeight:'bold',
+                borderBottomColor:'#FFBF00',
+                borderBottomWidth:2,
                 height:40,
                 textAlign:'center',
-                textAlignVertical:'center'}}>行为</Text>
+                textAlignVertical:'center'}}>计划</Text>
              <Text style={{fontSize:13,
                 fontWeight:'bold',
                 height:40,
                 textAlign:'center',
-                textAlignVertical:'center'}}>养成</Text>
+                textAlignVertical:'center'}}>任务</Text>
          </View>
-         </TouchableOpacity>
+       
+      
         </View>
-                  <ListView
+        <ListView
                                   dataSource={this.state.dataSource}
                                    renderRow={(rowData) => 
-                           
+                              
                                           <View 
                                               style={{flexDirection:'row',
                                                       borderTopColor:'#F0F0F0',
-                                                      backgroundColor:rowData.xz?'#FB9401':'#fff',
+                                                      backgroundColor:'#fff',
                                                       borderTopWidth:1,
                                                       margin:5,
                                                       borderRadius:10,
-                                                      height:30}}>
+                                                      height:40}}>
                                                       <View style={{flex:4,
                                                         justifyContent:'center',
                                                         alignItems:'flex-start',
                                                      
                                                         marginLeft:10}}>
-                                                          <Text style={{   fontSize:12,color:'#474747'}}>{rowData.title}</Text>
+                                                          <Text style={{   color:'#474747'}}>{decodeURI(rowData.projectName)}</Text>
                                                       </View>
                                                       <View style={{flex:2,
                                                         justifyContent:'center',
                                                         alignItems:'center'
                                                     }}>
-                                                          <Text style={{  fontSize:12, color:'#474747'}}>{rowData.content}</Text>
+                                                       <Text style={{   color:'#474747'}}>金豆:{rowData.jds}</Text>
                                                       </View>
-                                                      <View style={{flex:1,
-                                                        flexDirection:'row',
-                                                        justifyContent:'center',
-                                                        alignItems:'center'}}>
-                                                         <CheckBox  styles={{height:20,width:20}}></CheckBox>
-                                                         <Image source={require('../shy/shyImage/wzxj.png')} style={{height:20,width:20,marginLeft:10,marginRight:10}} resizeMode='stretch'></Image>
-                                                      </View>
+                              
                                                     
                                             
                                          </View>
-                        
+                              
                                          }
                                    />
                     
@@ -191,147 +229,8 @@ export default class HD extends Component {
                
      </View>
             )
-            }else{
-                return (
-                    <View style={{
-                        backgroundColor: '#F7F7F7'
-                    }}>
-                       
+          
             
-                                <View style={{
-                                    height:200
-                                }}>
-                                         <ImageBackground
-                                           
-                                       resizeMode='stretch'
-                                        source={ require('../shy/shyImage/banner.png')
-                                    }
-                                      
-                                        style={{
-                                         height:200,
-                                         width:deviceWidth
-                                    }}>
-                                    
-                              
-                                  <TouchableOpacity 
-                                  style={{alignSelf:'flex-start',
-                                  paddingLeft:10,
-                                  flex:1,width:40,height:40}}
-                                  onPress={()=>{
-                                    this.props.navigator.push({
-                                        component:Main,
-                                        })
-                                  }}>
-                                 <Image source={require('../shy/shyImage/close.png')}
-                                 resizeMode='stretch' style={{height:20,width:20}} ></Image> 
-                               
-                               </TouchableOpacity>
-                           
-                                    </ImageBackground>
-                                </View>
-                          
-                                 <ScrollView 
-                                 style={{backgroundColor:'#efefef',height:deviceheight}}>
-                                 <View  
-                        style={{
-                         justifyContent:'space-between',
-                         flexDirection:'row',
-                         backgroundColor:'#fff',
-                         height:40,
-                         margin:5,
-                         alignItems:'center',
-                         justifyContent:'center',
-                         paddingLeft:10,
-                         paddingRight:10
-                     }}>
-                     <TouchableOpacity onPress={()=>{
-                         this.setState({type:1})
-                     }}>
-                     <View 
-                     style={{flexDirection:'row'}}>
-                         <Text style={{fontSize:13,
-                            fontWeight:'bold',
-                            height:40,
-                            textAlign:'center',
-                            textAlignVertical:'center'}}>今日</Text>
-                          <Text style={{fontSize:13,
-                            fontWeight:'bold',
-                         
-                            height:40,
-                            textAlign:'center',
-                            textAlignVertical:'center'}}>计划</Text>
-                         <Text style={{fontSize:13,
-                            fontWeight:'bold',
-                            height:40,
-                            textAlign:'center',
-                            textAlignVertical:'center'}}>任务</Text>
-                     </View>
-                     </TouchableOpacity>
-                     <View style={{width:20}}></View>
-                     <TouchableOpacity onPress={()=>{
-                         this.setState({type:2})
-                     }}>
-                     <View 
-                     style={{flexDirection:'row',marginLeft:5}}>
-                         <Text style={{fontSize:13,
-                            fontWeight:'bold',
-                            height:40,
-                            textAlign:'center',
-                            textAlignVertical:'center'}}>今日</Text>
-                          <Text style={{fontSize:13,
-                            fontWeight:'bold',
-                            height:40,
-                            borderBottomColor:'#FFBF00',
-                            borderBottomWidth:2,
-                            textAlign:'center',
-                            textAlignVertical:'center'}}>行为</Text>
-                         <Text style={{fontSize:13,
-                            fontWeight:'bold',
-                            height:40,
-                            textAlign:'center',
-                            textAlignVertical:'center'}}>养成</Text>
-                     </View>
-                     </TouchableOpacity>
-                    </View>
-                              <ListView
-                                              dataSource={this.state.dataSource1}
-                                               renderRow={(rowData) => 
-                                       
-                                                      <View 
-                                                          style={{flexDirection:'row',
-                                                                  borderTopColor:'#F0F0F0',
-                                                                  backgroundColor:rowData.xz?'#FB9401':'#fff',
-                                                                  borderTopWidth:1,
-                                                                  margin:5,
-                                                                  borderRadius:10,
-                                                                  height:30}}>
-                                                                  <View style={{flex:4,
-                                                                    justifyContent:'center',
-                                                                    alignItems:'flex-start',
-                                                                 
-                                                                    marginLeft:10}}>
-                                                                      <Text style={{   fontSize:12,color:'#474747'}}>{rowData.title}</Text>
-                                                                  </View>
-                                                                  <View style={{flex:2,
-                                                                    justifyContent:'center',
-                                                                    alignItems:'center'
-                                                                }}>
-                                                                      <Text style={{  fontSize:12, color:'#474747'}}>{rowData.content}</Text>
-                                                                  </View>
-                                                              
-                                                                
-                                                        
-                                                     </View>
-                                    
-                                                     }
-                                               />
-                                
-                                        </ScrollView>
-                           
-                 </View>
-                        )
-
-            }
           
             
     }

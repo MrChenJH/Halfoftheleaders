@@ -12,10 +12,8 @@ import {
 import TabNavigator from 'react-native-tab-navigator'; 
 import Gly  from './page/gly'
 import Cygl from './cygl/cygl'
-
 import Jtjh from './cygl/jtjh'
 import Cssz from './cygl/cssz'
-
 import Wd   from './cygl/wd'
 
 

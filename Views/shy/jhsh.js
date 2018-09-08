@@ -1,354 +1,318 @@
 import React, {Component} from 'react';
 import {
-ListView,
- ImageBackground,
- Text,
- View,
- TouchableOpacity,
- AsyncStorage,
- Dimensions,
- Image,
- ScrollView
-} from 'react-native'; 
-import Main from '../Main3'  
-import app from '../../app.json';
-import CheckBoxsy from '../component/xwCheckBox';
+    ScrollView,
+    Text,
+    View,
+    Image,
+    ImageBackground,
+    ListView,
+    Button,
+    TouchableOpacity,
+    TextInput,
+    Dimensions,
+    AsyncStorage
+} from 'react-native';  
+
+
+import app from '../../app.json'
+import DropdownAlert from 'react-native-dropdownalert';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
-var ds = new ListView.DataSource({
+import CheckBox from '../component/xwCheckBox'
+const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
 
 
-export default class sh extends Component {
+export default class HD extends Component {
     constructor(props) {
         super(props);
-        this.state={
+        this.state = {
+                dataCySource: [], 
+                dataList: ds.cloneWithRows([
+                    {title:'数学作业',content:'金豆:500',xz:true},
+                    {title:'数学作业',content:'金豆:500',xz:false}
+                  ]),
             
-            dataSource: ds.cloneWithRows([]),
-            jtnc:''
-        }
-    } 
-   
-
-    ysSh(id){
-
-        fetch(app.Host+'api/plans/planSh?id='+id)
-        .then((response) =>{
-          if(response.ok){
-            this.reload()
+              jtnc:'',
+              txtContent:'',
+               sysRole:'',
+              userRole:'',
+              xgzh:'',
+              zjds:0,
+              yhjds:0,
+              whjds:0
           }
-        })
-         .catch((error) => {
-          console.error(error); 
-        });
     }
     
-    reload(){
-        fetch(app.Host+'api/plans/xgPlans?jtnc='+this.state.jtnc)
+
+     _showXgJH(xgzh){
+        fetch(app.Host+'api/plans/xgPlanJr?xgzh='+xgzh)
         .then((response) =>{
           if(response.ok){
             return response.json();
           }
         })
         .then((responseJson) => { 
-          let data=responseJson.data; 
-          this.setState({
-           dataSource: ds.cloneWithRows(data),
-         })
+          let data=responseJson.data;
+          this.setState({dataList:ds.cloneWithRows(data)})
         })
         .catch((error) => {
           console.error(error); 
         });
-    }
 
-    componentWillMount(){
-        AsyncStorage.getItem('user').then((item)=>{
-         return JSON.parse(item)
-           }).then((item)=>{ 
-                    this.setState({jtnc:decodeURI(item.nc)})
-                fetch(app.Host+'api/plans/xgPlans?jtnc='+decodeURI(item.nc))
-                .then((response) =>{
-                  if(response.ok){
-                    return response.json();
-                  }
-                })
-                .then((responseJson) => { 
-                  let data=responseJson.data; 
-                  this.setState({
-                   dataSource: ds.cloneWithRows(data),
-                 })
-                })
-                .catch((error) => {
-                  console.error(error); 
-                });
-           })
-    }
- 
-
-    render() {
-      const  {back}=this.props
-      return (<ScrollView  >
-             <ImageBackground source={require('./shyImage/shybg.png')}
-                  style={{width:deviceWidth}}
-                  resizeMode='stretch'>
-             
-              <View 
-              style={{height:40,
-                marginLeft:10,
-                 alignItems:'flex-start',
-                 justifyContent:'center'}} >
-             
-             <TouchableOpacity onPress={()=>{
-          let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
-            return item.id=="Main3"
-          })
+     }
+     Save(){
         
-          this.props.navigator.popToRoute(destRoute);
-               }}>
-                  <Image source={require('./shyImage/close.png')}
-              
-                   style={{height:20,
-                           width:20}} 
-                           resizeMode='stretch' ></Image>
-                           </TouchableOpacity>
-              </View>
-              <View
-              style={{
-                  flexDirection:'row',
-                  justifyContent:'center',
-                  alignItems:'center'
+        if(!this.state.userRole){
+            this.dropdown.alertWithType('error', 'Error', '请选择家人' )
+            return
+        }
+        
 
-              }}
-              >
-                <View style={{alignItems:'center'}}>
-                    <Text style={{
-                        fontSize:12,
-                        color:'black',
-                        marginBottom:10
-                    }}>金豆</Text>
-                    <Image source={require('./shyImage/jd.png')} 
-                    style={{height:80,width:80,marginBottom:5}}
-                     resizeMode='stretch'></Image>
-                       <Text style={{
-                        fontSize:10,
-                        color:'#fff',
-                        marginBottom:3
-                    }}>计划数:3</Text>
-                       <Text
-                        style={{
-                            fontSize:10,
-                            color:'#fff',
-                            marginBottom:10
-                        }}
-                       >完成数:20</Text>
-                </View>
-                <View style={{width:20}}></View>
-                <View style={{alignItems:'center'}}>
-                <Text style={{
-                        fontSize:12,
-                        color:'black',
-                        marginBottom:10
-                    }}>银豆</Text>
-                   <Image source={require('./shyImage/yd.png')} 
-                    style={{height:80,width:80,marginBottom:5}}
-                     resizeMode='stretch'></Image>
-                    <Text
-                      style={{
-                        fontSize:10,
-                        color:'#fff',
-                        marginBottom:3
-                    }}
-                    >计划数:3</Text>
-                    <Text
-                      style={{
-                        fontSize:10,
-                        color:'#fff',
-                        marginBottom:10
-                    }}
-                    >完成数:20</Text>
-                </View>
-                
-              </View>
-            
-             <View
-                        style={{
-                        height: 210,
-                        marginLeft: 5,
-                        marginRight: 5,
-                        marginTop: 10,
-                        borderStyle: 'solid',
-                        backgroundColor: '#fff',
-                        borderRadius: 10
-                    }}>
-                        
-                            <View
-                                style={{ 
-                               
-                                    flexDirection:'row', 
-                                    borderBottomWidth:1,
-                                    borderBottomColor:'#F2F2F2',
-                                    marginLeft:5,
-                                    marginRight:5,
-                                    height:30,
-                                    alignItems:'center',
-                                    paddingLeft:10,
-                                    paddingRight:10
-                            }}>
-                              
-                                    <Text style={{flex:6,textAlign:'left',fontSize:12}}>计划任务</Text>
-                                    <Text style={{flex:2,
-                                        color:'#BDBDBD',fontSize:12,textAlign:'center'}}>确认</Text>
-                                               <Text style={{flex:2,
-                                        color:'#BDBDBD',textAlign:'right',fontSize:12}}>评价</Text>
-                            </View>
-                            <View
-                                style={{
-                                    height:180,
-                                marginBottom: 20,
-                                marginTop: 5
-                            }}>
-                               
-                               <ListView
-                              dataSource={this.state.dataSource}
-                               renderRow={(rowData) => 
-                               <View style={{
-                                   height:30,
-                               flexDirection:'row', 
-                                borderBottomWidth:1,
-                               borderBottomColor:'#F2F2F2',
-                               marginLeft:5,
-                               marginRight:5,
-                               alignItems:'center',
-                           
-                                paddingLeft:10,
-                                paddingRight:10,
-                               }}> 
-                                 
-                                    <Text style={{flex:6,
-                                        textAlign:'left',
-                                        fontSize:12}}>{decodeURI(rowData.projectName)}</Text>
-                                   <View  style={{flex:2,alignItems:'center'}}>
-                                   <CheckBoxsy styles={{width:20,height:20}} 
-                                    selected={this.ysSh.bind(this,rowData.xgid)}
-                                   ></CheckBoxsy>
-                                   </View>
-                                   <View  style={{flex:2,alignItems:'flex-end',marginLeft:10}}>
-                                    <Image source={require('./shyImage/lian.png')} style={{width:20,height:20}} resizeMode='stretch'></Image>
-                                   </View>
-                                   </View>}
-                               />
-                            </View>
+        if(!this.state.txtContent){
+            this.dropdown.alertWithType('error', 'Error', '请选择要说的话' )
+            return
+        }
+
+        let url =app.Host+ "api/message/AddMessageS";  
+        let params ={
+            "jtnc":this.state.jtnc,
+            "txtContent":this.state.txtContent,
+            "type":this.state.type,
+            "sysRole":this.state.sysRole,
+            "userRole":decodeURI(this.state.userRole)
+        }; 
+         
+       fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+      }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+        }).then((json) => {
+            console.log(json)
+            this.dropdown.alertWithType('success', '发送成功', '发送成功' )
+       
+        }).catch((error) => {
+            console.error(error);
+        });
+      
+      }
+  
+  
+  
+    _rednerCy1(){
+        return (this.state.dataCySource.map((t, i) =>this._rednerCy(t, i)))
+  }
 
 
-
-
-                         
-                   
-                    </View>
+  _rednerCy(item,i){ 
+      let role=decodeURI(item.userRole)
+    return ( 
     
+       <View  key = {i} 
+       style={{width:80,alignItems:'center'}}> 
+ 
+      <TouchableOpacity onPress={()=>{this._showXgJH.bind(this)(decodeURI(item.userName))}}>
+       <Image
+           source={role=="儿子"?require('../cygl/imgs/tx/boy.png'):require('../cygl/imgs/tx/girl.png')}
+           style={{
+           height: 50,
+           width: 50
+       }}
+           resizeMode='stretch'
+       ></Image>
+       <Text 
+            style={{
+            
+               width: 50,
+               fontSize:12,
+               textAlign:'center'
+           }} >{ decodeURI(item.realName)}</Text>
+       </TouchableOpacity>
+   </View>
+    )
+ }
 
 
+    itemAction(item) {
+        switch (item.type) {
+          case 'close':
+            this.closeAction();
+            break;
+          default:
+            const random = Math.floor(Math.random() * 1000 + 1);
+            const title = item.type + ' #' + random;
+            this.dropdown.alertWithType(item.type, title, item.message);
+        }
+      }
+      closeAction() {
+        this.dropdown.close();
+      }
+      handleClose(data) {
+        console.log(data);
+      }
+      handleCancel(data) {
+        console.log(data);
+      }
 
 
-     
-     <View
-                        style={{
-                        height: 250,
-                        marginLeft: 5,
-                        marginRight: 5,
-                        marginTop: 10,
-                        borderStyle: 'solid',
-                        backgroundColor: '#fff',
-                        borderRadius: 10,
-                        marginBottom:30
-                    }}>
-                        
-                            <View
-                                style={{ 
-                                    height:30,
-                                    borderBottomWidth:1,
-                                    borderBottomColor:'#F2F2F2',
-                                    marginLeft:5,
-                                    marginRight:5,
-                                    alignItems:'flex-start',
-                                    justifyContent:'center',
-                                    paddingLeft:10
-                                 }}>
-                              
-                                    <Text style={{fontSize:12,
-                                             color:'#1C1C1C'}}>本周银豆奖扣比例</Text>
-                                        </View>
-                          <View
-                           style={{ 
-                            height:90,
-                      
-                            alignItems:'center',
-                            justifyContent:'center'
-                           }}>
-                        
-                        <Image source={require('./shyImage/aq.png')}
-                        style={{width:300,height:30}} 
-                        resizeMode='stretch'></Image> 
-                        <Text   style={{
-                            width:300,
-                            height:30,
-                            marginLeft:15,
-                            color:'#aa6800'}}>您本周扣分有点少,提高点孩子的要求吧</Text>
-                          </View>
+      componentWillMount(){
 
-                             <View
-                            style={{ 
-                            height:80, 
-                            backgroundColor:'#D8D8D8',
-                            marginLeft:10,
-                            marginRight:10
-                              }} > 
-                                      <View
-                            style={{ 
-                            flex:1,
-                            backgroundColor:'#fff',
-                           margin:1,
-                            alignItems:'center'
-                              }} > 
+        AsyncStorage.getItem('user').then((item)=>{
+            return JSON.parse(item)
+              }).then((item)=>{ 
+             
+                   this.setState({jtnc:decodeURI(item.nc)}) 
+                 fetch(app.Host+'api/plans/xgSearch?jtnc='+this.state.jtnc)
+                   .then((response) =>{
+                     if(response.ok){
+                       return response.json();
+                     }
+                   })
+                   .then((responseJson) => { 
+                     let data=responseJson.data;
+                     this.setState({dataCySource:data})
+                   })
+                   .catch((error) => {
+                     console.error(error); 
+                   });
+              })
+    }
 
-                              <Text>本周收获</Text> 
-                              <View
-                              style={{flexDirection:'row',
-                                      justifyContent:'center',
-                                      height:50,
-                                    alignItems:'center'}}
-                             >
-                                <View 
-                                      style={{flex:1}}
-                              ></View>
-                              <View 
-                                      style={{flex:1,alignItems:'center'}}
-                              >
-                              <ImageBackground source={require('./shyImage/bzyd.png')} 
-                              style={{width:70,height:30,alignItems:"center"}} resizeMode='stretch'
-                              ><Text>100</Text></ImageBackground>
-                              <Text style={{fontSize:13,fontWeight:'bold'}}>金豆</Text>
-                              </View> 
-                              <View
-                                      style={{flex:1,alignItems:'center'}}
-                              >
-                                  <ImageBackground source={require('./shyImage/bzyd.png')} 
-                                 style={{width:70,height:30,alignItems:"center"}} resizeMode='stretch'
-                              ><Text>200</Text></ImageBackground>
-                                   <Text
-                                   style={{fontSize:13,fontWeight:'bold'}}
-                                   > 银豆</Text>
-                              </View>
-                              <View 
-                                      style={{flex:1}}
-                              ></View>
+
+    render(){ 
+        const {back}=this.props
+    
+    return (
+        <View >
+      <DropdownAlert
+          ref={ref => this.dropdown = ref}
+          containerStyle={{height:100}}
+          showCancel={true}
+          closeInterval={3000}
+          zIndex={1000000}
+        />
+
+        <View style={{
+         flexDirection:'row',
+         borderBottomWidth:1,
+         borderBottomColor:'#E6E6E6',
+         backgroundColor:'#fe9c2e',
+         height:40,
+         alignItems:'center',
+         justifyContent:'space-between'}}>
+    
+               
+          <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
+          <TouchableOpacity   
+             style={{height:50,
+              width:35,
+              justifyContent:'center',
+              alignItems:'flex-end'}} 
+                onPress={()=>{
+                    let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+                        return item.id=="Main3"
+                      })
+                    
+                      this.props.navigator.popToRoute(destRoute);
+                }}>
+                  <Image source={require('./shyImage/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
+                  </Image>
+                </TouchableOpacity> 
+          </View> 
+                <View style={{justifyContent:'center',alignItems:'center'}}>
+                    <Text 
+                    style={{fontSize:16,
+                      color:'#FFF',fontWeight:'bold'}}>今日任务</Text>
+                </View> 
+                <View style={{marginRight:5,
+                    flexDirection:'row'}}> 
+                  
+            
+                        <TouchableOpacity  
+                      style={{height:20,width:20}} 
+                      onPress={()=>{ this.setState({type:2})}}>
+                        <Image source={require('./shyImage/add.png')}  
+                        resizeMode='stretch'
+                        style={{height:20,width:20}} >
+                        </Image>
+                      </TouchableOpacity> 
+                      </View> 
+            </View>
+            <View
+                                style={{
+                                flex: 1,
+                                justifyContent: 'flex-start',
+                                alignContent:'flex-start',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                marginBottom: 20,
+                                marginTop: 10,
+                                flexWrap:'wrap'
+                            }}>
+                             {this._rednerCy1()}
                              </View>
-                                   </View>
-                           </View>
-               </View>
-              </ImageBackground>
-              </ScrollView>)
-
+ 
+          
+      
+     
+                  <ListView
+                                  dataSource={this.state.dataList}
+                                   renderRow={(rowData) => 
+                           
+                                          <View 
+                                              style={{flexDirection:'row',
+                                                      borderTopColor:'#F0F0F0',
+                                                      backgroundColor:'#fff',
+                                                      borderTopWidth:1,
+                                                      margin:5,
+                                                      borderRadius:10,
+                                                      height:40}}>
+                                                      <View style={{flex:4,
+                                                        justifyContent:'center',
+                                                        alignItems:'flex-start',
+                                                     
+                                                        marginLeft:10}}>
+                                                          <Text style={{   fontSize:12,color:'#474747'}}>{rowData.title}</Text>
+                                                      </View>
+                                                      <View style={{flex:2,
+                                                        justifyContent:'center',
+                                                        alignItems:'center'
+                                                    }}>
+                                                          <Text style={{  fontSize:12, color:'#474747'}}>{rowData.content}</Text>
+                                                      </View>
+                                                      <View style={{flex:1,
+                                                        justifyContent:'center',
+                                                        alignItems:'center'}}>
+                                                         <CheckBox   styles={{height:20,width:20}}
+                                                         selected={(isS)=>{
+                                                                if(!isS){
+                                                                  this.setState({txtContent:rowData.title})
+                                                                }                             
+                                                         }}
+                                                         ></CheckBox>
+   
+                                                      </View>
+                                                    
+                                            
+                                         </View>
+                        
+                                         }
+                                   />
+           
+  
+      </View>
+            )
+         
+          
+            
     }
 }
+

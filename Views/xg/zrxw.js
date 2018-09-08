@@ -9,7 +9,8 @@ import {
     Button,
     TouchableOpacity,
     TextInput,
-    Dimensions
+    Dimensions,
+    AsyncStorage
 } from 'react-native';  
 
 import Main from '../Main2'  
@@ -26,19 +27,43 @@ export default class HD extends Component {
     constructor(props) {
         super(props);
         this.state = {
-             dataSource: ds.cloneWithRows([
+            dataSource: ds.cloneWithRows([
                 {title:'数学作业',content:'获得金豆:500'},
                 {title:'数学作业',content:'获得银豆:500'}
               ]),
-              dataSource1: ds.cloneWithRows([
-                {title:'按时睡觉',content:'银豆:500'},
-                {title:'按时睡觉',content:'银豆:500'}
-              ]),
+              jtnc:"",
+              xgzh:"",
+              realname:"",
               type:1,
               typetitle:'',
               typecontent:''
         }
     }
+
+
+    componentWillMount(){
+        
+        AsyncStorage.getItem('user').then((item)=>{
+                  return JSON.parse(item)
+         }).then((item)=>{ 
+             this.setState({jtnc:item.nc,xgzh:decodeURI(item.userName),realname:decodeURI(item.realName)}) 
+              fetch(app.Host+'api/plans/xgPlans?jtnc='+this.state.jtnc)
+              .then((response) =>{
+                if(response.ok){
+                  return response.json();
+                }
+              })
+              .then((responseJson) => { 
+                let data=responseJson.data;
+                this.setState({dataSource:ds.cloneWithRows(data)})
+              })
+              .catch((error) => {
+                console.error(error); 
+              }); 
+              
+         })
+}
+
 
     render(){ 
         const {back}=this.props

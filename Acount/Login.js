@@ -106,7 +106,7 @@ export default class Login extends Component {
 
   regUser(){
    
-        let url = "http://117.50.46.40:8003/api/user/RegUser";  
+        let url = app.Host+ "api/user/RegUser";  
         let params ={
             "nc":this.state.jtnc,
             "userName":this.state.uName,
@@ -139,7 +139,7 @@ export default class Login extends Component {
     
 
       Perfect(){
-    let url = "http://117.50.46.40:8003/api/user/AddPerfect";  
+    let url = app.Host+"api/user/AddPerfect";  
     let params ={
         "userName":this.state.uName,
         "realName":this.state.realName,
