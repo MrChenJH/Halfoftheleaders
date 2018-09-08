@@ -15,6 +15,7 @@ import {
   
     AsyncStorage
 } from 'react-native';
+import app from '../../app.json';
 import Main from '../Main2'  
 import Checkbox from '../component/xwCheckBox'
 
@@ -42,10 +43,10 @@ export default class jtjh extends Component {
     }
 
     _remove(id){
-        fetch('http://117.50.46.40:8003/api/behavior/Deletebehavior?id='+id)
+        fetch(app.Host+'/api/behavior/Deletebehavior?id='+id)
         .then((response) =>{
           if(response.ok){
-            fetch('http://117.50.46.40:8003/api/behavior/behaviorS?jtnc='+this.state.jtnc+"&loginName="+this.state.userName)
+            fetch(app.Host+'/api/behavior/behaviorS?jtnc='+this.state.jtnc+"&loginName="+this.state.userName)
             .then((response) =>{
               if(response.ok){
                 return response.json();
@@ -86,7 +87,7 @@ export default class jtjh extends Component {
       body: JSON.stringify(params)
     }).then((response) => {
           if (response.ok) {
-            fetch('http://117.50.46.40:8003/api/behavior/behaviorS?jtnc='+this.state.jtnc+"&loginName="+this.state.userName)
+            fetch(app.Host+'/api/behavior/behaviorS?jtnc='+this.state.jtnc+"&loginName="+this.state.userName)
             .then((response) =>{
               if(response.ok){
                 return response.json();
@@ -112,7 +113,7 @@ export default class jtjh extends Component {
            return JSON.parse(item)
              }).then((item)=>{ 
                   this.setState({jtnc:decodeURI(item.nc),userName:decodeURI(item.userName)}) 
-                  fetch('http://117.50.46.40:8003/api/behavior/behaviorS?jtnc='+item.nc+"&loginName="+decodeURI(item.userName))
+                  fetch(app.Host+'/api/behavior/behaviorS?jtnc='+item.nc+"&loginName="+decodeURI(item.userName))
                   .then((response) =>{
                     if(response.ok){
                       return response.json();
@@ -127,7 +128,7 @@ export default class jtjh extends Component {
                   });
 
 
-                  fetch('http://117.50.46.40:8003/api/behavior/xgs?jtnc='+item.nc)
+                  fetch(app.Host+'/api/behavior/xgs?jtnc='+item.nc)
                   .then((response) =>{
                     if(response.ok){
                       return response.json();

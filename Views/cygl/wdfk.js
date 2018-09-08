@@ -11,7 +11,7 @@ import {
     TextInput,
     Dimensions
 } from 'react-native';  
-
+import app from '../../app.json';
 import Main from '../Main1'
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 const deviceWidth = Dimensions.get('window').width;  

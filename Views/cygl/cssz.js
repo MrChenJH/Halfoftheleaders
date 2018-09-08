@@ -13,7 +13,7 @@ import {
  AsyncStorage
 } from 'react-native'; 
 import Main from '../Main1'
-
+import app from '../../app.json';
 
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
@@ -36,7 +36,7 @@ export default class canshu extends Component {
 
     //添加成员
   AddFund(){
-    let url = "http://117.50.46.40:8003/api/FundSetting/addFundSetting";  
+    let url = app.Host+"api/FundSetting/addFundSetting";  
     let params ={
         "jtnc":this.state.jtnc,
         "Proportion":this.state.Proportion,
@@ -52,7 +52,7 @@ export default class canshu extends Component {
     body: JSON.stringify(params)
   }).then((response) => {
         if (response.ok) {
-          fetch('http://117.50.46.40:8003/api/FundSetting/FundSetting?jtnc='+this.state.jtnc)
+          fetch(app.Host+'api/FundSetting/FundSetting?jtnc='+this.state.jtnc)
           .then((response) =>{
             if(response.ok){
               return response.json();
@@ -78,7 +78,7 @@ export default class canshu extends Component {
            return JSON.parse(item)
              }).then((item)=>{ 
                   this.setState({jtnc:decodeURI(item.nc)}) 
-                  fetch('http://117.50.46.40:8003/api/FundSetting/FundSetting?jtnc='+decodeURI(item.nc))
+                  fetch(app.Host+'api/FundSetting/FundSetting?jtnc='+decodeURI(item.nc))
                   .then((response) =>{
                     if(response.ok){
                       return response.json();

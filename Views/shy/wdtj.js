@@ -11,7 +11,7 @@ import {
     Dimensions,
     TextInput
 } from 'react-native';  
-
+import app from '../../app.json';
 import Main from '../Main3'  
 import QRCode from 'react-native-qrcode';
 

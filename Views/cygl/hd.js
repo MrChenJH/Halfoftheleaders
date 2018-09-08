@@ -12,7 +12,8 @@ import {
     Dimensions
 } from 'react-native';  
 
-import Main from '../Main1'
+import Main from '../Main1' 
+import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 const ds = new ListView.DataSource({

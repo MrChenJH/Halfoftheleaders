@@ -11,7 +11,9 @@ import {
     TextInput,
     Dimensions
 } from 'react-native';  
-import Login from '../../Acount/Login'
+import Login from '../../Acount/Login' 
+import app from '../../app.json'
+
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 export default class Wd extends Component {

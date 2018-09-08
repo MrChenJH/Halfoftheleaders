@@ -11,6 +11,7 @@ import {
  ScrollView,
  ListView
 } from 'react-native'; 
+import app from '../../app.json';
 import Main from '../Main2'  
 const deviceWidth = Dimensions.get('window').width;  
 const ds = new ListView.DataSource({

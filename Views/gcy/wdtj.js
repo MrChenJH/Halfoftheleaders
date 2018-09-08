@@ -13,7 +13,8 @@ import {
 } from 'react-native';  
 
 import Main from '../Main4'  
-import QRCode from 'react-native-qrcode';
+import app from '../../app.json'
+import QRCode from 'react-native-qrcode'
 
 const deviceWidth = Dimensions.get('window').width;  
 const ds = new ListView.DataSource({

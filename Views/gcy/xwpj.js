@@ -17,8 +17,8 @@ import {
 } from 'react-native';
 import Main from '../Main2'  
 import Checkbox from '../component/xwCheckBox'
-
-import ModalDropdown from 'react-native-modal-dropdown';
+import app from '../../app.json';
+import ModalDropdown from 'react-native-modal-dropdown'
 
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -42,10 +42,10 @@ export default class jtjh extends Component {
     }
 
     _remove(id){
-        fetch('http://117.50.46.40:8003/api/behavior/Deletebehavior?id='+id)
+        fetch(app.Host+'api/behavior/Deletebehavior?id='+id)
         .then((response) =>{
           if(response.ok){
-            fetch('http://117.50.46.40:8003/api/behavior/behaviorS?jtnc='+this.state.jtnc+"&loginName="+this.state.userName)
+            fetch(app.Host+'api/behavior/behaviorS?jtnc='+this.state.jtnc+"&loginName="+this.state.userName)
             .then((response) =>{
               if(response.ok){
                 return response.json();
@@ -68,7 +68,7 @@ export default class jtjh extends Component {
 
     Save(){
       
-      let url = "http://117.50.46.40:8003/api/behavior/addBehavior";  
+      let url = app.Host+"api/behavior/addBehavior";  
       let params ={
           "jtnc":this.state.jtnc,
           "xgzh":this.state.xgzh,
@@ -86,7 +86,7 @@ export default class jtjh extends Component {
       body: JSON.stringify(params)
     }).then((response) => {
           if (response.ok) {
-            fetch('http://117.50.46.40:8003/api/behavior/behaviorS?jtnc='+this.state.jtnc+"&loginName="+this.state.userName)
+            fetch(app.Host+'api/behavior/behaviorS?jtnc='+this.state.jtnc+"&loginName="+this.state.userName)
             .then((response) =>{
               if(response.ok){
                 return response.json();
@@ -112,7 +112,7 @@ export default class jtjh extends Component {
            return JSON.parse(item)
              }).then((item)=>{ 
                   this.setState({jtnc:decodeURI(item.nc),userName:decodeURI(item.userName)}) 
-                  fetch('http://117.50.46.40:8003/api/behavior/behaviorS?jtnc='+item.nc+"&loginName="+decodeURI(item.userName))
+                  fetch(app.Host+'api/behavior/behaviorS?jtnc='+item.nc+"&loginName="+decodeURI(item.userName))
                   .then((response) =>{
                     if(response.ok){
                       return response.json();
@@ -127,7 +127,7 @@ export default class jtjh extends Component {
                   });
 
 
-                  fetch('http://117.50.46.40:8003/api/behavior/xgs?jtnc='+item.nc)
+                  fetch(app.Host+'api/behavior/xgs?jtnc='+item.nc)
                   .then((response) =>{
                     if(response.ok){
                       return response.json();

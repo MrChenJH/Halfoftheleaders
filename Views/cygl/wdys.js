@@ -13,9 +13,12 @@ import {
 } from 'react-native'; 
 import Main from '../Main1'
 
+import app from '../../app.json';
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
+
+
 export default class canshu extends Component {
     constructor(props) {
         super(props);

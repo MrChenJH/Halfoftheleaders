@@ -12,6 +12,7 @@ ListView,
 } from 'react-native'; 
 
 import Main from '../Main4'  
+import app from '../../app.json';
 import CheckBoxsy from '../component/xwCheckBox';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  

@@ -11,6 +11,7 @@ import {
     ScrollView,
     AsyncStorage
 } from 'react-native';
+import app from '../app.json';
 import DatePicker from 'react-native-datepicker'
 import DropdownAlert from 'react-native-dropdownalert';
 import Main1   from '../Views/Main1'
@@ -54,7 +55,7 @@ export default class Login extends Component {
     }
 
   _Login(){
-   let url = 'http://117.50.46.40:8003/api/user/Login?userName=' + this.state.userName + '&pwd='+this.state.pwd;
+   let url =app.Host+'api/user/Login?userName=' + this.state.userName + '&pwd='+this.state.pwd;
    fetch(url)
     .then((response)=>{
       if(response.ok){

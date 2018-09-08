@@ -15,7 +15,8 @@ import {
 } from 'react-native'; 
 import DatePicker from 'react-native-datepicker'
 import ModalDropdown from 'react-native-modal-dropdown';
-import Main from '../Main1'
+import Main from '../Main1' 
+import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 const ds = new ListView.DataSource({
@@ -45,14 +46,14 @@ export default class page1 extends Component {
 
 
  _remove(id){
-  fetch('http://117.50.46.40:8003/api/family/deleteMembers?id='+id)
+  fetch(app.Host+'api/family/deleteMembers?id='+id)
   .then((response) =>{
     if(response.ok){
       return response.json();
     }
   })
   .then((responseJson) => { 
-    fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+this.state.jtnc)
+    fetch(app.Host+'api/family/Members?jtnc='+this.state.jtnc)
     .then((response) =>{
       if(response.ok){
         return response.json();
@@ -74,7 +75,7 @@ export default class page1 extends Component {
 
   //添加成员
   AddMember(){
-    let url = "http://117.50.46.40:8003/api/family/AddMember";  
+    let url = app.Host+"api/family/AddMember";  
     let params ={
         "jtnc":this.state.jtnc,
         "userName":this.state.userName,
@@ -95,7 +96,7 @@ export default class page1 extends Component {
     body: JSON.stringify(params)
   }).then((response) => {
         if (response.ok) {
-        fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+this.state.jtnc)
+        fetch(app.Host+'api/family/Members?jtnc='+this.state.jtnc)
           .then((response) =>{
             if(response.ok){
               return response.json();
@@ -116,7 +117,7 @@ export default class page1 extends Component {
   }
     
   updateMember(){
-    let url = "http://117.50.46.40:8003/api/family/UpdateMember";  
+    let url = app.Host+"api/family/UpdateMember";  
     let params ={
         "jtnc":this.state.jtnc,
         "userName":this.state.updateUserName,
@@ -137,7 +138,7 @@ export default class page1 extends Component {
     body: JSON.stringify(params)
   }).then((response) => {
         if (response.ok) {
-          fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+this.state.jtnc)
+          fetch(app.Host+'api/family/Members?jtnc='+this.state.jtnc)
           .then((response) =>{
             if(response.ok){
               return response.json();
@@ -164,7 +165,7 @@ export default class page1 extends Component {
         
               this.setState({jtnc:decodeURI(item.nc)}) 
 
-              fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+this.state.jtnc)
+              fetch(app.Host+'api/family/Members?jtnc='+this.state.jtnc)
               .then((response) =>{
                 if(response.ok){
                   return response.json();

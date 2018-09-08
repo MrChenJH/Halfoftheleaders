@@ -13,6 +13,7 @@ import {
 } from 'react-native';  
 
 import Main from '../Main3'  
+import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 

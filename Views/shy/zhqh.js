@@ -12,7 +12,7 @@ import {
  ListView,
  TouchableHighlight
 } from 'react-native'; 
-
+import app from '../../app.json';
 import Main from '../Main3'  
 import Checkbox from '../component/checkbox'
 const ds = new ListView.DataSource({

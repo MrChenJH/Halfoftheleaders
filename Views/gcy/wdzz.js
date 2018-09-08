@@ -14,8 +14,8 @@ import {
 } from 'react-native';  
 
 import Main from '../Main4'  
-import DropdownAlert from 'react-native-dropdownalert';
-
+import DropdownAlert from 'react-native-dropdownalert'
+import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 import CheckBox from '../component/xwCheckBox'
@@ -37,9 +37,7 @@ export default class Jhsh extends Component {
     
     zanzhu(ysType,xgzh,id,je){
        
-        let url = "http://117.50.46.40:8003/api/sponsor/UpudateSponsor?ysType="+ysType+"&xgzh="+xgzh+"&id="+id+"&je="+je;  
-     
-       
+        let url = app.Host+"api/sponsor/UpudateSponsor?ysType="+ysType+"&xgzh="+xgzh+"&id="+id+"&je="+je;  
         fetch(url, {
         method: 'POST',
         headers: {
@@ -66,7 +64,7 @@ export default class Jhsh extends Component {
          return JSON.parse(item)
            }).then((item)=>{ 
                 this.setState({jtnc:decodeURI(item.nc)}) 
-                 fetch('http://117.50.46.40:8003/api/sponsor/SponsorS?jtnc='+thist.state.jtnc)
+                 fetch(app.Host+'api/sponsor/SponsorS?jtnc='+thist.state.jtnc)
                 .then((response) =>{
                   if(response.ok){
                     return response.json();

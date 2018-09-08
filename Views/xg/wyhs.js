@@ -14,6 +14,7 @@ import {
 } from 'react-native';  
 
 import Main from '../Main2'  
+import app from '../../app.json'
 import DropdownAlert from 'react-native-dropdownalert';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -53,7 +54,7 @@ export default class HD extends Component {
             return
         }
 
-        let url = "http://117.50.46.40:8003/api/message/AddMessageS";  
+        let url =app.Host+ "api/message/AddMessageS";  
         let params ={
             "jtnc":this.state.jtnc,
             "txtContent":this.state.txtContent,
@@ -152,7 +153,7 @@ export default class HD extends Component {
              
                    this.setState({jtnc:item.nc}) 
      
-                   fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+item.nc)
+                   fetch(app.Host+'api/family/Members?jtnc='+item.nc)
                    .then((response) =>{
                      if(response.ok){
                        return response.json();

@@ -12,10 +12,10 @@ import {
     Dimensions,
     TextInput,
     Switch,
-  
     AsyncStorage
 } from 'react-native';
 import Main from '../Main2'  
+import app from '../../app.json'
 import Checkbox from '../component/xwCheckBox'
 
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -60,10 +60,10 @@ export default class jtjh extends Component {
   
   
     update(id){
-      let url = "http://117.50.46.40:8003/api/behavior/updateBudgetary?id="+id;  
+      let url = app.Host+"api/behavior/updateBudgetary?id="+id;  
       fetch(url).then((response) => {
          if (response.ok) {
-           fetch('http://117.50.46.40:8003/api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
+           fetch(app.Host+'api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
            .then((response) =>{
              if(response.ok){
                return response.json();
@@ -87,10 +87,10 @@ export default class jtjh extends Component {
     }
 
     Remove(id){
-      let url = "http://117.50.46.40:8003/api/ys/DeleteBudgetary?id="+id;  
+      let url = app.Host+"api/ys/DeleteBudgetary?id="+id;  
        fetch(url).then((response) => {
           if (response.ok) {
-            fetch('http://117.50.46.40:8003/api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
+            fetch(app.Host+'api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
             .then((response) =>{
               if(response.ok){
                 return response.json();
@@ -116,7 +116,7 @@ export default class jtjh extends Component {
     //发起赞助
     sendZz(){
       
-      let url = "http://117.50.46.40:8003/api/sponsor/addSponsor";  
+      let url = app.Host+"api/sponsor/addSponsor";  
       let params ={
           "ysId":this.state.zzysid,
           "jtnc":this.state.jtnc,
@@ -143,7 +143,7 @@ export default class jtjh extends Component {
           console.log(json)
           this.scaleAnimationDialog.dismiss();
          
-          fetch('http://117.50.46.40:8003/api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
+          fetch(app.Host+'api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
           .then((response) =>{
             if(response.ok){
               return response.json();
@@ -167,7 +167,7 @@ export default class jtjh extends Component {
 
      //添加预算
       AddYs(){
-    let url = "http://117.50.46.40:8003/api/ys/addYs";  
+    let url = app.Host+"api/ys/addYs";  
     let params ={
         "ysType":this.state.ysType,
         "realName":this.state.realName,
@@ -188,7 +188,7 @@ export default class jtjh extends Component {
     body: JSON.stringify(params)
   }).then((response) => {
         if (response.ok) {
-          fetch('http://117.50.46.40:8003/api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
+          fetch(app.Host+'api/ys/YsS?jtnc='+this.state.jtnc+'&xgzh='+this.state.userName)
         .then((response) =>{
           if(response.ok){
             return response.json();
@@ -221,7 +221,7 @@ export default class jtjh extends Component {
         return JSON.parse(item)
           }).then((item)=>{ 
                this.setState({jtnc:decodeURI(item.nc),userName:decodeURI(item.userName),realName:decodeURI(item.realName)}) 
-               fetch('http://117.50.46.40:8003/api/FundSetting/gFundSetting?jtnc='+this.state.jtnc+'&userName='+this.state.userName)
+               fetch(app.Host+'api/FundSetting/gFundSetting?jtnc='+this.state.jtnc+'&userName='+this.state.userName)
                .then((response) =>{
                  if(response.ok){
                    return response.json();
@@ -243,7 +243,7 @@ export default class jtjh extends Component {
 
 
 
-               fetch('http://117.50.46.40:8003/api/ys/YsS?jtnc='+item.nc+'&xgzh='+item.userName)
+               fetch(app.Host+'api/ys/YsS?jtnc='+item.nc+'&xgzh='+item.userName)
                .then((response) =>{
                  if(response.ok){
                    return response.json();

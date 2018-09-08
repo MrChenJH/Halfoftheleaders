@@ -15,7 +15,8 @@ import {
     ActivityIndicator,
     AsyncStorage
 } from 'react-native';
-import Main from '../Main1'
+import Main from '../Main1' 
+import app from '../../app.json'
 import Checkbox from '../component/checkbox'
 import DatePicker from 'react-native-datepicker'
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -107,7 +108,7 @@ export default class jtjh extends Component {
           }
         }
         
-        let url = 'http://117.50.46.40:8003/api/plans/Plans?p=' + page + '&num=10';
+        let url = app.Host+'api/plans/Plans?p=' + page + '&num=10';
         
         fetch(url)
         .then((response)=>{
@@ -185,11 +186,11 @@ export default class jtjh extends Component {
    
 
       _remove(id){
-        fetch('http://117.50.46.40:8003/api/plans/removePaln1?id='+id)
+        fetch(app.Host+'api/plans/removePaln1?id='+id)
         .then((response) =>{
           if(response.ok){
            
-            fetch('http://117.50.46.40:8003/api/plans/Plans?jtnc='+this.state.jtnc)
+            fetch(app.Host+'api/plans/Plans?jtnc='+this.state.jtnc)
             .then((response) =>{
               if(response.ok){
                 return response.json();
@@ -215,7 +216,7 @@ export default class jtjh extends Component {
 
     PostJtjh(){
 
-        let url = "http://117.50.46.40:8003/api/plans/AddPlan";  
+        let url = app.Host+"api/plans/AddPlan";  
        
         let params ={
             "jtnc":this.state.jtnc,
@@ -239,7 +240,7 @@ export default class jtjh extends Component {
         body: JSON.stringify(params)
       }).then((response) => {
             if (response.ok) {
-              fetch('http://117.50.46.40:8003/api/plans/Plans?jtnc='+this.state.jtnc)
+              fetch(app.Host+'api/plans/Plans?jtnc='+this.state.jtnc)
               .then((response) =>{
                 if(response.ok){
                   return response.json();
@@ -526,7 +527,7 @@ export default class jtjh extends Component {
          
                this.setState({jtnc:decodeURI(item.nc)}) 
  
-               fetch('http://117.50.46.40:8003/api/plans/Plans?jtnc='+this.state.jtnc)
+               fetch(app.Host+'api/plans/Plans?jtnc='+this.state.jtnc)
                .then((response) =>{
                  if(response.ok){
                    return response.json();

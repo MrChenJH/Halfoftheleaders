@@ -10,7 +10,8 @@ import {
     TouchableOpacity,
     TextInput,
     Dimensions
-} from 'react-native';  
+} from 'react-native'; 
+import app from '../../app.json'; 
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 const ds = new ListView.DataSource({

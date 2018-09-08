@@ -28,10 +28,10 @@ import XGWdys from './xg/wdys'
 
 
 import Xwpj from './shy/xwpj'
-import Yssh from './shy/jhsh'
-import Sh from './shy/sh'
-import Jhsh from './shy/jhsh'
-import Jssh from './shy/jssh'
+import Yssh from './shy/yssh'
+import JHSh from './shy/jhsh'
+import YSSH from './shy/yssh'
+
 
 import GcJrrw from './gcy/jrrw'
 
@@ -77,9 +77,9 @@ import Login from '../Acount/Login'
           <View style={styles.container}>
           <TabNavigator>
             {this._renderTabarItems('首页',require('./img/1.png'),require('./main/souye.png'),Shy)}
-            {this._renderTabarItems('任务审核',require('./img/2.png'),require('./main/jhgl.png'),Sh)}
+            {this._renderTabarItems('任务审核',require('./img/2.png'),require('./main/jhgl.png'),JHSh)}
             {this._renderTabarItems('行为评价',require('./img/3.png'),require('./main/wodeys.png'),Xwpj)}
-            {this._renderTabarItems('预算审核',require('./img/4.png'),require('./main/woyouhuashuo.png'),Yssh)}
+            {this._renderTabarItems('预算审核',require('./img/4.png'),require('./main/woyouhuashuo.png'),YSSH)}
             {this._renderTabarItems('我的',require('./img/2.png'),require('./main/wodecaidan.png'),Wd )}
            </TabNavigator>
         </View> )

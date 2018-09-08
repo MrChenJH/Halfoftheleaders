@@ -9,8 +9,8 @@ import {
     Button,
     TouchableOpacity,
     TextInput,
-    Dimensions,
-    AsyncStorage
+    AsyncStorage,
+    Dimensions
 } from 'react-native';  
 import Main from '../Main3'  
 import app from '../../app.json';
@@ -27,22 +27,47 @@ export default class Jhsh extends Component {
         super(props);
         this.state = {
              dataSource: ds.cloneWithRows([
-                {title:'8.13-8.19  张思成获得',content:'金豆:500     银豆:300     折合金:30元',xz:true},
-                {title:'8.13-8.19  张思成获得',content:'金豆:500     银豆:300     折合金:30元',xz:false},
+             
               ]),
               type:1,
               typetitle:'',
               typecontent:''
         }
     }
-  
+     
+    pro(id){
+        fetch(app.Host+'/api/ys/YsShs?id='+id)
+        .then((response) =>{
+          if(response.ok){
+            fetch(app.Host+'/api/ys/YsSs?jtnc='+this.state.jtnc)
+            .then((response) =>{
+              if(response.ok){
+                return response.json();
+              }
+            })
+            .then((responseJson) => { 
+              let data=responseJson.data; 
+              this.setState({
+               dataSource: ds.cloneWithRows(data),
+             })
+            })
+            .catch((error) => {
+              console.error(error); 
+            });
+          }
+        })
+         .catch((error) => {
+          console.error(error); 
+        });
+
+    }
 
     componentWillMount(){
         AsyncStorage.getItem('user').then((item)=>{
          return JSON.parse(item)
            }).then((item)=>{ 
                     this.setState({jtnc:decodeURI(item.nc)})
-                fetch(app.Host+'/api/ys/YsSs?jtnc='+decodeURI(item.nc))
+                fetch(app.Host+'/api/ys/YsSs?jtnc='+this.state.jtnc)
                 .then((response) =>{
                   if(response.ok){
                     return response.json();
@@ -59,6 +84,8 @@ export default class Jhsh extends Component {
                 });
            })
     }
+
+
 
     render(){ 
         const {back}=this.props
@@ -94,10 +121,10 @@ justifyContent:'space-between'}}>
            <Text 
                    style={{fontSize:16,
                            color:'#FFF',
-                           fontWeight:'bold'}}>结算审核</Text>
+                           fontWeight:'bold'}}>小鬼的预算</Text>
            </View> 
            <View style={{marginRight:5,width:40}}> 
-                
+                   
            </View> 
    </View>
 
@@ -115,23 +142,36 @@ justifyContent:'space-between'}}>
                        borderTopWidth:1,
                        margin:5,
                        borderRadius:10,
-                       height:40}}>
-                       <View style={{flex:5,
+                       height:50}}>
+                       <View style={{flex:4,
                          justifyContent:'center',
                          alignItems:'flex-start',
+                      
                          marginLeft:10}}>
-                           <Text style={{   color:'#474747',fontSize:12}}>{rowData.title}</Text>
-                           <Text style={{   color:'#474747',fontSize:12}}>{rowData.content}</Text>
+                           <Text style={{color:'#474747'}}>{decodeURI(rowData.realName)+"   "+decodeURI(rowData.syMd)}</Text>
                        </View>
-                       <View 
-                       style={{flex:1,
-                        justifyContent:'center',
-                        alignItems:'center',
-                        marginRight:10}}
-                       >
-                         <CheckBox styles={{height:20,width:20}} isChecked={rowData.xz}></CheckBox>   
+                       <View style={{flex:2,
+                         justifyContent:'center',
+                         alignItems:'center'
+                     }}>
+                           <Text style={{color:'#474747'}}>{decodeURI(rowData.ysType)}</Text>
                        </View>
-         </View>
+                       <View style={{flex:2,
+                         justifyContent:'center',
+                         alignItems:'center'
+                     }}>
+                           <Text style={{   color:'#474747'}}>{rowData.zhSy}</Text>
+                       </View>
+                       <View style={{flex:1,
+                         justifyContent:'center',
+                         alignItems:'center'}}>
+                           <CheckBox 
+                           selected={this.pro.bind(this,rowData.id)}
+                           styles={{height:20,width:20}} ></CheckBox>
+                       </View>
+                     
+             
+          </View>
          </TouchableOpacity>
           }
     />

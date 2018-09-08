@@ -1,64 +1,65 @@
 import React, {Component} from 'react';
 import {
-    ScrollView,
-    Text,
-    View,
-    Image,
-    ImageBackground,
-    ListView,
-    Button,
-    TouchableOpacity,
-    TextInput,
-    AsyncStorage,
-    Dimensions
-} from 'react-native';  
+ListView,
+ ImageBackground,
+ Text,
+ View,
+ TouchableOpacity,
+ AsyncStorage,
+ Dimensions,
+ Image,
+ ScrollView
+} from 'react-native'; 
 import Main from '../Main3'  
+import app from '../../app.json';
+import CheckBoxsy from '../component/xwCheckBox';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
-import CheckBox from '../component/xwCheckBox'
-const ds = new ListView.DataSource({
+var ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
 
 
-export default class Jhsh extends Component {
+export default class sh extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-             dataSource: ds.cloneWithRows([
-             
-              ]),
-              type:1,
-              typetitle:'',
-              typecontent:''
+        this.state={
+            
+            dataSource: ds.cloneWithRows([]),
+            jtnc:''
         }
-    }
-     
-    pro(id){
-        fetch('http://117.50.46.40:8003/api/ys/YsShs?id='+id)
+    } 
+   
+
+    ysSh(id){
+
+        fetch(app.Host+'api/plans/planSh?id='+id)
         .then((response) =>{
           if(response.ok){
-            fetch('http://117.50.46.40:8003/api/ys/YsSs?jtnc='+this.state.jtnc)
-            .then((response) =>{
-              if(response.ok){
-                return response.json();
-              }
-            })
-            .then((responseJson) => { 
-              let data=responseJson.data; 
-              this.setState({
-               dataSource: ds.cloneWithRows(data),
-             })
-            })
-            .catch((error) => {
-              console.error(error); 
-            });
+            this.reload()
           }
         })
          .catch((error) => {
           console.error(error); 
         });
-
+    }
+    
+    reload(){
+        fetch(app.Host+'api/plans/xgPlans?jtnc='+this.state.jtnc)
+        .then((response) =>{
+          if(response.ok){
+            return response.json();
+          }
+        })
+        .then((responseJson) => { 
+          let data=responseJson.data; 
+          this.setState({
+           dataSource: ds.cloneWithRows(data),
+         })
+        })
+        .catch((error) => {
+          console.error(error); 
+        });
     }
 
     componentWillMount(){
@@ -66,7 +67,7 @@ export default class Jhsh extends Component {
          return JSON.parse(item)
            }).then((item)=>{ 
                     this.setState({jtnc:decodeURI(item.nc)})
-                fetch('http://117.50.46.40:8003/api/ys/YsSs?jtnc='+this.state.jtnc)
+                fetch(app.Host+'api/plans/xgPlans?jtnc='+decodeURI(item.nc))
                 .then((response) =>{
                   if(response.ok){
                     return response.json();
@@ -83,100 +84,271 @@ export default class Jhsh extends Component {
                 });
            })
     }
+ 
 
-
-
-    render(){ 
-        const {back}=this.props
-     return(
-    <View>
-<View style={{
-flexDirection:'row',
-borderBottomWidth:1,
-borderBottomColor:'#E6E6E6',
-backgroundColor:'#fe9c2e',
-height:40,
-alignItems:'center',
-justifyContent:'space-between'}}>
-
-<View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
- <TouchableOpacity   
-      style={{height:50,
-        width:35,
-        justifyContent:'center',
-        alignItems:'flex-end'}} 
-        onPress={()=>{
+    render() {
+      const  {back}=this.props
+      return (<ScrollView  >
+             <ImageBackground source={require('./shyImage/shybg.png')}
+                  style={{width:deviceWidth}}
+                  resizeMode='stretch'>
+             
+              <View 
+              style={{height:40,
+                marginLeft:10,
+                 alignItems:'flex-start',
+                 justifyContent:'center'}} >
+             
+             <TouchableOpacity onPress={()=>{
           let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
             return item.id=="Main3"
           })
         
           this.props.navigator.popToRoute(destRoute);
-           }}>
-         <Image source={require('./shyImage/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
-         </Image>
-       </TouchableOpacity> 
- </View> 
-         <View style={{justifyContent:'center',alignItems:'center'}}>
-           <Text 
-                   style={{fontSize:16,
-                           color:'#FFF',
-                           fontWeight:'bold'}}>小鬼的预算</Text>
-           </View> 
-           <View style={{marginRight:5,width:40}}> 
-                   
-           </View> 
-   </View>
+               }}>
+                  <Image source={require('./shyImage/close.png')}
+              
+                   style={{height:20,
+                           width:20}} 
+                           resizeMode='stretch' ></Image>
+                           </TouchableOpacity>
+              </View>
+              <View
+              style={{
+                  flexDirection:'row',
+                  justifyContent:'center',
+                  alignItems:'center'
 
-<View style={{backgroundColor:'#F2F2F2',height:deviceheight}}>
-<ScrollView >
-<ListView
-   dataSource={this.state.dataSource}
-    renderRow={(rowData) => 
-      <TouchableOpacity  
-            onPress={()=>{this.setState({type:2})}}>
-           <View 
-               style={{flexDirection:'row',
-                       borderTopColor:'#F0F0F0',
-                       backgroundColor:'#fff',
-                       borderTopWidth:1,
-                       margin:5,
-                       borderRadius:10,
-                       height:50}}>
-                       <View style={{flex:4,
-                         justifyContent:'center',
-                         alignItems:'flex-start',
+              }}
+              >
+                <View style={{alignItems:'center'}}>
+                    <Text style={{
+                        fontSize:12,
+                        color:'black',
+                        marginBottom:10
+                    }}>金豆</Text>
+                    <Image source={require('./shyImage/jd.png')} 
+                    style={{height:80,width:80,marginBottom:5}}
+                     resizeMode='stretch'></Image>
+                       <Text style={{
+                        fontSize:10,
+                        color:'#fff',
+                        marginBottom:3
+                    }}>计划数:3</Text>
+                       <Text
+                        style={{
+                            fontSize:10,
+                            color:'#fff',
+                            marginBottom:10
+                        }}
+                       >完成数:20</Text>
+                </View>
+                <View style={{width:20}}></View>
+                <View style={{alignItems:'center'}}>
+                <Text style={{
+                        fontSize:12,
+                        color:'black',
+                        marginBottom:10
+                    }}>银豆</Text>
+                   <Image source={require('./shyImage/yd.png')} 
+                    style={{height:80,width:80,marginBottom:5}}
+                     resizeMode='stretch'></Image>
+                    <Text
+                      style={{
+                        fontSize:10,
+                        color:'#fff',
+                        marginBottom:3
+                    }}
+                    >计划数:3</Text>
+                    <Text
+                      style={{
+                        fontSize:10,
+                        color:'#fff',
+                        marginBottom:10
+                    }}
+                    >完成数:20</Text>
+                </View>
+                
+              </View>
+            
+             <View
+                        style={{
+                        height: 210,
+                        marginLeft: 5,
+                        marginRight: 5,
+                        marginTop: 10,
+                        borderStyle: 'solid',
+                        backgroundColor: '#fff',
+                        borderRadius: 10
+                    }}>
+                        
+                            <View
+                                style={{ 
+                               
+                                    flexDirection:'row', 
+                                    borderBottomWidth:1,
+                                    borderBottomColor:'#F2F2F2',
+                                    marginLeft:5,
+                                    marginRight:5,
+                                    height:30,
+                                    alignItems:'center',
+                                    paddingLeft:10,
+                                    paddingRight:10
+                            }}>
+                              
+                                    <Text style={{flex:6,textAlign:'left',fontSize:12}}>计划任务</Text>
+                                    <Text style={{flex:2,
+                                        color:'#BDBDBD',fontSize:12,textAlign:'center'}}>确认</Text>
+                                               <Text style={{flex:2,
+                                        color:'#BDBDBD',textAlign:'right',fontSize:12}}>评价</Text>
+                            </View>
+                            <View
+                                style={{
+                                    height:180,
+                                marginBottom: 20,
+                                marginTop: 5
+                            }}>
+                               
+                               <ListView
+                              dataSource={this.state.dataSource}
+                               renderRow={(rowData) => 
+                               <View style={{
+                                   height:30,
+                               flexDirection:'row', 
+                                borderBottomWidth:1,
+                               borderBottomColor:'#F2F2F2',
+                               marginLeft:5,
+                               marginRight:5,
+                               alignItems:'center',
+                           
+                                paddingLeft:10,
+                                paddingRight:10,
+                               }}> 
+                                 
+                                    <Text style={{flex:6,
+                                        textAlign:'left',
+                                        fontSize:12}}>{decodeURI(rowData.projectName)}</Text>
+                                   <View  style={{flex:2,alignItems:'center'}}>
+                                   <CheckBoxsy styles={{width:20,height:20}} 
+                                    selected={this.ysSh.bind(this,rowData.xgid)}
+                                   ></CheckBoxsy>
+                                   </View>
+                                   <View  style={{flex:2,alignItems:'flex-end',marginLeft:10}}>
+                                    <Image source={require('./shyImage/lian.png')} style={{width:20,height:20}} resizeMode='stretch'></Image>
+                                   </View>
+                                   </View>}
+                               />
+                            </View>
+
+
+
+
+                         
+                   
+                    </View>
+    
+
+
+
+
+     
+     <View
+                        style={{
+                        height: 250,
+                        marginLeft: 5,
+                        marginRight: 5,
+                        marginTop: 10,
+                        borderStyle: 'solid',
+                        backgroundColor: '#fff',
+                        borderRadius: 10,
+                        marginBottom:30
+                    }}>
+                        
+                            <View
+                                style={{ 
+                                    height:30,
+                                    borderBottomWidth:1,
+                                    borderBottomColor:'#F2F2F2',
+                                    marginLeft:5,
+                                    marginRight:5,
+                                    alignItems:'flex-start',
+                                    justifyContent:'center',
+                                    paddingLeft:10
+                                 }}>
+                              
+                                    <Text style={{fontSize:12,
+                                             color:'#1C1C1C'}}>本周银豆奖扣比例</Text>
+                                        </View>
+                          <View
+                           style={{ 
+                            height:90,
                       
-                         marginLeft:10}}>
-                           <Text style={{color:'#474747'}}>{decodeURI(rowData.realName)+"   "+decodeURI(rowData.syMd)}</Text>
-                       </View>
-                       <View style={{flex:2,
-                         justifyContent:'center',
-                         alignItems:'center'
-                     }}>
-                           <Text style={{color:'#474747'}}>{decodeURI(rowData.ysType)}</Text>
-                       </View>
-                       <View style={{flex:2,
-                         justifyContent:'center',
-                         alignItems:'center'
-                     }}>
-                           <Text style={{   color:'#474747'}}>{rowData.zhSy}</Text>
-                       </View>
-                       <View style={{flex:1,
-                         justifyContent:'center',
-                         alignItems:'center'}}>
-                           <CheckBox 
-                           selected={this.pro.bind(this,rowData.id)}
-                           styles={{height:20,width:20}} ></CheckBox>
-                       </View>
-                     
-             
-          </View>
-         </TouchableOpacity>
-          }
-    />
-               
-</ScrollView>
-</View>
-</View>)
-}
+                            alignItems:'center',
+                            justifyContent:'center'
+                           }}>
+                        
+                        <Image source={require('./shyImage/aq.png')}
+                        style={{width:300,height:30}} 
+                        resizeMode='stretch'></Image> 
+                        <Text   style={{
+                            width:300,
+                            height:30,
+                            marginLeft:15,
+                            color:'#aa6800'}}>您本周扣分有点少,提高点孩子的要求吧</Text>
+                          </View>
+
+                             <View
+                            style={{ 
+                            height:80, 
+                            backgroundColor:'#D8D8D8',
+                            marginLeft:10,
+                            marginRight:10
+                              }} > 
+                                      <View
+                            style={{ 
+                            flex:1,
+                            backgroundColor:'#fff',
+                           margin:1,
+                            alignItems:'center'
+                              }} > 
+
+                              <Text>本周收获</Text> 
+                              <View
+                              style={{flexDirection:'row',
+                                      justifyContent:'center',
+                                      height:50,
+                                    alignItems:'center'}}
+                             >
+                                <View 
+                                      style={{flex:1}}
+                              ></View>
+                              <View 
+                                      style={{flex:1,alignItems:'center'}}
+                              >
+                              <ImageBackground source={require('./shyImage/bzyd.png')} 
+                              style={{width:70,height:30,alignItems:"center"}} resizeMode='stretch'
+                              ><Text>100</Text></ImageBackground>
+                              <Text style={{fontSize:13,fontWeight:'bold'}}>金豆</Text>
+                              </View> 
+                              <View
+                                      style={{flex:1,alignItems:'center'}}
+                              >
+                                  <ImageBackground source={require('./shyImage/bzyd.png')} 
+                                 style={{width:70,height:30,alignItems:"center"}} resizeMode='stretch'
+                              ><Text>200</Text></ImageBackground>
+                                   <Text
+                                   style={{fontSize:13,fontWeight:'bold'}}
+                                   > 银豆</Text>
+                              </View>
+                              <View 
+                                      style={{flex:1}}
+                              ></View>
+                             </View>
+                                   </View>
+                           </View>
+               </View>
+              </ImageBackground>
+              </ScrollView>)
+
+    }
 }

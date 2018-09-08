@@ -28,10 +28,10 @@ import XGWdys from './xg/wdys'
 
 
 import Xwpj from './shy/xwpj'
-import Yssh from './shy/jhsh'
-import Sh from './shy/sh'
-import Jhsh from './shy/jhsh'
-import Jssh from './shy/jssh'
+
+import jhSh from './shy/jhsh'
+import yssh from './shy/yssh'
+
 
 import GcJrrw from './gcy/jrrw'
 

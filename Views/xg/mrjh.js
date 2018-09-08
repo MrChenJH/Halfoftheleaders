@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import Main from '../Main2'  
 import Checkbox from '../component/xwCheckBox'
-
+import app from '../../app.json';
 import ModalDropdown from 'react-native-modal-dropdown';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -48,10 +48,10 @@ export default class jtjh extends Component {
     
 
      _remove(id){
-      fetch('http://117.50.46.40:8003/api/plans/removePaln?id='+id)
+      fetch(app.Host+'api/plans/removePaln?id='+id)
       .then((response) =>{
         if(response.ok){
-          fetch('http://117.50.46.40:8003/api/plans/xgPlans?jtnc='+this.state.jtnc)
+          fetch(app.Host+'api/plans/xgPlans?jtnc='+this.state.jtnc)
         .then((response) =>{
           if(response.ok){
             return response.json();
@@ -73,7 +73,7 @@ export default class jtjh extends Component {
      
     _save(){
       
-      let url = "http://117.50.46.40:8003/api/plans/AddXgPlan?ids="+this.state.selectIds+"&jtnc="+this.state.jtnc+"&xgzh="+this.state.xgzh+"&realname="+this.state.realname;  
+      let url = app.Host+"api/plans/AddXgPlan?ids="+this.state.selectIds+"&jtnc="+this.state.jtnc+"&xgzh="+this.state.xgzh+"&realname="+this.state.realname;  
      
     fetch(url, {
       method: 'POST',
@@ -83,7 +83,7 @@ export default class jtjh extends Component {
       }
     }).then((response) => {
           if (response.ok) {
-            fetch('http://117.50.46.40:8003/api/plans/xgPlans?jtnc='+this.state.jtnc)
+            fetch(app.Host+'api/plans/xgPlans?jtnc='+this.state.jtnc)
             .then((response) =>{
               if(response.ok){
                 return response.json();
@@ -110,7 +110,7 @@ export default class jtjh extends Component {
         
               this.setState({jtnc:item.nc,xgzh:decodeURI(item.userName),realname:decodeURI(item.realName)}) 
 
-              fetch('http://117.50.46.40:8003/api/plans/Plans?jtnc='+item.nc)
+              fetch(app.Host+'api/plans/Plans?jtnc='+item.nc)
               .then((response) =>{
                 if(response.ok){
                   return response.json();
@@ -124,7 +124,7 @@ export default class jtjh extends Component {
                 console.error(error); 
               }); 
 
-              fetch('http://117.50.46.40:8003/api/plans/xgPlans?jtnc='+item.nc)
+              fetch(app.Host+'api/plans/xgPlans?jtnc='+item.nc)
               .then((response) =>{
                 if(response.ok){
                   return response.json();

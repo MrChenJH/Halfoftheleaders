@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import Echarts from 'native-echarts';
 import Main from '../Main1'
-
+import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
 

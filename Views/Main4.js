@@ -28,9 +28,9 @@ import XGWdys from './xg/wdys'
 
 
 import Xwpj from './shy/xwpj'
-import Yssh from './shy/jhsh'
-import Sh from './shy/sh'
-import Jhsh from './shy/jhsh'
+import Yssh from './shy/yssh'
+import Sh from './shy/jhsh'
+import Jhsh from './shy/yssh'
 import Jssh from './shy/jssh'
 
 import GcJrrw from './gcy/jrrw'

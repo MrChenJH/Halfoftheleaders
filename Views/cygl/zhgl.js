@@ -11,7 +11,7 @@ import {
  ScrollView,
  ListView
 } from 'react-native'; 
-
+import app from '../../app.json';
 import Main from '../Main'
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2

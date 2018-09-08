@@ -14,7 +14,7 @@ import {
  AsyncStorage
 } from 'react-native'; 
 import Checkbox from '../component/checkbox'
-
+import app from '../../app.json';
 import Main from '../Main1'
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
@@ -51,7 +51,7 @@ export default class zhqh extends Component {
             
                   this.setState({jtnc:item.nc}) 
     
-                  fetch('http://117.50.46.40:8003/api/family/Members?jtnc='+item.nc)
+                  fetch(app.Host+'api/family/Members?jtnc='+item.nc)
                   .then((response) =>{
                     if(response.ok){
                       return response.json();
