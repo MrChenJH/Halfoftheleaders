@@ -34,7 +34,7 @@ export default class Login extends Component {
             pwd: '',
             type:1,
             mainType:1,
-            jtnc:'',
+  
             uName:'',
             phone:'',
             mm:'',
@@ -108,7 +108,7 @@ export default class Login extends Component {
    
         let url = app.Host+ "api/user/RegUser";  
         let params ={
-            "nc":this.state.jtnc,
+            "nc":this.state.uName,
             "userName":this.state.uName,
             "pwd":this.state.mm,
             "phone":this.state.phone,
@@ -122,16 +122,25 @@ export default class Login extends Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(params)
+        body: JSON.Wstringify(params)
       }).then((response) => {
             if (response.ok) {
                 console.log(response)
-                this.setState({type:3})
+              return response.text()
+             
                
             }
+        }).then((t) => {
+            if(t.includes('1')>0){
+                this.regAlert.alertWithType('error', 'Error', "登录名已经存在");
+            }else{
+
+                this.setState({type:3})
+            }
+          
         }).catch((error) => {
-    
-          this.regAlert.alertWithType('error', 'Error', error);
+            this.setState({type:3})
+         
             console.error(error);
         });
      }
@@ -411,30 +420,6 @@ userNameChange(val){
                     </View>
 
                    <ScrollView>
-                   <View style={{flexDirection:'row',
-                        borderBottomWidth:1,
-                        borderBottomColor:'#F0F0F0',
-                        height:50,
-                        width:deviceWidth*0.8,
-                        alignItems:'center',
-                        justifyContent:'space-between'
-                        }}>
-           
-            
-                <TextInput 
-                style={{flex:1}}
-                 underlineColorAndroid='transparent'
-                 placeholder='家庭昵称'
-                 placeholderTextColor='#fff'
-                 onChangeText={(v)=>{
-                     this.setState({jtnc:v})
-                 }}
-                 value={this.state.jtnc}
-                  ></TextInput>
-            
-   </View>  
-
-              
               <View style={{flexDirection:'row',
                         borderBottomWidth:1,
                         borderBottomColor:'#F0F0F0',
@@ -585,11 +570,7 @@ userNameChange(val){
                  height:80,
                  alignItems:'center'}}>
       <TouchableOpacity onPress={()=>{
-
-         if(!this.state.jtnc){
-                 this.regAlert.alertWithType('error', 'Error', '请输入家庭昵称')
-                 return
-             }
+     
 
           if(!this.state.uName){
                    this.regAlert.alertWithType('error', 'Error', '请输入登录名')
@@ -690,8 +671,8 @@ return (
                               paddingLeft:5,
                               paddingTop:10,
                               justifyContent:'flex-start'}}>
-                          <Text style={{fontSize:13,color:'black',fontWeight:'bold'}}>{this.state.jtnc}</Text>
-                          <Text style={{fontSize:12,color:'#D8D8D8'}}>豆为号:{this.state.userName}</Text>
+                          <Text style={{fontSize:13,color:'black',fontWeight:'bold'}}>{this.state.userRole}</Text>
+                          <Text style={{fontSize:12,color:'#D8D8D8'}}>豆为号:{this.state.uName}</Text>
                         
                          </View>
 

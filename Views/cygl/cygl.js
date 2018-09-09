@@ -15,7 +15,8 @@ import {
 } from 'react-native'; 
 import DatePicker from 'react-native-datepicker'
 import ModalDropdown from 'react-native-modal-dropdown';
-import Main from '../Main1' 
+import DropdownAlert from 'react-native-dropdownalert';
+
 import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -96,21 +97,26 @@ export default class page1 extends Component {
     body: JSON.stringify(params)
   }).then((response) => {
         if (response.ok) {
-        fetch(app.Host+'api/family/Members?jtnc='+this.state.jtnc)
-          .then((response) =>{
-            if(response.ok){
-              return response.json();
-            }
-          })
-          .then((responseJson) => { 
-            let data=JSON.parse(responseJson).data;
-            this.setState({dataSource:ds.cloneWithRows(data),type:1})
-          })
-          .catch((error) => {
-            console.error(error); 
-          });
+         return response.text()
         }
-    }).catch((error) => {
+    }).then((t)=>{
+      if(t.includes('1')>0){
+        this.regAert.alertWithType('error', 'Error', '用户名已经存在');
+      }else{
+        fetch(app.Host+'api/family/Members?jtnc='+this.state.jtnc)
+        .then((response) =>{
+          if(response.ok){
+            return response.json();
+          }
+        })
+        .then((responseJson) => { 
+          let data=JSON.parse(responseJson).data;
+          this.setState({dataSource:ds.cloneWithRows(data),type:1})
+        })
+      }
+   
+  }
+    ).catch((error) => {
         console.error(error);
     });
  
@@ -187,6 +193,7 @@ export default class page1 extends Component {
    
          return(
             <View>
+          
               <View style={{
                flexDirection:'row',
                borderBottomWidth:1,
@@ -310,7 +317,7 @@ export default class page1 extends Component {
               {
                     return(
                       <View>
-                        
+                            
                         <View style={{
                flexDirection:'row',
                borderBottomWidth:1,
@@ -620,6 +627,14 @@ export default class page1 extends Component {
                   }else{
                return ( 
                 <View>
+                   <DropdownAlert
+                                ref={ref => this.regAert = ref}
+                                 containerStyle={{height:100}}
+                                    showCancel={true}
+                                     closeInterval={3000}
+                                     zIndex={1000000}
+        
+                                    />
               <View style={{
                flexDirection:'row',
                borderBottomWidth:1,
