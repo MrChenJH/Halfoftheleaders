@@ -30,8 +30,7 @@ export default class HD extends Component {
         this.state = {
                 dataCySource: [], 
                 dataList: ds.cloneWithRows([
-                    {title:'数学作业',content:'金豆:500',xz:true},
-                    {title:'数学作业',content:'金豆:500',xz:false}
+                
                   ]),
             
               jtnc:'',
@@ -47,7 +46,7 @@ export default class HD extends Component {
     
 
      _showXgJH(xgzh){
-        fetch(app.Host+'api/plans/xgPlanJr?xgzh='+xgzh)
+        fetch(app.Host+'api/plans/tj?xgzh='+xgzh)
         .then((response) =>{
           if(response.ok){
             return response.json();
@@ -55,7 +54,10 @@ export default class HD extends Component {
         })
         .then((responseJson) => { 
           let data=responseJson.data;
-          this.setState({dataList:ds.cloneWithRows(data)})
+   
+          let data1=responseJson.data1;
+          this.setState({dataList:ds.cloneWithRows(data),zjds:data1[0].zs,whjds:data1[0].w,yhjds:data1[0].y})
+  
         })
         .catch((error) => {
           console.error(error); 
@@ -179,7 +181,7 @@ export default class HD extends Component {
                    .then((responseJson) => { 
                      let data=responseJson.data;
                      this.setState({dataCySource:data})
-                   })
+                    })
                    .catch((error) => {
                      console.error(error); 
                    });
@@ -230,25 +232,18 @@ export default class HD extends Component {
                 <View style={{justifyContent:'center',alignItems:'center'}}>
                     <Text 
                     style={{fontSize:16,
-                      color:'#FFF',fontWeight:'bold'}}>今日任务</Text>
+                      color:'#FFF',fontWeight:'bold'}}>今日计划</Text>
                 </View> 
                 <View style={{marginRight:5,
                     flexDirection:'row'}}> 
                   
             
-                        <TouchableOpacity  
-                      style={{height:20,width:20}} 
-                      onPress={()=>{ this.setState({type:2})}}>
-                        <Image source={require('./shyImage/add.png')}  
-                        resizeMode='stretch'
-                        style={{height:20,width:20}} >
-                        </Image>
-                      </TouchableOpacity> 
+                    
                       </View> 
             </View>
             <View
                                 style={{
-                                flex: 1,
+                                 height:100,
                                 justifyContent: 'flex-start',
                                 alignContent:'flex-start',
                                 flexDirection: 'row',
@@ -259,27 +254,29 @@ export default class HD extends Component {
                             }}>
                              {this._rednerCy1()}
                              </View>
+                             <View
+                                style={{
+                                 height:40,
+                                justifyContent: 'flex-start',
+                                alignContent:'flex-start',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                marginBottom: 5,
+                                marginBottom: 5,
+                                flexWrap:'wrap'
+                            }}>
+                             <Text  style={{flex:1}}>计划总金豆数{this.state.zjds}</Text> 
+                             <Text   style={{flex:1}}>已经获得金豆数{this.state.yhjds}</Text>
+                             <Text  style={{flex:1}}>未获得金豆数{this.state.whjds}</Text>
+                             </View>
  
-              <View
-                     style={{
-                        flex: 1,
-                        justifyContent: 'flex-start',
-                        alignContent:'flex-start',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginBottom: 20,
-                        marginTop: 10
-                     }}>
-              >
-
-                <Text>总金豆数{this.state.zjds}</Text> 
-                <Text>已经得金豆数{this.state.yhjds}</Text>
-                <Text>未获取金豆数{this.state.whjds}</Text>
-             
-              </View>
+          
       
      
-                  <ListView
+                  <ListView     style={{height:deviceWidth,
+                                       width:deviceheight-80}
+                                       }
+                  
                                   dataSource={this.state.dataList}
                                    renderRow={(rowData) => 
                            
@@ -291,34 +288,24 @@ export default class HD extends Component {
                                                       margin:5,
                                                       borderRadius:10,
                                                       height:40}}>
-                                                      <View style={{flex:4,
+                                                      <View style={{flex:1,
                                                         justifyContent:'center',
                                                         alignItems:'flex-start',
                                                      
                                                         marginLeft:10}}>
-                                                          <Text style={{   fontSize:12,color:'#474747'}}>{rowData.title}</Text>
+                                                          <Text style={{   fontSize:12,color:'#474747'}}>{decodeURI(rowData.realName)+"   "+decodeURI(rowData.projectName)}</Text>
                                                       </View>
-                                                      <View style={{flex:2,
-                                                        justifyContent:'center',
-                                                        alignItems:'center'
-                                                    }}>
-                                                          <Text style={{  fontSize:12, color:'#474747'}}>{rowData.content}</Text>
-                                                      </View>
-                                                      <View style={{flex:1,
-                                                        justifyContent:'center',
-                                                        alignItems:'center'}}>
-                                                         <CheckBox   styles={{height:20,width:20}}
-                                                         selected={(isS)=>{
-                                                                if(!isS){
-                                                                  this.setState({txtContent:rowData.title})
-                                                                }                             
-                                                         }}
-                                                         ></CheckBox>
+
+                                                         <View style={{flex:1,
+                                                        justifyContent:'flex-start',
+                                                        alignItems:'center',
+                                                        flexDirection:'row'
+                                                        }}>
+                                                         <Text style={{  fontSize:12, color:'#474747',marginRight:20}}>金豆数{decodeURI(rowData.jds)}</Text>
+                                                 
    
                                                       </View>
-                                                    
-                                            
-                                         </View>
+                                            </View>
                         
                                          }
                                    />
