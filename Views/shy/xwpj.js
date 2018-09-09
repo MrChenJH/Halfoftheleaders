@@ -206,7 +206,7 @@ body: JSON.stringify(params)
                     alignItems:'flex-end'}} 
                       onPress={()=>{
                         let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
-                          return item.id=="Main4"
+                          return item.id=="Main3"
                         })
                          this.props.navigator.popToRoute(destRoute);
                         }
