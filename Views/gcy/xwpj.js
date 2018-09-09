@@ -288,7 +288,7 @@ body: JSON.stringify(params)
                                               alignItems:'center'
                                           }}>
                                         
-                                            <Image source={rowData.ydType=="优"?require('./shyImage/you.png'):rowData.ydType=="良"?require('../shy/shyImage/lian.png'):require('../shy/shyImage/chai.png')} resizeMode='stretch' style={{height:20,width:20,marginLeft:10,marginRight:10}}></Image>
+                                            <Image source={decodeURI(rowData.ydType)=="优"?require('./shyImage/you.png'):decodeURI(rowData.ydType)=="良"?require('../shy/shyImage/lian.png'):require('../shy/shyImage/chai.png')} resizeMode='stretch' style={{height:20,width:20,marginLeft:10,marginRight:10}}></Image>
                                  
                                             </View>
                                             <View style={{flex:1,
