@@ -45,9 +45,22 @@ export default class HD extends Component {
           }
     }
     
+     _shenhe(id){
+      let url = app.Host+"api/plans/planSh?id"+id;  
+      fetch(url).then((response) => {
+    if (response.ok) {
+    
+    }
+}).catch((error) => {
+    console.error(error);
+});
+     }
 
-     _showXgJH(xgzh){
-        fetch(app.Host+'api/plans/xgPlanJr?xgzh='+xgzh)
+
+
+
+     _showXgJH(){
+        fetch(app.Host+'api/plans/xgPlanJr?jtnc='+this.state.jtnc+'&xgzh='+this.state.xgzh)
         .then((response) =>{
           if(response.ok){
             return response.json();
@@ -62,48 +75,6 @@ export default class HD extends Component {
         });
 
      }
-     Save(){
-        
-        if(!this.state.userRole){
-            this.dropdown.alertWithType('error', 'Error', '请选择家人' )
-            return
-        }
-        
-
-        if(!this.state.txtContent){
-            this.dropdown.alertWithType('error', 'Error', '请选择要说的话' )
-            return
-        }
-
-        let url =app.Host+ "api/message/AddMessageS";  
-        let params ={
-            "jtnc":this.state.jtnc,
-            "txtContent":this.state.txtContent,
-            "type":this.state.type,
-            "sysRole":this.state.sysRole,
-            "userRole":decodeURI(this.state.userRole)
-        }; 
-         
-       fetch(url, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params)
-      }).then((response) => {
-            if (response.ok) {
-                return response.json();
-            }
-        }).then((json) => {
-            console.log(json)
-            this.dropdown.alertWithType('success', '发送成功', '发送成功' )
-       
-        }).catch((error) => {
-            console.error(error);
-        });
-      
-      }
   
   
   
@@ -119,7 +90,10 @@ export default class HD extends Component {
        <View  key = {i} 
        style={{width:80,alignItems:'center'}}> 
  
-      <TouchableOpacity onPress={()=>{this._showXgJH.bind(this)(decodeURI(item.userName))}}>
+      <TouchableOpacity onPress={()=>{
+         this.setState({xgzh:decodeURI(item.userName)})
+          this._showXgJH.bind(this)()
+        }}>
        <Image
            source={role=="儿子"?require('../cygl/imgs/tx/boy.png'):require('../cygl/imgs/tx/girl.png')}
            style={{
@@ -141,26 +115,7 @@ export default class HD extends Component {
  }
 
 
-    itemAction(item) {
-        switch (item.type) {
-          case 'close':
-            this.closeAction();
-            break;
-          default:
-            const random = Math.floor(Math.random() * 1000 + 1);
-            const title = item.type + ' #' + random;
-            this.dropdown.alertWithType(item.type, title, item.message);
-        }
-      }
-      closeAction() {
-        this.dropdown.close();
-      }
-      handleClose(data) {
-        console.log(data);
-      }
-      handleCancel(data) {
-        console.log(data);
-      }
+
 
 
       componentWillMount(){
@@ -179,6 +134,7 @@ export default class HD extends Component {
                    .then((responseJson) => { 
                      let data=responseJson.data;
                      this.setState({dataCySource:data})
+                     this._showXgJH.bind(this)()
                    })
                    .catch((error) => {
                      console.error(error); 
@@ -288,7 +244,7 @@ export default class HD extends Component {
                                                          <CheckBox   styles={{height:20,width:20}}
                                                          selected={(isS)=>{
                                                                 if(!isS){
-                                                                  this.setState({txtContent:rowData.title})
+                                                              
                                                                 }                             
                                                          }}
                                                          ></CheckBox>
