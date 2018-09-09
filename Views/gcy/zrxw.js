@@ -88,7 +88,7 @@ _rednerCy(item,i){
 
 
 _showDeatil(){
-  fetch(app.Host+'api/behavior/behaviorS?jtnc='+this.state.jtnc+"&gcy="+this.state.userName+"&xg="+this.state.xgzh)
+  fetch(app.Host+'api/behavior/behaviorSzr?jtnc='+this.state.jtnc+"&gcy="+this.state.userName+"&xg="+this.state.xgzh)
   .then((response) =>{
     if(response.ok){
       return response.json();

@@ -45,7 +45,7 @@ export default class Login extends Component {
             contactAddress:'',
             state:'',
             birthday:'2016-05-15',
-            userRole:'',
+            userRole:'爸爸',
             regionBelong:'' 
           };
     }
@@ -125,11 +125,10 @@ export default class Login extends Component {
         body: JSON.stringify(params)
       }).then((response) => {
             if (response.ok) {
-                return response.json();
+                console.log(response)
+                this.setState({type:3})
+               
             }
-        }).then((json) => {
-            console.log(json)
-            this.setState({type:3})
         }).catch((error) => {
     
           this.regAlert.alertWithType('error', 'Error', error);

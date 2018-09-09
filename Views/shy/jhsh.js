@@ -46,10 +46,10 @@ export default class HD extends Component {
     }
     
      _shenhe(id){
-      let url = app.Host+"api/plans/planSh?id"+id;  
+      let url = app.Host+"api/plans/planSh?id="+id;  
       fetch(url).then((response) => {
     if (response.ok) {
-    
+      this._showXgJH.bind(this)()
     }
 }).catch((error) => {
     console.error(error);
@@ -241,10 +241,12 @@ export default class HD extends Component {
                                                         flexDirection:'row'
                                                         }}>
                                                          <Text style={{  fontSize:12, color:'#474747',marginRight:20}}>金豆数{decodeURI(rowData.jds)}</Text>
-                                                         <CheckBox   styles={{height:20,width:20}}
+                                                         <CheckBox 
+                                                         isChecked={rowData.state==2}
+                                                         styles={{height:20,width:20}}
                                                          selected={(isS)=>{
                                                                 if(!isS){
-                                                              
+                                                                  this._shenhe.bind(this,rowData.xgid)()
                                                                 }                             
                                                          }}
                                                          ></CheckBox>

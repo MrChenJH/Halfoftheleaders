@@ -108,7 +108,7 @@ export default class jtjh extends Component {
        return JSON.parse(item)
          }).then((item)=>{ 
         
-              this.setState({jtnc:item.nc,xgzh:decodeURI(item.userName),realname:decodeURI(item.realName)}) 
+              this.setState({jtnc:decodeURI(item.nc),xgzh:decodeURI(item.userName),realname:decodeURI(item.realName)}) 
 
               fetch(app.Host+'api/plans/Plans?jtnc='+item.nc)
               .then((response) =>{
@@ -124,7 +124,7 @@ export default class jtjh extends Component {
                 console.error(error); 
               }); 
 
-              fetch(app.Host+'api/plans/xgPlans?jtnc='+item.nc)
+              fetch(app.Host+'api/plans/xgPlans?jtnc='+item.nc+'')
               .then((response) =>{
                 if(response.ok){
                   return response.json();

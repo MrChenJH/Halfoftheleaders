@@ -29,6 +29,7 @@ export default class Jhsh extends Component {
              dataSource: ds.cloneWithRows([
              
               ]),
+              jtnc:'',
               type:1,
               typetitle:'',
               typecontent:''
@@ -66,8 +67,8 @@ export default class Jhsh extends Component {
         AsyncStorage.getItem('user').then((item)=>{
          return JSON.parse(item)
            }).then((item)=>{ 
-                    this.setState({jtnc:decodeURI(item.nc)})
-                fetch(app.Host+'/api/ys/YsSs?jtnc='+this.state.jtnc)
+             
+            fetch(app.Host+'api/ys/ysSearch?jtnc='+decodeURI(item.nc))
                 .then((response) =>{
                   if(response.ok){
                     return response.json();
@@ -76,8 +77,7 @@ export default class Jhsh extends Component {
                 .then((responseJson) => { 
                   let data=responseJson.data; 
                   this.setState({
-                   dataSource: ds.cloneWithRows(data),
-                 })
+                   dataSource: ds.cloneWithRows(data)})
                 })
                 .catch((error) => {
                   console.error(error); 
@@ -166,6 +166,7 @@ justifyContent:'space-between'}}>
                          justifyContent:'center',
                          alignItems:'center'}}>
                            <CheckBox 
+                          isChecked={rowData.ysState==3} 
                            selected={this.pro.bind(this,rowData.id)}
                            styles={{height:20,width:20}} ></CheckBox>
                        </View>

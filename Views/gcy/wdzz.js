@@ -13,25 +13,26 @@ import {
     AsyncStorage
 } from 'react-native';  
 
-import Main from '../Main4'  
+
 import DropdownAlert from 'react-native-dropdownalert'
 import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
-import CheckBox from '../component/xwCheckBox'
+
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
 
 
-export default class Jhsh extends Component {
+export default class wdzz extends Component {
     constructor(props) {
         super(props);
         this.state = {
               dataSource: ds.cloneWithRows([]),
               type:1,
               typetitle:'',
-              typecontent:''
+              typecontent:'',
+              jtnc:''
         }
     }
     
@@ -63,8 +64,8 @@ export default class Jhsh extends Component {
         AsyncStorage.getItem('user').then((item)=>{
          return JSON.parse(item)
            }).then((item)=>{ 
-                this.setState({jtnc:decodeURI(item.nc)}) 
-                 fetch(app.Host+'api/sponsor/SponsorS?jtnc='+thist.state.jtnc)
+        
+                 fetch(app.Host+'api/sponsor/SponsorS?jtnc='+decodeURI(item.nc))
                 .then((response) =>{
                   if(response.ok){
                     return response.json();
@@ -111,9 +112,11 @@ justifyContent:'space-between'}}>
         justifyContent:'center',
         alignItems:'flex-end'}} 
         onPress={()=>{
-            this.props.navigator.push({
-                component:Main,
-                })
+            let  destRoute=this.props.navigator.getCurrentRoutes().find((item)=>{
+                return item.id=="Main4"
+              })
+            
+              this.props.navigator.popToRoute(destRoute);
            }}>
          <Image source={require('./shyImage/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
          </Image>

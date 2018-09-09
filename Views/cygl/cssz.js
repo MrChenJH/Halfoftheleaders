@@ -148,8 +148,7 @@ export default class canshu extends Component {
                   <ListView
                                      dataSource={this.state.dataSource}
                                       renderRow={(rowData) => 
-                                        <TouchableOpacity  
-                                        onPress={()=>{this.setState({type:2})}}>
+                                    
                                        <View 
                                            style={{flexDirection:'row',
                                                    borderTopColor:'#F0F0F0',
@@ -178,7 +177,7 @@ export default class canshu extends Component {
                                                  
                                          
                                       </View>
-                                     </TouchableOpacity>
+                                 
                                             }
                                       />
              
