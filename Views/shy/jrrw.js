@@ -64,49 +64,7 @@ export default class HD extends Component {
         });
 
      }
-     Save(){
-        
-        if(!this.state.userRole){
-            this.dropdown.alertWithType('error', 'Error', '请选择家人' )
-            return
-        }
-        
-
-        if(!this.state.txtContent){
-            this.dropdown.alertWithType('error', 'Error', '请选择要说的话' )
-            return
-        }
-
-        let url =app.Host+ "api/message/AddMessageS";  
-        let params ={
-            "jtnc":this.state.jtnc,
-            "txtContent":this.state.txtContent,
-            "type":this.state.type,
-            "sysRole":this.state.sysRole,
-            "userRole":decodeURI(this.state.userRole)
-        }; 
-         
-       fetch(url, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params)
-      }).then((response) => {
-            if (response.ok) {
-                return response.json();
-            }
-        }).then((json) => {
-            console.log(json)
-            this.dropdown.alertWithType('success', '发送成功', '发送成功' )
-       
-        }).catch((error) => {
-            console.error(error);
-        });
-      
-      }
-  
+   
   
   
     _rednerCy1(){
