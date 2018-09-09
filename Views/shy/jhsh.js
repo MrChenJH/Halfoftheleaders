@@ -230,7 +230,7 @@ export default class HD extends Component {
                 <View style={{justifyContent:'center',alignItems:'center'}}>
                     <Text 
                     style={{fontSize:16,
-                      color:'#FFF',fontWeight:'bold'}}>今日任务</Text>
+                      color:'#FFF',fontWeight:'bold'}}>计划审核</Text>
                 </View> 
                 <View style={{marginRight:5,
                     flexDirection:'row'}}> 
