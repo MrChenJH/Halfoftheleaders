@@ -17,8 +17,9 @@ import {
 } from 'react-native';
 import Main from '../Main1' 
 import app from '../../app.json'
-import Checkbox from '../component/checkbox'
+import CheckBox from '../component/checkbox'
 import DatePicker from 'react-native-datepicker'
+import DropdownAlert from 'react-native-dropdownalert';
 import ModalDropdown from 'react-native-modal-dropdown';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
@@ -248,7 +249,7 @@ export default class jtjh extends Component {
               })
               .then((responseJson) => { 
                 let data=responseJson.data;
-                this.setState({datalist:ds.cloneWithRows(data),type:1})
+                this.setState({datalist:ds.cloneWithRows(data)})
               })
               .catch((error) => {
                 console.error(error); 
@@ -519,6 +520,21 @@ export default class jtjh extends Component {
             }
     }
     
+    _showddddd(){
+      fetch(app.Host+'api/plans/PlansTj?jtnc='+this.state.jtnc)
+      .then((response) =>{
+        if(response.ok){
+          return response.json();
+        }
+      })
+      .then((responseJson) => { 
+        let data=responseJson.data;
+        this.setState({tjdatalist:ds.cloneWithRows(data)})
+      })
+      .catch((error) => {
+        console.error(error); 
+      }); 
+    }
     componentWillMount(){
         
       AsyncStorage.getItem('user').then((item)=>{
@@ -540,7 +556,8 @@ export default class jtjh extends Component {
                .catch((error) => {
                  console.error(error); 
                }); 
- 
+               
+               this._showddddd.bind(this)()
              
                
           })
@@ -665,310 +682,17 @@ export default class jtjh extends Component {
                
            </View>
             )
-        }
-        else if(this.state.type==2)
-        {
-              return(
-                <View>
-                  
-                  <View style={{
-               flexDirection:'row',
-               borderBottomWidth:1,
-               borderBottomColor:'#E6E6E6',
-               backgroundColor:'#fe9c2e',
-               height:40,
-               alignItems:'center',
-               justifyContent:'space-between'}}>
-                  <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
-             <TouchableOpacity   
-                   style={{height:50,
-                    width:35,
- 
-                 justifyContent:'center',
-                 alignItems:'flex-end'}} 
-                      onPress={()=>{this.setState({type:1})}}>
-                       
-                       
-                        <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
-                        </Image>
-                      </TouchableOpacity> 
-                </View> 
-                    <View style={{justifyContent:'center',alignItems:'center'}}>
-                        <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>计划详情</Text>
-                    </View> 
-                    <View style={{marginRight:5,width:22}}> 
-                  
-                    </View> 
-                </View>
-                 
-
-
-                <View backgroundColor='#F2F2F2' 
-                style={{height:deviceheight-60}}>
-
-                   <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'类型',typecontent:'系统预设'})}}>
-              
-              <View style={{flexDirection:'row',
-                       backgroundColor:'#fff',
-                       borderTopColor:'#F0F0F0',
-                       borderTopWidth:1,
-                       borderBottomWidth:1,
-                       borderBottomColor:'#F0F0F0',
-                       height:40,
-                       alignItems:'center',
-                       justifyContent:'space-between',
-                       paddingLeft:10,
-                       paddingRight:10,
-                       marginTop:10,
-                       }}>
-                        <Text style={{fontSize:13,
-                          color:'#585858',
-                          fontFamily:'Microsoft YaHei'}}>
-                             类型:</Text>  
-                             <View 
-                        style={{flexDirection:'row',alignItems:'center'}}>
-                               <Text style={{fontSize:13,
-                          color:'#585858',
-                          fontFamily:'Microsoft YaHei'}}>
-                             系统预设</Text>  
-                        <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
-                        </View>
-                      </View>
-                      </TouchableOpacity>
-                  <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'项目名称',typecontent:'8'})}}>
-                    <View style={{flexDirection:'row',
-                           backgroundColor:'#fff',
-                           borderTopColor:'#F0F0F0',
-                           borderTopWidth:1,
-                           borderBottomWidth:1,
-                           borderBottomColor:'#F0F0F0',
-                           height:40,
-                           alignItems:'center',
-                           justifyContent:'space-between',
-                           paddingLeft:10,
-                           paddingRight:10,
-                           marginTop:10,
-                           }}>
-                            <Text 
-                             style={{fontSize:13,
-                              color:'#585858',
-                              fontFamily:'Microsoft YaHei'}}>
-                            项目名称</Text>
-                            <View 
-                            style={{flexDirection:'row',alignItems:'center'}}>
-                           <Text style={{
-                               fontSize:13,
-                               color:'#585858',
-                               fontFamily:'Microsoft YaHei'}}>
-                             系统预设</Text>  
-                            <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
-                            </View>
-                           
-                  </View> 
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'金豆数量',typecontent:'8'})}}>
-              
-                  <View style={{flexDirection:'row',
-                           backgroundColor:'#fff',
-                           borderTopColor:'#F0F0F0',
-                           borderTopWidth:1,
-                           borderBottomWidth:1,
-                           borderBottomColor:'#F0F0F0',
-                           height:40,
-                           alignItems:'center',
-                           justifyContent:'space-between',
-                           paddingLeft:10,
-                           paddingRight:10,
-                           marginTop:10,
-                           }}>
-                            <Text style={{fontSize:13,
-                              color:'#585858',
-                              fontFamily:'Microsoft YaHei'}}>
-                                 金豆数量:</Text>  
-                                 <View 
-                            style={{flexDirection:'row',alignItems:'center'}}>
-                                   <Text style={{fontSize:13,
-                              color:'#585858',
-                              fontFamily:'Microsoft YaHei'}}>
-                                8</Text>  
-                            <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
-                            </View>
-                          </View>
-                          </TouchableOpacity>
-                        
-
-                      <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'周期',typecontent:'5天'})}}>
-                          <View style={{flexDirection:'row',
-                           backgroundColor:'#fff',
-                           borderTopColor:'#F0F0F0',
-                           borderTopWidth:1,
-                           borderBottomWidth:1,
-                           borderBottomColor:'#F0F0F0',
-                           height:40,
-                           alignItems:'center',
-                           justifyContent:'space-between',
-                           paddingLeft:10,
-                           paddingRight:10,
-                           marginTop:10,
-                           }}>
-                            <Text style={{fontSize:13,
-                              color:'#585858',
-                              fontFamily:'Microsoft YaHei'}}>
-                           周期</Text> 
-                           <View 
-                            style={{flexDirection:'row',alignItems:'center'}}>
-                                   <Text style={{fontSize:13,
-                              color:'#585858',
-                              fontFamily:'Microsoft YaHei'}}>
-                                5天</Text>  
-                            <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
-                            </View>
-                        </View>
-                        </TouchableOpacity>
-
-
-    <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'周期开始时间',typecontent:'2018-09-01'})}}>
-           <View style={{flexDirection:'row',
-                           backgroundColor:'#fff',
-                           borderTopColor:'#F0F0F0',
-                           borderTopWidth:1,
-                           borderBottomWidth:1,
-                           borderBottomColor:'#F0F0F0',
-                           height:40,
-                           alignItems:'center',
-                           justifyContent:'space-between',
-                           paddingLeft:10,
-                           paddingRight:10,
-                           marginTop:10,
-                           }}>
-                            <Text style={{fontSize:13,
-                              color:'#585858',
-                              fontFamily:'Microsoft YaHei'}}>
-                               周期开始时间</Text> 
-                          <View 
-                            style={{flexDirection:'row',alignItems:'center'}}>
-                                   <Text style={{fontSize:13,
-                              color:'#585858',
-                              fontFamily:'Microsoft YaHei'}}>
-                                 2018-09-01</Text>  
-                            <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
-                            </View>                    
-                        </View>
-                        </TouchableOpacity>
-                
-
-
-                      <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'周期结束时间',typecontent:'2019-08-01'})}}>
-                <View style={{flexDirection:'row',
-                           backgroundColor:'#fff',
-                           borderTopColor:'#F0F0F0',
-                           borderTopWidth:1,
-                           borderBottomWidth:1,
-                           borderBottomColor:'#F0F0F0',
-                           height:40,
-                           alignItems:'center',
-                           justifyContent:'space-between',
-                           paddingLeft:10,
-                           paddingRight:10,
-                           marginTop:10,
-                           }}>
-                            <Text style={{fontSize:13,
-                              color:'#585858',
-                              fontFamily:'Microsoft YaHei'}}>
-                   周期结束时间</Text> 
-                   <View 
-                            style={{flexDirection:'row',alignItems:'center'}}>
-                                   <Text style={{fontSize:13,
-                              color:'#585858',
-                              fontFamily:'Microsoft YaHei'}}>
-                                 2019-08-01</Text>  
-                            <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
-                            </View>               
-                        </View> 
-                        </TouchableOpacity>
-
-
-
-                      <TouchableOpacity onPress={()=>{this.setState({type:4,typetitle:'是否循环',typecontent:'是'})}}>
-           <View style={{flexDirection:'row',
-                           backgroundColor:'#fff',
-                           borderTopColor:'#F0F0F0',
-                           borderTopWidth:1,
-                           borderBottomWidth:1,
-                           borderBottomColor:'#F0F0F0',
-                           height:40,
-                           alignItems:'center',
-                           justifyContent:'space-between',
-                           paddingLeft:10,
-                           paddingRight:10,
-                           marginTop:10,
-                           }}>
-                            <Text style={{fontSize:13,
-                              color:'#585858',
-                              fontFamily:'Microsoft YaHei'}}>
-                             是否循环</Text> 
-                           <View 
-                            style={{flexDirection:'row',alignItems:'center'}}>
-                                   <Text style={{fontSize:13,
-                              color:'#585858',
-                              fontFamily:'Microsoft YaHei'}}>
-                                是</Text>  
-                            <Image source={require('./imgs/go.png')}  style={{width:10,height:10,marginLeft:5}} resizeMode='stretch'></Image>
-                            </View>                                             
-                        </View>
-                        </TouchableOpacity>
-                   
-                 </View>
-            </View>
-              )
-            }else if(this.state.type==4){
-                return(
-                    <View>
-                    <View style={{
-               flexDirection:'row',
-               borderBottomWidth:1,
-               borderBottomColor:'#E6E6E6',
-               backgroundColor:'#fe9c2e',
-               height:40,
-               alignItems:'center',
-               justifyContent:'space-between'}}>
-                        
-                        <View  style={{height:50,width:35,alignItems:'center',justifyContent:'center'}}>
-                         <TouchableOpacity   
-                   style={{height:50,
-                    width:35,
- 
-                 justifyContent:'center',
-                 alignItems:'flex-end'}} 
-                               onPress={()=>{this.setState({type:2})}}>
-                                 <Image source={require('./imgs/back.png')}  resizeMode='stretch'  style={{height:20,width:20}} >
-                                 </Image>
-                               </TouchableOpacity> 
-                               </View> 
-                               <View style={{justifyContent:'center',alignItems:'center'}}>
-                                   <Text style={{fontSize:16,color:'#FFF',fontWeight:'bold'}}>{this.state.typetitle}编辑</Text>
-                               </View> 
-                               <View style={{marginRight:5,width:21}}> 
-                                    
-                               </View> 
-                           </View>
-                           <View backgroundColor='#F2F2F2' 
-                                       style={{height:deviceheight-60}}>
-                            <View style={{backgroundColor:'#fff',marginTop:10,height:40}}>
-                            <TextInput   underlineColorAndroid='transparent' 
-                                 clearButtonMode='always'
-                                  multiline={false}
-                                  defaultValue={this.state.typecontent}
-                            >
-    
-                            </TextInput>
-                            </View>
-                            </View>
-                       </View>
-                )
-            }else if(this.state.type==6){
+        }else if(this.state.type==6){
                 return (
-                    <View>
+                    <View> 
+                            <DropdownAlert
+                                ref={ref => this.loginAlert = ref}
+                                 containerStyle={{height:100}}
+                                    showCancel={true}
+                                     closeInterval={3000}
+                                     zIndex={1000000}
+        
+                                    />
                                <View style={{
                                flexDirection:'row',
                                borderBottomWidth:1,
@@ -996,20 +720,17 @@ export default class jtjh extends Component {
                                             color:'#FFF',fontWeight:'bold'}}>推荐计划</Text>
                                       </View> 
                                       <View style={{marginRight:5,width:40}}> 
-                     <TouchableOpacity onPress={()=>{}}>
-                       <Text style={{color:'#FFFF00',fontSize:16}}>保存</Text>
-                     </TouchableOpacity>
-                      </View> 
+                 
+                                      </View> 
                                   </View>
                              
                             
                                <View style={{backgroundColor:'#F2F2F2',height:deviceheight}}>
                                <ScrollView >
                                <ListView
-                                  dataSource={this.state.datalist}
+                                  dataSource={this.state.tjdatalist}
                                    renderRow={(rowData) => 
-                                     <TouchableOpacity  
-                                           onPress={()=>{this.setState({type:2})}}>
+                           
                                           <View 
                                               style={{flexDirection:'row',
                                                       borderTopColor:'#F0F0F0',
@@ -1023,7 +744,7 @@ export default class jtjh extends Component {
                                                         alignItems:'flex-start',
                                                      
                                                         marginLeft:10}}>
-                                                          <Text style={{   color:'#474747'}}>{rowData.projectName}</Text>
+                                                          <Text style={{   color:'#474747'}}>{decodeURI(rowData.projectName)}</Text>
                                                       </View>
                                                       <View style={{flex:2,
                                                         justifyContent:'center',
@@ -1035,18 +756,28 @@ export default class jtjh extends Component {
                                                         justifyContent:'center',
                                                         alignItems:'center'
                                                     }}>
-                                                          <Text style={{   color:'#474747'}}>应用次数 39</Text>
+                                                          <Text style={{   color:'#474747'}}>应用次数 {rowData.times}</Text>
                                                       </View>
                                                       <View style={{flex:1,
                                                         justifyContent:'center',
                                                         alignItems:'center'}}>
-
-                                                         <Checkbox styles={{height:20,width:20}}  ></Checkbox>
+                                                              <CheckBox   styles={{height:20,width:20}}
+                                                         selected={(isS)=>{
+                                                                if(!isS){
+                                                                  this.setState({xmName:decodeURI(rowData.projectName),jds:rowData.jds})
+                                                                   this.PostJtjh.bind(this)()
+                                                                   this.loginAlert.alertWithType('success', 'Success', '推荐成功');
+                                                                   this._showddddd.bind(this)()
+                                                                  }                             
+                                                         }}
+                                                         ></CheckBox>
+                                               
+                                                      
                                                       </View>
                                                     
                                             
                                          </View>
-                                        </TouchableOpacity>
+                                   
                                          }
                                    />
                                               
@@ -1084,7 +815,10 @@ export default class jtjh extends Component {
                             color:'#FFF',fontWeight:'bold'}}>计划添加</Text>
                       </View> 
                       <View style={{marginRight:5,width:40}}> 
-                     <TouchableOpacity onPress={this.PostJtjh.bind(this)}>
+                     <TouchableOpacity onPress={()=>{
+                         this.setState({type:1})
+                         this.PostJtjh.bind(this)()}
+                     }>
                        <Text style={{color:'#FFFF00',fontSize:16}}>保存</Text>
                      </TouchableOpacity>
                       </View> 

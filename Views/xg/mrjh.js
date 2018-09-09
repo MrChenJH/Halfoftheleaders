@@ -45,7 +45,31 @@ export default class jtjh extends Component {
               jtnc:""
         }
     }
-    
+     
+
+    _shenhe(id){
+      let url = app.Host+"api/plans/planTj?id="+id;  
+      fetch(url).then((response) => {
+    if (response.ok) {
+      fetch(app.Host+'api/plans/xgPlans?jtnc='+this.state.jtnc+'&xgzh='+this.state.xgzh)
+      .then((response) =>{
+        if(response.ok){
+          return response.json();
+        }
+      })
+      .then((responseJson) => { 
+        let data=responseJson.data;
+        this.setState({dataSource:ds.cloneWithRows(data)})
+      })
+      .catch((error) => {
+        console.error(error); 
+      }); 
+    }
+}).catch((error) => {
+    console.error(error);
+});
+     }
+
 
      _remove(id){
       fetch(app.Host+'api/plans/removePaln?id='+id)
@@ -71,6 +95,8 @@ export default class jtjh extends Component {
 
      }
      
+
+
     _save(){
       
       let url = app.Host+"api/plans/AddXgPlan?ids="+this.state.selectIds+"&jtnc="+this.state.jtnc+"&xgzh="+this.state.xgzh+"&realname="+this.state.realname;  
@@ -83,7 +109,7 @@ export default class jtjh extends Component {
       }
     }).then((response) => {
           if (response.ok) {
-            fetch(app.Host+'api/plans/xgPlans?jtnc='+this.state.jtnc)
+            fetch(app.Host+'api/plans/xgPlans?jtnc='+this.state.jtnc+'&xgzh='+this.state.xgzh)
             .then((response) =>{
               if(response.ok){
                 return response.json();
@@ -124,7 +150,7 @@ export default class jtjh extends Component {
                 console.error(error); 
               }); 
 
-              fetch(app.Host+'api/plans/xgPlans?jtnc='+item.nc+'')
+              fetch(app.Host+'api/plans/xgPlans?jtnc='+decodeURI(item.nc)+'&xgzh='+decodeURI(item.userName))
               .then((response) =>{
                 if(response.ok){
                   return response.json();
@@ -225,8 +251,23 @@ export default class jtjh extends Component {
                                                        <Text style={{   color:'#474747'}}>金豆:{rowData.jds}</Text>
                                                       </View>
                                                       <View style={{flex:1,
-                                                        justifyContent:'center',
-                                                        alignItems:'center'}}>
+                                                          flexDirection:'row',
+                                                          alignItems:'center'
+                                                          }}>
+                                                       
+                                                       <Checkbox 
+                                                        isChecked={rowData.state>=1}
+                                                         styles={{height:20,width:20,marginRight:10}}
+                                                         selected={(isS)=>{
+                                                           
+                                                          if(!isS){
+                                                            this._shenhe.bind(this,rowData.xgid)()
+                                                          }
+                                                        }
+                                                      }     
+                                                        ></Checkbox>
+                                                
+                                                       
                                                         <TouchableOpacity
                                                         onPress={this._remove.bind(this,rowData.xgid)}>
                                                            <Image source={require('../shy/shyImage/delete.png')} resizeMode='stretch' style={{height:20,width:20}}></Image>

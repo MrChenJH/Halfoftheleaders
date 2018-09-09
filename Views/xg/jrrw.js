@@ -14,7 +14,6 @@ import Main from '../Main2'
 import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;  
 const deviceheight = Dimensions.get('window').height;  
-import CheckBox from '../component/xwCheckBox'
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
