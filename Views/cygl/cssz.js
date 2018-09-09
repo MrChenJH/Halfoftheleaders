@@ -34,6 +34,30 @@ export default class canshu extends Component {
     } 
 
 
+ _removeFund(id){
+   let url = app.Host+"api/FundSetting/RemoveFundSetting?id="+id;  
+   fetch(url).then((response) => {
+      if (response.ok) {
+        fetch(app.Host+'api/FundSetting/FundSetting?jtnc='+this.state.jtnc)
+        .then((response) =>{
+          if(response.ok){
+            return response.json();
+          }
+        })
+        .then((responseJson) => { 
+          let data=responseJson.data;
+          this.setState({dataSource:ds.cloneWithRows(data),type:1})
+        })
+        .catch((error) => {
+          console.error(error); 
+        });
+      }
+  }).catch((error) => {
+      console.error(error);
+  });
+
+ }
+
     //添加成员
   AddFund(){
     let url = app.Host+"api/FundSetting/addFundSetting";  
@@ -172,7 +196,12 @@ export default class canshu extends Component {
                                                    <View style={{flex:1,
                                                      justifyContent:'center',
                                                      alignItems:'center'}}>
+                                                     <TouchableOpacity
+                                                     onPress={()=>
+                                                      {this._removeFund.bind(this)(rowData.id)}}
+                                                     >
                                                         <Image source={require('./imgs/delete.png')} resizeMode='stretch' style={{height:20,width:20}}></Image>
+                                                        </TouchableOpacity>
                                                    </View>
                                                  
                                          
