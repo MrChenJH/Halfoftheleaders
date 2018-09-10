@@ -387,7 +387,7 @@ export default class xwpj extends Component {
                     }}>
 
 
-                        <Text style={{flex: 1}}>评价</Text>
+             
                         <ModalDropdown options={["优", "良", "差"]}
                                        onSelect={(i, v) => {
                                            if (v == "优")

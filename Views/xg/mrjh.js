@@ -15,7 +15,8 @@ import {
     RefreshControl
 } from 'react-native';
 import Main from '../Main2'
-import Checkbox from '../component/xwCheckBox'
+
+
 import app from '../../app.json';
 import ModalDropdown from 'react-native-modal-dropdown';
 
@@ -43,29 +44,7 @@ export default class jtjh extends Component {
     }
 
 
-    _shenhe(id) {
-        let url = app.Host + "api/plans/planTj?id=" + id;
-        fetch(url).then((response) => {
-            if (response.ok) {
-                fetch(app.Host + 'api/plans/xgPlans?jtnc=' + this.state.jtnc + '&xgzh=' + this.state.xgzh)
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json();
-                        }
-                    })
-                    .then((responseJson) => {
-                        let data = responseJson.data;
-                        this.setState({dataSource: ds.cloneWithRows(data)})
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
-    }
-
+   
 
     _remove(id) {
         fetch(app.Host + 'api/plans/removePaln?id=' + id)
