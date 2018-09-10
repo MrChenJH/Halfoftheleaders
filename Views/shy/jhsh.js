@@ -19,7 +19,7 @@ import DropdownAlert from 'react-native-dropdownalert';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
-import CheckBox from '../component/xwCheckBox'
+import Checkbox from '../component/xwCheckBox'
 
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
@@ -254,15 +254,15 @@ export default class HD extends Component {
                                     color: '#474747',
                                     marginRight: 20
                                 }}>金豆数{decodeURI(rowData.jds)}</Text>
-                                <CheckBox
-                                    isChecked={rowData.state == 2}
+                                <Checkbox
+                                    isChecked={rowData.sta>1}
                                     styles={{height: 20, width: 20}}
                                     selected={(isS) => {
                                         if (!isS) {
                                             this._shenhe.bind(this, rowData.xgid)();
                                         }
                                     }}
-                                ></CheckBox>
+                                ></Checkbox>
 
                             </View>
                             <View style={{width: 10}}>

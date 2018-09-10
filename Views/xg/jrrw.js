@@ -15,7 +15,7 @@ import app from '../../app.json';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
-import CheckBox from '../component/xwCheckBox'
+import Checkbox from '../component/xwCheckBox'
 
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
@@ -31,39 +31,63 @@ export default class jrrw extends Component {
             realname: "",
             zjds: 0,
             yhjds: 0,
-            whjds: 0
+            whjds: 0,
+            userName:''
         }
     }
+    
+    _showDatad(){
+        fetch(app.Host + 'api/plans/tj?xgzh=' + this.state.userName)
+       .then((response) => {
+           if (response.ok) {
+               return response.json();
+           }
+       })
+       .then((responseJson) => {
+           let data = responseJson.data;
+            let data1 = responseJson.data1;
+           this.setState({
+               dataList: ds.cloneWithRows(data),
+               zjds: data1[0].zs,
+               whjds: data1[0].w,
+               yhjds: data1[0].y
+           })
+
+       })
+       .catch((error) => {
+           console.error(error);
+       });
+   }
+
+    _shenhe(id) {
+        let url = app.Host + "api/plans/planTj?id=" + id;
+        fetch(url).then((response) => {
+            if (response.ok) {
+                  this._showDatad.bind(this)()
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+   
+ 
+
+
 
     componentWillMount() {
 
         AsyncStorage.getItem('user').then((item) => {
             return JSON.parse(item)
         }).then((item) => {
-            fetch(app.Host + 'api/plans/tj?xgzh=' + decodeURI(item.userName))
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                })
-                .then((responseJson) => {
-                    let data = responseJson.data;
+             
+            this.setState({
+                userName:decodeURI(item.userName),
+                jtnc: decodeURI(item.nc),
+                xgzh: decodeURI(item.userName),
+                realname: decodeURI(item.realName)
+            }) 
 
-                    let data1 = responseJson.data1;
-                    this.setState({
-                        jtnc: item.nc,
-                        xgzh: decodeURI(item.userName),
-                        realname: decodeURI(item.realName),
-                        dataList: ds.cloneWithRows(data),
-                        zjds: data1[0].zs,
-                        whjds: data1[0].w,
-                        yhjds: data1[0].y
-                    })
-
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            this._showDatad.bind(this)()
         })
     }
 
@@ -167,9 +191,9 @@ export default class jrrw extends Component {
                             marginBottom: 5,
                             flexWrap: 'wrap'
                         }}>
-                        <Text style={{flex: 1}}>计划总金豆数{this.state.zjds}</Text>
-                        <Text style={{flex: 1}}>获得金豆数{this.state.yhjds}</Text>
-                        <Text style={{flex: 1}}>未获得金豆数{this.state.whjds}</Text>
+                        <Text style={{flex: 1,textAlign:"center"}}>计划总金豆数:{this.state.zjds}</Text>
+                        <Text style={{flex: 1}}>获得金豆数:{this.state.yhjds}</Text>
+                        <Text style={{flex: 1}}>未获得金豆数:{this.state.whjds}</Text>
                     </View>
                     <ListView
                         dataSource={this.state.dataList}
@@ -208,9 +232,27 @@ export default class jrrw extends Component {
                                         fontSize: 12,
                                         color: '#474747',
                                         marginRight: 20
-                                    }}>金豆数{decodeURI(rowData.jds)}</Text>
+                                    }}>金豆数:{decodeURI(rowData.jds)}</Text>
 
                                 </View>
+                                <View style={{
+                                    flex: 1,
+                                    justifyContent:'flex-end',
+                                    alignItems: 'center',
+                                    flexDirection: 'row'
+                                }}>
+                                            <Checkbox
+                                            isChecked={rowData.state >= 1}
+                                            styles={{height: 20, width: 20, marginRight: 10}}
+                                            selected={(isS) => {
+
+                                                if (!isS) {
+                                                    this._shenhe.bind(this, rowData.xgid)()
+                                                }
+                                            }
+                                            }
+                                        ></Checkbox>
+                                 </View>
                             </View>
                         }
                     />

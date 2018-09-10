@@ -261,18 +261,7 @@ export default class jtjh extends Component {
                                         alignItems: 'center'
                                     }}>
 
-                                        <Checkbox
-                                            isChecked={rowData.state >= 1}
-                                            styles={{height: 20, width: 20, marginRight: 10}}
-                                            selected={(isS) => {
-
-                                                if (!isS) {
-                                                    this._shenhe.bind(this, rowData.xgid)()
-                                                }
-                                            }
-                                            }
-                                        ></Checkbox>
-
+                            
 
                                         <TouchableOpacity
                                             onPress={this._remove.bind(this, rowData.xgid)}>
