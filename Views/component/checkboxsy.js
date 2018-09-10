@@ -42,7 +42,7 @@ export default class CheckBoxsy extends PureComponent {
                 this.setState({
                     isChecked: !this.state.isChecked
                 });
-                selected(this.state.isChecked)
+                //selected(this.state.isChecked)
             } }>
                 <Image source={this.state.isChecked?checkedImage:checkImage} style={styles}/>
             </TouchableHighlight>
