@@ -22,7 +22,7 @@ import Zhqh from '../gcy/zhqh'
 import Wdjf from '../cygl/wdjf'
 import Wdqb from '../xg/wdqb'
 import Wdtj from '../cygl/wdtj'
-import Wyhs from '../xg/wyhs'
+import Wyhs from '../gcy/wyhs'
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
@@ -47,6 +47,7 @@ export default class page1 extends Component {
         icons.push({img: require('./shy/zrbx.png'), name: '昨日表现'})
         icons.push({img: require('./shy/jrrw.png'), name: '今日任务'})
         icons.push({img: require('./shy/mrjh.png'), name: '明日计划'})
+        icons.push({img: require('./shy/mrjh.png'), name: '我有话说'})
         // icons.push({img: require('./shy/yssh.png'), name: '结算审核'})
         icons.push({img: require('./shy/jfd.png'), name: '成长基金'})
         // icons.push({img: require('./gly/icon_jifen.png'), name: '家庭钻豆'})

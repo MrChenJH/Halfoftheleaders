@@ -186,7 +186,7 @@ export default class gly extends Component {
         AsyncStorage.getItem('user').then((item) => {
             return JSON.parse(item)
         }).then((item) => {
-            let url = app.Host + "api/family/Members?jtnc=" + item.nc;
+            let url = app.Host + "api/family/Members?jtnc=" +decodeURI(item.nc);
             fetch(url)
                 .then((response) => {
                     if (response.ok) {
