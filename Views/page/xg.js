@@ -24,24 +24,22 @@ import Wdtj from '../cygl/wdtj'
 import WdHd from '../cygl/hd'
 import Qhzh from '../cygl/zhqh'
 
-
+import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
+const ds = new ListView.DataSource({
+    rowHasChanged: (r1, r2) => r1 !== r2
+});
 export default class page1 extends Component {
     constructor(props) {
         super(props);
-        var ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
+      
 
         this.state = {
             dataSource: ds.cloneWithRows([
-                {title: '做作业', time: '2018-07-01'},
-                {title: '打扫卫生', time: '2018-07-01'},
-                {title: '洗碗', time: '2018-07-01'},
-                {title: '按时睡觉', time: '2018-07-01'}
             ]),
-            type: 1
+            type: 1,
+            jtnc:''
         }
     }
 
@@ -57,7 +55,7 @@ export default class page1 extends Component {
         icons.push({img: require('./gly/icon_tuijian.png'), name: '家庭推荐'})
         return (icons.map((t, i) => this._remderItem(t, i)))
     }
-
+ 
     back() {
         this.setState({type: 1})
     }
@@ -129,6 +127,43 @@ export default class page1 extends Component {
             return <View key={i}
                          style={{width: 80, height: 60, justifyContent: 'center', alignItems: 'center'}}/>
         }
+    }
+
+
+ 
+     
+  
+    componentDidMount() {
+        this.timer = setTimeout(
+            () => {
+                AsyncStorage.getItem('user').then((item) => {
+                    return JSON.parse(item)
+                }).then((item) => {
+      
+                    fetch(app.Host + 'api/message/MessageS?user=' + decodeURI(item.userName)+'&role=' + decodeURI(item.systemRole))
+                        .then((response) => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                        })
+                        .then((responseJson) => {
+                            let data =JSON.parse(responseJson).data; 
+                            data= data.filter(t=>t.t!=0&t.t!="0");
+                          
+                         
+                            this.setState({dataSource: ds.cloneWithRows(data)})
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                })
+            },
+            10000
+        );
+    }
+ 
+    componentDidUnMount() {
+        this.timer && clearTimeout(this.timer);
     }
 
     render() {
@@ -263,11 +298,8 @@ export default class page1 extends Component {
                                                     style={{width: 10, height: 10}} resizeMode='stretch'></Image>
 
                                             </View>
-                                            <Text style={{flex: 6, textAlign: 'left'}}>{rowData.title}</Text>
-                                            <Text style={{
-                                                flex: 3,
-                                                color: '#BDBDBD', textAlign: 'right'
-                                            }}>{rowData.time}</Text>
+                                            <Text style={{flex: 6, textAlign: 'left'}}>{rowData.t}</Text>
+                                            
                                         </View>}
                                 />
                             </View>
