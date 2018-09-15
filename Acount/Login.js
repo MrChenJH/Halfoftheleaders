@@ -67,15 +67,15 @@ export default class Login extends Component {
                     let responseData = responseJson.Result;
                     let user = JSON.stringify(responseData);
                     AsyncStorage.setItem("user", user);
-                    if (decodeURI(responseData.systemRole) == '小鬼') {
+                    if (decodeURI(responseData.systemRole) === '小鬼') {
                         this.props.navigator.push({
                             component: Main2, id: "Main2"
                         })
-                    } else if (decodeURI(responseData.systemRole) == '审核员') {
+                    } else if (decodeURI(responseData.systemRole) === '审核员') {
                         this.props.navigator.push({
                             component: Main3, id: "Main3"
                         })
-                    } else if (decodeURI(responseData.systemRole) == '观察员') {
+                    } else if (decodeURI(responseData.systemRole) === '观察员') {
                         this.props.navigator.push({
                             component: Main4, id: "Main4"
                         })
@@ -119,7 +119,7 @@ export default class Login extends Component {
             body: JSON.stringify(params)
         }).then((response) => {
             if (response.ok) {
-                console.log(response)
+                console.log(response);
                 return response.text()
 
 
@@ -133,7 +133,7 @@ export default class Login extends Component {
             }
 
         }).catch((error) => {
-            this.setState({type: 3})
+            this.setState({type: 3});
 
             console.error(error);
         });
@@ -153,7 +153,7 @@ export default class Login extends Component {
         let params = {
             "userName": this.state.uName,
             "realName": this.state.realName,
-            "sex": ['豆妈', '豆外婆', '豆奶奶', '豆丫', '阿姨'].findIndex(t => t == this.state.userRole) > -1 ? 1 : 0,
+            "sex": ['豆妈', '豆外婆', '豆奶奶', '豆丫', '阿姨'].findIndex(t => t === this.state.userRole) > -1 ? 1 : 0,
             "contactAddress": this.state.userRole,
             "birthday": this.state.birthday,
             "regionBelong": this.state.regionBelong,
@@ -193,7 +193,7 @@ export default class Login extends Component {
     }
 
     render() {
-        if (this.state.type == 1) {//登录页面
+        if (this.state.type === 1) {//登录页面
             return (
                 <View style={{height: deviceheight, width: deviceWidth}}>
                     <DropdownAlert
@@ -398,7 +398,7 @@ export default class Login extends Component {
                 </View>
             );
         }
-        else if (this.state.type == 2) {//注册页面
+        else if (this.state.type === 2) {//注册页面
             return (
                 <View style={{height: deviceheight, width: deviceWidth}}>
                     <DropdownAlert
@@ -441,7 +441,7 @@ export default class Login extends Component {
                                     }}>
                                     <Image source={require('../Views/cygl/imgs/back.png')}
                                            resizeMode='stretch'
-                                           style={{height: 20, width: 20}}></Image>
+                                           style={{height: 20, width: 20}}/>
 
                                 </TouchableOpacity>
                             </View>
@@ -477,7 +477,7 @@ export default class Login extends Component {
                                 }}
                                 resizeMode='contain'
                                 source={require('./logo.png')}
-                            ></Image>
+                            />
                         </View>
 
                         <ScrollView>
@@ -501,7 +501,7 @@ export default class Login extends Component {
                                         this.setState({uName: v})
                                     }}
                                     value={this.state.uName}
-                                ></TextInput>
+                                />
 
                             </View>
 
@@ -525,7 +525,7 @@ export default class Login extends Component {
                                         this.setState({jtnc: v})
                                     }}
                                     value={this.state.jtnc}
-                                ></TextInput>
+                                />
 
                             </View>
 
@@ -652,7 +652,7 @@ export default class Login extends Component {
                                     <Image
                                         source={require('../Views/cygl/imgs/sm.png')}
                                         style={{width: 30, height: 30, flex: 1}}
-                                        resizeMode='contain'></Image>
+                                        resizeMode='contain'/>
                                 </TouchableOpacity>
                             </View>
 
@@ -677,7 +677,7 @@ export default class Login extends Component {
                                         this.regAlert.alertWithType('info', '提示', '请输入手机号码')
                                         return
                                     }
-                                    if (this.state.mm != this.state.qrmm) {
+                                    if (this.state.mm !== this.state.qrmm) {
                                         this.regAlert.alertWithType('info', '提示', '确认密码和用户密码不一致')
                                         return
                                     }
@@ -704,7 +704,7 @@ export default class Login extends Component {
             );
 
         }
-        else if (this.state.type == 3) {//完善信息页
+        else if (this.state.type === 3) {//完善信息页
             return (
                 <View>
                     <DropdownAlert
@@ -772,13 +772,13 @@ export default class Login extends Component {
                                     paddingTop: 5
                                 }}>
                                     <Image
-                                        source={this.state.userRole == "豆爸" ? require('../Views/cygl/imgs/tx/bb.png') : (this.state.userRole == "豆妈" ? require('../Views/cygl/imgs/tx/mm.png') : this.state.userRole == "叔叔" ? require('../Views/cygl/imgs/tx/uncle.png') :
-                                            (this.state.userRole == "豆爷爷" || this.state.userRole == "豆外公") ? require('../Views/cygl/imgs/tx/yeye.png') : this.state.userRole == "豆伢" ? require('../Views/cygl/imgs/tx/boy.png') : this.state.userRole == "豆丫" ? require('../Views/cygl/imgs/tx/girl.png') :
-                                                (this.state.userRole == "豆奶奶" || this.state.userRole == "豆外婆") ? require('../Views/cygl/imgs/tx/nainai.png') : require('../Views/cygl/imgs/tx/mm.png'))}
+                                        source={this.state.userRole === "豆爸" ? require('../Views/cygl/imgs/tx/bb.png') : (this.state.userRole === "豆妈" ? require('../Views/cygl/imgs/tx/mm.png') : this.state.userRole === "叔叔" ? require('../Views/cygl/imgs/tx/uncle.png') :
+                                            (this.state.userRole === "豆爷爷" || this.state.userRole === "豆外公") ? require('../Views/cygl/imgs/tx/yeye.png') : this.state.userRole === "豆伢" ? require('../Views/cygl/imgs/tx/boy.png') : this.state.userRole === "豆丫" ? require('../Views/cygl/imgs/tx/girl.png') :
+                                                (this.state.userRole === "豆奶奶" || this.state.userRole === "豆外婆") ? require('../Views/cygl/imgs/tx/nainai.png') : require('../Views/cygl/imgs/tx/mm.png'))}
                                         style={{
                                             width: 48,
                                             height: 48
-                                        }} resizeMode='stretch'></Image>
+                                        }} resizeMode='stretch'/>
                                 </View>
                                 <View style={{
                                     flex: 1,
@@ -827,9 +827,9 @@ export default class Login extends Component {
                                     <TextInput
                                         underlineColorAndroid='transparent'
                                         value={this.state.realName}
-                                    ></TextInput>
+                                    />
                                     <Image source={require('../Views/cygl/imgs/go.png')}
-                                           style={{width: 10, height: 10, marginLeft: 5}} resizeMode='stretch'></Image>
+                                           style={{width: 10, height: 10, marginLeft: 5}} resizeMode='stretch'/>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -866,7 +866,7 @@ export default class Login extends Component {
                                     }}>
                                         {this.state.contactAddress}</Text>
                                     <Image source={require('../Views/cygl/imgs/go.png')}
-                                           style={{width: 10, height: 10, marginLeft: 5}} resizeMode='stretch'></Image>
+                                           style={{width: 10, height: 10, marginLeft: 5}} resizeMode='stretch'/>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -901,7 +901,7 @@ export default class Login extends Component {
                                     }}>
                                         {this.state.birthday}</Text>
                                     <Image source={require('../Views/cygl/imgs/go.png')}
-                                           style={{width: 10, height: 10, marginLeft: 5}} resizeMode='stretch'></Image>
+                                           style={{width: 10, height: 10, marginLeft: 5}} resizeMode='stretch'/>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -936,7 +936,7 @@ export default class Login extends Component {
                                     }}>
                                         {this.state.regionBelong}</Text>
                                     <Image source={require('../Views/cygl/imgs/go.png')}
-                                           style={{width: 10, height: 10, marginLeft: 5}} resizeMode='stretch'></Image>
+                                           style={{width: 10, height: 10, marginLeft: 5}} resizeMode='stretch'/>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -944,7 +944,7 @@ export default class Login extends Component {
                 </View>
             )
         }
-        else if (this.state.type == 5) {//完善信息编辑页
+        else if (this.state.type === 5) {//完善信息编辑页
             return (
                 <View>
                     <View style={{
@@ -992,19 +992,19 @@ export default class Login extends Component {
                                        multiline={false}
                                        defaultValue={this.state.typecontent}
                                        onChangeText={(v) => {
-                                           if (this.state.typetitle == "真实姓名") {
+                                           if (this.state.typetitle === "真实姓名") {
                                                this.setState({realName: v})
                                            }
 
-                                           else if (this.state.typetitle == "详细地址") {
+                                           else if (this.state.typetitle === "详细地址") {
 
                                                this.setState({contactAddress: v})
                                            }
-                                           else if (this.state.typetitle == "出生年月") {
+                                           else if (this.state.typetitle === "出生年月") {
 
                                                this.setState({birthday: v})
                                            }
-                                           else if (this.state.typetitle == "所属区域") {
+                                           else if (this.state.typetitle === "所属区域") {
 
                                                this.setState({regionBelong: v})
                                            }
@@ -1018,7 +1018,7 @@ export default class Login extends Component {
                 </View>
             )
         }
-        else if (this.state.type == 6) {//完善信息-生日编辑
+        else if (this.state.type === 6) {//完善信息-生日编辑
             return (
                 <View>
                     <View style={{
@@ -1092,10 +1092,10 @@ export default class Login extends Component {
                 </View>
             )
         }
-        else if (this.state.type == 7) {
-            return <ScannerScreen callback={this.ScanSucess.bind(this)}></ScannerScreen>
+        else if (this.state.type === 7) {
+            return <ScannerScreen callback={this.ScanSucess.bind(this)}/>
         }
-        else if (this.state.type == 8) {
+        else if (this.state.type === 8) {
             return (
                 <View>
                     <View style={{

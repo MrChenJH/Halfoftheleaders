@@ -33,7 +33,7 @@ const ds = new ListView.DataSource({
 export default class page1 extends Component {
     constructor(props) {
         super(props);
-      
+
 
         this.state = {
             dataSource: ds.cloneWithRows([
@@ -55,7 +55,7 @@ export default class page1 extends Component {
         icons.push({img: require('./gly/icon_tuijian.png'), name: '家庭推荐'})
         return (icons.map((t, i) => this._remderItem(t, i)))
     }
- 
+
     back() {
         this.setState({type: 1})
     }
@@ -129,17 +129,13 @@ export default class page1 extends Component {
         }
     }
 
-
- 
-     
-  
     componentDidMount() {
         this.timer = setTimeout(
             () => {
                 AsyncStorage.getItem('user').then((item) => {
                     return JSON.parse(item)
                 }).then((item) => {
-      
+
                     fetch(app.Host + 'api/message/MessageS?user=' + decodeURI(item.userName)+'&role=' + decodeURI(item.systemRole))
                         .then((response) => {
                             if (response.ok) {
@@ -147,11 +143,11 @@ export default class page1 extends Component {
                             }
                         })
                         .then((responseJson) => {
-                            let data =JSON.parse(responseJson).data; 
-                            data= data.filter(t=>t.t!=0&t.t!="0");
-                          
-                         
-                            this.setState({dataSource: ds.cloneWithRows(data)})
+                            let data =JSON.parse(responseJson).data;
+                            if(!data&&data!==undefined) {
+                                data = data.filter(t => t.t !== 0 && t.t !== "0");
+                                this.setState({dataSource: ds.cloneWithRows(data)});
+                            }
                         })
                         .catch((error) => {
                             console.error(error);
@@ -161,13 +157,13 @@ export default class page1 extends Component {
             10000
         );
     }
- 
+
     componentDidUnMount() {
         this.timer && clearTimeout(this.timer);
     }
 
     render() {
-        if (this.state.type == 1) {
+        if (this.state.type === 1) {
             return (
                 <ScrollView style={{
                     backgroundColor: '#F7F7F7'
@@ -273,11 +269,23 @@ export default class page1 extends Component {
 
                             <View
                                 style={{
-                                    height: 60
+                                    height: 90
                                 }}>
-
+                                <View
+                                    style={{
+                                        height: 30,
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        marginTop: 5
+                                    }}>
+                                    <Text style={{
+                                        fontSize: 14,
+                                        color: '#151515'
+                                    }}>服务提醒</Text>
+                                </View>
                                 <ListView
                                     dataSource={this.state.dataSource}
+                                    enableEmptySections={true}
                                     renderRow={(rowData) =>
                                         <View style={{
                                             height: 30,
@@ -298,8 +306,11 @@ export default class page1 extends Component {
                                                     style={{width: 10, height: 10}} resizeMode='stretch'></Image>
 
                                             </View>
-                                            <Text style={{flex: 6, textAlign: 'left'}}>{rowData.t}</Text>
-                                            
+                                            <Text style={{flex: 6, textAlign: 'left'}}>{rowData.title}</Text>
+                                            <Text style={{
+                                                flex: 3,
+                                                color: '#BDBDBD', textAlign: 'right'
+                                            }}>{rowData.time}</Text>
                                         </View>}
                                 />
                             </View>

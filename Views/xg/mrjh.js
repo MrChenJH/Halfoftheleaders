@@ -15,7 +15,7 @@ import {
     RefreshControl
 } from 'react-native';
 import Main from '../Main2'
-
+import Checkbox from '../component/xwCheckBox'
 
 import app from '../../app.json';
 import ModalDropdown from 'react-native-modal-dropdown';

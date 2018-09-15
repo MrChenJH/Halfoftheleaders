@@ -29,28 +29,28 @@ export default class xwsz extends Component {
             jtnc: '',
             xwMc: '',
             ydType: '',
-          type: 1
+            type: 1
         }
     }
 
 
-    _show(){
+    _show() {
         fetch(app.Host + 'api/behavior/behaviorLib?jtnc=' + this.state.jtnc)
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
-            }
-        })
-        .then((responseJson) => {
-            let data = responseJson.data;
-            this.setState({datalist: ds.cloneWithRows(data)})
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-     }
-     
-     _save(){
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseJson) => {
+                let data = responseJson.data;
+                this.setState({datalist: ds.cloneWithRows(data)})
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    _save() {
 
         let url = app.Host + "api/behavior/addbehaviorLib";
         let params = {
@@ -68,7 +68,7 @@ export default class xwsz extends Component {
             body: JSON.stringify(params)
         }).then((response) => {
             if (response.ok) {
-                this.setState({type: 1})
+                this.setState({type: 1});
                 this._show.bind(this)()
 
             }
@@ -76,32 +76,32 @@ export default class xwsz extends Component {
             console.error(error);
         });
 
-      }
+    }
 
-     _remove(id){
-       fetch(app.Host + 'api/behavior/RemoveBehaviorLib?id=' + id)
-        .then((response) => {
-            if (response.ok) {
-               this._show.bind(this)()
-            }
-        }).catch((error) => {
+    _remove(id) {
+        fetch(app.Host + 'api/behavior/RemoveBehaviorLib?id=' + id)
+            .then((response) => {
+                if (response.ok) {
+                    this._show.bind(this)()
+                }
+            }).catch((error) => {
             console.error(error);
         });
-     }
+    }
 
     componentWillMount() {
 
         AsyncStorage.getItem('user').then((item) => {
             return JSON.parse(item)
         }).then((item) => {
-            this.setState({jtnc:decodeURI(item.nc)})
+            this.setState({jtnc: decodeURI(item.nc)});
             this._show.bind(this)()
         })
     }
 
     render() {
 
-        if (this.state.type == 1) {
+        if (this.state.type === 1) {
             return (
                 <View>
                     <View style={{
@@ -160,44 +160,52 @@ export default class xwsz extends Component {
                         enableEmptySections={true}
                         renderRow={(rowData) =>
 
-                                       <View
-                                           style={{flexDirection:'row',
-                                                   borderTopColor:'#F0F0F0',
-                                                   backgroundColor:rowData.xz?'#FB9401':'#fff',
-                                                   borderTopWidth:1,
-                                                   margin:5,
-                                                   borderRadius:10,
-                                                   height:40}}>
-                                                   <View style={{flex:4,
-                                                     justifyContent:'center',
-                                                     alignItems:'flex-start',
-                                                     marginLeft:10}}>
-                                                       <Text style={{color:'#474747'}}>{decodeURI(rowData.xwMc)}</Text>
-                                                   </View>
-                                                   <View style={{
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    borderTopColor: '#F0F0F0',
+                                    backgroundColor: rowData.xz ? '#FB9401' : '#fff',
+                                    borderTopWidth: 1,
+                                    margin: 5,
+                                    borderRadius: 10,
+                                    height: 40
+                                }}>
+                                <View style={{
+                                    flex: 4,
+                                    justifyContent: 'center',
+                                    alignItems: 'flex-start',
+                                    marginLeft: 10
+                                }}>
+                                    <Text style={{color: '#474747'}}>{decodeURI(rowData.xwMc)}</Text>
+                                </View>
+                                <View style={{
                                     flex: 1,
                                     justifyContent: 'center',
                                     alignItems: 'center'
                                 }}>
 
                                     <Image
-                                        source={decodeURI(rowData.ydType) == "优" ? require('../shy/shyImage/you.png') : decodeURI(rowData.ydType) == "良" ? require('../shy/shyImage/lian.png') : require('../shy/shyImage/chai.png')}
+                                        source={decodeURI(rowData.ydType) === "优" ? require('../shy/shyImage/you.png') : decodeURI(rowData.ydType) === "良" ? require('../shy/shyImage/lian.png') : require('../shy/shyImage/chai.png')}
                                         resizeMode='stretch'
-                                        style={{height: 20, width: 20, marginLeft: 10, marginRight: 10}}></Image>
+                                        style={{height: 20, width: 20, marginLeft: 10, marginRight: 10}}/>
 
                                 </View>
-                                                   <View style={{flex:1,
-                                                     justifyContent:'center',
-                                                     alignItems:'center'}}>
-                                                     <TouchableOpacity
-                                                     onPress={()=>
-                                                      {this._remove.bind(this)(rowData.id)}}
-                                                     >
-                                                        <Image source={require('./imgs/delete.png')} resizeMode='stretch' style={{height:20,width:20}}></Image>
-                                                        </TouchableOpacity>
-                                                   </View>
+                                <View style={{
+                                    flex: 1,
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            this._remove.bind(this)(rowData.id)
+                                        }}
+                                    >
+                                        <Image source={require('./imgs/delete.png')} resizeMode='stretch'
+                                               style={{height: 20, width: 20}}/>
+                                    </TouchableOpacity>
+                                </View>
 
-                                       </View>
+                            </View>
 
                         }
                     />
@@ -259,15 +267,14 @@ export default class xwsz extends Component {
                 }}>
 
 
-               
                     <ModalDropdown options={["优", "良", "差"]}
                                    onSelect={(i, v) => {
-                                       if (v == "优")
-                                           this.setState({ydType: v, xwSocre: 10})
-                                       else if (v == "良")
-                                           this.setState({ydType: v, xwSocre: 5})
-                                       else if (v == "差")
-                                           this.setState({ydType: v, xwSocre: -5})
+                                       if (v === "优")
+                                           this.setState({ydType: v, xwSocre: 10});
+                                       else if (v === "良")
+                                           this.setState({ydType: v, xwSocre: 5});
+                                       else if (v === "差")
+                                           this.setState({ydType: v, xwSocre: -5});
                                    }}
                                    defaultValue={'请选择行为评价'}
                                    dropdownStyle={{width: 200}}
@@ -299,7 +306,7 @@ export default class xwsz extends Component {
                         onChangeText={(v) => {
                             this.setState({xwMc: v})
                         }}
-                    ></TextInput>
+                    />
                 </View>
 
             </View>)

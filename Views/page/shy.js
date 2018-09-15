@@ -12,22 +12,22 @@ import {
     AsyncStorage
 } from 'react-native';
 
-import Button from '../component/button'
 import Jrrw from '../shy/jrrw'
 import Zrbx from '../shy/zrxw'
 import Mrjh from '../shy/mrjh'
-
 import Jdhd from '../shy/hd'
 import Jssh from '../shy/jssh'
 import Zhqh from '../shy/zhqh'
 import Wdjf from '../cygl/wdjf'
 import Wdqb from '../xg/wdqb'
 import Wdtj from '../cygl/wdtj'
-import Wyhs from '../shy/wyhs' 
-
-
+import Wyhs from '../shy/wyhs'
+import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
+const ds = new ListView.DataSource({
+    rowHasChanged: (r1, r2) => r1 !== r2
+});
 export default class page1 extends Component {
     constructor(props) {
         super(props);
@@ -44,16 +44,15 @@ export default class page1 extends Component {
             jtnc: "",
             xgzh: "",
             realname: ""
-
         }
     }
 
     _rednerJH() {
-        let icons = []
+        let icons = [];
         icons.push({img: require('./shy/zrbx.png'), name: '昨日表现'});
         icons.push({img: require('./shy/jrrw.png'), name: '今日任务'});
         icons.push({img: require('./shy/mrjh.png'), name: '明日计划'});
-        icons.push({img: require('./shy/mrjh.png'), name: '我有话说'})
+        icons.push({img: require('./shy/mrjh.png'), name: '我有话说'});
         icons.push({img: require('./shy/yssh.png'), name: '结算审核'});
         icons.push({img: require('./shy/jfd.png'), name: '成长基金'});
         icons.push({img: require('./gly/icon_jifen.png'), name: '家庭钻豆'});
@@ -68,47 +67,47 @@ export default class page1 extends Component {
                 <View key={i}
                       style={{width: 80, height: 60, justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
                     <TouchableOpacity onPress={() => {
-                        if (t.name == "今日任务") {
+                        if (t.name === "今日任务") {
                             this.props.navigator.push({
                                 component: Jrrw,
                             })
                         }
-                        else if (t.name == "昨日表现") {
+                        else if (t.name === "昨日表现") {
                             this.props.navigator.push({
                                 component: Zrbx,
                             })
                         }
-                        else if (t.name == "明日计划") {
+                        else if (t.name === "明日计划") {
                             this.props.navigator.push({
                                 component: Mrjh,
                             })
                         }
-                        else if (t.name == "结算审核") {
+                        else if (t.name === "结算审核") {
                             this.props.navigator.push({
                                 component: Jssh,
                             })
                         }
-                        else if (t.name == "成长基金") {
+                        else if (t.name === "成长基金") {
                             this.props.navigator.push({
                                 component: Wdqb,
                             })
 
                         }
-                        else if (t.name == "家庭钻豆") {
+                        else if (t.name === "家庭钻豆") {
                             this.props.navigator.push({
                                 component: Wdjf,
                             })
                         }
-                        else if (t.name == "家庭推荐") {
+                        else if (t.name === "家庭推荐") {
                             this.props.navigator.push({
                                 component: Wdtj,
                             })
                         }
-                        else if (t.name == "切换账号") {
+                        else if (t.name === "切换账号") {
                             this.props.navigator.push({
                                 component: Zhqh,
                             })
-                        }else if(t.name == "我有话说"){
+                        } else if (t.name === "我有话说") {
                             this.props.navigator.push({
                                 component: Wyhs,
                             })
@@ -135,13 +134,10 @@ export default class page1 extends Component {
     }
 
     componentWillMount() {
-
         AsyncStorage.getItem('user').then((item) => {
             return JSON.parse(item)
         }).then((item) => {
-
-            this.setState({jtnc: item.nc, xgzh: decodeURI(item.userName), realname: decodeURI(item.realName)})
-
+            this.setState({jtnc: item.nc, xgzh: decodeURI(item.userName), realname: decodeURI(item.realName)});
             fetch(app.Host + 'api/plans/Plans?jtnc=' + item.nc)
                 .then((response) => {
                     if (response.ok) {
@@ -170,12 +166,13 @@ export default class page1 extends Component {
                      console.error(error);
                  });*/
 
+        }).catch((error) => {
+            console.error(error);
         })
     }
 
-
     render() {
-        if (this.state.type == 1) {
+        if (this.state.type === 1) {
             return (
                 <ScrollView style={{
                     backgroundColor: '#F7F7F7'
@@ -197,7 +194,7 @@ export default class page1 extends Component {
                                     width: deviceWidth
                                 }}
                                 resizeMode='stretch'
-                            ></ImageBackground>
+                            />
                         </View>
 
                         {/*  <View
@@ -331,7 +328,7 @@ export default class page1 extends Component {
                                             }}>
                                                 <Image
                                                     source={rowData.yd ? require('../shy/shyImage/iconYd.png') : require('../shy/shyImage/wd.png')}
-                                                    style={{width: 10, height: 10}} resizeMode='stretch'></Image>
+                                                    style={{width: 10, height: 10}} resizeMode='stretch'/>
                                             </View>
                                             <Text style={{
                                                 flex: 6,
@@ -358,77 +355,62 @@ export default class page1 extends Component {
                     }}>
                         <Image source={require('./gly/gg2.png')}
                                style={{height: 140, width: deviceWidth - 10}}
-                               resizeMode='stretch'></Image>
+                               resizeMode='stretch'/>
                     </View>
-
-
                 </ScrollView>
             )
         } else {
-            if (this.state.type == 2) {
+            if (this.state.type === 2) {
                 return <Jrrw back={() => {
                     this.setState({type: 1})
-                }}></Jrrw>
+                }}/>
             }
-            else if (this.state.type == 3) {
+            else if (this.state.type === 3) {
                 return <Zrbx back={() => {
                     this.setState({type: 1})
-                }}></Zrbx>
+                }}/>
             }
-            else if (this.state.type == 4) {
+            else if (this.state.type === 4) {
                 return <Mrjh back={() => {
                     this.setState({type: 1})
-                }}></Mrjh>
+                }}/>
             }
-            else if (this.state.type == 5) {
+            else if (this.state.type === 5) {
                 return <Jssh back={() => {
                     this.setState({type: 1})
-                }}></Jssh>
+                }}/>
             }
-
-            else if (this.state.type == 6) {
-
+            else if (this.state.type === 6) {
                 return <Wdjf back={() => {
                     this.setState({type: 1})
-                }}
-                ></Wdjf>
+                }}/>
             }
-            else if (this.state.type == 7) {
-
+            else if (this.state.type === 7) {
                 return <Wdqb back={() => {
                     this.setState({type: 1})
-                }}
-                ></Wdqb>
+                }}/>
             }
-            else if (this.state.type == 8) {
-
+            else if (this.state.type === 8) {
                 return <Wyhs back={() => {
                     this.setState({type: 1})
-                }}
-                ></Wyhs>
+                }}/>
             }
-            else if (this.state.type == 9) {
-
-                return <Wdtj
-                    back={() => {
-                        this.setState({type: 1})
-                    }}></Wdtj>
+            else if (this.state.type === 9) {
+                return <Wdtj back={() => {
+                    this.setState({type: 1})
+                }}/>
             }
-
-
-            else if (this.state.type == 10) {
+            else if (this.state.type === 10) {
                 return <Jdhd back={() => {
                     this.setState({type: 1})
-                }}></Jdhd>
+                }}/>
             }
-
-            else if (this.state.type == 11) {
+            else if (this.state.type === 11) {
                 return <Zhqh back={() => {
                     this.setState({type: 1})
-                }}></Zhqh>
+                }}/>
             }
-
-            else if (this.state.type == 111) {
+            else if (this.state.type === 111) {
                 return (
                     <View>
 
@@ -443,12 +425,11 @@ export default class page1 extends Component {
                         }}>
 
                             <View>
-
-
-                                <TouchableOpacity style={{height: 20, width: 20}}
-                                                  onPress={() => {
-                                                      this.setState({type: 1})
-                                                  }}>
+                                <TouchableOpacity
+                                    style={{height: 20, width: 20}}
+                                    onPress={() => {
+                                        this.setState({type: 1})
+                                    }}>
                                     <Image source={require('../cygl/imgs/back.png')}
                                            resizeMode='stretch'
                                            style={{height: 20, width: 20}}>
@@ -499,8 +480,10 @@ export default class page1 extends Component {
                                             fontFamily: 'Microsoft YaHei'
                                         }}>
                                             张三的家</Text>
-                                        <Image source={require('../cygl/imgs/go.png')} style={{width: 10, height: 10}}
-                                               resizeMode='stretch'></Image>
+                                        <Image
+                                            source={require('../cygl/imgs/go.png')}
+                                            style={{width: 10, height: 10}}
+                                            resizeMode='stretch'/>
                                     </View>
                                 </View>
                             </TouchableOpacity>
@@ -536,8 +519,10 @@ export default class page1 extends Component {
                                             fontFamily: 'Microsoft YaHei'
                                         }}>
                                             123456</Text>
-                                        <Image source={require('../cygl/imgs/go.png')} style={{width: 10, height: 10}}
-                                               resizeMode='stretch'></Image>
+                                        <Image
+                                            source={require('../cygl/imgs/go.png')}
+                                            style={{width: 10, height: 10}}
+                                            resizeMode='stretch'/>
                                     </View>
 
                                 </View>
@@ -574,8 +559,10 @@ export default class page1 extends Component {
                                             fontFamily: 'Microsoft YaHei'
                                         }}>
                                             家庭管理员</Text>
-                                        <Image source={require('../cygl/imgs/go.png')} style={{width: 10, height: 10}}
-                                               resizeMode='stretch'></Image>
+                                        <Image
+                                            source={require('../cygl/imgs/go.png')}
+                                            style={{width: 10, height: 10}}
+                                            resizeMode='stretch'/>
                                     </View>
                                 </View>
                             </TouchableOpacity>
@@ -612,15 +599,17 @@ export default class page1 extends Component {
                                             fontFamily: 'Microsoft YaHei'
                                         }}>
                                             普通用户</Text>
-                                        <Image source={require('../cygl/imgs/go.png')} style={{width: 10, height: 10}}
-                                               resizeMode='stretch'></Image>
+                                        <Image
+                                            source={require('../cygl/imgs/go.png')}
+                                            style={{width: 10, height: 10}}
+                                            resizeMode='stretch'/>
                                     </View>
                                 </View>
                             </TouchableOpacity>
                         </View>
                     </View>
                 )
-            } else if (this.state.type == 444) {
+            } else if (this.state.type === 444) {
                 return (
                     <View>
                         <View style={{

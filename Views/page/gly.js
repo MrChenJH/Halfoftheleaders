@@ -51,7 +51,7 @@ export default class gly extends Component {
     }
 
     _rednerCy1() {
-        return (this.state.dataCySource.map((t, i) => this._rednerCy(t, i)))
+        return (this.state.dataCySource.map((t, i) => this._rednerCy(t, i)));
     }
 
     _rednerCy(item, i) {
@@ -59,29 +59,30 @@ export default class gly extends Component {
         return (
             <View key={i}
                   style={{
-                      width: 80,
+                      width: 85,
                       alignItems: 'center'
                   }}>
 
                 <TouchableOpacity onPress={() => {
                 }}>
                     <Image
-                        source={role == "豆爸" ? require('../cygl/imgs/tx/bb.png') : (role == "豆妈" ? require('../cygl/imgs/tx/mm.png') : role == "叔叔" ? require('../cygl/imgs/tx/uncle.png') :
-                            (role == "豆爷爷" || role == "豆外公") ? require('../cygl/imgs/tx/yeye.png') : role == "豆伢" ? require('../cygl/imgs/tx/boy.png') : role == "豆丫" ? require('../cygl/imgs/tx/girl.png') :
-                                (role == "豆奶奶" || role == "豆外婆") ? require('../cygl/imgs/tx/nainai.png') : require('../cygl/imgs/tx/mm.png'))}
+                        source={role === "豆爸" ? require('../cygl/imgs/tx/bb.png') : (role === "豆妈" ? require('../cygl/imgs/tx/mm.png') : role === "叔叔" ? require('../cygl/imgs/tx/uncle.png') :
+                            (role === "豆爷爷" || role === "豆外公") ? require('../cygl/imgs/tx/yeye.png') : role === "豆伢" ? require('../cygl/imgs/tx/boy.png') : role === "豆丫" ? require('../cygl/imgs/tx/girl.png') :
+                                (role === "豆奶奶" || role === "豆外婆") ? require('../cygl/imgs/tx/nainai.png') : require('../cygl/imgs/tx/mm.png'))}
                         style={{
                             height: 50,
                             width: 50
                         }}
                         resizeMode='stretch'
-                    ></Image>
+                    />
                     <Text
                         style={{
                             width: 50,
                             fontSize: 12,
-                            textAlign: 'center'
+                            textAlign: 'center',
+                            marginBottom:10
                         }}>{
-                        decodeURI(item.userName)}</Text>
+                        decodeURI(item.realName)}</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -90,8 +91,6 @@ export default class gly extends Component {
     _rednerJH() {
         let icons = [];
         icons.push({img: require('./gly/icon_chengyuan.png'), name: '家人管理'});
-        /* icons.push({img: require('./gly/icon_jihua.png'), name: '计划设置'})
-         icons.push({img: require('./gly/icon_canshu.png'), name: '参数设置'})*/
         icons.push({img: require('./gly/icon_chongzhi.png'), name: '会员充值'});
         icons.push({img: require('./gly/icon_tuijian.png'), name: '我的推荐'});
         icons.push({img: require('./gly/icon_jifen.png'), name: '家庭钻豆'});
@@ -99,8 +98,6 @@ export default class gly extends Component {
         icons.push({img: require('./gly/icon_xiaoxi.png'), name: '我的消息'});
         icons.push({img: require('./gly/icon_fankui.png'), name: '我的反馈'});
         icons.push({img: require('./gly/icon_qiehuan.png'), name: '切换账号'});
-        /* icons.push({})
-         icons.push({})*/
         return (icons.map((t, i) => this._remderItem(t, i)))
     }
 
@@ -110,53 +107,53 @@ export default class gly extends Component {
                 <View key={i}
                       style={{width: 80, height: 60, justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
                     <TouchableOpacity onPress={() => {
-                        if (t.name == "家人管理") {
+                        if (t.name === "家人管理") {
                             this.props.navigator.push({
                                 component: Cygl,
                             })
                         }
-                        else if (t.name == "计划设置") {
+                        else if (t.name === "计划设置") {
                             this.props.navigator.push({
                                 component: Jtjh,
                             })
                         }
-                        if (t.name == "行为设置") {
+                        if (t.name === "行为设置") {
                             this.setState({type: 6})
                         }
-                        else if (t.name == "参数设置") {
+                        else if (t.name === "参数设置") {
                             this.props.navigator.push({
                                 component: Cssz,
                             })
                         }
-                        else if (t.name == "会员充值") {
+                        else if (t.name === "会员充值") {
                             this.setState({type: 5})
                         }
-                        else if (t.name == "我的推荐") {
+                        else if (t.name === "我的推荐") {
                             this.props.navigator.push({
                                 component: Wdtj,
                             })
                         }
-                        else if (t.name == "家庭钻豆") {
+                        else if (t.name === "家庭钻豆") {
                             this.props.navigator.push({
                                 component: Wdjf,
                             })
                         }
-                        else if (t.name == "我的活动") {
+                        else if (t.name === "我的活动") {
                             this.props.navigator.push({
                                 component: Hd,
                             })
                         }
-                        else if (t.name == "我的消息") {
+                        else if (t.name === "我的消息") {
                             this.props.navigator.push({
                                 component: Wdxx,
                             })
                         }
-                        else if (t.name == "我的反馈") {
+                        else if (t.name === "我的反馈") {
                             this.props.navigator.push({
                                 component: Wdfk,
                             })
                         }
-                        else if (t.name == "切换账号") {
+                        else if (t.name === "切换账号") {
                             this.props.navigator.push({
                                 component: Zhqh,
                             })
@@ -204,7 +201,7 @@ export default class gly extends Component {
     }
 
     render() {
-        if (this.state.type == 1) {//首页
+        if (this.state.type === 1) {//首页
             return (
                 <ScrollView style={{
                     backgroundColor: '#F7F7F7'
@@ -226,7 +223,7 @@ export default class gly extends Component {
                                 style={{
                                     height: 200,
                                     width: deviceWidth
-                                }}></ImageBackground>
+                                }}/>
                         </View>
 
                         <View
@@ -247,7 +244,7 @@ export default class gly extends Component {
                                         height: 30,
                                         fontWeight: 'bold'
                                     }}>
-                                    欢迎您,{decodeURI(this.state.jtnc)}</Text>
+                                    欢迎您,{decodeURI(this.state.jtnc)} 的家长</Text>
 
                             </View>
                             {/*<View
@@ -376,9 +373,7 @@ export default class gly extends Component {
                             </View>
 
                             <Swiper
-                                showsButtons={false}
                                 showsPagination={false}
-
                                 height={90}
                                 loop={true}
                                 autoplay={true}
@@ -404,7 +399,7 @@ export default class gly extends Component {
                                             }}>
                                                 <Image
                                                     source={rowData.yd ? require('../shy/shyImage/iconYd.png') : require('../shy/shyImage/wd.png')}
-                                                    style={{width: 10, height: 10}} resizeMode='stretch'></Image>
+                                                    style={{width: 10, height: 10}} resizeMode='stretch'/>
                                             </View>
                                             <Text style={{flex: 6, textAlign: 'left'}}>{rowData.title}</Text>
                                             <Text style={{
@@ -432,7 +427,7 @@ export default class gly extends Component {
                                             }}>
                                                 <Image
                                                     source={rowData.yd ? require('../shy/shyImage/iconYd.png') : require('../shy/shyImage/wd.png')}
-                                                    style={{width: 10, height: 10}} resizeMode='stretch'></Image>
+                                                    style={{width: 10, height: 10}} resizeMode='stretch'/>
                                             </View>
                                             <Text style={{flex: 6, textAlign: 'left'}}>{rowData.title}</Text>
                                             <Text style={{
@@ -462,7 +457,7 @@ export default class gly extends Component {
                 </ScrollView>
             )
         }
-        if (this.state.type == 5) {//充值页面
+        if (this.state.type === 5) {//充值页面
             return <View>
                 <TouchableOpacity onPress={() => {
                     this.setState({type: 1})
@@ -471,7 +466,7 @@ export default class gly extends Component {
 
                 </TouchableOpacity></View>
         }
-        if (this.state.type == 6) {//计划库页面
+        if (this.state.type === 6) {//计划库页面
             return <View>
                 <TouchableOpacity>
                     <Text>敬请期待</Text>

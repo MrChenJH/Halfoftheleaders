@@ -1,47 +1,16 @@
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
-    Text,
-    Button,
     View,
-    TextInput,
-    Image,
-    ImageBackground
+    Image
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
-import Gly from './page/gly'
-import Cygl from './cygl/cygl'
-import Wdys from './cygl/wdys'
-
-import Cssz from './cygl/cssz'
-import Wdjf from './cygl/wdjf'
 import Wd from './cygl/wd'
-import Xg from './page/xg'
 import Shy from './page/shy'
-
-import Gcy from './page/gcy'
-import Wdqb from './xg/wdqb'
-import Jrrw from './xg/jrrw'
-import Wyhs from './xg/wyhs'
-import XGWdys from './xg/wdys'
-
-
 import Xwpj from './shy/xwpj'
-import Yssh from './shy/yssh'
 import JHSh from './shy/jhsh'
 import YSSH from './shy/yssh'
 
-
-import GcJrrw from './gcy/jrrw'
-
-import GcZrxw from './gcy/zrxw'
-import Gcsh from './gcy/sh'
-import Wdzz from './gcy/wdzz'
-import page4 from './page/4'
-import page5 from './page/4'
-
-import Login from '../Acount/Login'
 
 export default class Main extends Component {
     constructor(props) {
@@ -71,7 +40,7 @@ export default class Main extends Component {
     }
 
     render() {
-        if (this.state.type == 1) {
+        if (this.state.type === 1) {
             return (
                 <View style={styles.container}>
                     <TabNavigator>
@@ -103,5 +72,5 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20
     }
-})
+});
   

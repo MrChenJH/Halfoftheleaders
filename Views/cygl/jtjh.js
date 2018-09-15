@@ -56,7 +56,7 @@ export default class jtjh extends Component {
 
     _endReached = () => {
         if (this.state.isFirstload) {
-            this.setState({isFirstload: false})
+            this.setState({isFirstload: false});
             return
         }
         if (this.state.isNoMoreData) {
@@ -64,7 +64,7 @@ export default class jtjh extends Component {
         }
 
         this.fetchData(false, true);
-    }
+    };
 
     _onRefresh = () => {
         // 当加载到最后一页数据，再次下拉刷新时，需关闭isNoMoreData状态机
@@ -73,7 +73,7 @@ export default class jtjh extends Component {
         });
 
         this.fetchData(false, false);
-    }
+    };
 
     _renderFooter() {
 
@@ -83,7 +83,6 @@ export default class jtjh extends Component {
             </View>);
         }
         return <View style={{marginVertical: 10}}/>;
-        ;
     }
 
     fetchData(isFirst, isLoadMore) {
@@ -626,6 +625,7 @@ export default class jtjh extends Component {
                             <TouchableOpacity
                                 style={{height: 25, width: 25, marginRight: 10}}
                                 onPress={() => {
+                                    this._showddddd();
                                     this.setState({type: 6})
                                 }}>
                                 <Image source={require('./imgs/tj.png')}
@@ -1122,13 +1122,13 @@ export default class jtjh extends Component {
                                                         justifyContent:'center',
                                                         alignItems:'center'
                                                     }}>
-                                                          <Text style={{   color:'#474747'}}>平台推荐</Text>
+                                                          <Text style={{   color:'#474747'}}>来自：{decodeURI(rowData.jtnc)==""?"平台推荐":decodeURI(rowData.jtnc)}</Text>
                                                       </View>
                                                       <View style={{flex:2,
                                                         justifyContent:'center',
                                                         alignItems:'center'
                                                     }}>
-                                                          <Text style={{   color:'#474747'}}>应用次数 {rowData.times}</Text>
+                                                          <Text style={{   color:'#474747'}}>应用次数: {rowData.times}</Text>
                                                       </View>
                                                       <View style={{flex:1,
                                                         justifyContent:'center',
@@ -1137,12 +1137,12 @@ export default class jtjh extends Component {
                                                          selected={(isS)=>{
                                                                 if(!isS){
                                                                   this.setState({xmName:decodeURI(rowData.projectName),jds:rowData.jds})
-                                                                   this.PostJtjh.bind(this)()
-                                                                   this.loginAlert.alertWithType('success', 'Success', '推荐成功');
+                                                                   this.PostJtjh.bind(this)();
+                                                                   this.loginAlert.alertWithType('success', '提示', '推荐成功');
                                                                    this._showddddd.bind(this)()
                                                                   }
                                                          }}
-                                                         ></CheckBox>
+                                                         />
 
 
                                                       </View>

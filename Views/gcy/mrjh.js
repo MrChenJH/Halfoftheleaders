@@ -23,7 +23,7 @@ const ds = new ListView.DataSource({
 });
 
 
-export default class HD extends Component {
+export default class mrjh extends Component {
     constructor(props) {
         super(props);
         this.state = {

@@ -1,14 +1,8 @@
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
-    Text,
-    Button,
     View,
-    TextInput,
-    Image,
-    ImageBackground
-} from 'react-native';
+    Image} from 'react-native';
 import TabNavigator from 'react-native-tab-navigator'; 
 import Gly  from './page/gly'
 import xwsz  from './cygl/xwsz'
@@ -78,5 +72,5 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20
     }
-})
+});
   

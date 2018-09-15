@@ -17,7 +17,6 @@ import DatePicker from 'react-native-datepicker'
 import ModalDropdown from 'react-native-modal-dropdown';
 import DropdownAlert from 'react-native-dropdownalert';
 
-import Main from '../Main1'
 import app from '../../app.json';
 
 const deviceWidth = Dimensions.get('window').width;
@@ -95,7 +94,7 @@ export default class page1 extends Component {
             "userName": this.state.userName,
             "pwd": this.state.pwd,
             "realName": this.state.realName,
-            "sex": ['豆妈', '豆外婆', '豆奶奶', '豆丫', '阿姨'].findIndex(t => t == this.state.userRole) > -1 ? 1 : 0,
+            "sex": ['豆妈', '豆外婆', '豆奶奶', '豆丫', '阿姨'].findIndex(t => t === this.state.userRole) > -1 ? 1 : 0,
             "birthday": this.state.birthday,
             "systemRole": this.state.systemRole,
             "userRole": this.state.userRole
@@ -136,20 +135,28 @@ export default class page1 extends Component {
     }
 
     updateMember() {
-        if (this.state.jtnc == "") {
+        if (!this.state.jtnc) {
             this.cyxqAlert.alertWithType('info', '提示', '家庭昵称不能为空');
             return;
         }
-        if (this.state.userName == "") {
+        if (!this.state.updateUserName) {
             this.cyxqAlert.alertWithType('info', '提示', '家人账号名称不能为空');
             return;
         }
-        if (this.state.pwd == "") {
+        if (!this.state.pwd) {
             this.cyxqAlert.alertWithType('info', '提示', '家人账号密码不能为空');
             return;
         }
-        if (this.state.realName == "") {
+        if (!this.state.realName) {
             this.cyxqAlert.alertWithType('info', '提示', '家人昵称不能为空');
+            return;
+        }
+        if (!this.state.systemRole) {
+            this.cyxqAlert.alertWithType('info', '提示', '系统角色不能为空');
+            return;
+        }
+        if (!this.state.userRole) {
+            this.cyxqAlert.alertWithType('info', '提示', '家庭角色不能为空');
             return;
         }
         let url = app.Host + "api/family/UpdateMember";
@@ -158,7 +165,7 @@ export default class page1 extends Component {
             "userName": this.state.updateUserName,
             "pwd": this.state.pwd,
             "realName": this.state.realName,
-            "sex": ['豆妈', '豆外婆', '豆奶奶', '豆丫', '阿姨'].findIndex(t => t == this.state.userRole) > -1 ? 1 : 0,
+            "sex": ['豆妈', '豆外婆', '豆奶奶', '豆丫', '阿姨'].findIndex(t => t === this.state.userRole) > -1 ? 1 : 0,
             "birthday": this.state.birthday,
             "systemRole": this.state.systemRole,
             "userRole": this.state.userRole
@@ -217,8 +224,8 @@ export default class page1 extends Component {
     }
 
     render() {
-        const {back} = this.props
-        if (this.state.type == 1) {//家人列表
+        const {back} = this.props;
+        if (this.state.type === 1) {//家人列表
 
             return (
                 <View>
@@ -243,8 +250,8 @@ export default class page1 extends Component {
                                 }}
                                 onPress={() => {
                                     let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
-                                        return item.id == "Main1"
-                                    })
+                                        return item.id === "Main1"
+                                    });
 
                                     this.props.navigator.popToRoute(destRoute);
                                 }}>
@@ -278,13 +285,13 @@ export default class page1 extends Component {
                             enableEmptySections={true}
                             renderRow={(rowData) =>
                                 <TouchableOpacity
-
                                     onPress={() => {
                                         this.setState({
                                             type: 2, updateUserName: decodeURI(rowData.userName),
                                             pwd: decodeURI(rowData.pwd),
                                             systemRole: decodeURI(rowData.systemRole),
-                                            userRole: decodeURI(rowData.userRole)
+                                            userRole: decodeURI(rowData.userRole),
+                                            realName: decodeURI(rowData.realName)
                                         })
                                     }}
                                 >
@@ -303,14 +310,14 @@ export default class page1 extends Component {
                                             alignItems: 'center'
                                         }}>
                                             <Image
-                                                source={decodeURI(rowData.userRole) == "豆爸" ? require('../cygl/imgs/tx/bb.png') : (decodeURI(rowData.userRole) == "豆妈" ? require('../cygl/imgs/tx/mm.png') : decodeURI(rowData.userRole) == "叔叔" ? require('../cygl/imgs/tx/uncle.png') :
-                                                    (decodeURI(rowData.userRole) == "豆爷爷" || decodeURI(rowData.userRole) == "豆外公") ? require('../cygl/imgs/tx/yeye.png') : decodeURI(rowData.userRole) == "豆伢" ? require('../cygl/imgs/tx/boy.png') : decodeURI(rowData.userRole) == "豆丫" ? require('../cygl/imgs/tx/girl.png') :
-                                                        (decodeURI(rowData.userRole) == "豆奶奶" || decodeURI(rowData.userRole) == "豆外婆") ? require('../cygl/imgs/tx/nainai.png') : require('../cygl/imgs/tx/mm.png'))}
+                                                source={decodeURI(rowData.userRole) === "豆爸" ? require('../cygl/imgs/tx/bb.png') : (decodeURI(rowData.userRole) === "豆妈" ? require('../cygl/imgs/tx/mm.png') : decodeURI(rowData.userRole) === "叔叔" ? require('../cygl/imgs/tx/uncle.png') :
+                                                    (decodeURI(rowData.userRole) === "豆爷爷" || decodeURI(rowData.userRole) === "豆外公") ? require('../cygl/imgs/tx/yeye.png') : decodeURI(rowData.userRole) === "豆伢" ? require('../cygl/imgs/tx/boy.png') : decodeURI(rowData.userRole) === "豆丫" ? require('../cygl/imgs/tx/girl.png') :
+                                                        (decodeURI(rowData.userRole) === "豆奶奶" || decodeURI(rowData.userRole) === "豆外婆") ? require('../cygl/imgs/tx/nainai.png') : require('../cygl/imgs/tx/mm.png'))}
                                                 style={{
                                                     width: deviceWidth * 0.12,
                                                     height: deviceWidth * 0.12
                                                 }}
-                                                resizeMode='stretch'></Image>
+                                                resizeMode='stretch'/>
                                         </View>
                                         <View style={{
                                             width: deviceWidth * 0.85,
@@ -361,7 +368,7 @@ export default class page1 extends Component {
                     </ScrollView>
                 </View>
             )
-        } else if (this.state.type == 2) {//成员详情
+        } else if (this.state.type === 2) {//成员详情
             return (
                 <View>
                     <DropdownAlert
@@ -444,7 +451,7 @@ export default class page1 extends Component {
                                     }}>
                                         {this.state.updateUserName}</Text>
                                     <Image source={require('./imgs/go.png')} style={{width: 10, height: 10}}
-                                           resizeMode='stretch'></Image>
+                                           resizeMode='stretch'/>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -482,7 +489,7 @@ export default class page1 extends Component {
                                     }}>
                                         {this.state.realName}</Text>
                                     <Image source={require('./imgs/go.png')} style={{width: 10, height: 10}}
-                                           resizeMode='stretch'></Image>
+                                           resizeMode='stretch'/>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -519,7 +526,7 @@ export default class page1 extends Component {
                                         {this.state.pwd}
                                     </Text>
                                     <Image source={require('./imgs/go.png')} style={{width: 10, height: 10}}
-                                           resizeMode='stretch'></Image>
+                                           resizeMode='stretch'/>
                                 </View>
 
                             </View>
@@ -555,7 +562,7 @@ export default class page1 extends Component {
                                     }}>
                                         {this.state.systemRole}</Text>
                                     <Image source={require('./imgs/go.png')} style={{width: 10, height: 10}}
-                                           resizeMode='stretch'></Image>
+                                           resizeMode='stretch'/>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -590,7 +597,7 @@ export default class page1 extends Component {
                                     }}>
                                         {this.state.userRole}</Text>
                                     <Image source={require('./imgs/go.png')} style={{width: 10, height: 10}}
-                                           resizeMode='stretch'></Image>
+                                           resizeMode='stretch'/>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -598,7 +605,7 @@ export default class page1 extends Component {
                 </View>
             )
         }
-        else if (this.state.type == 4) {//账号密码编辑
+        else if (this.state.type === 4) {//账号密码编辑
             return (
                 <View>
                     <View style={{
@@ -648,15 +655,15 @@ export default class page1 extends Component {
                                        defaultValue={this.state.typecontent}
                                        onChange={(v) => {
 
-                                           if (this.state.typetitle == "家人账号") {
+                                           if (this.state.typetitle === "家人账号") {
 
                                                this.setState({userName: v.nativeEvent.text})
                                            }
-                                           if (this.state.typetitle == "密码") {
+                                           if (this.state.typetitle === "密码") {
 
                                                this.setState({pwd: v.nativeEvent.text})
                                            }
-                                           if (this.state.typetitle == "家人昵称") {
+                                           if (this.state.typetitle === "家人昵称") {
 
                                                this.setState({realName: v.nativeEvent.text})
                                            }
@@ -669,7 +676,7 @@ export default class page1 extends Component {
                 </View>
             )
         }
-        else if (this.state.type == 5) {//系统角色编辑
+        else if (this.state.type === 5) {//系统角色编辑
             return (
                 <View>
                     <View style={{
@@ -726,7 +733,7 @@ export default class page1 extends Component {
                 </View>
             )
         }
-        else if (this.state.type == 6) {//家庭角色编辑
+        else if (this.state.type === 6) {//家庭角色编辑
             return (
                 <View>
                     <View style={{
@@ -855,7 +862,7 @@ export default class page1 extends Component {
                                 onChangeText={(v) => {
                                     this.setState({userName: v})
                                 }}
-                            ></TextInput>
+                            />
 
                         </View>
 
@@ -882,7 +889,7 @@ export default class page1 extends Component {
                                 onChangeText={(v) => {
                                     this.setState({realName: v})
                                 }}
-                            ></TextInput>
+                            />
                         </View>
 
                         <View style={{
@@ -910,7 +917,7 @@ export default class page1 extends Component {
                                 onChangeText={(v) => {
                                     this.setState({pwd: v})
                                 }}
-                            ></TextInput>
+                            />
 
                         </View>
                         <View style={{
@@ -938,18 +945,19 @@ export default class page1 extends Component {
                                 onChangeText={(v) => {
                                     this.setState({qrpwd: v})
                                 }}
-                            ></TextInput>
+                            />
                         </View>
 
-                        <View style={{
-                            flexDirection: 'row',
-                            borderBottomWidth: 1,
-                            borderBottomColor: '#F0F0F0',
-                            height: 60,
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            paddingLeft: 20
-                        }}>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                borderBottomWidth: 1,
+                                borderBottomColor: '#F0F0F0',
+                                height: 60,
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                paddingLeft: 20
+                            }}>
                             <Text style={{
                                 color: '#6E6E6E',
                                 flex: 1
@@ -998,15 +1006,16 @@ export default class page1 extends Component {
                                 flex: 1
                             }}>
                                 系统角色:</Text>
-                            <ModalDropdown options={['审核员', '观察员', '小鬼']}
-                                           onSelect={(i, v) => {
-                                               this.setState({systemRole: v})
-                                           }}
-                                           defaultValue={'请选择系统角色'}
-                                           dropdownStyle={{width: deviceWidth, height: 150}}
-                                           dropdownTextStyle={{fontSize: 14, justifyContent: 'center',}}
-                                           textStyle={{fontSize: 14, justifyContent: 'center'}}
-                                           style={{flex: 2}}/>
+                            <ModalDropdown
+                                options={['审核员', '观察员', '小鬼']}
+                                onSelect={(i, v) => {
+                                    this.setState({systemRole: v})
+                                }}
+                                defaultValue={'请选择系统角色'}
+                                dropdownStyle={{width: deviceWidth, height: 150}}
+                                dropdownTextStyle={{fontSize: 14, justifyContent: 'center',}}
+                                textStyle={{fontSize: 14, justifyContent: 'center'}}
+                                style={{flex: 2}}/>
                         </View>
 
                         <View style={{
@@ -1023,16 +1032,16 @@ export default class page1 extends Component {
                                 flex: 1
                             }}>
                                 用户角色:</Text>
-                            <ModalDropdown options={['豆爸', '豆妈', '豆爷爷', '豆奶奶', '豆外公', '豆外婆', '豆伢', '豆丫', '叔叔', '阿姨']}
-                                           onSelect={(i, v) => {
-                                               this.setState({userRole: v})
-                                           }}
-                                           defaultValue={'请选择用户角色'}
-                                           dropdownStyle={{width: deviceWidth, height: 200}}
-                                           dropdownTextStyle={{fontSize: 14, justifyContent: 'center',}}
-                                           textStyle={{fontSize: 14, justifyContent: 'center'}}
-                                           style={{flex: 2}}/>
-
+                            <ModalDropdown
+                                options={['豆爸', '豆妈', '豆爷爷', '豆奶奶', '豆外公', '豆外婆', '豆伢', '豆丫', '叔叔', '阿姨']}
+                                onSelect={(i, v) => {
+                                    this.setState({userRole: v})
+                                }}
+                                defaultValue={'请选择用户角色'}
+                                dropdownStyle={{width: deviceWidth, height: 200}}
+                                dropdownTextStyle={{fontSize: 14, justifyContent: 'center',}}
+                                textStyle={{fontSize: 14, justifyContent: 'center'}}
+                                style={{flex: 2}}/>
                         </View>
                     </ScrollView>
                 </View>
