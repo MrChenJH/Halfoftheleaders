@@ -23,7 +23,8 @@ import Jtzd from '../cygl/wdjf'
 import Wdtj from '../cygl/wdtj'
 import WdHd from '../cygl/hd'
 import Qhzh from '../cygl/zhqh'
-
+import Wdzd from '../xg/wdzd.js'
+import Wdmm from '../xg/wdmm.js'
 import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
@@ -33,8 +34,6 @@ const ds = new ListView.DataSource({
 export default class page1 extends Component {
     constructor(props) {
         super(props);
-
-
         this.state = {
             dataSource: ds.cloneWithRows([
             ]),
@@ -44,16 +43,16 @@ export default class page1 extends Component {
     }
 
     _rednerJH() {
-        let icons = []
-        icons.push({img: require('./shy/zrbx.png'), name: '昨日表现'})
-        icons.push({img: require('./shy/jrrw.png'), name: '今日任务'})
-        icons.push({img: require('./shy/mrjh.png'), name: '明日计划'})
-        icons.push({img: require('./shy/qhzh.png'), name: '我的账单'})
-        icons.push({img: require('./shy/jthd.png'), name: '我的秘密'})
-        icons.push({img: require('./shy/jfd.png'), name: '成长基金'})
-        icons.push({img: require('./gly/icon_jifen.png'), name: '家庭钻豆'})
-        icons.push({img: require('./gly/icon_tuijian.png'), name: '家庭推荐'})
-        return (icons.map((t, i) => this._remderItem(t, i)))
+        let icons = [];
+        icons.push({img: require('./shy/zrbx.png'), name: '昨日表现'});
+        icons.push({img: require('./shy/jrrw.png'), name: '今日任务'});
+        icons.push({img: require('./shy/mrjh.png'), name: '明日计划'});
+        icons.push({img: require('./shy/qhzh.png'), name: '我的账单'});
+        icons.push({img: require('./shy/jthd.png'), name: '我的秘密'});
+        icons.push({img: require('./shy/jfd.png'), name: '成长基金'});
+        icons.push({img: require('./gly/icon_jifen.png'), name: '家庭钻豆'});
+        icons.push({img: require('./gly/icon_tuijian.png'), name: '家庭推荐'});
+        return (icons.map((t, i) => this._remderItem(t, i)));
     }
 
     back() {
@@ -66,48 +65,46 @@ export default class page1 extends Component {
                 <View key={i}
                       style={{width: 80, height: 60, justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
                     <TouchableOpacity onPress={() => {
-                        if (t.name == "今日任务") {
+                        if (t.name === "今日任务") {
                             this.props.navigator.push({
                                 component: Jrrw,
                             })
                         }
-                        else if (t.name == "昨日表现") {
+                        else if (t.name === "昨日表现") {
                             this.props.navigator.push({
                                 component: Zrxw,
                             })
                         }
-                        else if (t.name == "明日计划") {
+                        else if (t.name === "明日计划") {
                             this.props.navigator.push({
                                 component: Mrjh,
                             })
                         }
-                        else if (t.name == "我的账单") {
+                        else if (t.name === "我的账单") {
                             this.props.navigator.push({
-                                component: Wdys,
+                                component: Wdzd,
                             })
                         }
-                        else if (t.name == "成长基金") {
+                        else if (t.name === "成长基金") {
                             this.props.navigator.push({
                                 component: Wdqb,
                             })
                         }
-                        else if (t.name == "家庭钻豆") {
+                        else if (t.name === "家庭钻豆") {
                             this.props.navigator.push({
                                 component: Jtzd,
                             })
-
                         }
-                        else if (t.name == "我的秘密") {
+                        else if (t.name === "我的秘密") {
                             this.props.navigator.push({
-                                component: Wyhs,
+                                component: Wdmm,
                             })
                         }
-                        else if (t.name == "家庭推荐") {
+                        else if (t.name === "家庭推荐") {
                             this.props.navigator.push({
                                 component: Wdtj,
                             })
                         }
-
                     }}>
                         <Image
                             source={t.img}
@@ -135,7 +132,7 @@ export default class page1 extends Component {
                 AsyncStorage.getItem('user').then((item) => {
                     return JSON.parse(item)
                 }).then((item) => {
-
+                    this.setState({realName:item.realName});
                     fetch(app.Host + 'api/message/MessageS?user=' + decodeURI(item.userName)+'&role=' + decodeURI(item.systemRole))
                         .then((response) => {
                             if (response.ok) {
@@ -186,7 +183,7 @@ export default class page1 extends Component {
                                     width: deviceWidth
                                 }}
                                 resizeMode='stretch'
-                            ></ImageBackground>
+                            />
                         </View>
 
                         <View
@@ -205,7 +202,7 @@ export default class page1 extends Component {
                                         height: 30,
                                         fontWeight: 'bold'
                                     }}>
-                                    您好张思成同学</Text>
+                                    您好{ decodeURI(this.state.realName)}同学</Text>
                             </View>
                             <View
                                 style={{flex: 1, alignItems: 'flex-end', justifyContent: 'flex-start', paddingTop: 10}}>

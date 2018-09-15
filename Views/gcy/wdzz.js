@@ -33,13 +33,30 @@ export default class wdzz extends Component {
             type: 1,
             typetitle: '',
             typecontent: '',
-            jtnc: ''
+            jtnc: '',
+            userName: '',
+            realName: ''
         }
     }
-
+    showData() {
+        fetch(app.Host + "api/sponsor/SponsorS?jtnc=" + this.state.jtnc)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseJson) => {
+                let data = responseJson.data;
+                this.setState({
+                    dataSource: ds.cloneWithRows(data),
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
     zanzhu(ysType, xgzh, id, je) {
-
-        let url = app.Host + "api/sponsor/UpudateSponsor?ysType=" + ysType + "&xgzh=" + xgzh + "&id=" + id + "&je=" + je;
+        let url = app.Host + "api/sponsor/UpudateSponsor?ysType=" + ysType + "&xgzh=" + xgzh + "&id=" + id + "&je=" + je + "&zzr=" + this.state.userName;
         fetch(url, {
             method: 'POST',
             headers: {
@@ -52,8 +69,8 @@ export default class wdzz extends Component {
                 return response.json();
             }
         }).then((json) => {
-            console.log(json)
-
+            console.log(json);
+            this.showData.bind(this)();
             this.loginAlert.alertWithType('success', 'Success', '赞助成功');
         }).catch((error) => {
             console.error(error);
@@ -61,32 +78,23 @@ export default class wdzz extends Component {
 
     }
 
+
+
     componentWillMount() {
         AsyncStorage.getItem('user').then((item) => {
             return JSON.parse(item)
         }).then((item) => {
-
-            fetch(app.Host + 'api/sponsor/SponsorS?jtnc=' + decodeURI(item.nc))
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                })
-                .then((responseJson) => {
-                    let data = responseJson.data;
-
-                    this.setState({
-                        dataSource: ds.cloneWithRows(data),
-                    })
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            this.setState({
+                userName: decodeURI(item.userName),
+                realName: decodeURI(item.realName),
+                jtnc: decodeURI(item.nc)
+            });
+            this.showData.bind(this)();
         })
     }
 
     render() {
-        const {back} = this.props
+        const {back} = this.props;
         return (
             <View style={{backgroundColor: '#efefef', height: deviceheight}}>
                 <DropdownAlert
@@ -108,25 +116,7 @@ export default class wdzz extends Component {
                 }}>
 
                     <View style={{height: 50, width: 35, alignItems: 'center', justifyContent: 'center'}}>
-                        <TouchableOpacity
-                            style={{
-                                height: 50,
-                                width: 35,
-                                justifyContent: 'center',
-                                alignItems: 'flex-end'
-                            }}
-                            /*  onPress={() => {
-                                  let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
-                                      return item.id == "Main4"
-                                  })
 
-                                  this.props.navigator.popToRoute(destRoute);
-                              }}*/
-                        >
-                            {/*  <Image source={require('./shyImage/back.png')} resizeMode='stretch'
-                                   style={{height: 20, width: 20}}>
-                            </Image>*/}
-                        </TouchableOpacity>
                     </View>
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
                         <Text
@@ -134,7 +124,7 @@ export default class wdzz extends Component {
                                 fontSize: 16,
                                 color: '#FFF',
                                 fontWeight: 'bold'
-                            }}>我的赞助</Text>
+                            }}>预算赞助</Text>
                     </View>
                     <View style={{marginRight: 5, width: 40}}>
 
@@ -147,42 +137,61 @@ export default class wdzz extends Component {
                         dataSource={this.state.dataSource}
                         enableEmptySections={true}
                         renderRow={(rowData) =>
-                            <TouchableOpacity
-                                onPress={this.zanzhu.bind(this, rowData.ysType, rowData.xgzh, rowData.id, rowData.SponsorJe)}>
-                                <View
-                                    style={{
-                                        flexDirection: 'row',
-                                        borderTopColor: '#F0F0F0',
-                                        backgroundColor: '#fff',
-                                        borderTopWidth: 1,
-                                        margin: 5,
-                                        borderRadius: 10,
-                                        height: 40
-                                    }}>
+
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    borderTopColor: '#F0F0F0',
+                                    backgroundColor: '#fff',
+                                    borderTopWidth: 1,
+                                    margin: 5,
+                                    borderRadius: 10,
+                                    height: 60
+                                }}>
+                                <View style={{
+                                    flex: 1,
+                                    justifyContent: 'center',
+                                    alignItems: 'flex-start',
+                                    marginLeft: 20
+                                }}>
+                                    <Text style={{
+                                        color: '#474747'
+                                    }}>{decodeURI(rowData.rq) + "    " + decodeURI(rowData.realName)}发起申请</Text>
                                     <View style={{
-                                        flex: 1,
-                                        justifyContent: 'center',
-                                        alignItems: 'flex-start',
-                                        marginLeft: 10
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between', width: deviceWidth,marginTop: 5
                                     }}>
                                         <Text style={{
-                                            color: '#474747',
-                                            fontSize: 12
-                                        }}>{decodeURI(rowData.rq) + " " + decodeURI(rowData.realName)}发起申请</Text>
-                                        <View style={{
-                                            flexDirection: 'row',
-                                            justifyContent: 'space-between', width: deviceWidth
-                                        }}>
-                                            <Text style={{
-                                                color: '#474747',
-                                                fontSize: 12
-                                            }}>{decodeURI(rowData.syMd) + " " + decodeURI(rowData.ysType) + "  还差" + decodeURI(rowData.SponsorJe) + "元"}</Text>
-                                            <Text style={{color: '#0080FF', fontSize: 12, marginRight: 30}}>我要赞助</Text>
-                                        </View>
+                                            color: '#474747'
+                                        }}>{
+                                            rowData.isSponsor==="True"?(decodeURI(rowData.syMd) + "所需"+decodeURI(rowData.SponsorJe)+"元已由"+ decodeURI(rowData.zzrName)+"赞助"):( decodeURI(rowData.syMd) + " " + decodeURI(rowData.ysType) + "  还差" + decodeURI(rowData.SponsorJe) + "元")
+                                        }</Text>
                                     </View>
-
                                 </View>
-                            </TouchableOpacity>
+
+                                {
+                                    rowData.isSponsor==="True" ? (
+                                        null
+                                    ) : (
+                                        <View style={{ position: 'absolute',right:0, marginBottom: "auto",marginTop:"auto", height:60}}>
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    this.zanzhu( decodeURI( rowData.ysType), rowData.xgzh, rowData.id, rowData.SponsorJe)
+                                                }}>
+                                              {/*  onPrass={this.zanzhu.bind(this, rowData.ysType, rowData.xgzh, rowData.id, rowData.SponsorJe)}>*/}
+                                                <Text style={{color: '#0080FF',  marginRight: 30}}>我要赞助</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    )
+                                }
+
+
+
+
+
+                            </View>
+
+
                         }
                     />
 

@@ -19,7 +19,6 @@ import Checkbox from '../component/xwCheckBox'
 
 import app from '../../app.json';
 import ModalDropdown from 'react-native-modal-dropdown';
-
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
 const ds = new ListView.DataSource({
@@ -42,10 +41,6 @@ export default class jtjh extends Component {
             jtnc: ""
         }
     }
-
-
-   
-
     _remove(id) {
         fetch(app.Host + 'api/plans/removePaln?id=' + id)
             .then((response) => {
@@ -67,14 +62,11 @@ export default class jtjh extends Component {
             }).catch((error) => {
             console.error(error);
         });
-
     }
-
 
     _save() {
 
         let url = app.Host + "api/plans/AddXgPlan?ids=" + this.state.selectIds + "&jtnc=" + this.state.jtnc + "&xgzh=" + this.state.xgzh + "&realname=" + this.state.realname;
-
         fetch(url, {
             method: 'POST',
             headers: {
@@ -98,10 +90,7 @@ export default class jtjh extends Component {
         }).catch((error) => {
             console.error(error);
         });
-
     }
-
-
     componentWillMount() {
 
         AsyncStorage.getItem('user').then((item) => {
@@ -112,7 +101,7 @@ export default class jtjh extends Component {
                 jtnc: decodeURI(item.nc),
                 xgzh: decodeURI(item.userName),
                 realname: decodeURI(item.realName)
-            })
+            });
 
             fetch(app.Host + 'api/plans/Plans?jtnc=' + item.nc)
                 .then((response) => {
@@ -141,13 +130,12 @@ export default class jtjh extends Component {
                 .catch((error) => {
                     console.error(error);
                 });
-
         })
     }
 
     render() {
-        const {back} = this.props
-        if (this.state.type == 1) {
+        const {back} = this.props;
+        if (this.state.type === 1) {
             return (
                 <View
 
@@ -173,8 +161,8 @@ export default class jtjh extends Component {
                                 }}
                                 onPress={() => {
                                     let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
-                                        return item.id == "Main2"
-                                    })
+                                        return item.id === "Main2"
+                                    });
 
                                     this.props.navigator.popToRoute(destRoute);
                                 }
@@ -208,7 +196,6 @@ export default class jtjh extends Component {
                             dataSource={this.state.dataSource}
                             enableEmptySections={true}
                             renderRow={(rowData) =>
-
                                 <View
                                     style={{
                                         flexDirection: 'row',
@@ -239,20 +226,17 @@ export default class jtjh extends Component {
                                         flexDirection: 'row',
                                         alignItems: 'center'
                                     }}>
-
-                            
-
                                         <TouchableOpacity
                                             onPress={this._remove.bind(this, rowData.xgid)}>
                                             <Image source={require('../shy/shyImage/delete.png')} resizeMode='stretch'
-                                                   style={{height: 20, width: 20, marginLeft: 10}}></Image>
+                                                   style={{height: 20, width: 20, marginLeft: 10}}/>
                                         </TouchableOpacity>
                                     </View>
-                                    <View style={{
+                                  {/*  <View style={{
                                         flex: 1,
                                         width: 10
                                     }}>
-                                    </View>
+                                    </View>*/}
                                 </View>
                             }
                         />

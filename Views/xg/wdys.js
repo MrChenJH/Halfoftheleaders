@@ -37,7 +37,7 @@ const deviceheight = Dimensions.get('window').height;
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
-export default class jtjh extends Component {
+export default class wdys extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -204,7 +204,7 @@ export default class jtjh extends Component {
 
     showFadeAnimationDialog = () => {
         this.fadeAnimationDialog.show();
-    }
+    };
 
     componentWillMount() {
         AsyncStorage.getItem('user').then((item) => {
@@ -214,7 +214,7 @@ export default class jtjh extends Component {
                 jtnc: decodeURI(item.nc),
                 userName: decodeURI(item.userName),
                 realName: decodeURI(item.realName)
-            })
+            });
             fetch(app.Host + 'api/FundSetting/gFundSetting?jtnc=' + this.state.jtnc + '&userName=' + this.state.userName)
                 .then((response) => {
                     if (response.ok) {
@@ -224,11 +224,11 @@ export default class jtjh extends Component {
                 .then((responseJson) => {
                     let data = responseJson.data;
                     data.forEach(element => {
-                        this.state.yslx.push(decodeURI(element.ProjectName))
+                        this.state.yslx.push(decodeURI(element.ProjectName));
                         this.state.xmjelb.push({key: element.ProjectName, value: element.je})
                     });
 
-                    this.setState({yslx: this.state.yslx})
+                    this.setState({yslx: this.state.yslx});
                     this.setState({xmjelb: this.state.xmjelb})
                 })
                 .catch((error) => {
@@ -256,8 +256,8 @@ export default class jtjh extends Component {
     }
 
     render() {
-        const {back} = this.props
-        if (this.state.type == 1) {//我的预算列表
+        const {back} = this.props;
+        if (this.state.type === 1) {//我的预算列表
             return (
                 <View
                     style={{backgroundColor: '#efefef', height: deviceheight}}
@@ -357,25 +357,27 @@ export default class jtjh extends Component {
                                     marginRight: 10,
                                     justifyContent: 'flex-end'
                                 }}>
-                                    <Checkbox styles={{width: 20, height: 20}}
-                                              selected={(isChecked) => {
-                                                  if (!isChecked) {
-                                                      if (rowData.zhSy > rowData.je) {
-                                                          this.setState({
-                                                              SponsorJe: (rowData.zhSy - rowData.je),
-                                                              zzysid: rowData.id
-                                                          })
-                                                          this.scaleAnimationDialog.show();
-                                                      } else {
-                                                          this.update.bind(this, rowData.id)()
-                                                      }
-                                                  }
+                                    <Checkbox
+                                        styles={{width: 20, height: 20}}
+                                        isChecked={rowData.ysState > 1}
+                                        selected={(isChecked) => {
+                                            if (!isChecked) {
+                                                if (rowData.zhSy > rowData.je) {
+                                                    this.setState({
+                                                        SponsorJe: (rowData.zhSy - rowData.je),
+                                                        zzysid: rowData.id
+                                                    });
+                                                    this.scaleAnimationDialog.show();
+                                                } else {
+                                                    this.update.bind(this, rowData.id)()
+                                                }
+                                            }
 
-                                              }}
-                                    ></Checkbox>
+                                        }}
+                                    />
                                     <TouchableOpacity onPress={this.Remove.bind(this, rowData.id)}>
                                         <Image source={require('../shy/shyImage/delete.png')} resizeMode='stretch'
-                                               style={{height: 20, width: 20, marginLeft: 10, marginRight: 10}}></Image>
+                                               style={{height: 20, width: 20, marginLeft: 10, marginRight: 10}}/>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -478,8 +480,8 @@ export default class jtjh extends Component {
                                        defaultValue={'请选择预算类型'}
                                        onSelect={(i, v) => {
                                            let u = this.state.xmjelb.find((item) => {
-                                               return decodeURI(item.key) == v
-                                           })
+                                               return decodeURI(item.key) === v
+                                           });
 
                                            this.setState({zjye: u.value, ysType: v})
                                        }}

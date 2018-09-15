@@ -62,11 +62,9 @@ export default class xwpj extends Component {
 
             <View key={i}
                   style={{width: 80, alignItems: 'center'}}>
-
                 <TouchableOpacity onPress={() => {
-                    this.setState({xgzh: decodeURI(item.userName), realName: decodeURI(item.realName)});
-                    this._showDeatil();
-                    this._showTjData();
+                    this._showDeatil(decodeURI(item.userName));
+                    this._showTjData(decodeURI(item.userName));
                 }}>
                     <Image
                         source={role === "豆伢" ? require('../cygl/imgs/tx/boy.png') : require('../cygl/imgs/tx/girl.png')}
@@ -86,8 +84,8 @@ export default class xwpj extends Component {
         )
     }
 
-    _showTjData() {
-        fetch(app.Host + 'api/plans/tj?xgzh=' + this.state.xgzh)
+    _showTjData(xgzh) {
+        fetch(app.Host + 'api/plans/tj?xgzh=' + xgzh)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -108,37 +106,33 @@ export default class xwpj extends Component {
             });
     }
 
-    _showDeatil() {
-        if (this.state.type === 1) {
-            fetch(app.Host + 'api/plans/xgPlanzr?jtnc=' + this.state.jtnc + "&xgzh=" + this.state.xgzh)
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                })
-                .then((responseJson) => {
-                    let data = responseJson.data;
-                    this.setState({dataJhSource: ds.cloneWithRows(data)})
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-        else {
-            fetch(app.Host + 'api/behavior/behaviorSzr?jtnc=' + this.state.jtnc + "&gcy=" + this.state.userName + "&xg=" + this.state.xgzh)
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                })
-                .then((responseJson) => {
-                    let data = responseJson.data;
-                    this.setState({dataSource: ds.cloneWithRows(data)})
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
+    _showDeatil(xgzh) {
+        fetch(app.Host + 'api/plans/xgPlanzr?jtnc=' + this.state.jtnc + "&xgzh=" + xgzh)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseJson) => {
+                let data = responseJson.data;
+                this.setState({dataJhSource: ds.cloneWithRows(data)})
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        fetch(app.Host + 'api/behavior/behaviorSzr?jtnc=' + this.state.jtnc + "&xg=" + xgzh)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseJson) => {
+                let data = responseJson.data;
+                this.setState({dataSource: ds.cloneWithRows(data)})
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     componentWillMount() {
@@ -155,8 +149,11 @@ export default class xwpj extends Component {
                 .then((responseJson) => {
                     let data = responseJson.data;
                     this.setState({dataCySource: data, jtnc: decodeURI(item.nc), userName: decodeURI(item.userName)});
-                    this._showDeatil.bind(this)();
-                    this._showTjData.bind(this)()
+
+                    if (data.length > 0) {
+                        this._showDeatil.bind(this)(data[0].userName);
+                        this._showTjData.bind(this)(data[0].userName);
+                    }
                 })
                 .catch((error) => {
                     console.error(error);
@@ -264,7 +261,7 @@ export default class xwpj extends Component {
                                         textAlign: 'center',
                                         textAlignVertical: 'center'
                                     }}>昨日计划任务</Text>
-                                   {/* <Text style={{
+                                    {/* <Text style={{
                                         fontSize: 13,
                                         fontWeight: 'bold',
                                         borderBottomColor: '#FFBF00',
@@ -296,7 +293,7 @@ export default class xwpj extends Component {
                                         textAlign: 'center',
                                         textAlignVertical: 'center'
                                     }}>昨日行为养成</Text>
-                                  {/*  <Text style={{
+                                    {/*  <Text style={{
                                         fontSize: 13,
                                         fontWeight: 'bold',
                                         height: 40,
@@ -325,10 +322,12 @@ export default class xwpj extends Component {
                                 marginBottom: 5,
                                 flexWrap: 'wrap'
                             }}>
-                            <View style={{ justifyContent: 'flex-start',
+                            <View style={{
+                                justifyContent: 'flex-start',
                                 alignContent: 'flex-start',
                                 flexDirection: 'row',
-                                alignItems: 'center'}}>
+                                alignItems: 'center'
+                            }}>
                                 <Text style={{flex: 1, textAlign: "center"}}>总金豆:{this.state.zjds}</Text>
                                 <Text style={{flex: 1, textAlign: "center"}}>获得:{this.state.yhjds}</Text>
                                 <Text style={{flex: 1, textAlign: "center"}}>未获得:{this.state.whjds}</Text>
@@ -364,14 +363,14 @@ export default class xwpj extends Component {
                                         alignItems: 'flex-start',
                                         marginLeft: 10
                                     }}>
-                                        <Text style={{color: '#474747'}}>{decodeURI( rowData.projectName)}</Text>
+                                        <Text style={{color: '#474747'}}>{decodeURI(rowData.projectName)}</Text>
                                     </View>
                                     <View style={{
                                         flex: 2,
                                         justifyContent: 'center',
                                         alignItems: 'center'
                                     }}>
-                                        <Text style={{ color: '#474747'}}>金豆：{rowData.jds}</Text>
+                                        <Text style={{color: '#474747'}}>金豆：{rowData.jds}</Text>
                                     </View>
                                     <View style={{
                                         flex: 1,
@@ -486,7 +485,7 @@ export default class xwpj extends Component {
                                         textAlign: 'center',
                                         textAlignVertical: 'center'
                                     }}>昨日计划任务</Text>
-                                  {/*  <Text style={{
+                                    {/*  <Text style={{
                                         fontSize: 13,
                                         fontWeight: 'bold',
                                         height: 40,
@@ -517,7 +516,7 @@ export default class xwpj extends Component {
                                         textAlign: 'center',
                                         textAlignVertical: 'center'
                                     }}>昨日行为养成</Text>
-                                  {/*  <Text style={{
+                                    {/*  <Text style={{
                                         fontSize: 13,
                                         fontWeight: 'bold',
                                         borderBottomColor: '#FFBF00',
@@ -593,141 +592,141 @@ export default class xwpj extends Component {
             )
         }
 
-       /* return (
-            <View
-                style={{backgroundColor: '#efefef', height: deviceheight}}
-            >
-                <View style={{
-                    flexDirection: 'row',
-                    borderBottomWidth: 1,
-                    borderBottomColor: '#E6E6E6',
-                    backgroundColor: '#fe9c2e',
-                    height: 40,
-                    alignItems: 'center',
-                    justifyContent: 'space-between'
-                }}>
+        /* return (
+             <View
+                 style={{backgroundColor: '#efefef', height: deviceheight}}
+             >
+                 <View style={{
+                     flexDirection: 'row',
+                     borderBottomWidth: 1,
+                     borderBottomColor: '#E6E6E6',
+                     backgroundColor: '#fe9c2e',
+                     height: 40,
+                     alignItems: 'center',
+                     justifyContent: 'space-between'
+                 }}>
 
-                    <View style={{height: 50, width: 35, alignItems: 'center', justifyContent: 'center'}}>
-                        <TouchableOpacity
-                            style={{
-                                height: 50,
-                                width: 35,
-                                justifyContent: 'center',
-                                alignItems: 'flex-end'
-                            }}
-                            onPress={() => {
-                                let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
-                                    return item.id === "Main4"
-                                });
-                                this.props.navigator.popToRoute(destRoute);
-                            }
-                            }>
-                            <Image source={require('./shyImage/back.png')}
-                                   resizeMode='stretch'
-                                   style={{height: 20, width: 20}}>
-                            </Image>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                        <Text
-                            style={{
-                                fontSize: 16,
-                                color: '#FFF', fontWeight: 'bold'
-                            }}>昨日表现</Text>
-                    </View>
-                    <View style={{
-                        marginRight: 5,
-                        flexDirection: 'row'
-                    }}>
-                    </View>
-                </View>
-
-                <View
-                    style={{
-                        width: deviceWidth,
-                        height: 100,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        backgroundColor: '#fff',
-                        alignItems: 'center'
-                    }}
-                >
-                    <View
-                        style={{
-                            flex: 1,
-                            height: 90,
-                            flexDirection: 'row',
-                            justifyContent: 'flex-start',
-                            alignItems: 'center',
-                            paddingLeft: 20
-                        }}>
-                        {this._rednerCy1()}
-                    </View>
-                </View>
-
-
-                <ListView
-                    dataSource={this.state.dataSource}
-                    enableEmptySections={true}
-                    renderRow={(rowData) =>
-
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                borderTopColor: '#F0F0F0',
-                                backgroundColor: '#fff',
-                                borderTopWidth: 1,
-                                margin: 5,
-                                borderRadius: 10,
-                                height: 50
-                            }}>
-                            <View style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'flex-start',
-
-                                marginLeft: 10
-                            }}>
-                                <Text style={{color: '#474747', width: 80}}>{decodeURI(rowData.realName)}</Text>
-                            </View>
-                            <View style={{
-                                flex: 4,
-                                justifyContent: 'center',
-                                alignItems: 'flex-start',
-
-                                marginLeft: 10
-                            }}>
-                                <Text style={{fontSize: 12, color: '#474747'}}>{decodeURI(rowData.xwMc)}</Text>
-                            </View>
-                            <View style={{
-                                flex: 2,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <Text style={{fontSize: 12, color: '#474747'}}>银豆 {rowData.yd}</Text>
-                            </View>
-                            <View style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-
-                                <Image
-                                    source={decodeURI(rowData.ydType) === "优" ? require('./shyImage/you.png') : decodeURI(rowData.ydType) === "良" ? require('../shy/shyImage/lian.png') : require('../shy/shyImage/chai.png')}
+                     <View style={{height: 50, width: 35, alignItems: 'center', justifyContent: 'center'}}>
+                         <TouchableOpacity
+                             style={{
+                                 height: 50,
+                                 width: 35,
+                                 justifyContent: 'center',
+                                 alignItems: 'flex-end'
+                             }}
+                             onPress={() => {
+                                 let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
+                                     return item.id === "Main4"
+                                 });
+                                 this.props.navigator.popToRoute(destRoute);
+                             }
+                             }>
+                             <Image source={require('./shyImage/back.png')}
                                     resizeMode='stretch'
-                                    style={{height: 20, width: 20, marginLeft: 10, marginRight: 10}}/>
+                                    style={{height: 20, width: 20}}>
+                             </Image>
+                         </TouchableOpacity>
+                     </View>
+                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                         <Text
+                             style={{
+                                 fontSize: 16,
+                                 color: '#FFF', fontWeight: 'bold'
+                             }}>昨日表现</Text>
+                     </View>
+                     <View style={{
+                         marginRight: 5,
+                         flexDirection: 'row'
+                     }}>
+                     </View>
+                 </View>
 
-                            </View>
+                 <View
+                     style={{
+                         width: deviceWidth,
+                         height: 100,
+                         flexDirection: 'row',
+                         justifyContent: 'space-between',
+                         backgroundColor: '#fff',
+                         alignItems: 'center'
+                     }}
+                 >
+                     <View
+                         style={{
+                             flex: 1,
+                             height: 90,
+                             flexDirection: 'row',
+                             justifyContent: 'flex-start',
+                             alignItems: 'center',
+                             paddingLeft: 20
+                         }}>
+                         {this._rednerCy1()}
+                     </View>
+                 </View>
 
 
-                        </View>
+                 <ListView
+                     dataSource={this.state.dataSource}
+                     enableEmptySections={true}
+                     renderRow={(rowData) =>
 
-                    }
-                />
+                         <View
+                             style={{
+                                 flexDirection: 'row',
+                                 borderTopColor: '#F0F0F0',
+                                 backgroundColor: '#fff',
+                                 borderTopWidth: 1,
+                                 margin: 5,
+                                 borderRadius: 10,
+                                 height: 50
+                             }}>
+                             <View style={{
+                                 flex: 1,
+                                 justifyContent: 'center',
+                                 alignItems: 'flex-start',
+
+                                 marginLeft: 10
+                             }}>
+                                 <Text style={{color: '#474747', width: 80}}>{decodeURI(rowData.realName)}</Text>
+                             </View>
+                             <View style={{
+                                 flex: 4,
+                                 justifyContent: 'center',
+                                 alignItems: 'flex-start',
+
+                                 marginLeft: 10
+                             }}>
+                                 <Text style={{fontSize: 12, color: '#474747'}}>{decodeURI(rowData.xwMc)}</Text>
+                             </View>
+                             <View style={{
+                                 flex: 2,
+                                 justifyContent: 'center',
+                                 alignItems: 'center'
+                             }}>
+                                 <Text style={{fontSize: 12, color: '#474747'}}>银豆 {rowData.yd}</Text>
+                             </View>
+                             <View style={{
+                                 flex: 1,
+                                 justifyContent: 'center',
+                                 alignItems: 'center'
+                             }}>
+
+                                 <Image
+                                     source={decodeURI(rowData.ydType) === "优" ? require('./shyImage/you.png') : decodeURI(rowData.ydType) === "良" ? require('../shy/shyImage/lian.png') : require('../shy/shyImage/chai.png')}
+                                     resizeMode='stretch'
+                                     style={{height: 20, width: 20, marginLeft: 10, marginRight: 10}}/>
+
+                             </View>
 
 
-            </View>
-        )*/
+                         </View>
+
+                     }
+                 />
+
+
+             </View>
+         )*/
 
     }
 }

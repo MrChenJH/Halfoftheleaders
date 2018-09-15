@@ -28,15 +28,12 @@ export default class rwtj extends Component {
             jtnc: "",
             xgzh: "",
             realname: "",
-            zjds: 0,
-            yhjds: 0,
-            whjds: 0,
             userName: ''
         }
     }
 
-    _showDatad() {
-        fetch(app.Host + 'api/plans/tj?xgzh=' + this.state.userName)
+    _showXgJH(xgzh) {
+        fetch(app.Host + 'api/plans/xgPlanJr?jtnc='+this.state.jtnc+'&xgzh=' + xgzh)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -44,12 +41,8 @@ export default class rwtj extends Component {
             })
             .then((responseJson) => {
                 let data = responseJson.data;
-                let data1 = responseJson.data1;
                 this.setState({
-                    dataList: ds.cloneWithRows(data),
-                    zjds: data1[0].zs,
-                    whjds: data1[0].w,
-                    yhjds: data1[0].y
+                    dataList: ds.cloneWithRows(data)
                 })
             })
             .catch((error) => {
@@ -61,24 +54,11 @@ export default class rwtj extends Component {
         let url = app.Host + "api/plans/planTj?id=" + id;
         fetch(url).then((response) => {
             if (response.ok) {
-                this._showDatad.bind(this)()
+                this._showXgJH.bind(this)(this.state.userName);
             }
         }).catch((error) => {
             console.error(error);
         });
-    }
-
-    _reflashTotle() {
-        return (
-            <View style={{ justifyContent: 'flex-start',
-                alignContent: 'flex-start',
-                flexDirection: 'row',
-                alignItems: 'center'}}>
-                <Text style={{flex: 1, textAlign: "center"}}>总金豆:{this.state.zjds}</Text>
-                <Text style={{flex: 1, textAlign: "center"}}>获得:{this.state.yhjds}</Text>
-                <Text style={{flex: 1, textAlign: "center"}}>未获得:{this.state.whjds}</Text>
-            </View>
-        )
     }
 
     componentWillMount() {
@@ -91,7 +71,7 @@ export default class rwtj extends Component {
                 xgzh: decodeURI(item.userName),
                 realname: decodeURI(item.realName)
             });
-            this._showDatad.bind(this)()
+            this._showXgJH.bind(this)(this.state.userName)
         })
     }
 
@@ -144,17 +124,6 @@ export default class rwtj extends Component {
                             }}>任务</Text>
                         </View>
                     </View>
-                    <View
-                        style={{
-                            height: 40,
-                            backgroundColor: '#fff',
-                            justifyContent: 'flex-start',
-                            alignContent: 'flex-start',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            marginBottom: 5,
-                            flexWrap: 'wrap'
-                        }}>{ this._reflashTotle()}</View>
                     <ListView
                         dataSource={this.state.dataList}
                         enableEmptySections={true}
@@ -199,13 +168,13 @@ export default class rwtj extends Component {
                                     flexDirection: 'row'
                                 }}>
                                     <Checkbox
-                                        isChecked={rowData.state >= 1}
+                                        isChecked={rowData.sta >= 1}
                                         styles={{height: 20, width: 20, marginRight: 10}}
                                         selected={(isS) => {
                                             if (!isS) {
                                                 this._shenhe.bind(this, rowData.xgid)();
-                                                this._showDatad();
-                                                this._reflashTotle();
+                                            }else{
+                                                return;
                                             }
                                         }}
                                     />

@@ -13,10 +13,8 @@ import {
     AsyncStorage
 } from 'react-native';
 
-
 import app from '../../app.json'
 import DropdownAlert from 'react-native-dropdownalert';
-
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
 import Checkbox from '../component/xwCheckBox'
@@ -31,10 +29,8 @@ export default class HD extends Component {
         this.state = {
             dataCySource: [],
             dataList: ds.cloneWithRows([
-                {title: '数学作业', content: '金豆:500', xz: true},
-                {title: '数学作业', content: '金豆:500', xz: false}
-            ]),
 
+            ]),
             jtnc: '',
             txtContent: '',
             sysRole: '',
@@ -50,15 +46,15 @@ export default class HD extends Component {
         let url = app.Host + "api/plans/planSh?id=" + id;
         fetch(url).then((response) => {
             if (response.ok) {
-                this._showXgJH.bind(this)();
+                this._showXgJH.bind(this)(this.state.xgzh);
             }
         }).catch((error) => {
             console.error(error);
         });
     }
 
-    _showXgJH() {
-        fetch(app.Host + 'api/plans/xgPlanJr?jtnc=' + this.state.jtnc + '&xgzh=' + this.state.xgzh)
+    _showXgJH(xgzh) {
+        fetch(app.Host + 'api/plans/xgPlanJrds?jtnc=' + this.state.jtnc + '&xgzh=' + xgzh)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -86,16 +82,16 @@ export default class HD extends Component {
 
                 <TouchableOpacity onPress={() => {
                     this.setState({xgzh: decodeURI(item.userName)});
-                    this._showXgJH.bind(this)();
+                    this._showXgJH.bind(this)(this.state.xgzh);
                 }}>
                     <Image
-                        source={role == "豆伢" ? require('../cygl/imgs/tx/boy.png') : require('../cygl/imgs/tx/girl.png')}
+                        source={role === "豆伢" ? require('../cygl/imgs/tx/boy.png') : require('../cygl/imgs/tx/girl.png')}
                         style={{
                             height: 50,
                             width: 50
                         }}
                         resizeMode='stretch'
-                    ></Image>
+                    />
                     <Text
                         style={{
                             width: 50,
@@ -120,7 +116,9 @@ export default class HD extends Component {
                 .then((responseJson) => {
                     let data = responseJson.data;
                     this.setState({dataCySource: data});
-                    this._showXgJH.bind(this)();
+                    if(data.length>0) {
+                        this._showXgJH.bind(this)(data[0].userName);
+                    }
                 })
                 .catch((error) => {
                     console.error(error);
@@ -150,8 +148,6 @@ export default class HD extends Component {
                     alignItems: 'center',
                     justifyContent: 'space-between'
                 }}>
-
-
                     <View style={{height: 50, width: 35, alignItems: 'center', justifyContent: 'center'}}>
                         <TouchableOpacity
                             style={{
@@ -160,17 +156,16 @@ export default class HD extends Component {
                                 justifyContent: 'center',
                                 alignItems: 'flex-end'
                             }}
-                            /* onPress={() => {
-                                 let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
-                                     return item.id == "Main3"
-                                 })
-
-                                 this.props.navigator.popToRoute(destRoute);
-                             }}*/
+                         /*   onPress={() => {
+                                let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
+                                    return item.id === "Main3"
+                                });
+                                this.props.navigator.popToRoute(destRoute);
+                            }}*/
                         >
-                            {/*<Image source={require('./shyImage/back.png')} resizeMode='stretch'
-                                   style={{height: 20, width: 20}}>
-                            </Image>*/}
+                            {/*<Image source={require('./shyImage/back.png')} resizeMode='stretch'*/}
+                                   {/*style={{height: 20, width: 20}}>*/}
+                            {/*</Image>*/}
                         </TouchableOpacity>
                     </View>
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -183,10 +178,7 @@ export default class HD extends Component {
                     <View style={{
                         marginRight: 5,
                         flexDirection: 'row'
-                    }}>
-
-
-                    </View>
+                    }}/>
                 </View>
 
                 <View
@@ -259,10 +251,10 @@ export default class HD extends Component {
                                     styles={{height: 20, width: 20}}
                                     selected={(isS) => {
                                         if (!isS) {
-                                            this._shenhe.bind(this, rowData.xgid)();
+                                            this._shenhe.bind(this)(rowData.xgid);
                                         }
                                     }}
-                                ></Checkbox>
+                                />
 
                             </View>
                             <View style={{width: 10}}>

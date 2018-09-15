@@ -29,9 +29,8 @@ export default class HD extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: ds.cloneWithRows([
-                 ]),
-         
+            dataSource: ds.cloneWithRows([]),
+
             jtnc: '',
             txtContent: '',
             type: 1,
@@ -121,13 +120,13 @@ export default class HD extends Component {
         )
     }*/
 
-      componentWillMount() {
+    componentWillMount() {
         AsyncStorage.getItem('user').then((item) => {
             return JSON.parse(item)
         }).then((item) => {
-            this.setState({ jtnc: decodeURI(item.nc), userName: decodeURI(item.userName)})
-              
-            fetch(app.Host + 'api/evaluate/EvaluateTo?jtnc=' + decodeURI(item.nc)+'&touser='+decodeURI(item.userName))
+            this.setState({jtnc: decodeURI(item.nc), userName: decodeURI(item.userName)})
+
+            fetch(app.Host + 'api/evaluate/EvaluateTo?jtnc=' + decodeURI(item.nc) + '&touser=' + decodeURI(item.userName))
                 .then((response) => {
                     if (response.ok) {
                         return response.json();
@@ -135,8 +134,8 @@ export default class HD extends Component {
                 })
                 .then((responseJson) => {
                     let data = JSON.parse(responseJson).data;
-              
-                    this.setState({dataSource:ds.cloneWithRows(data)})
+
+                    this.setState({dataSource: ds.cloneWithRows(data)})
                 })
                 .catch((error) => {
                     console.error(error);
@@ -176,15 +175,15 @@ export default class HD extends Component {
                                 alignItems: 'flex-end'
                             }}
                             onPress={() => {
-                                 let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
-                                     return item.id == "Main3"
-                                 })
+                                let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
+                                    return item.id == "Main3"
+                                })
 
-                                 this.props.navigator.popToRoute(destRoute);
-                             }}
+                                this.props.navigator.popToRoute(destRoute);
+                            }}
                         >
                             {<Image source={require('./shyImage/back.png')} resizeMode='stretch'
-                                   style={{height: 20, width: 20}}>
+                                    style={{height: 20, width: 20}}>
                             </Image>}
                         </TouchableOpacity>
                     </View>
@@ -204,7 +203,6 @@ export default class HD extends Component {
                     </View>
                 </View>
 
-             
 
                 <ListView
                     /* style={{
@@ -234,7 +232,7 @@ export default class HD extends Component {
                             }}>
                                 <Text style={{
                                     color: '#474747'
-                                }}>{decodeURI(rowData.realName) + " 说  " }</Text>
+                                }}>{decodeURI(rowData.realName) + " 说  "}</Text>
                             </View>
 
                             <View style={{
@@ -247,22 +245,22 @@ export default class HD extends Component {
                                     color: '#474747',
                                     marginRight: 20
                                 }}>{decodeURI(rowData.talk)}</Text>
-                                
+
 
                             </View>
 
-                                <View style={{
-                                    flex: 1,
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}>
+                            <View style={{
+                                flex: 1,
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
 
-                                    <Image
-                                        source={decodeURI(rowData.evaluate) == "优" ? require('./shyImage/you.png') : decodeURI(rowData.evaluate) == "良" ? require('../shy/shyImage/lian.png') : require('../shy/shyImage/chai.png')}
-                                        resizeMode='stretch'
-                                        style={{height: 20, width: 20, marginLeft: 10, marginRight: 10}}></Image>
+                                <Image
+                                    source={decodeURI(rowData.evaluate) == "优" ? require('./shyImage/you.png') : decodeURI(rowData.evaluate) == "良" ? require('../shy/shyImage/lian.png') : require('../shy/shyImage/chai.png')}
+                                    resizeMode='stretch'
+                                    style={{height: 20, width: 20, marginLeft: 10, marginRight: 10}}></Image>
 
-                                </View>
+                            </View>
                             <View style={{width: 10}}>
 
                             </View>
@@ -276,6 +274,6 @@ export default class HD extends Component {
             </View>
         )
 
-}
+    }
 }
 

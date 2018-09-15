@@ -23,7 +23,6 @@ const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
 
-
 export default class Jhsh extends Component {
     constructor(props) {
         super(props);
@@ -37,10 +36,10 @@ export default class Jhsh extends Component {
     }
 
     pro(id) {
-        fetch(app.Host + '/api/ys/YsShs?id=' + id)
+        fetch(app.Host + 'api/ys/YsShs?id=' + id)
             .then((response) => {
                 if (response.ok) {
-                    fetch(app.Host + '/api/ys/YsSs?jtnc=' + this.state.jtnc)
+                    fetch(app.Host + 'api/ys/ysSearch?jtnc=' + this.state.jtnc)
                         .then((response) => {
                             if (response.ok) {
                                 return response.json();
@@ -88,7 +87,7 @@ export default class Jhsh extends Component {
 
 
     render() {
-        const {back} = this.props
+        const {back} = this.props;
         return (
             <View>
                 <View style={{
@@ -185,9 +184,9 @@ export default class Jhsh extends Component {
                                             alignItems: 'center'
                                         }}>
                                             <CheckBox
-                                                isChecked={rowData.ysState == 3}
+                                                isChecked={rowData.ysState === 3}
                                                 selected={this.pro.bind(this, rowData.id)}
-                                                styles={{height: 20, width: 20}}></CheckBox>
+                                                styles={{height: 20, width: 20}}/>
                                         </View>
 
 

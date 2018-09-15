@@ -16,6 +16,7 @@ import app from '../../app.json';
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
 import Checkbox from '../component/xwCheckBox'
+import DropdownAlert from "react-native-dropdownalert";
 
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
@@ -32,233 +33,151 @@ export default class jrrw extends Component {
             zjds: 0,
             yhjds: 0,
             whjds: 0,
-            userName:''
+            userName: ''
         }
     }
-    
-    _showDatad(){
-        fetch(app.Host + 'api/plans/tj?xgzh=' + this.state.userName)
-       .then((response) => {
-           if (response.ok) {
-               return response.json();
-           }
-       })
-       .then((responseJson) => {
-           let data = responseJson.data;
-            let data1 = responseJson.data1;
-           this.setState({
-               dataList: ds.cloneWithRows(data),
-               zjds: data1[0].zs,
-               whjds: data1[0].w,
-               yhjds: data1[0].y
-           })
 
-       })
-       .catch((error) => {
-           console.error(error);
-       });
-   }
+    _showXgJH(xgzh) {
+        fetch(app.Host + 'api/plans/xgPlanJr?jtnc='+this.state.jtnc+'&xgzh=' + xgzh)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseJson) => {
+                let data = responseJson.data;
+                this.setState({
+                    dataList: ds.cloneWithRows(data)
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 
     _shenhe(id) {
         let url = app.Host + "api/plans/planTj?id=" + id;
         fetch(url).then((response) => {
             if (response.ok) {
-                  this._showDatad.bind(this)()
+                this._showDatad.bind(this)()
             }
         }).catch((error) => {
             console.error(error);
         });
     }
-   
- 
-
-
 
     componentWillMount() {
 
         AsyncStorage.getItem('user').then((item) => {
             return JSON.parse(item)
         }).then((item) => {
-             
+
             this.setState({
-                userName:decodeURI(item.userName),
+                userName: decodeURI(item.userName),
                 jtnc: decodeURI(item.nc),
                 xgzh: decodeURI(item.userName),
                 realname: decodeURI(item.realName)
-            }) 
-
-            this._showDatad.bind(this)()
+            });
+            this._showXgJH.bind(this)(item.userName)
         })
     }
 
     render() {
         const {back} = this.props;
         return (
-            <View style={{
-                backgroundColor: '#F7F7F7'
-            }}>
+            <View style={{backgroundColor: '#efefef', height: deviceheight}}>
+                <DropdownAlert
+                    ref={ref => this.dropdown = ref}
+                    containerStyle={{height: 100}}
+                    showCancel={true}
+                    closeInterval={3000}
+                    zIndex={1000000}
+                />
+
                 <View style={{
-                    height: 200
+                    flexDirection: 'row',
+                    borderBottomWidth: 1,
+                    borderBottomColor: '#E6E6E6',
+                    backgroundColor: '#fe9c2e',
+                    height: 40,
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
                 }}>
-                    <ImageBackground
-                        resizeMode='stretch'
-                        source={require('../shy/shyImage/banner.png')
-                        }
-
-                        style={{
-                            height: 200,
-                            width: deviceWidth
-                        }}>
-
+                    <View style={{height: 50, width: 35, alignItems: 'center', justifyContent: 'center'}}>
                         <TouchableOpacity
                             style={{
-                                height: 40,
-                                marginLeft: 10,
-                                width: 40,
-                                alignItems: 'flex-start',
-                                justifyContent: 'center'
+                                height: 50,
+                                width: 35,
+                                justifyContent: 'center',
+                                alignItems: 'flex-end'
                             }}
                             onPress={() => {
                                 let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
-                                    return item.id == "Main2"
+                                    return item.id === "Main2"
                                 });
                                 this.props.navigator.popToRoute(destRoute);
                             }}>
-                            <Image source={require('../shy/shyImage/close.png')}
-
-                                   style={{
-                                       height: 20,
-                                       width: 20
-                                   }}
-                                   resizeMode='stretch'></Image>
+                            <Image source={require('../xg/imgs/back.png')} resizeMode='stretch'
+                                   style={{height: 20, width: 20}}>
+                            </Image>
                         </TouchableOpacity>
-                    </ImageBackground>
+                    </View>
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                color: '#FFF', fontWeight: 'bold'
+                            }}>今日计划</Text>
+                    </View>
+                    <View style={{
+                        marginRight: 5,
+                        flexDirection: 'row'
+                    }}></View>
                 </View>
-                <ScrollView
-                    style={{backgroundColor: '#efefef', height: deviceheight}}>
-                    <View
-                        style={{
-                            justifyContent: 'space-between',
-                            flexDirection: 'row',
-                            backgroundColor: '#fff',
-                            height: 40,
-                            margin: 5,
-                            alignItems: 'center',
-                            //justifyContent:'center',
-                            paddingLeft: 10,
-                            paddingRight: 10
-                        }}>
 
+
+
+                <ListView
+                    // style={{height: deviceWidth, width: deviceheight - 80}}
+                    dataSource={this.state.dataList}
+                    enableEmptySections={true}
+                    renderRow={(rowData) =>
                         <View
-                            style={{flexDirection: 'row'}}>
-                            <Text style={{
-                                fontSize: 13,
-                                fontWeight: 'bold',
-                                height: 40,
-                                textAlign: 'center',
-                                textAlignVertical: 'center'
-                            }}>今日</Text>
-                            <Text style={{
-                                fontSize: 13,
-                                fontWeight: 'bold',
-                                borderBottomColor: '#FFBF00',
-                                borderBottomWidth: 2,
-                                height: 40,
-                                textAlign: 'center',
-                                textAlignVertical: 'center'
-                            }}>计划</Text>
-                            <Text style={{
-                                fontSize: 13,
-                                fontWeight: 'bold',
-                                height: 40,
-                                textAlign: 'center',
-                                textAlignVertical: 'center'
-                            }}>任务</Text>
-                        </View>
-
-
-                    </View>
-
-
-                    <View
-                        style={{
-                            height: 40,
-                            backgroundColor: '#fff',
-                            justifyContent: 'flex-start',
-                            alignContent: 'flex-start',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            marginBottom: 5,
-                            flexWrap: 'wrap'
-                        }}>
-                        <Text style={{flex: 1,textAlign:"center"}}>计划总金豆数:{this.state.zjds}</Text>
-                        <Text style={{flex: 1}}>获得金豆数:{this.state.yhjds}</Text>
-                        <Text style={{flex: 1}}>未获得金豆数:{this.state.whjds}</Text>
-                    </View>
-                    <ListView
-                        dataSource={this.state.dataList}
-                        enableEmptySections={true}
-                        renderRow={(rowData) =>
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    borderTopColor: '#F0F0F0',
-                                    backgroundColor: '#fff',
-                                    borderTopWidth: 1,
-                                    margin: 5,
-                                    borderRadius: 10,
-                                    height: 40
-                                }}>
-                                <View style={{
-                                    flex: 1,
-                                    justifyContent: 'center',
-                                    alignItems: 'flex-start',
-
-                                    marginLeft: 10
-                                }}>
-                                    <Text style={{
-                                        fontSize: 12,
-                                        color: '#474747'
-                                    }}>{decodeURI(rowData.realName) + "   " + decodeURI(rowData.projectName)}</Text>
-                                </View>
-
-                                <View style={{
-                                    flex: 1,
-                                    justifyContent: 'flex-start',
-                                    alignItems: 'center',
-                                    flexDirection: 'row'
-                                }}>
-                                    <Text style={{
-                                        fontSize: 12,
-                                        color: '#474747',
-                                        marginRight: 20
-                                    }}>金豆数:{decodeURI(rowData.jds)}</Text>
-
-                                </View>
-                                <View style={{
-                                    flex: 1,
-                                    justifyContent:'flex-end',
-                                    alignItems: 'center',
-                                    flexDirection: 'row'
-                                }}>
-                                           {/* <Checkbox
-                                            isChecked={rowData.state >= 1}
-                                            styles={{height: 20, width: 20, marginRight: 10}}
-                                            selected={(isS) => {
-
-                                                if (!isS) {
-                                                    this._shenhe.bind(this, rowData.xgid)()
-                                                }
-                                            }
-                                            }
-                                        ></Checkbox>*/}
-                                 </View>
+                            style={{
+                                flexDirection: 'row',
+                                borderTopColor: '#F0F0F0',
+                                backgroundColor: '#fff',
+                                borderTopWidth: 1,
+                                margin: 5,
+                                borderRadius: 10,
+                                height: 40
+                            }}>
+                            <View style={{
+                                flex: 1,
+                                justifyContent: 'center',
+                                alignItems: 'flex-start',
+                                marginLeft: 10
+                            }}>
+                                <Text style={{
+                                    color: '#474747'
+                                }}>{ decodeURI(rowData.projectName)}</Text>
                             </View>
-                        }
-                    />
 
-                </ScrollView>
-
+                            <View style={{
+                                flex: 1,
+                                justifyContent: 'flex-end',
+                                alignItems: 'center',
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={{
+                                    color: '#474747',
+                                    marginRight: 20
+                                }}>金豆数{decodeURI(rowData.jds)}</Text>
+                            </View>
+                            <View style={{width: 10}}></View>
+                        </View>
+                    }
+                />
             </View>
         )
     }

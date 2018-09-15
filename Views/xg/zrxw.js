@@ -5,19 +5,12 @@ import {
     Text,
     View,
     Image,
-    ImageBackground,
     ListView,
-    Button,
     TouchableOpacity,
     Dimensions,
-    TextInput,
-    Switch,
     AsyncStorage
 } from 'react-native';
-import Main from '../Main2'
-import Checkbox from '../component/xwCheckBox'
 import app from '../../app.json';
-import ModalDropdown from 'react-native-modal-dropdown'
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
@@ -31,6 +24,7 @@ export default class xwpj extends Component {
         this.state = {
             dataSource: ds.cloneWithRows([]),
             dataCySource: [],
+            dataJhSource: ds.cloneWithRows([]),
             userName: "",
             type: 1,
             jtnc: "",
@@ -38,46 +32,53 @@ export default class xwpj extends Component {
             xwMc: "",
             ydTpe: "",
             xwSocre: 0,
-            realName: ''
+            realName: '',
+            zjds: 0,
+            yhjds: 0,
+            whjds: 0,
+            zyds: 0,
+            yhyds: 0,
+            whyds: 0
         }
     }
 
-    _rednerCy1() {
-        return (this.state.dataCySource.map((t, i) => this._rednerCy(t, i)))
+    _showTjData(xgzh) {
+        fetch(app.Host + 'api/plans/tj?xgzh=' + xgzh)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseJson) => {
+                let data = responseJson.data;
+                let data1 = responseJson.data1;
+                this.setState({
+                    dataList: ds.cloneWithRows(data),
+                    zjds: data1[0].zs,
+                    whjds: data1[0].w,
+                    yhjds: data1[0].y
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
-    _rednerCy(item, i) {
-        let role = decodeURI(item.userRole)
-        return (
-
-            <View key={i}
-                  style={{width: 80, alignItems: 'center'}}>
-                <TouchableOpacity onPress={() => {
-                    this.setState({xgzh: decodeURI(item.userName), realName: decodeURI(item.realName)})
-                    this._showDeatil()
-                }}>
-                    <Image
-                        source={role == "豆伢" ? require('../cygl/imgs/tx/boy.png') : require('../cygl/imgs/tx/girl.png')}
-                        style={{
-                            height: 50,
-                            width: 50
-                        }}
-                        resizeMode='stretch'
-                    ></Image>
-                    <Text
-                        style={{
-
-                            width: 50,
-                            fontSize: 12,
-                            textAlign: 'center'
-                        }}>{decodeURI(item.realName)}</Text>
-                </TouchableOpacity>
-            </View>
-        )
-    }
-
-    _showDeatil() {
-        fetch(app.Host + 'api/behavior/behaviorS?jtnc=' + this.state.jtnc + "&gcy=" + this.state.userName + "&xg=" + this.state.xgzh)
+    _showDeatil(xgzh) {
+        fetch(app.Host + 'api/plans/xgPlanzr?jtnc=' + this.state.jtnc + "&xgzh=" + xgzh)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseJson) => {
+                let data = responseJson.data;
+                this.setState({dataJhSource: ds.cloneWithRows(data)});
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        fetch(app.Host + 'api/behavior/behaviorSzr?jtnc=' + this.state.jtnc + "&gcy=" + this.state.userName + "&xg=" + xgzh)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -93,126 +94,339 @@ export default class xwpj extends Component {
     }
 
     componentWillMount() {
-
         AsyncStorage.getItem('user').then((item) => {
             return JSON.parse(item)
         }).then((item) => {
-            this.setState({jtnc: decodeURI(item.nc), xgzh: decodeURI(item.userName)})
-            this._showDeatil.bind(this)()
+            this.setState({jtnc: decodeURI(item.nc), userName: decodeURI(item.userName)});
+            this._showDeatil.bind(this)(decodeURI(item.userName));
+            this._showTjData.bind(this)(decodeURI(item.userName));
         })
     }
 
     render() {
-
-        return (
-            <View
-
-                style={{backgroundColor: '#efefef', height: deviceheight}}
-            >
-                <View style={{
-                    flexDirection: 'row',
-                    borderBottomWidth: 1,
-                    borderBottomColor: '#E6E6E6',
-                    backgroundColor: '#fe9c2e',
-                    height: 40,
-                    alignItems: 'center',
-                    justifyContent: 'space-between'
-                }}>
-
-                    <View style={{height: 50, width: 35, alignItems: 'center', justifyContent: 'center'}}>
-                        <TouchableOpacity
-                            style={{
-                                height: 50,
-                                width: 35,
-                                justifyContent: 'center',
-                                alignItems: 'flex-end'
-                            }}
-                            onPress={() => {
-                                let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
-                                    return item.id == "Main2"
-                                })
-                                this.props.navigator.popToRoute(destRoute);
-                            }
-                            }>
-                            <Image source={require('./imgs/back.png')}
-                                   resizeMode='stretch'
-                                   style={{height: 20, width: 20}}>
-                            </Image>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                        <Text
-                            style={{
-                                fontSize: 16,
-                                color: '#FFF', fontWeight: 'bold'
-                            }}>昨日行为</Text>
-                    </View>
+        const {back} = this.props;
+        if (this.state.type === 1) {
+            return (
+                <View style={{backgroundColor: '#efefef', height: deviceheight}}>
                     <View style={{
-                        marginRight: 5,
-                        flexDirection: 'row'
+                        flexDirection: 'row',
+                        borderBottomWidth: 1,
+                        borderBottomColor: '#E6E6E6',
+                        backgroundColor: '#fe9c2e',
+                        height: 40,
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
                     }}>
+
+                        <View style={{height: 50, width: 35, alignItems: 'center', justifyContent: 'center'}}>
+                            <TouchableOpacity
+                                style={{
+                                    height: 50,
+                                    width: 35,
+                                    justifyContent: 'center',
+                                    alignItems: 'flex-end'
+                                }}
+                                onPress={() => {
+                                    let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
+                                        return item.id === "Main2"
+                                    });
+                                    this.props.navigator.popToRoute(destRoute);
+                                }
+                                }>
+                                <Image source={require('../xg/imgs/back.png')}
+                                       resizeMode='stretch'
+                                       style={{height: 20, width: 20}}>
+                                </Image>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    color: '#FFF', fontWeight: 'bold'
+                                }}>昨日表现</Text>
+                        </View>
+                        <View style={{
+                            marginRight: 5,
+                            flexDirection: 'row'
+                        }}>
+                        </View>
                     </View>
-                </View>
 
+                    <ScrollView
+                        style={{backgroundColor: '#efefef', height: deviceheight}}>
+                        <View
+                            style={{
+                                justifyContent: 'space-between',
+                                flexDirection: 'row',
+                                backgroundColor: '#fff',
+                                height: 40,
+                                margin: 5,
+                                alignItems: 'center',
+                                paddingLeft: 10,
+                                paddingRight: 10
+                            }}>
+                            <TouchableOpacity onPress={() => {
+                                this.setState({type: 1})
+                            }}>
+                                <View
+                                    style={{flexDirection: 'row'}}>
+                                    <Text style={{
+                                        fontWeight: 'bold',
+                                        borderBottomColor: '#FFBF00',
+                                        borderBottomWidth: 4,
+                                        height: 40,
+                                        textAlign: 'center',
+                                        textAlignVertical: 'center'
+                                    }}>昨日计划任务</Text>
 
-                <ListView
-                    dataSource={this.state.dataSource}
-                    enableEmptySections={true}
-                    renderRow={(rowData) =>
+                                </View>
+                            </TouchableOpacity>
+                            <View style={{width: 20}}/>
+                            <TouchableOpacity onPress={() => {
+                                this.setState({type: 2})
+                            }}>
+                                <View
+                                    style={{flexDirection: 'row', marginLeft: 5}}>
+                                    <Text style={{
+                                        fontWeight: 'bold',
+                                        height: 40,
+                                        textAlign: 'center',
+                                        textAlignVertical: 'center'
+                                    }}>昨日行为养成</Text>
+
+                                </View>
+                            </TouchableOpacity>
+                        </View>
 
                         <View
                             style={{
-                                flexDirection: 'row',
-                                borderTopColor: '#F0F0F0',
+                                height: 40,
                                 backgroundColor: '#fff',
-                                borderTopWidth: 1,
-                                margin: 5,
-                                borderRadius: 10,
-                                height: 50
+                                justifyContent: 'flex-start',
+                                alignContent: 'flex-start',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                marginBottom: 5,
+                                flexWrap: 'wrap'
                             }}>
                             <View style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'flex-start',
-
-                                marginLeft: 10
-                            }}>
-                                <Text style={{fontSize: 12, color: '#474747'}}>{decodeURI(rowData.realName)}</Text>
-                            </View>
-                            <View style={{
-                                flex: 4,
-                                justifyContent: 'center',
-                                alignItems: 'flex-start',
-
-                                marginLeft: 10
-                            }}>
-                                <Text style={{fontSize: 12, color: '#474747'}}>{decodeURI(rowData.xwMc)}</Text>
-                            </View>
-                            <View style={{
-                                flex: 2,
-                                justifyContent: 'center',
+                                justifyContent: 'flex-start',
+                                alignContent: 'flex-start',
+                                flexDirection: 'row',
                                 alignItems: 'center'
                             }}>
-                                <Text style={{fontSize: 12, color: '#474747'}}>银豆 {rowData.yd}</Text>
-                            </View>
-                            <View style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-
-                                <Image
-                                    source={decodeURI(rowData.ydType) == "优" ? require('../gcy/shyImage/you.png') : decodeURI(rowData.ydType) == "良" ? require('../shy/shyImage/lian.png') : require('../shy/shyImage/chai.png')}
-                                    resizeMode='stretch'
-                                    style={{height: 20, width: 20, marginLeft: 10, marginRight: 10}}></Image>
-
+                                <Text style={{flex: 1, textAlign: "center"}}>总金豆:{this.state.zjds}</Text>
+                                <Text style={{flex: 1, textAlign: "center"}}>获得:{this.state.yhjds}</Text>
+                                <Text style={{flex: 1, textAlign: "center"}}>未获得:{this.state.whjds}</Text>
                             </View>
                         </View>
-                    }
-                />
-            </View>
-        )
 
+                        <ListView
+                            dataSource={this.state.dataJhSource}
+                            enableEmptySections={true}
+                            renderRow={(rowData) =>
+
+                                <View
+                                    style={{
+                                        flexDirection: 'row',
+                                        borderTopColor: '#F0F0F0',
+                                        backgroundColor: '#fff',
+                                        borderTopWidth: 1,
+                                        margin: 5,
+                                        borderRadius: 10,
+                                        height: 30
+                                    }}>
+                                    {/*   <View style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'flex-start',
+                                        marginLeft: 10
+                                    }}>
+                                        <Text style={{color: '#474747', width: 80}}>{decodeURI(rowData.realName)}</Text>
+                                    </View>*/}
+                                    <View style={{
+                                        flex: 4,
+                                        justifyContent: 'center',
+                                        alignItems: 'flex-start',
+                                        marginLeft: 10
+                                    }}>
+                                        <Text style={{color: '#474747'}}>{decodeURI(rowData.projectName)}</Text>
+                                    </View>
+                                    <View style={{
+                                        flex: 2,
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
+                                        <Text style={{color: '#474747'}}>金豆：{rowData.jds}</Text>
+                                    </View>
+                                    <View style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
+
+                                        <Image
+                                            source={decodeURI(rowData.ydType) === "优" ? require('../gcy/shyImage/you.png') : decodeURI(rowData.ydType) === "良" ? require('../gcy/shyImage/lian.png') : require('../gcy/shyImage/chai.png')}
+                                            resizeMode='stretch'
+                                            style={{height: 20, width: 20, marginLeft: 10, marginRight: 10}}/>
+
+                                    </View>
+                                </View>
+                            }
+                        />
+                    </ScrollView>
+                </View>
+            )
+        }
+        else {
+            return (
+                <View style={{backgroundColor: '#efefef', height: deviceheight}}>
+                    <View style={{
+                        flexDirection: 'row',
+                        borderBottomWidth: 1,
+                        borderBottomColor: '#E6E6E6',
+                        backgroundColor: '#fe9c2e',
+                        height: 40,
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                    }}>
+                        <View style={{height: 50, width: 35, alignItems: 'center', justifyContent: 'center'}}>
+                            <TouchableOpacity
+                                style={{
+                                    height: 50,
+                                    width: 35,
+                                    justifyContent: 'center',
+                                    alignItems: 'flex-end'
+                                }}
+                                onPress={() => {
+                                    let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
+                                        return item.id === "Main2"
+                                    });
+                                    this.props.navigator.popToRoute(destRoute);
+                                }
+                                }>
+                                <Image source={require('../xg/imgs/back.png')}
+                                       resizeMode='stretch'
+                                       style={{height: 20, width: 20}}>
+                                </Image>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    color: '#FFF', fontWeight: 'bold'
+                                }}>昨日表现</Text>
+                        </View>
+                        <View style={{
+                            marginRight: 5,
+                            flexDirection: 'row'
+                        }}>
+                        </View>
+                    </View>
+
+                    <ScrollView
+                        style={{backgroundColor: '#efefef', height: deviceheight}}>
+                        <View
+                            style={{
+                                justifyContent: 'space-between',
+                                flexDirection: 'row',
+                                backgroundColor: '#fff',
+                                height: 40,
+                                margin: 5,
+                                alignItems: 'center',
+                                paddingLeft: 10,
+                                paddingRight: 10
+                            }}>
+                            <TouchableOpacity onPress={() => {
+                                this.setState({type: 1})
+                            }}>
+                                <View
+                                    style={{flexDirection: 'row'}}>
+                                    <Text style={{
+                                        fontWeight: 'bold',
+                                        height: 40,
+                                        textAlign: 'center',
+                                        textAlignVertical: 'center'
+                                    }}>昨日计划任务</Text>
+
+                                </View>
+                            </TouchableOpacity>
+                            <View style={{width: 20}}/>
+                            <TouchableOpacity onPress={() => {
+                                this.setState({type: 2})
+                            }}>
+                                <View
+                                    style={{flexDirection: 'row', marginLeft: 5}}>
+                                    <Text style={{
+                                        fontWeight: 'bold',
+                                        borderBottomColor: '#FFBF00',
+                                        borderBottomWidth: 4,
+                                        height: 40,
+                                        textAlign: 'center',
+                                        textAlignVertical: 'center'
+                                    }}>昨日行为养成</Text>
+
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <ListView
+                            dataSource={this.state.dataSource}
+                            enableEmptySections={true}
+                            renderRow={(rowData) =>
+                                <View
+                                    style={{
+                                        flexDirection: 'row',
+                                        borderTopColor: '#F0F0F0',
+                                        backgroundColor: '#fff',
+                                        borderTopWidth: 1,
+                                        margin: 5,
+                                        borderRadius: 10,
+                                        height: 50
+                                    }}>
+                                    <View style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'flex-start',
+                                        marginLeft: 10
+                                    }}>
+                                        <Text style={{color: '#474747', width: 80}}>{decodeURI(rowData.realName)}</Text>
+                                    </View>
+                                    <View style={{
+                                        flex: 4,
+                                        justifyContent: 'center',
+                                        alignItems: 'flex-start',
+
+                                        marginLeft: 10
+                                    }}>
+                                        <Text style={{fontSize: 12, color: '#474747'}}>{decodeURI(rowData.xwMc)}</Text>
+                                    </View>
+                                    <View style={{
+                                        flex: 2,
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
+                                        <Text style={{fontSize: 12, color: '#474747'}}>银豆：{rowData.yd}</Text>
+                                    </View>
+                                    <View style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
+
+                                        <Image
+                                            source={decodeURI(rowData.ydType) === "优" ? require('../gcy/shyImage/you.png') : decodeURI(rowData.ydType) === "良" ? require('../gcy/shyImage/lian.png') : require('../gcy/shyImage/chai.png')}
+                                            resizeMode='stretch'
+                                            style={{height: 20, width: 20, marginLeft: 10, marginRight: 10}}/>
+                                    </View>
+                                </View>
+                            }
+                        />
+                    </ScrollView>
+                </View>
+            )
+        }
     }
 }
 const styles = StyleSheet.create({

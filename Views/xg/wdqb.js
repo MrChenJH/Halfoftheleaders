@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
     TouchableOpacity,
-    StyleSheet,
     Text,
     Image,
     ScrollView,
@@ -10,8 +9,6 @@ import {
     ImageBackground
 
 } from 'react-native';
-
-import Main from '../Main2'
 
 export const deviceWidth = Dimensions.get('window').width;
 export default class app2 extends Component {
@@ -235,41 +232,63 @@ export default class app2 extends Component {
             },
             text: 'test'
         })
-
     }
 
     render() {
-        const {back} = this.props
+        const {back} = this.props;
         return (
             <ScrollView style={{width: deviceWidth}}>
+                <View style={{
+                    flexDirection: 'row',
+                    backgroundColor: '#fe9c2e',
+                    height: 40,
+                    width:deviceWidth,
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                }}>
 
-                <ImageBackground source={require('./gly/2menu_bg.png')}
-
-                                 style={{width: deviceWidth, padding: 5}}>
-                    {/*<View
-                        style={{
-                            height: 40,
-                            marginLeft: 10,
-                            alignItems: 'flex-start',
-                            justifyContent: 'center'
-                        }}>
-
-                        <TouchableOpacity onPress={() => {
-                            let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
-                                return item.id == "Main2"
-                            })
-
-                            this.props.navigator.popToRoute(destRoute);
-                        }}>
-                            <Image source={require('../shy/shyImage/close.png')}
-
-                                   style={{
-                                       height: 20,
-                                       width: 20
-                                   }}
-                                   resizeMode='stretch'></Image>
+                    <View style={{height: 50, width: 35, alignItems: 'center', justifyContent: 'center'}}>
+                        <TouchableOpacity
+                            style={{
+                                height: 50,
+                                width: 35,
+                                justifyContent: 'center',
+                                alignItems: 'flex-end'
+                            }}
+                            onPress={() => {
+                                let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
+                                    return item.id === "Main2"
+                                });
+                                this.props.navigator.popToRoute(destRoute);
+                            }}
+                        >
+                            <Image source={require('./imgs/back.png')}
+                                   resizeMode='stretch'
+                                   style={{height: 20, width: 20}}>
+                            </Image>
                         </TouchableOpacity>
-                    </View>*/}
+                    </View>
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                color: '#FFF', fontWeight: 'bold'
+                            }}>成长基金</Text>
+                    </View>
+                    <View style={{marginRight: 5, width: 35}}>
+                        {/* <TouchableOpacity style={{height: 20, width: 20, marginRight: 10}} onPress={() => {
+                                this.setState({type: 7})
+                            }}>
+                                <Image source={require('./imgs/add.png')} resizeMode='stretch'
+                                       style={{height: 20, width: 20}}>
+                                </Image>
+                            </TouchableOpacity>*/}
+                    </View>
+                </View>
+
+                <ImageBackground
+                    source={require('./gly/2menu_bg.png')}
+                    style={{width: deviceWidth, padding: 5}}>
 
                     <View
                         style={{
@@ -291,9 +310,9 @@ export default class app2 extends Component {
                             }}
                         >
                             <Image source={require('./jdjf/syz.png')} resizeMode='cover'
-                                   style={{height: 15, width: 20, marginRight: 5}}></Image>
+                                   style={{height: 15, width: 20, marginRight: 5}}/>
                             <Image source={require('./jdjf/xyz.png')} resizeMode='cover'
-                                   style={{height: 15, width: 20}}></Image>
+                                   style={{height: 15, width: 20}}/>
                         </View>
                     </View>
                     <View style={{
@@ -310,13 +329,9 @@ export default class app2 extends Component {
                             <Image source={require('./jdjf/djcz.png')}
                                    style={{width: 100, height: 35}}
                                    resizeMode='stretch'
-                            ></Image>
-
+                            />
                         </TouchableOpacity>
-
                     </View>
-
-
                     <View style={{
                         height: 250,
                         marginTop: 10,
@@ -327,10 +342,8 @@ export default class app2 extends Component {
                     }}>
                         <Image source={require('./jdjf/djfb.png')}
                                style={{width: deviceWidth - 10, height: 250}}
-                               resizeMode='contain'></Image>
+                               resizeMode='contain'/>
                     </View>
-
-
                     <View style={{
                         height: 250,
                         marginTop: 10,
@@ -340,10 +353,8 @@ export default class app2 extends Component {
                         alignItems: 'center'
                     }}>
                         <Image source={require('./jdjf/djtj.png')} style={{width: deviceWidth - 10, height: 250}}
-                               resizeMode='stretch'></Image>
+                               resizeMode='stretch'/>
                     </View>
-
-
                     <View style={{
                         height: 250,
                         marginTop: 10,
@@ -353,10 +364,8 @@ export default class app2 extends Component {
                         alignItems: 'center'
                     }}>
                         <Image source={require('./jdjf/jdtj.png')} style={{width: deviceWidth - 10, height: 250}}
-                               resizeMode='stretch'></Image>
+                               resizeMode='stretch'/>
                     </View>
-
-
                     <View style={{
                         height: 250,
                         marginTop: 10,
@@ -367,9 +376,8 @@ export default class app2 extends Component {
                         marginBottom: 20
                     }}>
                         <Image source={require('./jdjf/ydtj.png')} style={{width: deviceWidth - 10, height: 250}}
-                               resizeMode='stretch'></Image>
+                               resizeMode='stretch'/>
                     </View>
-
                 </ImageBackground>
             </ScrollView>
         );

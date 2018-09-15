@@ -45,7 +45,7 @@ export default class HD extends Component {
 
 
     _showXgJH(xgzh) {
-        fetch(app.Host + 'api/plans/tj?xgzh=' + xgzh)
+        fetch(app.Host + 'api/plans/xgPlanJr?jtnc='+this.state.jtnc+'&xgzh=' + xgzh)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -53,13 +53,8 @@ export default class HD extends Component {
             })
             .then((responseJson) => {
                 let data = responseJson.data;
-
-                let data1 = responseJson.data1;
                 this.setState({
-                    dataList: ds.cloneWithRows(data),
-                    zjds: data1[0].zs,
-                    whjds: data1[0].w,
-                    yhjds: data1[0].y
+                    dataList: ds.cloneWithRows(data)
                 })
             })
             .catch((error) => {
@@ -72,7 +67,7 @@ export default class HD extends Component {
     }
 
     _rednerCy(item, i) {
-        let role = decodeURI(item.userRole)
+        let role = decodeURI(item.userRole);
         return (
 
             <View key={i}
@@ -82,13 +77,13 @@ export default class HD extends Component {
                     this._showXgJH.bind(this)(decodeURI(item.userName))
                 }}>
                     <Image
-                        source={role == "豆伢" ? require('../cygl/imgs/tx/boy.png') : require('../cygl/imgs/tx/girl.png')}
+                        source={role === "豆伢" ? require('../cygl/imgs/tx/boy.png') : require('../cygl/imgs/tx/girl.png')}
                         style={{
                             height: 50,
                             width: 50
                         }}
                         resizeMode='stretch'
-                    ></Image>
+                    />
                     <Text
                         style={{
 
@@ -118,22 +113,11 @@ export default class HD extends Component {
         this.dropdown.close();
     }
 
-    handleClose(data) {
-        console.log(data);
-    }
-
-    handleCancel(data) {
-        console.log(data);
-    }
-
-
     componentWillMount() {
-
         AsyncStorage.getItem('user').then((item) => {
             return JSON.parse(item)
         }).then((item) => {
-
-            this.setState({jtnc: decodeURI(item.nc)})
+            this.setState({jtnc: decodeURI(item.nc)});
             fetch(app.Host + 'api/plans/xgSearch?jtnc=' + this.state.jtnc)
                 .then((response) => {
                     if (response.ok) {
@@ -142,7 +126,10 @@ export default class HD extends Component {
                 })
                 .then((responseJson) => {
                     let data = responseJson.data;
-                    this.setState({dataCySource: data})
+                    this.setState({dataCySource: data});
+                    if(data.length>0) {
+                        this._showXgJH.bind(this)(data[0].userName);
+                    }
                 })
                 .catch((error) => {
                     console.error(error);
@@ -150,10 +137,8 @@ export default class HD extends Component {
         })
     }
 
-
     render() {
-        const {back} = this.props
-
+        const {back} = this.props;
         return (
             <View style={{backgroundColor: '#efefef', height: deviceheight}}>
                 <DropdownAlert
@@ -183,7 +168,7 @@ export default class HD extends Component {
                             }}
                             onPress={() => {
                                 let destRoute = this.props.navigator.getCurrentRoutes().find((item) => {
-                                    return item.id == "Main3"
+                                    return item.id === "Main3"
                                 });
                                 this.props.navigator.popToRoute(destRoute);
                             }}>
@@ -229,7 +214,7 @@ export default class HD extends Component {
                 </View>
 
 
-                <View
+          {/*      <View
                     style={{
                         height: 40,
                         justifyContent: 'flex-start',
@@ -243,7 +228,7 @@ export default class HD extends Component {
                     <Text style={{flex: 1, fontSize: 12, marginLeft: 10}}>计划总金豆数{this.state.zjds}</Text>
                     <Text style={{flex: 1, fontSize: 12}}>获得金豆数{this.state.yhjds}</Text>
                     <Text style={{flex: 1, fontSize: 12}}>未获得金豆数{this.state.whjds}</Text>
-                </View>
+                </View>*/}
 
                 <ListView
                     // style={{height: deviceWidth, width: deviceheight - 80}}
