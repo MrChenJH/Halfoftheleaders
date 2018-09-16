@@ -13,7 +13,8 @@ import {
     AsyncStorage
 } from 'react-native';
 import Main from '../Main1'
-import app from '../../app.json';
+import app from '../../app.json'; 
+import DropdownAlert from 'react-native-dropdownalert';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
@@ -26,14 +27,43 @@ export default class canshu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: ds.cloneWithRows([]),
+            dataSource: ds.cloneWithRows([]), 
+            data111:[],
             Proportion: '',
             ProjectName: '',
             jtnc: '',
-            type: 1
+            type: 1,
+            editProjectName:'',
+            editProportion:'',
+            id:''
         }
     }
 
+    _updateFund(id){
+       
+        let url = app.Host + "api/FundSetting/EditFundSetting?id=" + this.state.id+"&Proportion="+this.state.editProportion;
+        fetch(url).then((response) => {
+            if (response.ok) {
+                fetch(app.Host + 'api/FundSetting/FundSetting?jtnc=' + this.state.jtnc)
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                    })
+                    .then((responseJson) => {
+                        let data = responseJson.data; 
+                   
+                        this.setState({dataSource: ds.cloneWithRows(data), type: 1,data111:data})
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+
+    }
 
     _removeFund(id) {
         let url = app.Host + "api/FundSetting/RemoveFundSetting?id=" + id;
@@ -46,8 +76,9 @@ export default class canshu extends Component {
                         }
                     })
                     .then((responseJson) => {
-                        let data = responseJson.data;
-                        this.setState({dataSource: ds.cloneWithRows(data), type: 1})
+                        let data = responseJson.data; 
+                   
+                        this.setState({dataSource: ds.cloneWithRows(data), type: 1,data111:data})
                     })
                     .catch((error) => {
                         console.error(error);
@@ -60,7 +91,20 @@ export default class canshu extends Component {
     }
 
     //添加成员
-    AddFund() {
+    AddFund() {  
+         let c=0;
+         this.state.data111.forEach((item,index,arr) => {
+              c+=parseFloat(item.Proportion) 
+            
+            })
+        c=c+parseFloat(this.state.Proportion) 
+     
+       if(c>1){
+        this.funcAert.alertWithType('info', '提示', '比例不对，应该为100%')
+        }
+        else
+        {
+        
         let url = app.Host + "api/FundSetting/addFundSetting";
         let params = {
             "jtnc": this.state.jtnc,
@@ -85,7 +129,8 @@ export default class canshu extends Component {
                     })
                     .then((responseJson) => {
                         let data = responseJson.data;
-                        this.setState({dataSource: ds.cloneWithRows(data), type: 1})
+                   
+                        this.setState({dataSource: ds.cloneWithRows(data), type: 1,data111:data})
                     })
                     .catch((error) => {
                         console.error(error);
@@ -93,7 +138,7 @@ export default class canshu extends Component {
             }
         }).catch((error) => {
             console.error(error);
-        });
+        });}
 
     }
 
@@ -110,8 +155,9 @@ export default class canshu extends Component {
                     }
                 })
                 .then((responseJson) => {
-                    let data = responseJson.data;
-                    this.setState({dataSource: ds.cloneWithRows(data)})
+                    let data = responseJson.data; 
+                
+                    this.setState({dataSource: ds.cloneWithRows(data),data111:data})
                 })
                 .catch((error) => {
                     console.error(error);
@@ -123,7 +169,9 @@ export default class canshu extends Component {
 
         if (this.state.type === 1) {
             return (
-                <View>
+                <View> 
+
+                    
                     <View style={{
                         flexDirection: 'row',
                         borderBottomWidth: 1,
@@ -332,7 +380,11 @@ export default class canshu extends Component {
                                     dataSource={this.state.dataSource}
                                     enableEmptySections={true}
                                     renderRow={(rowData) =>
-
+                                        <TouchableOpacity 
+                                         onPress={()=>{
+                                            this.setState({type:2,id:rowData.id,editProjectName:decodeURI(rowData.ProjectName)})
+                                            }}
+                                       >
                                         <View
                                             style={{
                                                 flexDirection: 'row',
@@ -374,6 +426,7 @@ export default class canshu extends Component {
                                                 </TouchableOpacity>
                                             </View>
                                         </View>
+                                        </TouchableOpacity>
                                     }
                                 />
                             </ScrollView>
@@ -383,9 +436,81 @@ export default class canshu extends Component {
 
                 </View>
             )
-        } else {
-            return (<View>
+        }else if(this.state.type==2){
 
+        
+                return (
+                    <View>
+                        <View style={{
+                            flexDirection: 'row',
+                            borderBottomWidth: 1,
+                            borderBottomColor: '#E6E6E6',
+                            backgroundColor: '#fe9c2e',
+                            height: 40,
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                        }}>
+    
+                            <View style={{height: 50, width: 35, alignItems: 'center', justifyContent: 'center'}}>
+                                <TouchableOpacity
+                                    style={{
+                                        height: 50,
+                                        width: 35,
+                                        justifyContent: 'center',
+                                        alignItems: 'flex-end'
+                                    }}
+                                    onPress={() => {
+                                        this.setState({type: 1})
+                                    }}>
+                                    <Image source={require('./imgs/back.png')} resizeMode='stretch'
+                                           style={{height: 20, width: 20}}>
+                                    </Image>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                                <Text style={{
+                                    fontSize: 16,
+                                    color: '#FFF',
+                                    fontWeight: 'bold'
+                                }}>{this.state.editProjectName}比例编辑</Text>
+                            </View>
+                            <View style={{marginRight: 5, width: 40}}>
+                                     <TouchableOpacity
+                                       onPress={this._updateFund.bind(this)}
+                                     >
+                                     <Text>保存</Text>
+                                     </TouchableOpacity>
+                            </View>
+                        </View>
+                        <View backgroundColor='#F2F2F2'
+                              style={{height: deviceheight - 60}}>
+                            <View style={{backgroundColor: '#fff', marginTop: 10, height: 40}}>
+                                <TextInput underlineColorAndroid='transparent'
+                                           clearButtonMode='always'
+                                           multiline={false}
+                                           defaultValue={this.state.editProportion}
+                                           onChangeText={(v) => {
+                                              this.setState({editProportion: v})
+                                         }}
+                                >
+    
+                                </TextInput>
+                            </View>
+                        </View>
+                    </View>
+                )
+            
+        } 
+          
+        else if(this.state.type==3) {
+            return (<View>
+                <DropdownAlert
+                        ref={ref => this.funcAert = ref}
+                        containerStyle={{height: 100}}
+                        showCancel={true}
+                        closeInterval={3000}
+                        zIndex={1000000}
+                    />
                 <View style={{
                     flexDirection: 'row',
                     borderBottomWidth: 1,
